@@ -24,6 +24,7 @@ class Settings(BaseSettings):
 
     # Analysis settings
     max_concurrent_analyses: int = 2  # Gemini rate limits
+    gemini_model: str = "gemini-2.0-flash-lite"  # Can also try: gemini-2.0-flash, gemini-2.5-flash
 
     # Server
     host: str = "0.0.0.0"
