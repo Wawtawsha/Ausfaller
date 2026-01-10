@@ -1,5 +1,5 @@
 """
-Video analyzer using Google Gemini 1.5.
+Video analyzer using Google Gemini 2.0.
 
 Analyzes video content including visual elements, audio, and text.
 """
@@ -11,7 +11,8 @@ from typing import Optional
 import logging
 import json
 
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 from config.settings import settings
 
@@ -94,20 +95,20 @@ Respond ONLY with the JSON object, no other text."""
 
 
 class GeminiAnalyzer:
-    """Analyze videos using Gemini 1.5 Flash."""
+    """Analyze videos using Gemini 2.0 Flash."""
 
-    def __init__(self, api_key: Optional[str] = None):
+    def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None):
         self.api_key = api_key or settings.gemini_api_key
+        self.model = model or settings.gemini_model
 
         if not self.api_key:
             raise ValueError(
                 "Gemini API key required. Set GEMINI_API_KEY in .env"
             )
 
-        genai.configure(api_key=self.api_key)
-
-        # Use Gemini 1.5 Flash for cost-effective video analysis
-        self.model = genai.GenerativeModel("gemini-1.5-flash")
+        # Initialize the client
+        self.client = genai.Client(api_key=self.api_key)
+        logger.info(f"GeminiAnalyzer initialized with model: {self.model}")
 
     async def analyze_video(
         self,
@@ -143,37 +144,47 @@ class GeminiAnalyzer:
         try:
             logger.info(f"Analyzing video: {video_path.name}")
 
-            # Upload video to Gemini
-            video_file = genai.upload_file(str(video_path))
-
-            # Wait for processing
-            while video_file.state.name == "PROCESSING":
-                await asyncio.sleep(2)
-                video_file = genai.get_file(video_file.name)
-
-            if video_file.state.name == "FAILED":
-                return VideoAnalysis(
-                    success=False,
-                    video_path=str(video_path),
-                    error="Video processing failed in Gemini",
-                )
-
-            # Generate analysis
             prompt = custom_prompt or ANALYSIS_PROMPT
 
-            # Run in thread pool since genai is sync
+            # Upload and analyze video
             loop = asyncio.get_event_loop()
-            response = await loop.run_in_executor(
-                None,
-                lambda: self.model.generate_content([video_file, prompt])
-            )
 
-            # Parse response
-            response_text = response.text.strip()
+            def do_analysis():
+                # Upload file
+                video_file = self.client.files.upload(file=video_path)
+
+                # Generate content
+                response = self.client.models.generate_content(
+                    model=self.model,
+                    contents=[
+                        types.Content(
+                            role="user",
+                            parts=[
+                                types.Part.from_uri(
+                                    file_uri=video_file.uri,
+                                    mime_type=video_file.mime_type,
+                                ),
+                                types.Part.from_text(text=prompt),
+                            ],
+                        ),
+                    ],
+                )
+
+                # Cleanup uploaded file
+                try:
+                    self.client.files.delete(name=video_file.name)
+                except Exception:
+                    pass
+
+                return response.text
+
+            response_text = await loop.run_in_executor(None, do_analysis)
 
             # Clean up JSON (remove markdown code blocks if present)
+            response_text = response_text.strip()
             if response_text.startswith("```"):
                 lines = response_text.split("\n")
+                # Remove first and last lines (```json and ```)
                 response_text = "\n".join(lines[1:-1])
 
             try:
@@ -186,12 +197,6 @@ class GeminiAnalyzer:
                     description=response_text[:500],
                     raw_response=response_text,
                 )
-
-            # Clean up uploaded file
-            try:
-                genai.delete_file(video_file.name)
-            except Exception:
-                pass  # Not critical if cleanup fails
 
             logger.info(f"Analysis complete: {video_path.name}")
 
@@ -215,11 +220,25 @@ class GeminiAnalyzer:
             )
 
         except Exception as e:
-            logger.error(f"Gemini analysis failed: {e}")
+            error_str = str(e)
+
+            # Provide helpful guidance for quota errors
+            if "RESOURCE_EXHAUSTED" in error_str or "429" in error_str:
+                if "limit: 0" in error_str:
+                    logger.error(
+                        "Gemini API quota is 0. Your API key doesn't have billing enabled. "
+                        "Go to https://console.cloud.google.com to enable billing, or "
+                        "create a new API key at https://aistudio.google.com/apikey"
+                    )
+                else:
+                    logger.error(f"Gemini rate limit hit. Try again in a few seconds.")
+            else:
+                logger.error(f"Gemini analysis failed: {e}")
+
             return VideoAnalysis(
                 success=False,
                 video_path=str(video_path),
-                error=str(e),
+                error=error_str,
             )
 
     async def analyze_batch(
@@ -243,7 +262,7 @@ class GeminiAnalyzer:
             async with semaphore:
                 result = await self.analyze_video(path)
                 # Add delay between analyses to avoid rate limits
-                await asyncio.sleep(1)
+                await asyncio.sleep(2)
                 return result
 
         tasks = [analyze_with_semaphore(path) for path in video_paths]
