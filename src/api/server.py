@@ -1,15 +1,28 @@
+"""
+FastAPI server for social media scraping pipeline.
+
+Endpoints:
+- POST /extract - Extract video URLs from hashtag pages
+- POST /download - Download videos from URLs
+- POST /analyze - Analyze videos with Gemini
+- POST /pipeline - Run full pipeline (extract → download → analyze)
+- GET /health - Health check
+"""
+
 import asyncio
 import uuid
 from datetime import datetime
 from enum import Enum
 from typing import Optional
+from pathlib import Path
 import logging
 
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel, Field
 
-from src.scrapers import TikTokScraper, InstagramScraper, PostData, ScraperResult
-from src.utils import RateLimiter
+from src.extractor import HashtagExtractor, Platform, ExtractionResult
+from src.downloader import VideoDownloader, DownloadResult
+from src.analyzer import GeminiAnalyzer, VideoAnalysis
 from config.settings import settings
 
 logging.basicConfig(level=logging.INFO)
@@ -17,143 +30,304 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="Social Scraper API",
-    description="Scraping service for TikTok and Instagram content",
-    version="0.1.0",
+    description="Extract, download, and analyze social media videos",
+    version="0.2.0",
 )
 
-# Global state
-rate_limiter = RateLimiter(
-    min_delay=settings.scrape_delay_min,
-    max_requests_per_window=settings.max_posts_per_session * 2,
-)
+# Global instances (lazy initialized)
+_extractor: Optional[HashtagExtractor] = None
+_downloader: Optional[VideoDownloader] = None
+_analyzer: Optional[GeminiAnalyzer] = None
+
+# Job storage
 jobs: dict[str, dict] = {}
-
-# Scrapers (lazy initialized)
-_tiktok_scraper: Optional[TikTokScraper] = None
-_instagram_scraper: Optional[InstagramScraper] = None
-
-
-async def get_tiktok_scraper() -> TikTokScraper:
-    global _tiktok_scraper
-    if _tiktok_scraper is None:
-        _tiktok_scraper = TikTokScraper()
-    return _tiktok_scraper
-
-
-async def get_instagram_scraper() -> InstagramScraper:
-    global _instagram_scraper
-    if _instagram_scraper is None:
-        _instagram_scraper = InstagramScraper()
-    return _instagram_scraper
-
-
-class Platform(str, Enum):
-    TIKTOK = "tiktok"
-    INSTAGRAM = "instagram"
-
-
-class TargetType(str, Enum):
-    HASHTAG = "hashtag"
-    USER = "user"
-    TRENDING = "trending"
-    SOUND = "sound"  # TikTok only
 
 
 class JobStatus(str, Enum):
     QUEUED = "queued"
-    RUNNING = "running"
+    EXTRACTING = "extracting"
+    DOWNLOADING = "downloading"
+    ANALYZING = "analyzing"
     COMPLETED = "completed"
     FAILED = "failed"
 
 
-class ScrapeRequest(BaseModel):
+# Request/Response Models
+
+class ExtractRequest(BaseModel):
     platform: Platform
-    target_type: TargetType
-    target: str = Field(
-        ...,
-        description="Hashtag name, username, or 'trending' for trending content",
-        examples=["bartender", "tipsy_bartender", "trending"],
-    )
-    count: int = Field(
-        default=30,
-        ge=1,
-        le=100,
-        description="Number of posts to scrape",
-    )
+    hashtag: str = Field(..., description="Hashtag to extract (without #)")
+    count: int = Field(default=30, ge=1, le=100)
 
 
-class ScrapeResponse(BaseModel):
+class DownloadRequest(BaseModel):
+    urls: list[str] = Field(..., description="List of video URLs to download")
+    platform: str = Field(default="unknown")
+
+
+class AnalyzeRequest(BaseModel):
+    video_paths: list[str] = Field(..., description="List of video file paths")
+
+
+class PipelineRequest(BaseModel):
+    platform: Platform
+    hashtag: str
+    count: int = Field(default=30, ge=1, le=50)
+    skip_analysis: bool = Field(default=False, description="Skip Gemini analysis")
+
+
+class JobResponse(BaseModel):
     job_id: str
     status: JobStatus
     message: str
 
 
-class JobResult(BaseModel):
+class ExtractResponse(BaseModel):
+    success: bool
+    videos_found: int
+    videos: list[dict]
+    error: Optional[str] = None
+
+
+class DownloadResponse(BaseModel):
+    success: bool
+    downloaded: int
+    failed: int
+    results: list[dict]
+
+
+class AnalyzeResponse(BaseModel):
+    success: bool
+    analyzed: int
+    results: list[dict]
+
+
+class PipelineResult(BaseModel):
     job_id: str
     status: JobStatus
-    platform: Platform
-    target_type: TargetType
-    target: str
-    posts_requested: int
-    posts_retrieved: int
-    posts: list[dict] = Field(default_factory=list)
+    extraction: Optional[dict] = None
+    downloads: Optional[list[dict]] = None
+    analyses: Optional[list[dict]] = None
     error: Optional[str] = None
-    started_at: Optional[str] = None
-    completed_at: Optional[str] = None
 
 
-class HealthResponse(BaseModel):
-    status: str
-    version: str
-    rate_limits: dict
+# Helper functions
+
+def get_extractor() -> HashtagExtractor:
+    global _extractor
+    if _extractor is None:
+        _extractor = HashtagExtractor()
+    return _extractor
 
 
-async def run_scrape_job(job_id: str, request: ScrapeRequest) -> None:
-    """Background task to run a scrape job."""
-    jobs[job_id]["status"] = JobStatus.RUNNING
+def get_downloader() -> VideoDownloader:
+    global _downloader
+    if _downloader is None:
+        _downloader = VideoDownloader(output_dir=settings.videos_dir)
+    return _downloader
+
+
+def get_analyzer() -> GeminiAnalyzer:
+    global _analyzer
+    if _analyzer is None:
+        if not settings.gemini_api_key:
+            raise HTTPException(
+                status_code=500,
+                detail="Gemini API key not configured"
+            )
+        _analyzer = GeminiAnalyzer(api_key=settings.gemini_api_key)
+    return _analyzer
+
+
+# Endpoints
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint."""
+    downloader = get_downloader()
+    storage = downloader.get_storage_usage()
+
+    return {
+        "status": "healthy",
+        "version": "0.2.0",
+        "gemini_configured": bool(settings.gemini_api_key),
+        "storage": storage,
+        "active_jobs": len([j for j in jobs.values() if j["status"] not in [JobStatus.COMPLETED, JobStatus.FAILED]]),
+    }
+
+
+@app.post("/extract", response_model=ExtractResponse)
+async def extract_videos(request: ExtractRequest):
+    """
+    Extract video URLs from a hashtag page.
+
+    Returns list of video URLs and metadata.
+    """
+    extractor = get_extractor()
+
+    result = await extractor.extract_hashtag(
+        platform=request.platform,
+        hashtag=request.hashtag,
+        count=request.count,
+    )
+
+    return ExtractResponse(
+        success=result.success,
+        videos_found=result.videos_found,
+        videos=[v.to_dict() for v in result.videos],
+        error=result.error,
+    )
+
+
+@app.post("/download", response_model=DownloadResponse)
+async def download_videos(request: DownloadRequest):
+    """
+    Download videos from URLs using yt-dlp.
+
+    Returns list of download results with file paths.
+    """
+    downloader = get_downloader()
+
+    results = await downloader.download_batch(
+        urls=request.urls,
+        platform=request.platform,
+        max_concurrent=settings.max_concurrent_downloads,
+    )
+
+    successful = [r for r in results if r.success]
+    failed = [r for r in results if not r.success]
+
+    return DownloadResponse(
+        success=len(successful) > 0,
+        downloaded=len(successful),
+        failed=len(failed),
+        results=[r.to_dict() for r in results],
+    )
+
+
+@app.post("/analyze", response_model=AnalyzeResponse)
+async def analyze_videos(request: AnalyzeRequest):
+    """
+    Analyze videos with Gemini.
+
+    Returns list of analysis results.
+    """
+    analyzer = get_analyzer()
+
+    paths = [Path(p) for p in request.video_paths]
+    results = await analyzer.analyze_batch(
+        video_paths=paths,
+        max_concurrent=settings.max_concurrent_analyses,
+    )
+
+    successful = [r for r in results if r.success]
+
+    return AnalyzeResponse(
+        success=len(successful) > 0,
+        analyzed=len(successful),
+        results=[r.to_dict() for r in results],
+    )
+
+
+@app.post("/pipeline", response_model=JobResponse)
+async def run_pipeline(
+    request: PipelineRequest,
+    background_tasks: BackgroundTasks,
+):
+    """
+    Run full pipeline: extract → download → analyze.
+
+    Returns job_id. Poll /pipeline/{job_id} for results.
+    """
+    job_id = str(uuid.uuid4())
+
+    jobs[job_id] = {
+        "job_id": job_id,
+        "status": JobStatus.QUEUED,
+        "request": request.model_dump(),
+        "extraction": None,
+        "downloads": None,
+        "analyses": None,
+        "error": None,
+        "started_at": None,
+        "completed_at": None,
+    }
+
+    background_tasks.add_task(run_pipeline_job, job_id, request)
+
+    return JobResponse(
+        job_id=job_id,
+        status=JobStatus.QUEUED,
+        message=f"Pipeline queued for #{request.hashtag} on {request.platform.value}",
+    )
+
+
+async def run_pipeline_job(job_id: str, request: PipelineRequest) -> None:
+    """Background task to run full pipeline."""
     jobs[job_id]["started_at"] = datetime.utcnow().isoformat()
 
     try:
-        # Acquire rate limit
-        await rate_limiter.acquire(request.platform.value)
+        # Step 1: Extract
+        jobs[job_id]["status"] = JobStatus.EXTRACTING
+        logger.info(f"[{job_id}] Extracting #{request.hashtag}")
 
-        # Get appropriate scraper
-        if request.platform == Platform.TIKTOK:
-            scraper = await get_tiktok_scraper()
-        else:
-            scraper = await get_instagram_scraper()
+        extractor = get_extractor()
+        extraction = await extractor.extract_hashtag(
+            platform=request.platform,
+            hashtag=request.hashtag,
+            count=request.count,
+        )
 
-        # Execute scrape based on target type
-        result: ScraperResult
+        jobs[job_id]["extraction"] = {
+            "success": extraction.success,
+            "videos_found": extraction.videos_found,
+            "videos": [v.to_dict() for v in extraction.videos],
+            "error": extraction.error,
+        }
 
-        if request.target_type == TargetType.HASHTAG:
-            result = await scraper.get_hashtag_posts(request.target, request.count)
-        elif request.target_type == TargetType.USER:
-            result = await scraper.get_user_posts(request.target, request.count)
-        elif request.target_type == TargetType.TRENDING:
-            result = await scraper.get_trending(request.count)
-        elif request.target_type == TargetType.SOUND:
-            if request.platform != Platform.TIKTOK:
-                raise ValueError("Sound scraping only available for TikTok")
-            result = await scraper.get_sound_posts(request.target, request.count)
-        else:
-            raise ValueError(f"Unknown target type: {request.target_type}")
+        if not extraction.success or not extraction.videos:
+            raise Exception(f"Extraction failed: {extraction.error or 'No videos found'}")
 
-        # Report success/failure to rate limiter
-        if result.success:
-            rate_limiter.report_success(request.platform.value)
-        else:
-            rate_limiter.report_failure(request.platform.value)
+        # Step 2: Download
+        jobs[job_id]["status"] = JobStatus.DOWNLOADING
+        logger.info(f"[{job_id}] Downloading {len(extraction.videos)} videos")
 
-        # Update job
-        jobs[job_id]["status"] = JobStatus.COMPLETED if result.success else JobStatus.FAILED
-        jobs[job_id]["posts"] = [p.to_dict() for p in result.posts]
-        jobs[job_id]["posts_retrieved"] = result.posts_retrieved
-        jobs[job_id]["error"] = result.error
+        downloader = get_downloader()
+        urls = [v.video_url for v in extraction.videos]
+
+        downloads = await downloader.download_batch(
+            urls=urls,
+            platform=request.platform.value,
+            max_concurrent=settings.max_concurrent_downloads,
+        )
+
+        jobs[job_id]["downloads"] = [d.to_dict() for d in downloads]
+
+        successful_downloads = [d for d in downloads if d.success and d.file_path]
+
+        if not successful_downloads:
+            raise Exception("No videos downloaded successfully")
+
+        # Step 3: Analyze (optional)
+        if not request.skip_analysis:
+            jobs[job_id]["status"] = JobStatus.ANALYZING
+            logger.info(f"[{job_id}] Analyzing {len(successful_downloads)} videos")
+
+            analyzer = get_analyzer()
+            paths = [d.file_path for d in successful_downloads]
+
+            analyses = await analyzer.analyze_batch(
+                video_paths=paths,
+                max_concurrent=settings.max_concurrent_analyses,
+            )
+
+            jobs[job_id]["analyses"] = [a.to_dict() for a in analyses]
+
+        jobs[job_id]["status"] = JobStatus.COMPLETED
+        logger.info(f"[{job_id}] Pipeline completed")
 
     except Exception as e:
-        logger.error(f"Job {job_id} failed: {e}")
-        rate_limiter.report_failure(request.platform.value)
+        logger.error(f"[{job_id}] Pipeline failed: {e}")
         jobs[job_id]["status"] = JobStatus.FAILED
         jobs[job_id]["error"] = str(e)
 
@@ -161,106 +335,69 @@ async def run_scrape_job(job_id: str, request: ScrapeRequest) -> None:
         jobs[job_id]["completed_at"] = datetime.utcnow().isoformat()
 
 
-@app.get("/health", response_model=HealthResponse)
-async def health_check():
-    """Health check endpoint."""
-    return HealthResponse(
-        status="healthy",
-        version="0.1.0",
-        rate_limits={
-            "tiktok": rate_limiter.get_stats("tiktok"),
-            "instagram": rate_limiter.get_stats("instagram"),
-        },
-    )
-
-
-@app.post("/scrape", response_model=ScrapeResponse)
-async def create_scrape_job(
-    request: ScrapeRequest,
-    background_tasks: BackgroundTasks,
-):
-    """
-    Queue a new scrape job.
-
-    Returns immediately with a job_id. Poll /scrape/{job_id} to get results.
-    """
-    job_id = str(uuid.uuid4())
-
-    jobs[job_id] = {
-        "job_id": job_id,
-        "status": JobStatus.QUEUED,
-        "platform": request.platform,
-        "target_type": request.target_type,
-        "target": request.target,
-        "posts_requested": request.count,
-        "posts_retrieved": 0,
-        "posts": [],
-        "error": None,
-        "started_at": None,
-        "completed_at": None,
-    }
-
-    background_tasks.add_task(run_scrape_job, job_id, request)
-
-    return ScrapeResponse(
-        job_id=job_id,
-        status=JobStatus.QUEUED,
-        message=f"Scrape job queued for {request.platform.value} {request.target_type.value}: {request.target}",
-    )
-
-
-@app.get("/scrape/{job_id}", response_model=JobResult)
-async def get_job_status(job_id: str):
-    """Get the status and results of a scrape job."""
+@app.get("/pipeline/{job_id}", response_model=PipelineResult)
+async def get_pipeline_status(job_id: str):
+    """Get pipeline job status and results."""
     if job_id not in jobs:
         raise HTTPException(status_code=404, detail="Job not found")
 
-    return JobResult(**jobs[job_id])
+    job = jobs[job_id]
 
-
-@app.delete("/scrape/{job_id}")
-async def delete_job(job_id: str):
-    """Delete a completed job from memory."""
-    if job_id not in jobs:
-        raise HTTPException(status_code=404, detail="Job not found")
-
-    if jobs[job_id]["status"] in [JobStatus.QUEUED, JobStatus.RUNNING]:
-        raise HTTPException(
-            status_code=400,
-            detail="Cannot delete a job that is still running",
-        )
-
-    del jobs[job_id]
-    return {"message": "Job deleted"}
+    return PipelineResult(
+        job_id=job["job_id"],
+        status=job["status"],
+        extraction=job["extraction"],
+        downloads=job["downloads"],
+        analyses=job["analyses"],
+        error=job["error"],
+    )
 
 
 @app.get("/jobs")
 async def list_jobs():
-    """List all jobs (for debugging)."""
+    """List all jobs."""
     return {
         "count": len(jobs),
         "jobs": [
             {
                 "job_id": j["job_id"],
                 "status": j["status"],
-                "platform": j["platform"],
-                "target": j["target"],
-                "posts_retrieved": j["posts_retrieved"],
+                "started_at": j.get("started_at"),
+                "completed_at": j.get("completed_at"),
             }
             for j in jobs.values()
         ],
     }
 
 
+@app.delete("/jobs/{job_id}")
+async def delete_job(job_id: str):
+    """Delete a completed job."""
+    if job_id not in jobs:
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    if jobs[job_id]["status"] not in [JobStatus.COMPLETED, JobStatus.FAILED]:
+        raise HTTPException(status_code=400, detail="Cannot delete running job")
+
+    del jobs[job_id]
+    return {"message": "Job deleted"}
+
+
+@app.post("/cleanup")
+async def cleanup_old_videos(max_age_hours: int = 24):
+    """Delete videos older than max_age_hours."""
+    downloader = get_downloader()
+    deleted = downloader.cleanup_old_videos(max_age_hours=max_age_hours)
+    return {"deleted": deleted}
+
+
 @app.on_event("shutdown")
 async def shutdown_event():
-    """Cleanup scrapers on shutdown."""
-    global _tiktok_scraper, _instagram_scraper
+    """Cleanup on shutdown."""
+    global _extractor
 
-    if _tiktok_scraper:
-        await _tiktok_scraper.close()
-    if _instagram_scraper:
-        await _instagram_scraper.close()
+    if _extractor:
+        await _extractor.close()
 
 
 # For running directly

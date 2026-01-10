@@ -1,6 +1,15 @@
-# Social Scraper
+# Social Scraper (Ausfaller)
 
-TikTok & Instagram scraping service for social media content analysis.
+Video extraction, download, and analysis pipeline for TikTok & Instagram.
+
+## Architecture
+
+```
+[Playwright Stealth] → [yt-dlp] → [Gemini 1.5 Flash] → [Supabase]
+     Extract URLs       Download      Analyze            Store
+```
+
+**Designed for n8n orchestration** - each step is a separate API endpoint.
 
 ## Quick Start
 
@@ -13,12 +22,12 @@ venv\Scripts\activate  # Windows
 # 2. Install dependencies
 pip install -e .
 
-# 3. Install Playwright browsers (required for TikTok)
+# 3. Install Playwright browsers
 playwright install chromium
 
-# 4. Copy and configure environment
+# 4. Configure environment
 cp .env.example .env
-# Edit .env with your settings
+# Edit .env - add your GEMINI_API_KEY
 
 # 5. Run the server
 python main.py
@@ -26,44 +35,118 @@ python main.py
 
 ## API Endpoints
 
-Once running, visit http://localhost:8080/docs for interactive API docs.
+Visit http://localhost:8080/docs for interactive API docs.
 
-### POST /scrape
-Queue a scrape job.
+### POST /extract
+Extract video URLs from hashtag page.
 
 ```json
 {
-  "platform": "instagram",
-  "target_type": "hashtag",
-  "target": "bartender",
+  "platform": "tiktok",
+  "hashtag": "bartender",
   "count": 30
 }
 ```
 
-### GET /scrape/{job_id}
-Get job status and results.
+### POST /download
+Download videos from URLs using yt-dlp.
+
+```json
+{
+  "urls": ["https://tiktok.com/...", "..."],
+  "platform": "tiktok"
+}
+```
+
+### POST /analyze
+Analyze videos with Gemini 1.5 Flash.
+
+```json
+{
+  "video_paths": ["/path/to/video.mp4", "..."]
+}
+```
+
+### POST /pipeline
+Run full pipeline (extract → download → analyze).
+
+```json
+{
+  "platform": "tiktok",
+  "hashtag": "bartender",
+  "count": 10,
+  "skip_analysis": false
+}
+```
+
+Returns `job_id`. Poll `/pipeline/{job_id}` for results.
 
 ### GET /health
-Health check with rate limit stats.
+Health check with storage stats.
+
+## n8n Integration
+
+Call endpoints from n8n using HTTP Request nodes:
+
+**Workflow 1: Scheduled Scrape**
+```
+[Schedule Trigger: Every 6 hours]
+  → [HTTP POST /pipeline]
+  → [Wait/Poll for completion]
+  → [Supabase: Store results]
+  → [Slack: Notify]
+```
+
+**Workflow 2: On-Demand Analysis**
+```
+[Webhook: Client query]
+  → [HTTP POST /extract]
+  → [HTTP POST /download]
+  → [HTTP POST /analyze]
+  → [Return results]
+```
 
 ## Testing
 
 ```bash
-# Quick test of scrapers
-python test_scrapers.py
+# Quick pipeline test
+python test_pipeline.py
+
+# Test extraction only (no Gemini needed)
+python -c "
+import asyncio
+from src.extractor import HashtagExtractor, Platform
+
+async def test():
+    e = HashtagExtractor()
+    r = await e.extract_tiktok_hashtag('bartender', 3)
+    print(f'Found {r.videos_found} videos')
+    for v in r.videos:
+        print(f'  {v.video_url}')
+    await e.close()
+
+asyncio.run(test())
+"
 ```
 
-## n8n Integration
+## Requirements
 
-Call the API from n8n using HTTP Request node:
+- Python 3.10+
+- Playwright + Chromium
+- yt-dlp
+- Gemini API key (for analysis)
 
-1. **POST** to `http://localhost:8080/scrape` to start job
-2. **GET** `http://localhost:8080/scrape/{job_id}` to poll for results
-3. Parse the `posts` array from the response
+## Project Structure
 
-## Notes
-
-- TikTok scraping requires `ms_token` from browser cookies for reliable access
-- Instagram public data works without auth; explore/reels need login
-- Scraping is slow by design (5-15s delays) to avoid detection
-- Default limit: 50 posts per session
+```
+social-scraper/
+├── src/
+│   ├── extractor/      # Playwright URL extraction
+│   ├── downloader/     # yt-dlp video download
+│   ├── analyzer/       # Gemini video analysis
+│   └── api/            # FastAPI server
+├── config/
+│   └── settings.py     # Environment config
+├── main.py             # Entry point
+└── test_pipeline.py    # Quick test
+```
