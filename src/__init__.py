@@ -1,1 +1,1 @@
-# Social Scraper - TikTok & Instagram content scraping service
+# Social Scraper - Video extraction, download, and analysis pipeline
