@@ -1,0 +1,27 @@
+# Core
+fastapi>=0.109.0
+uvicorn>=0.27.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Scraping
+TikTokApi>=6.3.0
+instaloader>=4.10.0
+playwright>=1.41.0
+playwright-stealth>=1.0.6
+
+# Video downloading
+yt-dlp>=2024.1.0
+
+# Database
+supabase>=2.3.0
+
+# Utils
+httpx>=0.26.0
+python-dotenv>=1.0.0
+tenacity>=8.2.0
+fake-useragent>=1.4.0
+
+# Dev
+pytest>=7.4.0
+pytest-asyncio>=0.23.0
