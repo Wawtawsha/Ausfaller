@@ -1,3 +1,3 @@
-from .hashtag import HashtagExtractor, VideoInfo, ExtractionResult
+from .hashtag import HashtagExtractor, VideoInfo, ExtractionResult, Platform
 
-__all__ = ["HashtagExtractor", "VideoInfo", "ExtractionResult"]
+__all__ = ["HashtagExtractor", "VideoInfo", "ExtractionResult", "Platform"]
