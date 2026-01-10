@@ -52,9 +52,26 @@ class VideoDownloader:
         self.output_dir = output_dir or Path(settings.cache_dir) / "videos"
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-        # Verify yt-dlp is installed
-        if not shutil.which("yt-dlp"):
+        # Find yt-dlp - check venv first, then system
+        self.ytdlp_path = self._find_ytdlp()
+        if not self.ytdlp_path:
             raise RuntimeError("yt-dlp is not installed. Run: pip install yt-dlp")
+
+    def _find_ytdlp(self) -> Optional[str]:
+        """Find yt-dlp executable."""
+        import sys
+
+        # Check in same directory as python (venv)
+        venv_ytdlp = Path(sys.executable).parent / "yt-dlp.exe"
+        if venv_ytdlp.exists():
+            return str(venv_ytdlp)
+
+        # Check in PATH
+        system_ytdlp = shutil.which("yt-dlp")
+        if system_ytdlp:
+            return system_ytdlp
+
+        return None
 
     def _generate_filename(self, video_id: str, platform: str) -> str:
         """Generate unique filename for downloaded video."""
@@ -88,7 +105,7 @@ class VideoDownloader:
 
         # yt-dlp command
         cmd = [
-            "yt-dlp",
+            self.ytdlp_path,
             "--no-warnings",
             "--no-progress",
             "-f", "best[ext=mp4]/best",  # Prefer mp4
