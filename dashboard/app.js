@@ -3,8 +3,8 @@
  * Social Media Analytics App
  */
 
-// API Configuration - Update this after Railway deployment
-const API_BASE = window.ANALYTICS_API_URL || 'https://social-scraper-api.up.railway.app';
+// API Configuration
+const API_BASE = 'https://web-production-40a7f.up.railway.app';
 
 // Chart instances registry - prevents memory leaks
 const chartRegistry = new Map();
