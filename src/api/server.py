@@ -1027,6 +1027,36 @@ async def get_recent_reply():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/analytics/strategic-analysis")
+async def get_strategic_analysis():
+    """
+    Get the latest strategic trend analysis (markdown).
+
+    Returns the content of analysis/LATEST_ANALYSIS.md if it exists.
+    """
+    analysis_path = Path("analysis/LATEST_ANALYSIS.md")
+
+    if not analysis_path.exists():
+        return {
+            "content": None,
+            "message": "No strategic analysis available yet",
+            "updated_at": None
+        }
+
+    try:
+        content = analysis_path.read_text(encoding="utf-8")
+        stat = analysis_path.stat()
+        updated_at = datetime.fromtimestamp(stat.st_mtime).isoformat()
+
+        return {
+            "content": content,
+            "updated_at": updated_at
+        }
+    except Exception as e:
+        logger.error(f"Failed to read strategic analysis: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.on_event("shutdown")
 async def shutdown_event():
     """Cleanup on shutdown."""

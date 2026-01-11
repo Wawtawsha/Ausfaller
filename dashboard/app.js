@@ -513,17 +513,74 @@ function renderRecentReply(data) {
 }
 
 /**
+ * Fetch strategic analysis
+ */
+async function fetchStrategicAnalysis() {
+    const response = await fetch(`${API_BASE}/analytics/strategic-analysis`);
+    if (!response.ok) throw new Error('Failed to fetch strategic analysis');
+    return response.json();
+}
+
+/**
+ * Render strategic analysis markdown
+ */
+function renderStrategicAnalysis(data) {
+    const contentEl = document.getElementById('strategic-content');
+    const updatedEl = document.getElementById('strategic-updated');
+
+    if (!data || !data.content) {
+        contentEl.innerHTML = `
+            <div class="strategic-empty">
+                <p>No strategic analysis available yet. Run analysis to generate insights.</p>
+            </div>
+        `;
+        return;
+    }
+
+    // Update timestamp
+    if (data.updated_at) {
+        updatedEl.textContent = `Updated ${formatDate(data.updated_at)}`;
+    }
+
+    // Render markdown
+    contentEl.innerHTML = `<div class="markdown-body">${marked.parse(data.content)}</div>`;
+}
+
+/**
+ * Toggle strategic analysis section
+ */
+let strategicExpanded = false;
+function toggleStrategicAnalysis() {
+    const contentEl = document.getElementById('strategic-content');
+    const chevronEl = document.getElementById('strategic-chevron');
+
+    strategicExpanded = !strategicExpanded;
+
+    if (strategicExpanded) {
+        contentEl.classList.add('expanded');
+        chevronEl.classList.add('rotated');
+    } else {
+        contentEl.classList.remove('expanded');
+        chevronEl.classList.remove('rotated');
+    }
+}
+
+/**
  * Main initialization
  */
 async function init() {
     try {
         setStatus(false, 'Loading...');
 
-        // Fetch both analytics and recent reply in parallel
-        const [data, replyData] = await Promise.all([
+        // Fetch analytics, recent reply, and strategic analysis in parallel
+        const [data, replyData, strategicData] = await Promise.all([
             fetchAnalytics(),
             fetchRecentReply().catch(err => {
                 console.warn('Failed to fetch recent reply:', err);
+                return null;
+            }),
+            fetchStrategicAnalysis().catch(err => {
+                console.warn('Failed to fetch strategic analysis:', err);
                 return null;
             })
         ]);
@@ -533,6 +590,9 @@ async function init() {
 
         // Render recent AI reply
         renderRecentReply(replyData);
+
+        // Render strategic analysis
+        renderStrategicAnalysis(strategicData);
 
         // Hook charts
         createDoughnutChart('hook-types-chart', data.hooks || [], 'hook_type');

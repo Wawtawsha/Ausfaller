@@ -827,6 +827,213 @@ tr:hover td {
 }
 
 /* ============================================
+   STRATEGIC ANALYSIS
+   ============================================ */
+
+.strategic-section {
+    animation: fadeInUp 0.5s ease-out backwards;
+    animation-delay: calc(var(--delay) * 0.08s);
+}
+
+.strategic-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+    overflow: hidden;
+}
+
+.strategic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.strategic-header:hover {
+    background: var(--bg-card-hover);
+}
+
+.strategic-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.strategic-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--accent-secondary);
+}
+
+.strategic-title h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.strategic-badge {
+    font-size: 0.65rem;
+    padding: 4px 10px;
+    background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+    color: white;
+    border-radius: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.strategic-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.strategic-updated {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.strategic-chevron {
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+}
+
+.strategic-chevron.rotated {
+    transform: rotate(180deg);
+}
+
+.strategic-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    padding: 0 24px;
+}
+
+.strategic-content.expanded {
+    max-height: 2000px;
+    padding: 0 24px 24px;
+    overflow-y: auto;
+}
+
+.strategic-loading,
+.strategic-empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+/* Markdown rendering styles */
+.markdown-body {
+    color: var(--text-primary);
+    line-height: 1.7;
+}
+
+.markdown-body h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 24px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.markdown-body h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 32px 0 12px;
+    color: var(--accent-primary);
+}
+
+.markdown-body h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 24px 0 8px;
+    color: var(--accent-secondary);
+}
+
+.markdown-body p {
+    margin: 12px 0;
+    color: var(--text-secondary);
+}
+
+.markdown-body strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+    margin: 12px 0;
+    padding-left: 24px;
+    color: var(--text-secondary);
+}
+
+.markdown-body li {
+    margin: 6px 0;
+}
+
+.markdown-body hr {
+    border: none;
+    border-top: 1px solid var(--border-subtle);
+    margin: 32px 0;
+}
+
+.markdown-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.875rem;
+}
+
+.markdown-body th,
+.markdown-body td {
+    padding: 10px 14px;
+    text-align: left;
+    border: 1px solid var(--border-subtle);
+}
+
+.markdown-body th {
+    background: var(--bg-surface);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.markdown-body code {
+    background: var(--bg-surface);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: var(--accent-cyan);
+}
+
+.markdown-body pre {
+    background: var(--bg-surface);
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    overflow-x: auto;
+    margin: 16px 0;
+}
+
+.markdown-body pre code {
+    background: none;
+    padding: 0;
+}
+
+.markdown-body blockquote {
+    border-left: 3px solid var(--accent-secondary);
+    padding-left: 16px;
+    margin: 16px 0;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 

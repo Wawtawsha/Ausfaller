@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -184,8 +185,32 @@
             </div>
         </section>
 
+        <!-- Strategic Analysis -->
+        <section class="strategic-section" style="--delay: 12">
+            <div class="strategic-card">
+                <div class="strategic-header" onclick="toggleStrategicAnalysis()">
+                    <div class="strategic-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="strategic-icon">
+                            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                        </svg>
+                        <h3>Strategic Analysis</h3>
+                        <span class="strategic-badge">Claude Intelligence</span>
+                    </div>
+                    <div class="strategic-meta">
+                        <span class="strategic-updated" id="strategic-updated">—</span>
+                        <svg class="strategic-chevron" id="strategic-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="strategic-content" id="strategic-content">
+                    <div class="strategic-loading">Loading strategic analysis...</div>
+                </div>
+            </div>
+        </section>
+
         <footer class="footer">
-            <span>Powered by Gemini AI Analysis</span>
+            <span>Powered by Gemini + Claude AI</span>
             <span class="separator">•</span>
             <span id="video-count-footer">0 videos processed</span>
         </footer>
