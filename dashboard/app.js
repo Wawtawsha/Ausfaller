@@ -37,6 +37,17 @@ async function fetchAnalytics() {
 }
 
 /**
+ * Fetch most recent AI analysis reply
+ */
+async function fetchRecentReply() {
+    const response = await fetch(`${API_BASE}/analytics/recent-reply`);
+    if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+    }
+    return response.json();
+}
+
+/**
  * Update connection status indicator
  */
 function setStatus(connected, message = '') {
@@ -330,16 +341,198 @@ function showError(message) {
 }
 
 /**
+ * Get score class for styling
+ */
+function getScoreClass(score) {
+    if (score >= 8) return 'high';
+    if (score >= 5) return 'medium';
+    return 'low';
+}
+
+/**
+ * Format date for display
+ */
+function formatDate(dateStr) {
+    if (!dateStr) return '—';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+/**
+ * Render the most recent AI analysis reply
+ */
+function renderRecentReply(data) {
+    const contentEl = document.getElementById('reply-content');
+    const metaEl = document.getElementById('reply-meta');
+    const footerEl = document.getElementById('reply-footer');
+    const linkEl = document.getElementById('reply-video-link');
+
+    if (!data || !data.recent_reply) {
+        contentEl.innerHTML = `
+            <div class="reply-empty">
+                <div class="reply-empty-icon">📊</div>
+                <p>No analyzed videos yet. Run the pipeline to see AI analysis here.</p>
+            </div>
+        `;
+        return;
+    }
+
+    const post = data.recent_reply;
+    const analysis = post.analysis || {};
+
+    // Update meta info
+    metaEl.innerHTML = `
+        <span class="reply-author">@${post.author_username || 'unknown'}</span>
+        <span class="reply-time">${formatDate(post.analyzed_at)}</span>
+    `;
+
+    // Build the content sections
+    const hook = analysis.hook || {};
+    const audio = analysis.audio || {};
+    const visual = analysis.visual || {};
+    const trends = analysis.trends || {};
+    const replicability = analysis.replicability || {};
+    const emotion = analysis.emotion || {};
+
+    // Build tags from various sources
+    const tags = [
+        ...(analysis.niche?.sub_niches || []),
+        ...(analysis.niche?.keywords || []).slice(0, 5)
+    ].filter(Boolean).slice(0, 8);
+
+    contentEl.innerHTML = `
+        ${analysis.description ? `<div class="reply-description">${analysis.description}</div>` : ''}
+
+        <div class="reply-grid">
+            <div class="reply-section">
+                <div class="reply-section-title">Hook Analysis</div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Type</span>
+                    <span class="reply-item-value">${hook.hook_type || '—'}</span>
+                </div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Technique</span>
+                    <span class="reply-item-value">${(hook.hook_technique || '—').replace(/_/g, ' ')}</span>
+                </div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Strength</span>
+                    <span class="reply-item-value score ${getScoreClass(hook.hook_strength)}">${hook.hook_strength || 0}/10</span>
+                </div>
+                ${hook.hook_text ? `
+                <div class="reply-item">
+                    <span class="reply-item-label">Text</span>
+                    <span class="reply-item-value" style="font-size: 0.75rem; max-width: 150px; text-align: right;">"${hook.hook_text}"</span>
+                </div>` : ''}
+            </div>
+
+            <div class="reply-section">
+                <div class="reply-section-title">Viral Potential</div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Score</span>
+                    <span class="reply-item-value score ${getScoreClass(trends.viral_potential_score)}">${trends.viral_potential_score || 0}/10</span>
+                </div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Relatability</span>
+                    <span class="reply-item-value score ${getScoreClass(emotion.relatability_score)}">${emotion.relatability_score || 0}/10</span>
+                </div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Format</span>
+                    <span class="reply-item-value">${(trends.format_originality || '—').replace(/_/g, ' ')}</span>
+                </div>
+                ${trends.viral_factors?.length ? `
+                <div class="reply-tags">
+                    ${trends.viral_factors.slice(0, 4).map(f => `<span class="reply-tag">${f.replace(/_/g, ' ')}</span>`).join('')}
+                </div>` : ''}
+            </div>
+
+            <div class="reply-section">
+                <div class="reply-section-title">Audio & Visual</div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Sound</span>
+                    <span class="reply-item-value">${(audio.sound_category || '—').replace(/_/g, ' ')}</span>
+                </div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Mood</span>
+                    <span class="reply-item-value">${audio.sound_mood || '—'}</span>
+                </div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Style</span>
+                    <span class="reply-item-value">${visual.visual_style || '—'}</span>
+                </div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Camera</span>
+                    <span class="reply-item-value">${(visual.camera_type || '—').replace(/_/g, ' ')}</span>
+                </div>
+            </div>
+
+            <div class="reply-section">
+                <div class="reply-section-title">Replicability</div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Score</span>
+                    <span class="reply-item-value score ${getScoreClass(replicability.replicability_score)}">${replicability.replicability_score || 0}/10</span>
+                </div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Difficulty</span>
+                    <span class="reply-item-value">${replicability.difficulty_level || '—'}</span>
+                </div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Time</span>
+                    <span class="reply-item-value">${(replicability.time_investment || '—').replace(/_/g, ' ')}</span>
+                </div>
+                <div class="reply-item">
+                    <span class="reply-item-label">Budget</span>
+                    <span class="reply-item-value">${(replicability.budget_estimate || '—').replace(/_/g, ' ')}</span>
+                </div>
+            </div>
+        </div>
+
+        ${tags.length ? `
+        <div class="reply-tags" style="margin-top: 20px;">
+            ${tags.map(t => `<span class="reply-tag">${t}</span>`).join('')}
+        </div>` : ''}
+
+        ${analysis.why_it_works ? `
+        <div class="reply-why">
+            <div class="reply-why-title">Why It Works</div>
+            <div class="reply-why-text">${analysis.why_it_works}</div>
+        </div>` : ''}
+    `;
+
+    // Update footer link
+    if (post.video_url) {
+        linkEl.href = post.video_url;
+        footerEl.style.display = 'block';
+    } else {
+        footerEl.style.display = 'none';
+    }
+}
+
+/**
  * Main initialization
  */
 async function init() {
     try {
         setStatus(false, 'Loading...');
 
-        const data = await fetchAnalytics();
+        // Fetch both analytics and recent reply in parallel
+        const [data, replyData] = await Promise.all([
+            fetchAnalytics(),
+            fetchRecentReply().catch(err => {
+                console.warn('Failed to fetch recent reply:', err);
+                return null;
+            })
+        ]);
 
         // Update all components
         updateMetrics(data.summary || {});
+
+        // Render recent AI reply
+        renderRecentReply(replyData);
 
         // Hook charts
         createDoughnutChart('hook-types-chart', data.hooks || [], 'hook_type');

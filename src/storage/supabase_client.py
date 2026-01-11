@@ -322,3 +322,17 @@ class SupabaseStorage:
 
         result = query.limit(limit).execute()
         return result.data
+
+    def get_most_recent_analysis(self) -> Optional[dict]:
+        """Get the most recently analyzed post with full analysis data."""
+        result = (
+            self.client.table("posts")
+            .select("id, platform, platform_id, video_url, author_username, caption, analysis, analyzed_at, scraped_at")
+            .not_.is_("analysis", "null")
+            .order("analyzed_at", desc=True)
+            .limit(1)
+            .execute()
+        )
+        if result.data:
+            return result.data[0]
+        return None
