@@ -3,7 +3,8 @@
  * Social Media Analytics App
  */
 
-const API_BASE = 'http://127.0.0.1:8080';
+// API Configuration - Update this after Railway deployment
+const API_BASE = window.ANALYTICS_API_URL || 'https://social-scraper-api.up.railway.app';
 
 // Chart instances registry - prevents memory leaks
 const chartRegistry = new Map();
