@@ -4,7 +4,7 @@
  */
 
 // API Configuration
-const API_BASE = 'https://web-production-40a7f.up.railway.app';
+const API_BASE = 'https://ausfaller.up.railway.app';
 
 // Chart instances registry - prevents memory leaks
 const chartRegistry = new Map();
