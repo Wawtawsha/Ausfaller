@@ -25,6 +25,7 @@ if sys.platform == "win32":
 
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from src.extractor import HashtagExtractor, Platform, ExtractionResult, VideoInfo
@@ -262,15 +263,14 @@ def get_generator() -> HashtagGenerator:
 
 # Endpoints
 
-@app.get("/")
-async def root():
-    """API root - basic info and links."""
+@app.get("/api")
+async def api_info():
+    """API info endpoint."""
     return {
         "name": "Social Scraper API",
         "version": "0.5.0",
         "docs": "/docs",
         "health": "/health",
-        "dashboard": "https://dashboard-eight-pi-49.vercel.app",
     }
 
 
@@ -1034,6 +1034,11 @@ async def shutdown_event():
 
     if _extractor:
         await _extractor.close()
+
+
+# Mount dashboard static files (must be after all API routes)
+# This serves index.html at "/" and other static assets
+app.mount("/", StaticFiles(directory="dashboard", html=True), name="dashboard")
 
 
 # For running directly
