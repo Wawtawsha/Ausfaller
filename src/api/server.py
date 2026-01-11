@@ -262,6 +262,18 @@ def get_generator() -> HashtagGenerator:
 
 # Endpoints
 
+@app.get("/")
+async def root():
+    """API root - basic info and links."""
+    return {
+        "name": "Social Scraper API",
+        "version": "0.5.0",
+        "docs": "/docs",
+        "health": "/health",
+        "dashboard": "https://dashboard-eight-pi-49.vercel.app",
+    }
+
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
