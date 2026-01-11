@@ -751,3 +751,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Manual refresh only - uncomment below for auto-refresh
 // setInterval(init, 5 * 60 * 1000);
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    // Ignore if typing in an input
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    switch(e.key) {
+        case '1': document.getElementById('metrics-section')?.scrollIntoView({ behavior: 'smooth' }); break;
+        case '2': document.getElementById('strategic-section')?.scrollIntoView({ behavior: 'smooth' }); break;
+        case '3': document.getElementById('charts-section')?.scrollIntoView({ behavior: 'smooth' }); break;
+        case '4': document.getElementById('leaderboard-section')?.scrollIntoView({ behavior: 'smooth' }); break;
+        case 's': case 'S': toggleStrategicAnalysis(); break;
+        case 'r': case 'R': if (!e.ctrlKey && !e.metaKey) { init(); } break;
+        case '?': showKeyboardHelp(); break;
+    }
+});
+
+function showKeyboardHelp() {
+    const existing = document.getElementById('keyboard-help');
+    if (existing) { existing.remove(); return; }
+
+    const help = document.createElement('div');
+    help.id = 'keyboard-help';
+    help.className = 'keyboard-help';
+    help.innerHTML = `
+        <div class="keyboard-help-content">
+            <h4>Keyboard Shortcuts</h4>
+            <div class="shortcut"><kbd>1-4</kbd> Jump to section</div>
+            <div class="shortcut"><kbd>S</kbd> Toggle strategy panel</div>
+            <div class="shortcut"><kbd>R</kbd> Refresh data</div>
+            <div class="shortcut"><kbd>?</kbd> Toggle this help</div>
+            <button onclick="this.parentElement.parentElement.remove()">Close</button>
+        </div>
+    `;
+    document.body.appendChild(help);
+}

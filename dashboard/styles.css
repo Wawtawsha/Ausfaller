@@ -1190,6 +1190,77 @@ tr:hover td {
 }
 
 /* ============================================
+   KEYBOARD HELP
+   ============================================ */
+
+.keyboard-help {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.keyboard-help-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.keyboard-help h4 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.keyboard-help .shortcut {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.keyboard-help kbd {
+    background: var(--bg-surface);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: var(--accent-cyan);
+    border: 1px solid var(--border-subtle);
+    min-width: 28px;
+    text-align: center;
+}
+
+.keyboard-help button {
+    width: 100%;
+    margin-top: 16px;
+    padding: 8px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.keyboard-help button:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 
