@@ -7,6 +7,7 @@ Endpoints:
 - POST /analyze - Analyze videos with Gemini
 - POST /pipeline - Run full pipeline (extract → download → analyze)
 - GET /health - Health check
+- GET /analytics/* - Analytics dashboard endpoints
 """
 
 import asyncio
@@ -37,7 +38,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI(
     title="Social Scraper API",
     description="Extract, download, and analyze social media videos",
-    version="0.2.0",
+    version="0.4.0",
 )
 
 # Global instances (lazy initialized)
@@ -173,7 +174,7 @@ async def health_check():
 
     return {
         "status": "healthy",
-        "version": "0.3.0",
+        "version": "0.4.0",
         "gemini_configured": bool(settings.gemini_api_key),
         "supabase_configured": bool(settings.supabase_url and settings.supabase_key),
         "storage": disk_storage,
@@ -429,6 +430,159 @@ async def cleanup_old_videos(max_age_hours: int = 24):
     downloader = get_downloader()
     deleted = downloader.cleanup_old_videos(max_age_hours=max_age_hours)
     return {"deleted": deleted}
+
+
+# ==================== Analytics Endpoints ====================
+
+@app.get("/analytics/summary")
+async def get_analytics_summary():
+    """
+    Get overall analytics summary.
+
+    Returns total videos, averages for hook strength, viral potential, replicability.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        summary = storage.get_analytics_summary()
+        return summary
+    except Exception as e:
+        logger.error(f"Failed to get analytics summary: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/hooks")
+async def get_hook_trends(limit: int = 20):
+    """
+    Get hook type and technique distribution.
+
+    Shows which hook types (text, question, visual, etc.) and techniques
+    (relatable_pain, curiosity_gap, etc.) are most common.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        hooks = storage.get_hook_trends(limit=limit)
+        return {"hook_trends": hooks}
+    except Exception as e:
+        logger.error(f"Failed to get hook trends: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/audio")
+async def get_audio_trends(limit: int = 20):
+    """
+    Get audio/sound category distribution.
+
+    Shows trending_audio, voiceover, dialogue, etc. breakdown.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        audio = storage.get_audio_trends(limit=limit)
+        return {"audio_trends": audio}
+    except Exception as e:
+        logger.error(f"Failed to get audio trends: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/visual")
+async def get_visual_trends(limit: int = 20):
+    """
+    Get visual style and setting distribution.
+
+    Shows casual vs raw vs polished styles, and setting types (bar, outdoor, etc.).
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        visual = storage.get_visual_trends(limit=limit)
+        return {"visual_trends": visual}
+    except Exception as e:
+        logger.error(f"Failed to get visual trends: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/viral")
+async def get_viral_trends(limit: int = 20):
+    """
+    Get viral potential score distribution and top viral factors.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        viral = storage.get_viral_trends(limit=limit)
+        factors = storage.get_viral_factors(limit=limit)
+        return {
+            "viral_score_distribution": viral,
+            "top_viral_factors": factors,
+        }
+    except Exception as e:
+        logger.error(f"Failed to get viral trends: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/replicability")
+async def get_replicability_leaderboard(
+    min_score: int = 6,
+    difficulty: Optional[str] = None,
+    limit: int = 20,
+):
+    """
+    Get top videos by replicability score.
+
+    Filter by minimum score and difficulty level (easy, medium, hard).
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        leaderboard = storage.get_replicability_leaderboard(
+            min_score=min_score,
+            difficulty=difficulty,
+            limit=limit,
+        )
+        return {"replicability_leaderboard": leaderboard}
+    except Exception as e:
+        logger.error(f"Failed to get replicability leaderboard: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/all")
+async def get_all_analytics():
+    """
+    Get all analytics data in one request.
+
+    Combines summary, hooks, audio, visual, viral, and replicability data.
+    Ideal for dashboard rendering.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        return {
+            "summary": storage.get_analytics_summary(),
+            "hooks": storage.get_hook_trends(limit=10),
+            "audio": storage.get_audio_trends(limit=10),
+            "visual": storage.get_visual_trends(limit=10),
+            "viral_factors": storage.get_viral_factors(limit=10),
+            "top_replicable": storage.get_replicability_leaderboard(min_score=7, limit=10),
+        }
+    except Exception as e:
+        logger.error(f"Failed to get all analytics: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.on_event("shutdown")

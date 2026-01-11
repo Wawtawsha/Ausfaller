@@ -227,3 +227,98 @@ class SupabaseStorage:
         self.client.table("trends").upsert(
             data, on_conflict="platform,trend_type,name"
         ).execute()
+
+    # ==================== Analytics Methods ====================
+
+    def get_analytics_summary(self) -> dict:
+        """Get overall analytics summary."""
+        result = self.client.table("analytics_summary").select("*").execute()
+        if result.data:
+            return result.data[0]
+        return {}
+
+    def get_hook_trends(self, limit: int = 20) -> list[dict]:
+        """Get hook type and technique distribution."""
+        result = (
+            self.client.table("hook_trends")
+            .select("*")
+            .limit(limit)
+            .execute()
+        )
+        return result.data
+
+    def get_audio_trends(self, limit: int = 20) -> list[dict]:
+        """Get audio/sound category distribution."""
+        result = (
+            self.client.table("audio_trends")
+            .select("*")
+            .limit(limit)
+            .execute()
+        )
+        return result.data
+
+    def get_visual_trends(self, limit: int = 20) -> list[dict]:
+        """Get visual style and setting distribution."""
+        result = (
+            self.client.table("visual_trends")
+            .select("*")
+            .limit(limit)
+            .execute()
+        )
+        return result.data
+
+    def get_viral_trends(self, limit: int = 20) -> list[dict]:
+        """Get viral potential score distribution."""
+        result = (
+            self.client.table("viral_trends")
+            .select("*")
+            .limit(limit)
+            .execute()
+        )
+        return result.data
+
+    def get_viral_factors(self, limit: int = 20) -> list[dict]:
+        """Get top viral factors across all videos."""
+        result = (
+            self.client.table("viral_factors_breakdown")
+            .select("*")
+            .limit(limit)
+            .execute()
+        )
+        return result.data
+
+    def get_replicability_leaderboard(
+        self,
+        min_score: int = 6,
+        difficulty: Optional[str] = None,
+        limit: int = 20,
+    ) -> list[dict]:
+        """Get top videos by replicability score."""
+        query = (
+            self.client.table("replicability_leaderboard")
+            .select("*")
+            .gte("replicability_score", min_score)
+        )
+        if difficulty:
+            query = query.eq("difficulty", difficulty)
+
+        result = query.limit(limit).execute()
+        return result.data
+
+    def get_analyzed_posts_raw(
+        self,
+        limit: int = 100,
+        platform: Optional[str] = None,
+    ) -> list[dict]:
+        """Get raw analyzed posts for custom aggregation."""
+        query = (
+            self.client.table("posts")
+            .select("id, platform, platform_id, video_url, author_username, analysis, scraped_at")
+            .not_.is_("analysis", "null")
+            .order("scraped_at", desc=True)
+        )
+        if platform:
+            query = query.eq("platform", platform)
+
+        result = query.limit(limit).execute()
+        return result.data
