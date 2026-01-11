@@ -20,9 +20,10 @@ import logging
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel, Field
 
-from src.extractor import HashtagExtractor, Platform, ExtractionResult
+from src.extractor import HashtagExtractor, Platform, ExtractionResult, VideoInfo
 from src.downloader import VideoDownloader, DownloadResult
 from src.analyzer import GeminiAnalyzer, VideoAnalysis
+from src.storage import SupabaseStorage
 from config.settings import settings
 
 logging.basicConfig(level=logging.INFO)
@@ -38,6 +39,7 @@ app = FastAPI(
 _extractor: Optional[HashtagExtractor] = None
 _downloader: Optional[VideoDownloader] = None
 _analyzer: Optional[GeminiAnalyzer] = None
+_storage: Optional[SupabaseStorage] = None
 
 # Job storage
 jobs: dict[str, dict] = {}
@@ -74,6 +76,7 @@ class PipelineRequest(BaseModel):
     hashtag: str
     count: int = Field(default=30, ge=1, le=50)
     skip_analysis: bool = Field(default=False, description="Skip Gemini analysis")
+    store_to_supabase: bool = Field(default=False, description="Store results in Supabase")
 
 
 class JobResponse(BaseModel):
@@ -139,19 +142,36 @@ def get_analyzer() -> GeminiAnalyzer:
     return _analyzer
 
 
+def get_storage() -> Optional[SupabaseStorage]:
+    """Get Supabase storage client (returns None if not configured)."""
+    global _storage
+    if _storage is None and settings.supabase_url and settings.supabase_key:
+        try:
+            _storage = SupabaseStorage(
+                url=settings.supabase_url,
+                key=settings.supabase_key
+            )
+            logger.info("Supabase storage initialized")
+        except Exception as e:
+            logger.warning(f"Failed to initialize Supabase: {e}")
+            return None
+    return _storage
+
+
 # Endpoints
 
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
     downloader = get_downloader()
-    storage = downloader.get_storage_usage()
+    disk_storage = downloader.get_storage_usage()
 
     return {
         "status": "healthy",
-        "version": "0.2.0",
+        "version": "0.3.0",
         "gemini_configured": bool(settings.gemini_api_key),
-        "storage": storage,
+        "supabase_configured": bool(settings.supabase_url and settings.supabase_key),
+        "storage": disk_storage,
         "active_jobs": len([j for j in jobs.values() if j["status"] not in [JobStatus.COMPLETED, JobStatus.FAILED]]),
     }
 
@@ -322,6 +342,21 @@ async def run_pipeline_job(job_id: str, request: PipelineRequest) -> None:
             )
 
             jobs[job_id]["analyses"] = [a.to_dict() for a in analyses]
+
+        # Step 4: Store to Supabase (optional)
+        if request.store_to_supabase:
+            storage = get_storage()
+            if storage:
+                logger.info(f"[{job_id}] Storing to Supabase")
+                analyses_list = analyses if not request.skip_analysis else None
+                stored = storage.store_batch(
+                    videos=extraction.videos,
+                    downloads=downloads,
+                    analyses=analyses_list,
+                )
+                logger.info(f"[{job_id}] Stored {stored} posts to Supabase")
+            else:
+                logger.warning(f"[{job_id}] Supabase not configured, skipping storage")
 
         jobs[job_id]["status"] = JobStatus.COMPLETED
         logger.info(f"[{job_id}] Pipeline completed")
