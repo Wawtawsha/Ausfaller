@@ -119,6 +119,66 @@ Run full pipeline (extract → download → analyze → store).
 ```
 Returns `job_id`. Poll `/pipeline/{job_id}` for results.
 
+### Batch Pipeline Endpoints (v0.5.0+)
+
+#### POST /generate-hashtags
+Generate relevant hashtags from a niche description using AI.
+```json
+{
+  "niche_description": "cocktail bartending content for TikTok",
+  "platform": "tiktok",
+  "count": 10
+}
+```
+Response:
+```json
+{
+  "success": true,
+  "hashtags": ["cocktail", "mixology", "bartender", "drinktok", "cocktailrecipe", ...],
+  "niche_description": "cocktail bartending content for TikTok"
+}
+```
+
+#### POST /batch-pipeline
+Run pipeline on multiple hashtags sequentially with automatic retry.
+```json
+{
+  "platform": "tiktok",
+  "niche_query": "cocktail bartending",
+  "hashtag_count": 10,
+  "videos_per_hashtag": 10,
+  "skip_analysis": false,
+  "store_to_supabase": true
+}
+```
+Or provide hashtags directly:
+```json
+{
+  "platform": "tiktok",
+  "hashtags": ["bartender", "mixology", "cocktails"],
+  "videos_per_hashtag": 10
+}
+```
+Returns `batch_id`. Poll `/batch-pipeline/{batch_id}` for progress.
+
+#### GET /batch-pipeline/{batch_id}
+Get batch job status with per-hashtag results.
+```json
+{
+  "batch_id": "uuid",
+  "status": "processing",
+  "hashtags": ["bartender", "mixology"],
+  "results": {
+    "bartender": {"status": "completed", "videos_found": 10, "videos_downloaded": 8},
+    "mixology": {"status": "running", "videos_found": 0}
+  },
+  "progress": {"total": 2, "completed": 1, "failed": 0, "remaining": 1}
+}
+```
+
+#### GET /batch-jobs
+List all batch jobs.
+
 ### Analytics Endpoints (Available on Railway)
 
 #### GET /analytics/summary
@@ -234,10 +294,12 @@ Each video analysis includes:
 social-scraper/
 ├── src/
 │   ├── api/
-│   │   └── server.py       # FastAPI server (scraping + analytics)
+│   │   └── server.py       # FastAPI server (scraping + analytics + batch)
 │   ├── extractor/          # Playwright URL extraction
 │   ├── downloader/         # yt-dlp video download
 │   ├── analyzer/           # Gemini video analysis
+│   ├── generator/          # AI hashtag generation (v0.5.0+)
+│   │   └── hashtag_generator.py
 │   └── storage/
 │       └── supabase_client.py  # Database operations + analytics queries
 ├── dashboard/
@@ -273,10 +335,15 @@ Run scraping locally - data flows to Supabase automatically:
 # Activate venv and run
 python main.py
 
-# Then use API or test script
+# Single hashtag
 curl -X POST http://localhost:8080/pipeline \
   -H "Content-Type: application/json" \
   -d '{"platform":"tiktok","hashtag":"bartender","count":10}'
+
+# Batch pipeline with AI-generated hashtags (v0.5.0+)
+curl -X POST http://localhost:8080/batch-pipeline \
+  -H "Content-Type: application/json" \
+  -d '{"platform":"tiktok","niche_query":"cocktail bartending","videos_per_hashtag":10}'
 ```
 
 Dashboard updates automatically since it reads from the same Supabase database.
