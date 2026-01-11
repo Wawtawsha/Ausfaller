@@ -24,6 +24,7 @@ if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 from fastapi import FastAPI, BackgroundTasks, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from src.extractor import HashtagExtractor, Platform, ExtractionResult, VideoInfo
@@ -39,6 +40,15 @@ app = FastAPI(
     title="Social Scraper API",
     description="Extract, download, and analyze social media videos",
     version="0.4.0",
+)
+
+# Enable CORS for dashboard
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins (including file://)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Global instances (lazy initialized)
