@@ -31,6 +31,7 @@ from src.extractor import HashtagExtractor, Platform, ExtractionResult, VideoInf
 from src.downloader import VideoDownloader, DownloadResult
 from src.analyzer import GeminiAnalyzer, VideoAnalysis
 from src.storage import SupabaseStorage
+from src.generator import HashtagGenerator
 from config.settings import settings
 
 logging.basicConfig(level=logging.INFO)
@@ -39,7 +40,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI(
     title="Social Scraper API",
     description="Extract, download, and analyze social media videos",
-    version="0.4.0",
+    version="0.5.0",
 )
 
 # Enable CORS for dashboard
@@ -56,9 +57,11 @@ _extractor: Optional[HashtagExtractor] = None
 _downloader: Optional[VideoDownloader] = None
 _analyzer: Optional[GeminiAnalyzer] = None
 _storage: Optional[SupabaseStorage] = None
+_generator: Optional[HashtagGenerator] = None
 
 # Job storage
 jobs: dict[str, dict] = {}
+batch_jobs: dict[str, dict] = {}
 
 
 class JobStatus(str, Enum):
@@ -68,6 +71,23 @@ class JobStatus(str, Enum):
     ANALYZING = "analyzing"
     COMPLETED = "completed"
     FAILED = "failed"
+
+
+class BatchJobStatus(str, Enum):
+    QUEUED = "queued"
+    GENERATING = "generating"  # Generating hashtags from niche query
+    PROCESSING = "processing"
+    RETRYING = "retrying"
+    COMPLETED = "completed"
+    FAILED = "failed"
+
+
+class HashtagStatus(str, Enum):
+    PENDING = "pending"
+    RUNNING = "running"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    RETRYING = "retrying"
 
 
 # Request/Response Models
@@ -130,6 +150,59 @@ class PipelineResult(BaseModel):
     error: Optional[str] = None
 
 
+# Batch Pipeline Models
+
+class GenerateHashtagsRequest(BaseModel):
+    niche_description: str = Field(..., description="Description of the content niche")
+    platform: Platform = Platform.TIKTOK
+    count: int = Field(default=10, ge=1, le=50)
+
+
+class GenerateHashtagsResponse(BaseModel):
+    success: bool
+    hashtags: list[str]
+    niche_description: str
+    error: Optional[str] = None
+
+
+class BatchPipelineRequest(BaseModel):
+    platform: Platform
+    hashtags: Optional[list[str]] = Field(default=None, description="List of hashtags to process")
+    niche_query: Optional[str] = Field(default=None, description="Generate hashtags from niche description")
+    hashtag_count: int = Field(default=10, ge=1, le=50, description="Number of hashtags to generate")
+    videos_per_hashtag: int = Field(default=10, ge=1, le=30)
+    skip_analysis: bool = False
+    store_to_supabase: bool = True
+    delay_between_hashtags: Optional[int] = None  # Uses settings default if not specified
+
+
+class BatchJobResponse(BaseModel):
+    batch_id: str
+    status: BatchJobStatus
+    message: str
+
+
+class HashtagResult(BaseModel):
+    hashtag: str
+    status: HashtagStatus
+    videos_found: int = 0
+    videos_downloaded: int = 0
+    videos_analyzed: int = 0
+    error: Optional[str] = None
+    attempt: int = 1
+
+
+class BatchPipelineResult(BaseModel):
+    batch_id: str
+    status: BatchJobStatus
+    hashtags: list[str]
+    results: dict[str, HashtagResult]
+    progress: dict
+    error: Optional[str] = None
+    started_at: Optional[str] = None
+    completed_at: Optional[str] = None
+
+
 # Helper functions
 
 def get_extractor() -> HashtagExtractor:
@@ -174,6 +247,19 @@ def get_storage() -> Optional[SupabaseStorage]:
     return _storage
 
 
+def get_generator() -> HashtagGenerator:
+    """Get or create the hashtag generator."""
+    global _generator
+    if _generator is None:
+        if not settings.gemini_api_key:
+            raise HTTPException(
+                status_code=500,
+                detail="Gemini API key not configured"
+            )
+        _generator = HashtagGenerator(api_key=settings.gemini_api_key)
+    return _generator
+
+
 # Endpoints
 
 @app.get("/health")
@@ -184,7 +270,7 @@ async def health_check():
 
     return {
         "status": "healthy",
-        "version": "0.4.0",
+        "version": "0.5.0",
         "gemini_configured": bool(settings.gemini_api_key),
         "supabase_configured": bool(settings.supabase_url and settings.supabase_key),
         "storage": disk_storage,
@@ -440,6 +526,319 @@ async def cleanup_old_videos(max_age_hours: int = 24):
     downloader = get_downloader()
     deleted = downloader.cleanup_old_videos(max_age_hours=max_age_hours)
     return {"deleted": deleted}
+
+
+# ==================== Batch Pipeline Endpoints ====================
+
+@app.post("/generate-hashtags", response_model=GenerateHashtagsResponse)
+async def generate_hashtags(request: GenerateHashtagsRequest):
+    """
+    Generate relevant hashtags from a niche description using AI.
+
+    Example: "cocktail bartending content" → ["bartender", "mixology", "cocktails", ...]
+    """
+    generator = get_generator()
+
+    result = await generator.generate_hashtags(
+        niche_description=request.niche_description,
+        platform=request.platform.value,
+        count=request.count,
+    )
+
+    return GenerateHashtagsResponse(
+        success=result.success,
+        hashtags=result.hashtags,
+        niche_description=result.niche_description,
+        error=result.error,
+    )
+
+
+@app.post("/batch-pipeline", response_model=BatchJobResponse)
+async def run_batch_pipeline(
+    request: BatchPipelineRequest,
+    background_tasks: BackgroundTasks,
+):
+    """
+    Run pipeline on multiple hashtags sequentially.
+
+    Either provide a list of hashtags OR a niche_query to generate hashtags.
+    Failed hashtags are retried at the end of the batch.
+    """
+    if not request.hashtags and not request.niche_query:
+        raise HTTPException(
+            status_code=400,
+            detail="Must provide either 'hashtags' list or 'niche_query'"
+        )
+
+    batch_id = str(uuid.uuid4())
+
+    batch_jobs[batch_id] = {
+        "batch_id": batch_id,
+        "status": BatchJobStatus.QUEUED,
+        "request": request.model_dump(),
+        "hashtags": request.hashtags or [],
+        "results": {},
+        "current_hashtag": None,
+        "current_pass": 1,
+        "progress": {
+            "total": 0,
+            "completed": 0,
+            "failed": 0,
+            "remaining": 0,
+        },
+        "error": None,
+        "started_at": None,
+        "completed_at": None,
+    }
+
+    background_tasks.add_task(run_batch_pipeline_job, batch_id, request)
+
+    return BatchJobResponse(
+        batch_id=batch_id,
+        status=BatchJobStatus.QUEUED,
+        message=f"Batch pipeline queued for {request.platform.value}",
+    )
+
+
+async def process_single_hashtag(
+    hashtag: str,
+    platform: Platform,
+    count: int,
+    skip_analysis: bool,
+    store_to_supabase: bool,
+) -> dict:
+    """
+    Process a single hashtag through the full pipeline.
+
+    Returns dict with extraction, download, and analysis results.
+    """
+    result = {
+        "videos_found": 0,
+        "videos_downloaded": 0,
+        "videos_analyzed": 0,
+    }
+
+    # Step 1: Extract
+    extractor = get_extractor()
+    extraction = await extractor.extract_hashtag(
+        platform=platform,
+        hashtag=hashtag,
+        count=count,
+    )
+
+    if not extraction.success or not extraction.videos:
+        raise Exception(f"Extraction failed: {extraction.error or 'No videos found'}")
+
+    result["videos_found"] = extraction.videos_found
+
+    # Step 2: Download
+    downloader = get_downloader()
+    urls = [v.video_url for v in extraction.videos]
+
+    downloads = await downloader.download_batch(
+        urls=urls,
+        platform=platform.value,
+        max_concurrent=settings.max_concurrent_downloads,
+    )
+
+    successful_downloads = [d for d in downloads if d.success and d.file_path]
+    result["videos_downloaded"] = len(successful_downloads)
+
+    if not successful_downloads:
+        raise Exception("No videos downloaded successfully")
+
+    # Step 3: Analyze (optional)
+    analyses = []
+    if not skip_analysis:
+        analyzer = get_analyzer()
+        paths = [d.file_path for d in successful_downloads]
+
+        analyses = await analyzer.analyze_batch(
+            video_paths=paths,
+            max_concurrent=settings.max_concurrent_analyses,
+        )
+        result["videos_analyzed"] = len([a for a in analyses if a.success])
+
+    # Step 4: Store to Supabase (optional)
+    if store_to_supabase:
+        storage = get_storage()
+        if storage:
+            stored = storage.store_batch(
+                videos=extraction.videos,
+                downloads=downloads,
+                analyses=analyses if analyses else None,
+            )
+            logger.info(f"Stored {stored} posts for #{hashtag}")
+
+    return result
+
+
+async def run_batch_pipeline_job(batch_id: str, request: BatchPipelineRequest) -> None:
+    """Background task to run batch pipeline across multiple hashtags."""
+    batch_jobs[batch_id]["started_at"] = datetime.utcnow().isoformat()
+
+    try:
+        # Phase 1: Get hashtags (generate if needed)
+        if request.niche_query:
+            batch_jobs[batch_id]["status"] = BatchJobStatus.GENERATING
+            logger.info(f"[{batch_id}] Generating hashtags for: {request.niche_query}")
+
+            generator = get_generator()
+            gen_result = await generator.generate_hashtags(
+                niche_description=request.niche_query,
+                platform=request.platform.value,
+                count=request.hashtag_count,
+            )
+
+            if not gen_result.success:
+                raise Exception(f"Hashtag generation failed: {gen_result.error}")
+
+            hashtags = gen_result.hashtags
+        else:
+            hashtags = request.hashtags
+
+        batch_jobs[batch_id]["hashtags"] = hashtags
+        batch_jobs[batch_id]["progress"]["total"] = len(hashtags)
+        batch_jobs[batch_id]["progress"]["remaining"] = len(hashtags)
+
+        # Initialize results for each hashtag
+        for hashtag in hashtags:
+            batch_jobs[batch_id]["results"][hashtag] = {
+                "hashtag": hashtag,
+                "status": HashtagStatus.PENDING.value,
+                "videos_found": 0,
+                "videos_downloaded": 0,
+                "videos_analyzed": 0,
+                "error": None,
+                "attempt": 1,
+            }
+
+        # Phase 2: First pass - process all hashtags
+        batch_jobs[batch_id]["status"] = BatchJobStatus.PROCESSING
+        delay = request.delay_between_hashtags or settings.batch_delay_between_hashtags
+        failed_hashtags = []
+
+        for i, hashtag in enumerate(hashtags):
+            batch_jobs[batch_id]["current_hashtag"] = hashtag
+            batch_jobs[batch_id]["results"][hashtag]["status"] = HashtagStatus.RUNNING.value
+            logger.info(f"[{batch_id}] Processing #{hashtag} ({i+1}/{len(hashtags)})")
+
+            try:
+                result = await process_single_hashtag(
+                    hashtag=hashtag,
+                    platform=request.platform,
+                    count=request.videos_per_hashtag,
+                    skip_analysis=request.skip_analysis,
+                    store_to_supabase=request.store_to_supabase,
+                )
+
+                batch_jobs[batch_id]["results"][hashtag].update(result)
+                batch_jobs[batch_id]["results"][hashtag]["status"] = HashtagStatus.COMPLETED.value
+                batch_jobs[batch_id]["progress"]["completed"] += 1
+
+            except Exception as e:
+                logger.error(f"[{batch_id}] #{hashtag} failed: {e}")
+                batch_jobs[batch_id]["results"][hashtag]["status"] = HashtagStatus.FAILED.value
+                batch_jobs[batch_id]["results"][hashtag]["error"] = str(e)
+                batch_jobs[batch_id]["progress"]["failed"] += 1
+                failed_hashtags.append(hashtag)
+
+            batch_jobs[batch_id]["progress"]["remaining"] -= 1
+
+            # Delay between hashtags (except for last one)
+            if i < len(hashtags) - 1:
+                logger.info(f"[{batch_id}] Waiting {delay}s before next hashtag...")
+                await asyncio.sleep(delay)
+
+        # Phase 3: Retry pass for failed hashtags
+        if failed_hashtags and settings.batch_max_retries > 0:
+            batch_jobs[batch_id]["status"] = BatchJobStatus.RETRYING
+            batch_jobs[batch_id]["current_pass"] = 2
+            logger.info(f"[{batch_id}] Retrying {len(failed_hashtags)} failed hashtags...")
+
+            # Extra delay before retry pass
+            await asyncio.sleep(settings.batch_retry_delay)
+
+            for hashtag in failed_hashtags:
+                batch_jobs[batch_id]["current_hashtag"] = hashtag
+                batch_jobs[batch_id]["results"][hashtag]["status"] = HashtagStatus.RETRYING.value
+                batch_jobs[batch_id]["results"][hashtag]["attempt"] = 2
+                logger.info(f"[{batch_id}] Retrying #{hashtag}")
+
+                try:
+                    result = await process_single_hashtag(
+                        hashtag=hashtag,
+                        platform=request.platform,
+                        count=request.videos_per_hashtag,
+                        skip_analysis=request.skip_analysis,
+                        store_to_supabase=request.store_to_supabase,
+                    )
+
+                    batch_jobs[batch_id]["results"][hashtag].update(result)
+                    batch_jobs[batch_id]["results"][hashtag]["status"] = HashtagStatus.COMPLETED.value
+                    # Adjust counts
+                    batch_jobs[batch_id]["progress"]["completed"] += 1
+                    batch_jobs[batch_id]["progress"]["failed"] -= 1
+
+                except Exception as e:
+                    logger.error(f"[{batch_id}] #{hashtag} retry failed: {e}")
+                    batch_jobs[batch_id]["results"][hashtag]["status"] = HashtagStatus.FAILED.value
+                    batch_jobs[batch_id]["results"][hashtag]["error"] = str(e)
+
+                await asyncio.sleep(delay)
+
+        batch_jobs[batch_id]["status"] = BatchJobStatus.COMPLETED
+        batch_jobs[batch_id]["current_hashtag"] = None
+        logger.info(f"[{batch_id}] Batch pipeline completed")
+
+    except Exception as e:
+        logger.error(f"[{batch_id}] Batch pipeline failed: {e}")
+        batch_jobs[batch_id]["status"] = BatchJobStatus.FAILED
+        batch_jobs[batch_id]["error"] = str(e)
+
+    finally:
+        batch_jobs[batch_id]["completed_at"] = datetime.utcnow().isoformat()
+
+
+@app.get("/batch-pipeline/{batch_id}")
+async def get_batch_pipeline_status(batch_id: str):
+    """Get batch pipeline job status and per-hashtag results."""
+    if batch_id not in batch_jobs:
+        raise HTTPException(status_code=404, detail="Batch job not found")
+
+    job = batch_jobs[batch_id]
+
+    return {
+        "batch_id": job["batch_id"],
+        "status": job["status"],
+        "hashtags": job["hashtags"],
+        "results": job["results"],
+        "current_hashtag": job.get("current_hashtag"),
+        "current_pass": job.get("current_pass", 1),
+        "progress": job["progress"],
+        "error": job["error"],
+        "started_at": job["started_at"],
+        "completed_at": job["completed_at"],
+    }
+
+
+@app.get("/batch-jobs")
+async def list_batch_jobs():
+    """List all batch jobs."""
+    return {
+        "count": len(batch_jobs),
+        "jobs": [
+            {
+                "batch_id": j["batch_id"],
+                "status": j["status"],
+                "hashtags_count": len(j.get("hashtags", [])),
+                "progress": j.get("progress"),
+                "started_at": j.get("started_at"),
+                "completed_at": j.get("completed_at"),
+            }
+            for j in batch_jobs.values()
+        ],
+    }
 
 
 # ==================== Analytics Endpoints ====================
