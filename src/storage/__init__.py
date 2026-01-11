@@ -1,1 +1,3 @@
-# Storage module - Supabase integration will go here
+from .supabase_client import SupabaseStorage
+
+__all__ = ["SupabaseStorage"]

@@ -1,0 +1,229 @@
+"""
+Supabase storage client for social scraper.
+
+Handles storing posts, analyses, and job tracking.
+"""
+
+from datetime import datetime
+from typing import Optional
+from pathlib import Path
+import logging
+
+from supabase import create_client, Client
+
+from config.settings import settings
+from src.extractor import VideoInfo, ExtractionResult
+from src.downloader.video import DownloadResult
+from src.analyzer.gemini import VideoAnalysis
+
+logger = logging.getLogger(__name__)
+
+
+class SupabaseStorage:
+    """Storage client for Supabase."""
+
+    def __init__(self, url: Optional[str] = None, key: Optional[str] = None):
+        self.url = url or settings.supabase_url
+        self.key = key or settings.supabase_key
+
+        if not self.url or not self.key:
+            raise ValueError(
+                "Supabase credentials required. Set SUPABASE_URL and SUPABASE_KEY in .env"
+            )
+
+        self.client: Client = create_client(self.url, self.key)
+
+    def store_post(
+        self,
+        video_info: VideoInfo,
+        download_result: Optional[DownloadResult] = None,
+        analysis: Optional[VideoAnalysis] = None,
+    ) -> dict:
+        """
+        Store a post with optional download and analysis data.
+
+        Returns the inserted/updated record.
+        """
+        data = {
+            "platform": video_info.platform.value,
+            "platform_id": video_info.video_id,
+            "video_url": video_info.video_url,
+            "author_username": video_info.author_username,
+            "content_type": "video",
+            "likes": video_info.likes,
+            "comments": video_info.comments,
+            "shares": video_info.shares,
+            "scraped_at": datetime.utcnow().isoformat(),
+        }
+
+        if download_result and download_result.success:
+            data["local_file_path"] = str(download_result.file_path)
+            data["file_size_bytes"] = download_result.file_size_bytes
+            data["duration_seconds"] = download_result.duration_seconds
+            if download_result.title:
+                data["caption"] = download_result.title
+
+        if analysis and analysis.success:
+            data["analysis"] = analysis.to_dict()
+            data["analyzed_at"] = datetime.utcnow().isoformat()
+
+        result = (
+            self.client.table("posts")
+            .upsert(data, on_conflict="platform,platform_id")
+            .execute()
+        )
+
+        logger.info(f"Stored post: {video_info.platform.value}/{video_info.video_id}")
+        return result.data[0] if result.data else {}
+
+    def store_batch(
+        self,
+        videos: list[VideoInfo],
+        downloads: Optional[list[DownloadResult]] = None,
+        analyses: Optional[list[VideoAnalysis]] = None,
+    ) -> int:
+        """
+        Store multiple posts at once.
+
+        Returns count of stored posts.
+        """
+        downloads_map = {}
+        if downloads:
+            for d in downloads:
+                if d.success and d.file_path:
+                    downloads_map[d.video_url] = d
+
+        analyses_map = {}
+        if analyses:
+            for a in analyses:
+                if a.success and a.video_path:
+                    analyses_map[a.video_path] = a
+
+        stored = 0
+        for video in videos:
+            download = downloads_map.get(video.video_url)
+            analysis = None
+            if download and download.file_path:
+                analysis = analyses_map.get(str(download.file_path))
+
+            try:
+                self.store_post(video, download, analysis)
+                stored += 1
+            except Exception as e:
+                logger.error(f"Failed to store post {video.video_id}: {e}")
+
+        return stored
+
+    def create_job(
+        self,
+        platform: str,
+        hashtag: str,
+        target_count: int,
+        client_id: Optional[str] = None,
+    ) -> str:
+        """Create a new scrape job. Returns job ID."""
+        data = {
+            "platform": platform,
+            "hashtag": hashtag,
+            "target_count": target_count,
+            "status": "pending",
+        }
+        if client_id:
+            data["client_id"] = client_id
+
+        result = self.client.table("scrape_jobs").insert(data).execute()
+        job_id = result.data[0]["id"]
+        logger.info(f"Created job: {job_id}")
+        return job_id
+
+    def update_job(
+        self,
+        job_id: str,
+        status: Optional[str] = None,
+        videos_found: Optional[int] = None,
+        videos_downloaded: Optional[int] = None,
+        videos_analyzed: Optional[int] = None,
+        error: Optional[str] = None,
+    ) -> None:
+        """Update job status and metrics."""
+        data = {}
+        if status:
+            data["status"] = status
+            if status == "running":
+                data["started_at"] = datetime.utcnow().isoformat()
+            elif status in ["completed", "failed"]:
+                data["completed_at"] = datetime.utcnow().isoformat()
+        if videos_found is not None:
+            data["videos_found"] = videos_found
+        if videos_downloaded is not None:
+            data["videos_downloaded"] = videos_downloaded
+        if videos_analyzed is not None:
+            data["videos_analyzed"] = videos_analyzed
+        if error:
+            data["error"] = error
+
+        if data:
+            self.client.table("scrape_jobs").update(data).eq("id", job_id).execute()
+            logger.debug(f"Updated job {job_id}: {data}")
+
+    def get_recent_posts(
+        self,
+        platform: Optional[str] = None,
+        hashtag: Optional[str] = None,
+        limit: int = 50,
+    ) -> list[dict]:
+        """Get recent posts, optionally filtered."""
+        query = self.client.table("posts").select("*").order("scraped_at", desc=True).limit(limit)
+
+        if platform:
+            query = query.eq("platform", platform)
+        if hashtag:
+            query = query.contains("hashtags", [hashtag])
+
+        result = query.execute()
+        return result.data
+
+    def get_unanalyzed_posts(self, limit: int = 20) -> list[dict]:
+        """Get posts that haven't been analyzed yet."""
+        result = (
+            self.client.table("posts")
+            .select("*")
+            .is_("analyzed_at", "null")
+            .not_.is_("local_file_path", "null")
+            .order("scraped_at", desc=True)
+            .limit(limit)
+            .execute()
+        )
+        return result.data
+
+    def update_post_analysis(self, post_id: str, analysis: VideoAnalysis) -> None:
+        """Update a post with analysis results."""
+        data = {
+            "analysis": analysis.to_dict(),
+            "analyzed_at": datetime.utcnow().isoformat(),
+        }
+        self.client.table("posts").update(data).eq("id", post_id).execute()
+        logger.debug(f"Updated analysis for post {post_id}")
+
+    def upsert_trend(
+        self,
+        platform: str,
+        trend_type: str,
+        name: str,
+        post_count: int,
+        avg_engagement: Optional[float] = None,
+    ) -> None:
+        """Insert or update a trend."""
+        data = {
+            "platform": platform,
+            "trend_type": trend_type,
+            "name": name,
+            "post_count": post_count,
+            "last_seen": datetime.utcnow().isoformat(),
+        }
+        if avg_engagement:
+            data["avg_engagement"] = avg_engagement
+
+        self.client.table("trends").upsert(
+            data, on_conflict="platform,trend_type,name"
+        ).execute()
