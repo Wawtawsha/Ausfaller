@@ -10,12 +10,17 @@ Endpoints:
 """
 
 import asyncio
+import sys
 import uuid
 from datetime import datetime
 from enum import Enum
 from typing import Optional
 from pathlib import Path
 import logging
+
+# Fix Windows asyncio compatibility with Playwright
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel, Field
@@ -440,8 +445,8 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(
-        "src.api.server:app",
+        app,
         host=settings.host,
         port=settings.port,
-        reload=True,
+        reload=False,  # Disabled for Windows Playwright compatibility
     )
