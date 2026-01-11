@@ -1,5 +1,5 @@
 {
-  "name": "Social Scraper - Webhook",
+  "name": "Social Scraper - Local",
   "nodes": [
     {
       "parameters": {
@@ -16,12 +16,12 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://free-news-live.loca.lt/pipeline",
+        "url": "http://localhost:8080/pipeline",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({ platform: $json.body.platform || 'tiktok', hashtag: $json.body.hashtag || 'bartender', count: $json.body.count || 10, skip_analysis: $json.body.skip_analysis || false, store_to_supabase: true }) }}",
         "options": {
-          "timeout": 120000
+          "timeout": 300000
         }
       },
       "name": "Start Pipeline",

@@ -2,9 +2,17 @@
 Playwright-based extractor for hashtag pages.
 
 Extracts video URLs and engagement stats from TikTok and Instagram hashtag pages.
+Uses sync Playwright API with thread pool executor for Windows compatibility.
 """
 
 import asyncio
+import sys
+
+# IMPORTANT: Set Windows-compatible event loop policy BEFORE importing Playwright
+# This must happen before Playwright creates its internal event loop
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
 import random
 import re
 from dataclasses import dataclass, field
@@ -14,8 +22,7 @@ from typing import Optional
 from pathlib import Path
 import logging
 import json
-
-from playwright.async_api import async_playwright, Page, Browser, BrowserContext
+from playwright.sync_api import sync_playwright, Page, Browser, BrowserContext
 
 from config.settings import settings
 
@@ -73,17 +80,18 @@ class ExtractionResult:
 
 
 class HashtagExtractor:
-    """Extract video URLs from hashtag pages using Playwright."""
+    """Extract video URLs from hashtag pages using Playwright (sync API with thread pool)."""
 
     def __init__(self):
+        self._playwright = None
         self._browser: Optional[Browser] = None
         self._context: Optional[BrowserContext] = None
 
-    async def _get_browser(self) -> Browser:
-        """Get or create browser instance."""
+    def _get_browser_sync(self) -> Browser:
+        """Get or create browser instance (sync version)."""
         if self._browser is None:
-            playwright = await async_playwright().start()
-            self._browser = await playwright.chromium.launch(
+            self._playwright = sync_playwright().start()
+            self._browser = self._playwright.chromium.launch(
                 headless=True,
                 args=[
                     "--disable-blink-features=AutomationControlled",
@@ -93,10 +101,10 @@ class HashtagExtractor:
             )
         return self._browser
 
-    async def _get_context(self) -> BrowserContext:
-        """Get or create browser context with stealth settings."""
+    def _get_context_sync(self) -> BrowserContext:
+        """Get or create browser context with stealth settings (sync version)."""
         if self._context is None:
-            browser = await self._get_browser()
+            browser = self._get_browser_sync()
 
             # Randomize viewport
             viewports = [
@@ -107,7 +115,7 @@ class HashtagExtractor:
             ]
             viewport = random.choice(viewports)
 
-            self._context = await browser.new_context(
+            self._context = browser.new_context(
                 viewport=viewport,
                 user_agent=self._get_random_user_agent(),
                 locale="en-US",
@@ -119,7 +127,7 @@ class HashtagExtractor:
             if cookies_file.exists():
                 try:
                     cookies = json.loads(cookies_file.read_text())
-                    await self._context.add_cookies(cookies)
+                    self._context.add_cookies(cookies)
                     logger.info("Loaded saved cookies")
                 except Exception as e:
                     logger.warning(f"Failed to load cookies: {e}")
@@ -136,16 +144,18 @@ class HashtagExtractor:
         ]
         return random.choice(user_agents)
 
-    async def _human_delay(self) -> None:
-        """Add human-like delay."""
+    def _human_delay_sync(self) -> None:
+        """Add human-like delay (sync version)."""
+        import time
         delay = random.uniform(settings.scrape_delay_min, settings.scrape_delay_max)
-        await asyncio.sleep(delay)
+        time.sleep(delay)
 
-    async def _scroll_page(self, page: Page, scroll_count: int = 3) -> None:
-        """Scroll page to load more content."""
+    def _scroll_page_sync(self, page: Page, scroll_count: int = 3) -> None:
+        """Scroll page to load more content (sync version)."""
+        import time
         for i in range(scroll_count):
-            await page.evaluate("window.scrollBy(0, window.innerHeight)")
-            await asyncio.sleep(random.uniform(1.0, 2.5))
+            page.evaluate("window.scrollBy(0, window.innerHeight)")
+            time.sleep(random.uniform(1.0, 2.5))
             logger.debug(f"Scroll {i+1}/{scroll_count}")
 
     def _parse_count(self, text: str) -> int:
@@ -167,43 +177,43 @@ class HashtagExtractor:
         except (ValueError, TypeError):
             return 0
 
-    async def extract_tiktok_hashtag(
+    def _extract_tiktok_hashtag_sync(
         self, hashtag: str, count: int = 30
     ) -> ExtractionResult:
-        """Extract videos from TikTok hashtag page."""
+        """Extract videos from TikTok hashtag page (sync version)."""
         hashtag = hashtag.lstrip("#")
         url = f"https://www.tiktok.com/tag/{hashtag}"
         videos = []
 
         try:
-            context = await self._get_context()
-            page = await context.new_page()
+            context = self._get_context_sync()
+            page = context.new_page()
 
             logger.info(f"Loading TikTok hashtag page: {url}")
-            await page.goto(url, wait_until="networkidle", timeout=30000)
-            await self._human_delay()
+            page.goto(url, wait_until="networkidle", timeout=30000)
+            self._human_delay_sync()
 
             # Scroll to load more videos
             scroll_count = min(count // 10 + 1, 5)
-            await self._scroll_page(page, scroll_count)
+            self._scroll_page_sync(page, scroll_count)
 
             # Extract video data from the page
-            video_elements = await page.query_selector_all('[data-e2e="challenge-item"]')
+            video_elements = page.query_selector_all('[data-e2e="challenge-item"]')
 
             if not video_elements:
                 # Try alternate selector
-                video_elements = await page.query_selector_all('div[class*="DivItemContainer"]')
+                video_elements = page.query_selector_all('div[class*="DivItemContainer"]')
 
             logger.info(f"Found {len(video_elements)} video elements")
 
             for elem in video_elements[:count]:
                 try:
                     # Extract video link
-                    link_elem = await elem.query_selector("a")
+                    link_elem = elem.query_selector("a")
                     if not link_elem:
                         continue
 
-                    video_url = await link_elem.get_attribute("href")
+                    video_url = link_elem.get_attribute("href")
                     if not video_url:
                         continue
 
@@ -220,16 +230,16 @@ class HashtagExtractor:
 
                     # Try to get engagement stats
                     likes = 0
-                    likes_elem = await elem.query_selector('[data-e2e="video-like-count"], strong[data-e2e="like-count"]')
+                    likes_elem = elem.query_selector('[data-e2e="video-like-count"], strong[data-e2e="like-count"]')
                     if likes_elem:
-                        likes_text = await likes_elem.inner_text()
+                        likes_text = likes_elem.inner_text()
                         likes = self._parse_count(likes_text)
 
                     # Get thumbnail
                     thumbnail_url = None
-                    img_elem = await elem.query_selector("img")
+                    img_elem = elem.query_selector("img")
                     if img_elem:
-                        thumbnail_url = await img_elem.get_attribute("src")
+                        thumbnail_url = img_elem.get_attribute("src")
 
                     video_info = VideoInfo(
                         platform=Platform.TIKTOK,
@@ -246,7 +256,7 @@ class HashtagExtractor:
                     logger.warning(f"Failed to extract video element: {e}")
                     continue
 
-            await page.close()
+            page.close()
 
             return ExtractionResult(
                 success=True,
@@ -265,33 +275,208 @@ class HashtagExtractor:
                 videos_found=len(videos),
             )
 
-    async def extract_instagram_hashtag(
+    async def extract_tiktok_hashtag(
         self, hashtag: str, count: int = 30
     ) -> ExtractionResult:
-        """Extract videos/posts from Instagram hashtag page."""
+        """Extract videos from TikTok hashtag page using subprocess for Windows compatibility."""
+        import subprocess
+        import json as json_module
+
+        # Create extraction script that runs Playwright synchronously in a fresh Python process
+        script = f'''
+import sys
+sys.path.insert(0, r"{Path(__file__).parent.parent.parent}")
+
+# Import only what we need to avoid triggering the async policy at module level
+from playwright.sync_api import sync_playwright
+import json
+import re
+import random
+import time
+
+def extract():
+    hashtag = "{hashtag}"
+    count = {count}
+    url = f"https://www.tiktok.com/tag/{{hashtag}}"
+    videos = []
+
+    try:
+        pw = sync_playwright().start()
+        browser = pw.chromium.launch(
+            headless=True,
+            args=["--disable-blink-features=AutomationControlled", "--disable-dev-shm-usage", "--no-sandbox"]
+        )
+        context = browser.new_context(
+            viewport={{"width": 1920, "height": 1080}},
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            locale="en-US",
+        )
+        page = context.new_page()
+        page.goto(url, wait_until="networkidle", timeout=30000)
+        time.sleep(random.uniform(2, 4))
+
+        # Scroll
+        for _ in range(min(count // 10 + 1, 3)):
+            page.evaluate("window.scrollBy(0, window.innerHeight)")
+            time.sleep(random.uniform(1, 2.5))
+
+        video_elements = page.query_selector_all('[data-e2e="challenge-item"]')
+        if not video_elements:
+            video_elements = page.query_selector_all('div[class*="DivItemContainer"]')
+
+        for elem in video_elements[:count]:
+            try:
+                link_elem = elem.query_selector("a")
+                if not link_elem:
+                    continue
+                video_url = link_elem.get_attribute("href")
+                if not video_url:
+                    continue
+                if not video_url.startswith("http"):
+                    video_url = f"https://www.tiktok.com{{video_url}}"
+
+                video_id_match = re.search(r"/video/(\\d+)", video_url)
+                video_id = video_id_match.group(1) if video_id_match else ""
+                author_match = re.search(r"@([^/]+)", video_url)
+                author = author_match.group(1) if author_match else ""
+
+                likes = 0
+                likes_elem = elem.query_selector('[data-e2e="video-like-count"], strong[data-e2e="like-count"]')
+                if likes_elem:
+                    likes_text = likes_elem.inner_text().strip().upper().replace(",", "")
+                    if "K" in likes_text:
+                        likes = int(float(likes_text.replace("K", "")) * 1000)
+                    elif "M" in likes_text:
+                        likes = int(float(likes_text.replace("M", "")) * 1000000)
+                    else:
+                        try:
+                            likes = int(likes_text)
+                        except:
+                            pass
+
+                thumbnail = None
+                img = elem.query_selector("img")
+                if img:
+                    thumbnail = img.get_attribute("src")
+
+                videos.append({{
+                    "video_url": video_url,
+                    "video_id": video_id,
+                    "author_username": author,
+                    "thumbnail_url": thumbnail,
+                    "likes": likes,
+                    "platform": "tiktok"
+                }})
+            except Exception as e:
+                continue
+
+        page.close()
+        context.close()
+        browser.close()
+        pw.stop()
+
+        print(json.dumps({{
+            "success": True,
+            "videos": videos,
+            "videos_found": len(videos),
+            "videos_requested": count,
+            "error": None
+        }}))
+    except Exception as e:
+        print(json.dumps({{
+            "success": False,
+            "videos": [],
+            "videos_found": 0,
+            "videos_requested": count,
+            "error": str(e)
+        }}))
+
+extract()
+'''
+
+        try:
+            venv_python = Path(__file__).parent.parent.parent / "venv" / "Scripts" / "python.exe"
+            result = subprocess.run(
+                [str(venv_python), "-c", script],
+                capture_output=True,
+                text=True,
+                timeout=120,
+                cwd=str(Path(__file__).parent.parent.parent)
+            )
+
+            if result.returncode != 0:
+                logger.error(f"Subprocess failed: {result.stderr}")
+                return ExtractionResult(
+                    success=False,
+                    error=result.stderr,
+                    videos_requested=count,
+                )
+
+            data = json_module.loads(result.stdout)
+            videos = [VideoInfo(
+                platform=Platform.TIKTOK,
+                video_url=v["video_url"],
+                video_id=v["video_id"],
+                author_username=v["author_username"],
+                thumbnail_url=v.get("thumbnail_url"),
+                likes=v.get("likes", 0),
+                comments=v.get("comments", 0),
+                views=v.get("views", 0),
+                shares=v.get("shares", 0),
+                caption=v.get("caption"),
+                hashtags=v.get("hashtags", []),
+                sound_name=v.get("sound_name"),
+            ) for v in data["videos"]]
+
+            return ExtractionResult(
+                success=data["success"],
+                videos=videos,
+                videos_found=data["videos_found"],
+                videos_requested=data["videos_requested"],
+                error=data.get("error"),
+            )
+
+        except subprocess.TimeoutExpired:
+            return ExtractionResult(
+                success=False,
+                error="Extraction timed out",
+                videos_requested=count,
+            )
+        except Exception as e:
+            logger.error(f"Subprocess extraction failed: {e}")
+            return ExtractionResult(
+                success=False,
+                error=str(e),
+                videos_requested=count,
+            )
+
+    def _extract_instagram_hashtag_sync(
+        self, hashtag: str, count: int = 30
+    ) -> ExtractionResult:
+        """Extract videos/posts from Instagram hashtag page (sync version)."""
         hashtag = hashtag.lstrip("#")
         url = f"https://www.instagram.com/explore/tags/{hashtag}/"
         videos = []
 
         try:
-            context = await self._get_context()
-            page = await context.new_page()
+            context = self._get_context_sync()
+            page = context.new_page()
 
             logger.info(f"Loading Instagram hashtag page: {url}")
-            await page.goto(url, wait_until="networkidle", timeout=30000)
-            await self._human_delay()
+            page.goto(url, wait_until="networkidle", timeout=30000)
+            self._human_delay_sync()
 
             # Check for login wall
-            login_wall = await page.query_selector('input[name="username"]')
+            login_wall = page.query_selector('input[name="username"]')
             if login_wall:
                 logger.warning("Instagram login wall detected - limited access")
 
             # Scroll to load more
             scroll_count = min(count // 12 + 1, 5)
-            await self._scroll_page(page, scroll_count)
+            self._scroll_page_sync(page, scroll_count)
 
             # Extract post links
-            post_links = await page.query_selector_all('a[href*="/p/"], a[href*="/reel/"]')
+            post_links = page.query_selector_all('a[href*="/p/"], a[href*="/reel/"]')
 
             logger.info(f"Found {len(post_links)} post elements")
 
@@ -301,7 +486,7 @@ class HashtagExtractor:
                     break
 
                 try:
-                    href = await link_elem.get_attribute("href")
+                    href = link_elem.get_attribute("href")
                     if not href or href in seen_urls:
                         continue
 
@@ -316,9 +501,9 @@ class HashtagExtractor:
 
                     # Get thumbnail
                     thumbnail_url = None
-                    img_elem = await link_elem.query_selector("img")
+                    img_elem = link_elem.query_selector("img")
                     if img_elem:
-                        thumbnail_url = await img_elem.get_attribute("src")
+                        thumbnail_url = img_elem.get_attribute("src")
 
                     video_info = VideoInfo(
                         platform=Platform.INSTAGRAM,
@@ -334,7 +519,7 @@ class HashtagExtractor:
                     logger.warning(f"Failed to extract post element: {e}")
                     continue
 
-            await page.close()
+            page.close()
 
             return ExtractionResult(
                 success=True,
@@ -353,6 +538,16 @@ class HashtagExtractor:
                 videos_found=len(videos),
             )
 
+    async def extract_instagram_hashtag(
+        self, hashtag: str, count: int = 30
+    ) -> ExtractionResult:
+        """Extract videos/posts from Instagram hashtag page (async wrapper)."""
+        return await asyncio.to_thread(
+            self._extract_instagram_hashtag_sync,
+            hashtag,
+            count
+        )
+
     async def extract_hashtag(
         self, platform: Platform, hashtag: str, count: int = 30
     ) -> ExtractionResult:
@@ -368,22 +563,34 @@ class HashtagExtractor:
                 videos_requested=count,
             )
 
-    async def save_cookies(self) -> None:
-        """Save current cookies for session persistence."""
+    def _save_cookies_sync(self) -> None:
+        """Save current cookies for session persistence (sync version)."""
         if self._context:
-            cookies = await self._context.cookies()
+            cookies = self._context.cookies()
             cookies_file = Path(settings.session_dir) / "cookies.json"
             cookies_file.write_text(json.dumps(cookies, indent=2))
             logger.info("Saved cookies for session persistence")
 
-    async def close(self) -> None:
-        """Cleanup browser resources."""
-        await self.save_cookies()
+    async def save_cookies(self) -> None:
+        """Save current cookies for session persistence (async wrapper)."""
+        await asyncio.to_thread(self._save_cookies_sync)
+
+    def _close_sync(self) -> None:
+        """Cleanup browser resources (sync version)."""
+        self._save_cookies_sync()
 
         if self._context:
-            await self._context.close()
+            self._context.close()
             self._context = None
 
         if self._browser:
-            await self._browser.close()
+            self._browser.close()
             self._browser = None
+
+        if self._playwright:
+            self._playwright.stop()
+            self._playwright = None
+
+    async def close(self) -> None:
+        """Cleanup browser resources (async wrapper)."""
+        await asyncio.to_thread(self._close_sync)

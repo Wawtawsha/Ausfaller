@@ -1,14 +1,14 @@
 """
 Video analyzer using Google Gemini 2.0.
 
-Analyzes video content including visual elements, audio, and text.
+Comprehensive marketing intelligence extraction for trend analysis.
 """
 
 import asyncio
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Any
 import logging
 import json
 
@@ -21,82 +21,359 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
+class HookAnalysis:
+    """Detailed hook/attention-grab analysis."""
+    hook_type: str = ""  # question, statement, shock, visual, sound, text, action
+    hook_text: str = ""  # Exact text if text-based hook
+    hook_technique: str = ""  # open_loop, curiosity_gap, pattern_interrupt, controversy, transformation, etc.
+    hook_timing_seconds: float = 0.0  # When the hook hits (0 = immediate)
+    hook_strength: int = 0  # 1-10 score
+    attention_retention_method: str = ""  # How they keep attention after hook
+
+
+@dataclass
+class AudioAnalysis:
+    """Comprehensive audio/sound analysis."""
+    sound_name: str = ""  # Identified song/sound name
+    sound_artist: str = ""  # Artist if identifiable
+    sound_category: str = ""  # trending_audio, original_audio, voiceover, dialogue, asmr, ambient
+    is_trending_sound: bool = False
+    sound_mood: str = ""  # energetic, chill, dramatic, comedic, emotional, etc.
+    sound_tempo: str = ""  # fast, medium, slow
+    voice_present: bool = False
+    voice_type: str = ""  # creator_voice, ai_voice, other_person, multiple
+    voice_tone: str = ""  # conversational, authoritative, excited, sarcastic, etc.
+    speech_pace: str = ""  # fast, medium, slow
+    sound_effects: list[str] = field(default_factory=list)  # whoosh, ding, bass_drop, etc.
+    audio_editing: list[str] = field(default_factory=list)  # speed_change, reverb, echo, cuts
+
+
+@dataclass
+class VisualAnalysis:
+    """Comprehensive visual analysis."""
+    visual_style: str = ""  # aesthetic, raw, polished, cinematic, casual, etc.
+    color_palette: list[str] = field(default_factory=list)  # dominant colors
+    lighting_type: str = ""  # natural, studio, neon, moody, bright, etc.
+    camera_type: str = ""  # selfie, pov, tripod, handheld, drone
+    camera_movement: list[str] = field(default_factory=list)  # pan, zoom, static, tracking
+    transition_types: list[str] = field(default_factory=list)  # cut, swipe, zoom, morph, etc.
+    text_overlays: list[dict] = field(default_factory=list)  # [{text, style, position, timing}]
+    visual_effects: list[str] = field(default_factory=list)  # green_screen, split_screen, duet, filter, etc.
+    editing_pace: str = ""  # fast_cuts, medium, slow, single_shot
+    estimated_cuts_count: int = 0
+    face_visibility: str = ""  # full_face, partial, no_face, multiple_people
+    setting_type: str = ""  # home, business, outdoor, studio, car, etc.
+    setting_details: str = ""  # specific location context
+    thumbnail_elements: list[str] = field(default_factory=list)  # what makes first frame compelling
+    b_roll_used: bool = False
+    props_products: list[str] = field(default_factory=list)  # notable items shown
+
+
+@dataclass
+class ContentStructure:
+    """Content format and structure analysis."""
+    format_type: str = ""  # tutorial, storytime, day_in_life, transformation, reaction, duet, pov, skit, etc.
+    narrative_structure: str = ""  # linear, before_after, problem_solution, list, reveal, etc.
+    pacing: str = ""  # fast, medium, slow, varied
+    estimated_duration_seconds: int = 0
+    scene_count: int = 0
+    has_intro: bool = False
+    has_outro: bool = False
+    loop_friendly: bool = False  # Does it loop seamlessly
+    cliffhanger_used: bool = False
+    series_potential: bool = False  # Could this be a series
+
+
+@dataclass
+class EngagementMechanics:
+    """Engagement triggers and tactics."""
+    cta_type: str = ""  # follow, like, comment, share, save, link, none
+    cta_placement: str = ""  # beginning, middle, end, throughout, none
+    cta_text: str = ""  # Exact CTA if present
+    comment_bait: list[str] = field(default_factory=list)  # techniques used (question, controversy, fill_blank, etc.)
+    share_triggers: list[str] = field(default_factory=list)  # relatability, humor, useful_info, shocking, etc.
+    save_triggers: list[str] = field(default_factory=list)  # tutorial, reference, inspiration, etc.
+    engagement_hooks: list[str] = field(default_factory=list)  # specific techniques
+    controversy_level: int = 0  # 0-10
+    fomo_elements: list[str] = field(default_factory=list)
+    social_proof_used: bool = False
+
+
+@dataclass
+class TrendSignals:
+    """Trend identification and signals."""
+    is_trend_participation: bool = False
+    trend_name: str = ""  # Name of trend if identifiable
+    trend_category: str = ""  # dance, challenge, sound, format, meme, hashtag
+    trend_adaptation_quality: int = 0  # 1-10 how well they adapted the trend
+    trend_lifecycle_stage: str = ""  # emerging, growing, peak, declining, dead
+    format_originality: str = ""  # original, trend_adaptation, remix, copy
+    viral_potential_score: int = 0  # 1-10
+    viral_factors: list[str] = field(default_factory=list)  # what could make it go viral
+    meme_potential: bool = False
+    remix_potential: bool = False  # Could others duet/stitch this
+
+
+@dataclass
+class EmotionalAnalysis:
+    """Emotional content analysis."""
+    primary_emotion: str = ""  # joy, surprise, anger, fear, sadness, disgust, anticipation, trust
+    secondary_emotions: list[str] = field(default_factory=list)
+    emotional_arc: str = ""  # flat, building, peak_early, rollercoaster, etc.
+    humor_type: str = ""  # observational, self_deprecating, absurd, dark, physical, none
+    relatability_score: int = 0  # 1-10
+    relatability_factors: list[str] = field(default_factory=list)
+    aspiration_score: int = 0  # 1-10 (does it make you want something)
+    nostalgia_elements: list[str] = field(default_factory=list)
+    controversy_elements: list[str] = field(default_factory=list)
+
+
+@dataclass
+class NicheAnalysis:
+    """Topic and niche classification."""
+    primary_niche: str = ""  # broad category
+    sub_niches: list[str] = field(default_factory=list)  # specific subcategories
+    topics: list[str] = field(default_factory=list)  # specific topics covered
+    keywords: list[str] = field(default_factory=list)  # suggested hashtags/keywords
+    target_demographics: list[str] = field(default_factory=list)  # age, gender, interests
+    geographic_relevance: str = ""  # global, us, regional, local
+    seasonal_relevance: str = ""  # evergreen, seasonal, timely, trending
+    industry_verticals: list[str] = field(default_factory=list)  # hospitality, food, nightlife, etc.
+
+
+@dataclass
+class ProductionAnalysis:
+    """Production quality assessment."""
+    overall_quality: str = ""  # low, medium, high, professional
+    equipment_tier: str = ""  # phone_basic, phone_good, prosumer, professional
+    editing_complexity: str = ""  # minimal, moderate, complex, highly_produced
+    audio_quality: str = ""  # poor, acceptable, good, excellent
+    lighting_quality: str = ""  # poor, acceptable, good, excellent
+    estimated_production_time: str = ""  # minutes, hours, days
+    team_size_estimate: str = ""  # solo, small_team, production_crew
+
+
+@dataclass
+class ReplicabilityAnalysis:
+    """How to replicate this content."""
+    replicability_score: int = 0  # 1-10
+    difficulty_level: str = ""  # easy, moderate, difficult, expert
+    required_resources: list[str] = field(default_factory=list)  # camera, lighting, location, props, etc.
+    required_skills: list[str] = field(default_factory=list)  # editing, acting, speaking, etc.
+    time_investment: str = ""  # <1hr, 1-3hrs, 3-8hrs, 8+hrs
+    budget_estimate: str = ""  # free, low, medium, high
+    key_success_factors: list[str] = field(default_factory=list)
+    common_mistakes_to_avoid: list[str] = field(default_factory=list)
+    niche_adaptation_tips: list[str] = field(default_factory=list)  # how to adapt for hospitality/nightlife
+
+
+@dataclass
 class VideoAnalysis:
-    """Analysis result for a video."""
+    """Complete marketing intelligence for a video."""
     success: bool
     video_path: Optional[str] = None
     error: Optional[str] = None
 
-    # Content analysis
+    # Core description
     description: str = ""
-    visual_elements: list[str] = field(default_factory=list)
-    text_overlays: list[str] = field(default_factory=list)
-    audio_description: str = ""
-    music_or_sound: Optional[str] = None
 
-    # Marketing analysis
-    tone: str = ""  # funny, educational, emotional, etc.
-    hook: str = ""  # What grabs attention in first 3 seconds
-    call_to_action: Optional[str] = None
-    target_audience: str = ""
-    content_category: str = ""  # food, nightlife, tutorial, etc.
+    # Detailed analysis components
+    hook: HookAnalysis = field(default_factory=HookAnalysis)
+    audio: AudioAnalysis = field(default_factory=AudioAnalysis)
+    visual: VisualAnalysis = field(default_factory=VisualAnalysis)
+    structure: ContentStructure = field(default_factory=ContentStructure)
+    engagement: EngagementMechanics = field(default_factory=EngagementMechanics)
+    trends: TrendSignals = field(default_factory=TrendSignals)
+    emotion: EmotionalAnalysis = field(default_factory=EmotionalAnalysis)
+    niche: NicheAnalysis = field(default_factory=NicheAnalysis)
+    production: ProductionAnalysis = field(default_factory=ProductionAnalysis)
+    replicability: ReplicabilityAnalysis = field(default_factory=ReplicabilityAnalysis)
 
-    # Recommendations
+    # Summary insights
     why_it_works: str = ""
-    replicability_score: int = 0  # 1-10
-    replication_tips: list[str] = field(default_factory=list)
+    competitive_advantage: str = ""  # What makes this stand out
+    improvement_opportunities: list[str] = field(default_factory=list)
 
-    # Raw response for debugging
+    # Raw data
     raw_response: Optional[str] = None
 
     def to_dict(self) -> dict:
-        return {
-            "success": self.success,
-            "video_path": self.video_path,
-            "error": self.error,
-            "description": self.description,
-            "visual_elements": self.visual_elements,
-            "text_overlays": self.text_overlays,
-            "audio_description": self.audio_description,
-            "music_or_sound": self.music_or_sound,
-            "tone": self.tone,
-            "hook": self.hook,
-            "call_to_action": self.call_to_action,
-            "target_audience": self.target_audience,
-            "content_category": self.content_category,
-            "why_it_works": self.why_it_works,
-            "replicability_score": self.replicability_score,
-            "replication_tips": self.replication_tips,
-        }
+        """Convert to dictionary for storage."""
+        def dataclass_to_dict(obj):
+            if hasattr(obj, '__dataclass_fields__'):
+                return {k: dataclass_to_dict(v) for k, v in obj.__dict__.items()}
+            elif isinstance(obj, list):
+                return [dataclass_to_dict(i) for i in obj]
+            elif isinstance(obj, dict):
+                return {k: dataclass_to_dict(v) for k, v in obj.items()}
+            else:
+                return obj
+
+        return dataclass_to_dict(self)
 
 
-# Analysis prompt template
-ANALYSIS_PROMPT = """Analyze this short-form video for social media marketing insights.
+# Comprehensive analysis prompt
+ANALYSIS_PROMPT = """You are an elite social media marketing analyst specializing in short-form video content. Analyze this video with extreme precision and extract every possible marketing insight.
 
-Provide your analysis as a JSON object with the following structure:
+Your analysis must be exhaustive and systematic. Extract data that can be used for trend analysis and pattern recognition across thousands of videos.
+
+Respond with a JSON object matching this EXACT structure:
+
 {
-    "description": "Brief description of what happens in the video",
-    "visual_elements": ["list", "of", "notable", "visual", "elements"],
-    "text_overlays": ["any", "text", "shown", "on", "screen"],
-    "audio_description": "Description of audio/speech content",
-    "music_or_sound": "Name of song/sound if identifiable, or description",
-    "tone": "The overall tone (funny, educational, emotional, inspiring, edgy, etc.)",
-    "hook": "What grabs attention in the first 3 seconds",
-    "call_to_action": "Any call to action present, or null",
-    "target_audience": "Who this content appeals to",
-    "content_category": "Category (food, nightlife, tutorial, lifestyle, etc.)",
-    "why_it_works": "Brief explanation of why this video is engaging",
-    "replicability_score": 7,
-    "replication_tips": ["tip1", "tip2", "tip3"]
+    "description": "Detailed description of video content, narrative, and key moments",
+
+    "hook": {
+        "hook_type": "question|statement|shock|visual|sound|text|action",
+        "hook_text": "exact text if text-based hook, empty string if not",
+        "hook_technique": "open_loop|curiosity_gap|pattern_interrupt|controversy|transformation|challenge|relatable_pain|bold_claim|weird_flex|confession",
+        "hook_timing_seconds": 0.0,
+        "hook_strength": 8,
+        "attention_retention_method": "how they maintain interest after hook"
+    },
+
+    "audio": {
+        "sound_name": "song or sound name if identifiable",
+        "sound_artist": "artist name if known",
+        "sound_category": "trending_audio|original_audio|voiceover|dialogue|asmr|ambient|music_only",
+        "is_trending_sound": true,
+        "sound_mood": "energetic|chill|dramatic|comedic|emotional|suspenseful|upbeat|melancholic",
+        "sound_tempo": "fast|medium|slow",
+        "voice_present": true,
+        "voice_type": "creator_voice|ai_voice|other_person|multiple|narrator",
+        "voice_tone": "conversational|authoritative|excited|sarcastic|deadpan|whispering|yelling",
+        "speech_pace": "fast|medium|slow",
+        "sound_effects": ["whoosh", "ding", "bass_drop", "record_scratch", "laugh_track"],
+        "audio_editing": ["speed_change", "reverb", "cuts", "layering"]
+    },
+
+    "visual": {
+        "visual_style": "aesthetic|raw|polished|cinematic|casual|chaotic|minimalist|maximalist",
+        "color_palette": ["warm", "neon", "muted", "high_contrast"],
+        "lighting_type": "natural|studio|neon|moody|bright|golden_hour|ring_light",
+        "camera_type": "selfie|pov|tripod|handheld|drone|screen_record",
+        "camera_movement": ["static", "pan", "zoom", "tracking", "whip_pan"],
+        "transition_types": ["cut", "swipe", "zoom", "morph", "flash", "match_cut"],
+        "text_overlays": [
+            {"text": "actual text shown", "style": "bold|caption|subtitle|meme", "position": "center|top|bottom", "timing": "throughout|intro|key_moment"}
+        ],
+        "visual_effects": ["green_screen", "split_screen", "duet", "stitch", "filter", "slow_mo", "time_lapse"],
+        "editing_pace": "fast_cuts|medium|slow|single_shot",
+        "estimated_cuts_count": 10,
+        "face_visibility": "full_face|partial|no_face|multiple_people",
+        "setting_type": "home|business|outdoor|studio|car|restaurant|bar|club|kitchen",
+        "setting_details": "specific context about location",
+        "thumbnail_elements": ["face", "text", "bright_colors", "action"],
+        "b_roll_used": true,
+        "props_products": ["items", "products", "tools shown"]
+    },
+
+    "structure": {
+        "format_type": "tutorial|storytime|day_in_life|transformation|reaction|duet|pov|skit|rant|review|asmr|challenge|trend|educational|behind_scenes|get_ready|what_i_eat",
+        "narrative_structure": "linear|before_after|problem_solution|list|reveal|journey|comparison|q_and_a",
+        "pacing": "fast|medium|slow|varied",
+        "estimated_duration_seconds": 30,
+        "scene_count": 5,
+        "has_intro": false,
+        "has_outro": true,
+        "loop_friendly": true,
+        "cliffhanger_used": false,
+        "series_potential": true
+    },
+
+    "engagement": {
+        "cta_type": "follow|like|comment|share|save|link|subscribe|none",
+        "cta_placement": "beginning|middle|end|throughout|none",
+        "cta_text": "exact call to action text",
+        "comment_bait": ["question", "controversy", "fill_in_blank", "opinion_request", "debate"],
+        "share_triggers": ["relatability", "humor", "useful_info", "shocking", "emotional", "outrage"],
+        "save_triggers": ["tutorial", "reference", "inspiration", "recipe", "tips"],
+        "engagement_hooks": ["specific techniques used"],
+        "controversy_level": 3,
+        "fomo_elements": ["limited_time", "exclusive", "trend_joining"],
+        "social_proof_used": false
+    },
+
+    "trends": {
+        "is_trend_participation": true,
+        "trend_name": "name of trend if applicable",
+        "trend_category": "dance|challenge|sound|format|meme|hashtag|filter",
+        "trend_adaptation_quality": 8,
+        "trend_lifecycle_stage": "emerging|growing|peak|declining|evergreen",
+        "format_originality": "original|trend_adaptation|remix|copy",
+        "viral_potential_score": 7,
+        "viral_factors": ["relatability", "shareability", "trend_timing", "hook_strength"],
+        "meme_potential": true,
+        "remix_potential": true
+    },
+
+    "emotion": {
+        "primary_emotion": "joy|surprise|anger|fear|sadness|disgust|anticipation|trust|amusement|inspiration",
+        "secondary_emotions": ["curiosity", "nostalgia"],
+        "emotional_arc": "flat|building|peak_early|peak_late|rollercoaster|release",
+        "humor_type": "observational|self_deprecating|absurd|dark|physical|situational|none",
+        "relatability_score": 8,
+        "relatability_factors": ["shared experience", "common struggle", "universal truth"],
+        "aspiration_score": 6,
+        "nostalgia_elements": ["90s reference", "childhood memory"],
+        "controversy_elements": ["hot take", "unpopular opinion"]
+    },
+
+    "niche": {
+        "primary_niche": "broad category like food, lifestyle, comedy",
+        "sub_niches": ["bartending", "cocktails", "nightlife"],
+        "topics": ["specific topics covered in video"],
+        "keywords": ["suggested", "hashtags", "and", "keywords"],
+        "target_demographics": ["age_18_24", "age_25_34", "female", "urban", "nightlife_enthusiasts"],
+        "geographic_relevance": "global|us|regional|local",
+        "seasonal_relevance": "evergreen|seasonal|holiday|trending|timely",
+        "industry_verticals": ["hospitality", "food_beverage", "nightlife", "entertainment"]
+    },
+
+    "production": {
+        "overall_quality": "low|medium|high|professional",
+        "equipment_tier": "phone_basic|phone_good|prosumer|professional",
+        "editing_complexity": "minimal|moderate|complex|highly_produced",
+        "audio_quality": "poor|acceptable|good|excellent",
+        "lighting_quality": "poor|acceptable|good|excellent",
+        "estimated_production_time": "under_1hr|1_to_3hrs|3_to_8hrs|over_8hrs",
+        "team_size_estimate": "solo|duo|small_team|production_crew"
+    },
+
+    "replicability": {
+        "replicability_score": 7,
+        "difficulty_level": "easy|moderate|difficult|expert",
+        "required_resources": ["smartphone", "ring_light", "tripod"],
+        "required_skills": ["basic_editing", "on_camera_presence", "timing"],
+        "time_investment": "under_1hr|1_to_3hrs|3_to_8hrs|over_8hrs",
+        "budget_estimate": "free|under_50|50_to_200|over_200",
+        "key_success_factors": ["what makes this work that must be replicated"],
+        "common_mistakes_to_avoid": ["pitfalls when recreating this style"],
+        "niche_adaptation_tips": ["how to adapt this for restaurant/bar/nightlife promotion"]
+    },
+
+    "why_it_works": "comprehensive explanation of success factors",
+    "competitive_advantage": "what makes this stand out from similar content",
+    "improvement_opportunities": ["what could make this even better"]
 }
 
-Focus on actionable insights for someone wanting to create similar content for restaurant/bar/nightlife promotion.
+CRITICAL INSTRUCTIONS:
+1. Be EXHAUSTIVE - extract every detail that could be useful for trend analysis
+2. Use ONLY the predefined values where options are given (e.g., hook_type must be one of the listed options)
+3. Provide SPECIFIC details, not generic observations
+4. Score numerically where asked (1-10 scale)
+5. If something is not present or not applicable, use empty string "" or empty array [] or 0
+6. For the hospitality/nightlife industry focus, pay special attention to:
+   - Venue/atmosphere showcase techniques
+   - Food/drink presentation styles
+   - Staff personality content
+   - Event/promotion patterns
+   - Location/vibe marketing
 
-Respond ONLY with the JSON object, no other text."""
+Respond ONLY with the JSON object. No other text."""
 
 
 class GeminiAnalyzer:
-    """Analyze videos using Gemini 2.0 Flash."""
+    """Analyze videos using Gemini for comprehensive marketing intelligence."""
 
     def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None):
         self.api_key = api_key or settings.gemini_api_key
@@ -107,9 +384,25 @@ class GeminiAnalyzer:
                 "Gemini API key required. Set GEMINI_API_KEY in .env"
             )
 
-        # Initialize the client
         self.client = genai.Client(api_key=self.api_key)
         logger.info(f"GeminiAnalyzer initialized with model: {self.model}")
+
+    def _parse_nested_dataclass(self, data: dict, key: str, dataclass_type: type) -> Any:
+        """Parse nested dictionary into dataclass."""
+        nested_data = data.get(key, {})
+        if not isinstance(nested_data, dict):
+            return dataclass_type()
+
+        field_values = {}
+        for field_name in dataclass_type.__dataclass_fields__:
+            if field_name in nested_data:
+                field_values[field_name] = nested_data[field_name]
+
+        try:
+            return dataclass_type(**field_values)
+        except Exception as e:
+            logger.warning(f"Failed to parse {key}: {e}")
+            return dataclass_type()
 
     async def analyze_video(
         self,
@@ -117,14 +410,14 @@ class GeminiAnalyzer:
         custom_prompt: Optional[str] = None,
     ) -> VideoAnalysis:
         """
-        Analyze a video file.
+        Analyze a video file with comprehensive marketing intelligence extraction.
 
         Args:
             video_path: Path to video file
             custom_prompt: Optional custom prompt (uses default if not provided)
 
         Returns:
-            VideoAnalysis with content and marketing insights
+            VideoAnalysis with comprehensive marketing intelligence
         """
         if not video_path.exists():
             return VideoAnalysis(
@@ -133,7 +426,6 @@ class GeminiAnalyzer:
                 error=f"Video file not found: {video_path}",
             )
 
-        # Check file size (Gemini has limits)
         file_size_mb = video_path.stat().st_size / 1024 / 1024
         if file_size_mb > 100:
             return VideoAnalysis(
@@ -147,17 +439,14 @@ class GeminiAnalyzer:
 
             prompt = custom_prompt or ANALYSIS_PROMPT
 
-            # Upload and analyze video
             loop = asyncio.get_event_loop()
 
             def do_analysis():
-                # Upload file
                 video_file = self.client.files.upload(file=video_path)
                 logger.info(f"Uploaded file: {video_file.name}, state: {video_file.state}")
 
-                # Wait for file to become ACTIVE (processing can take a few seconds)
-                max_wait = 60  # seconds
-                wait_interval = 2
+                max_wait = 120
+                wait_interval = 3
                 waited = 0
                 while video_file.state.name != "ACTIVE" and waited < max_wait:
                     logger.info(f"Waiting for file to process... ({waited}s)")
@@ -170,7 +459,6 @@ class GeminiAnalyzer:
 
                 logger.info(f"File ready: {video_file.name}")
 
-                # Generate content
                 response = self.client.models.generate_content(
                     model=self.model,
                     contents=[
@@ -187,7 +475,6 @@ class GeminiAnalyzer:
                     ],
                 )
 
-                # Cleanup uploaded file
                 try:
                     self.client.files.delete(name=video_file.name)
                 except Exception:
@@ -197,11 +484,10 @@ class GeminiAnalyzer:
 
             response_text = await loop.run_in_executor(None, do_analysis)
 
-            # Clean up JSON (remove markdown code blocks if present)
+            # Clean up JSON
             response_text = response_text.strip()
             if response_text.startswith("```"):
                 lines = response_text.split("\n")
-                # Remove first and last lines (```json and ```)
                 response_text = "\n".join(lines[1:-1])
 
             try:
@@ -209,7 +495,7 @@ class GeminiAnalyzer:
             except json.JSONDecodeError as e:
                 logger.warning(f"Failed to parse JSON response: {e}")
                 return VideoAnalysis(
-                    success=True,  # Analysis succeeded, just parsing failed
+                    success=True,
                     video_path=str(video_path),
                     description=response_text[:500],
                     raw_response=response_text,
@@ -217,29 +503,30 @@ class GeminiAnalyzer:
 
             logger.info(f"Analysis complete: {video_path.name}")
 
+            # Build comprehensive analysis
             return VideoAnalysis(
                 success=True,
                 video_path=str(video_path),
                 description=data.get("description", ""),
-                visual_elements=data.get("visual_elements", []),
-                text_overlays=data.get("text_overlays", []),
-                audio_description=data.get("audio_description", ""),
-                music_or_sound=data.get("music_or_sound"),
-                tone=data.get("tone", ""),
-                hook=data.get("hook", ""),
-                call_to_action=data.get("call_to_action"),
-                target_audience=data.get("target_audience", ""),
-                content_category=data.get("content_category", ""),
+                hook=self._parse_nested_dataclass(data, "hook", HookAnalysis),
+                audio=self._parse_nested_dataclass(data, "audio", AudioAnalysis),
+                visual=self._parse_nested_dataclass(data, "visual", VisualAnalysis),
+                structure=self._parse_nested_dataclass(data, "structure", ContentStructure),
+                engagement=self._parse_nested_dataclass(data, "engagement", EngagementMechanics),
+                trends=self._parse_nested_dataclass(data, "trends", TrendSignals),
+                emotion=self._parse_nested_dataclass(data, "emotion", EmotionalAnalysis),
+                niche=self._parse_nested_dataclass(data, "niche", NicheAnalysis),
+                production=self._parse_nested_dataclass(data, "production", ProductionAnalysis),
+                replicability=self._parse_nested_dataclass(data, "replicability", ReplicabilityAnalysis),
                 why_it_works=data.get("why_it_works", ""),
-                replicability_score=data.get("replicability_score", 0),
-                replication_tips=data.get("replication_tips", []),
+                competitive_advantage=data.get("competitive_advantage", ""),
+                improvement_opportunities=data.get("improvement_opportunities", []),
                 raw_response=response_text,
             )
 
         except Exception as e:
             error_str = str(e)
 
-            # Provide helpful guidance for quota errors
             if "RESOURCE_EXHAUSTED" in error_str or "429" in error_str:
                 if "limit: 0" in error_str:
                     logger.error(
@@ -261,7 +548,7 @@ class GeminiAnalyzer:
     async def analyze_batch(
         self,
         video_paths: list[Path],
-        max_concurrent: int = 2,  # Gemini has rate limits
+        max_concurrent: int = 2,
     ) -> list[VideoAnalysis]:
         """
         Analyze multiple videos.
@@ -278,8 +565,7 @@ class GeminiAnalyzer:
         async def analyze_with_semaphore(path: Path) -> VideoAnalysis:
             async with semaphore:
                 result = await self.analyze_video(path)
-                # Add delay between analyses to avoid rate limits
-                await asyncio.sleep(2)
+                await asyncio.sleep(3)  # Rate limit buffer
                 return result
 
         tasks = [analyze_with_semaphore(path) for path in video_paths]
