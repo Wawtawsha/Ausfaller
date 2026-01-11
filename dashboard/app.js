@@ -549,7 +549,7 @@ function renderStrategicAnalysis(data) {
 /**
  * Toggle strategic analysis section
  */
-let strategicExpanded = false;
+let strategicExpanded = true;  // Open by default
 function toggleStrategicAnalysis() {
     const contentEl = document.getElementById('strategic-content');
     const chevronEl = document.getElementById('strategic-chevron');
