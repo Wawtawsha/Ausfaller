@@ -6,9 +6,10 @@ Video extraction, download, and AI analysis pipeline for TikTok & Instagram mark
 
 | Service | URL | Platform |
 |---------|-----|----------|
-| **Dashboard** | https://dashboard-eight-pi-49.vercel.app | Vercel |
-| **API** | https://web-production-40a7f.up.railway.app | Railway |
+| **Dashboard + API** | https://ausfaller.up.railway.app | Railway |
 | **Database** | Supabase (otmmkmjmbiljredeqhah) | Supabase |
+
+The dashboard and API are served from the same Railway deployment - no separate frontend hosting needed.
 
 ## Architecture
 
@@ -21,17 +22,20 @@ Video extraction, download, and AI analysis pipeline for TikTok & Instagram mark
                                     │
                                     ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                         CLOUD DEPLOYMENT                                │
-│  [Supabase DB] ← [Railway API] ← [Vercel Dashboard]                    │
-│     Storage        Analytics        Visualization                       │
+│                    RAILWAY (API + Dashboard)                            │
+│         [FastAPI] ──── serves ──── [Static Dashboard]                  │
+│              │                           │                              │
+│              └───── reads from ──────────┘                              │
+│                          │                                              │
+│                    [Supabase DB]                                        │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
 **Workflow:**
 1. Run scraping locally (requires Playwright/browser)
 2. Data stored in Supabase
-3. Railway API serves analytics endpoints
-4. Vercel dashboard visualizes for non-technical users
+3. Railway serves both API endpoints and dashboard from single deployment
+4. Dashboard fetches analytics via same-origin API calls
 
 ## Quick Start (Local Development)
 
@@ -320,14 +324,12 @@ social-scraper/
 
 ## Deployment
 
-### Railway (API)
+### Railway (API + Dashboard)
 - Auto-deploys from GitHub main branch
 - Uses `railway.toml` for configuration
 - Environment variables set in Railway dashboard
-
-### Vercel (Dashboard)
-- Static site deployment from `dashboard/` folder
-- Auto-deploys on push
+- FastAPI serves dashboard as static files at root (`/`)
+- API endpoints (`/health`, `/analytics/*`, `/docs`) take precedence over static files
 
 ### Adding New Data
 Run scraping locally - data flows to Supabase automatically:
@@ -356,7 +358,7 @@ Dashboard updates automatically since it reads from the same Supabase database.
 - **Storage**: Supabase (PostgreSQL + JSONB)
 - **API**: FastAPI + uvicorn
 - **Dashboard**: Vanilla JS + Chart.js
-- **Hosting**: Railway (API) + Vercel (Dashboard)
+- **Hosting**: Railway (API + static dashboard)
 
 ## Data Collected
 
