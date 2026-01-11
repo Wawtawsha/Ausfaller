@@ -522,11 +522,72 @@ async function fetchStrategicAnalysis() {
 }
 
 /**
+ * Extract executive summary bullets from markdown
+ */
+function extractKeyTakeaways(content) {
+    // Find the Executive Summary section and extract bullet points
+    const summaryMatch = content.match(/## Executive Summary\s*\n([\s\S]*?)(?=\n---|\n## )/);
+    if (!summaryMatch) return [];
+
+    const summaryText = summaryMatch[1];
+    const bullets = summaryText.match(/^- \*\*(.+?)\*\*(.*)$/gm);
+
+    if (!bullets) return [];
+
+    return bullets.map(bullet => {
+        const match = bullet.match(/^- \*\*(.+?)\*\*(.*)$/);
+        if (match) {
+            return { highlight: match[1], detail: match[2].trim() };
+        }
+        return { highlight: bullet.replace(/^- /, ''), detail: '' };
+    }).slice(0, 4); // Max 4 takeaways
+}
+
+/**
+ * Render key takeaways (always visible)
+ */
+function renderKeyTakeaways(data) {
+    const takeawaysEl = document.getElementById('strategic-takeaways');
+
+    if (!data || !data.content) {
+        takeawaysEl.innerHTML = '';
+        takeawaysEl.style.display = 'none';
+        return;
+    }
+
+    const takeaways = extractKeyTakeaways(data.content);
+
+    if (takeaways.length === 0) {
+        takeawaysEl.innerHTML = '';
+        takeawaysEl.style.display = 'none';
+        return;
+    }
+
+    takeawaysEl.style.display = 'block';
+    takeawaysEl.innerHTML = `
+        <div class="takeaways-grid">
+            ${takeaways.map((t, i) => `
+                <div class="takeaway-item" style="--delay: ${i}">
+                    <div class="takeaway-icon">${['💡', '⚠️', '🎯', '📊'][i] || '•'}</div>
+                    <div class="takeaway-text">
+                        <span class="takeaway-highlight">${t.highlight}</span>
+                        ${t.detail ? `<span class="takeaway-detail">${t.detail}</span>` : ''}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+/**
  * Render strategic analysis markdown
  */
 function renderStrategicAnalysis(data) {
     const contentEl = document.getElementById('strategic-content');
     const updatedEl = document.getElementById('strategic-updated');
+
+    // Render key takeaways first (always visible)
+    renderKeyTakeaways(data);
 
     if (!data || !data.content) {
         contentEl.innerHTML = `
@@ -621,6 +682,45 @@ async function init() {
 
 // Initialize on load - only once, no auto-refresh to prevent expansion
 document.addEventListener('DOMContentLoaded', init);
+
+// Section navigation - update active pill on scroll
+document.addEventListener('DOMContentLoaded', () => {
+    const navPills = document.querySelectorAll('.nav-pill');
+    const sections = ['metrics-section', 'strategic-section', 'charts-section', 'leaderboard-section'];
+
+    // Smooth scroll on click
+    navPills.forEach(pill => {
+        pill.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = pill.getAttribute('href').slice(1);
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Update active pill on scroll
+    const updateActiveNav = () => {
+        const scrollPos = window.scrollY + 100;
+
+        let activeSection = sections[0];
+        sections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section && section.offsetTop <= scrollPos) {
+                activeSection = sectionId;
+            }
+        });
+
+        navPills.forEach(pill => {
+            const pillSection = pill.getAttribute('href').slice(1);
+            pill.classList.toggle('active', pillSection === activeSection);
+        });
+    };
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    updateActiveNav();
+});
 
 // Manual refresh only - uncomment below for auto-refresh
 // setInterval(init, 5 * 60 * 1000);

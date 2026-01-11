@@ -173,6 +173,43 @@ body {
 }
 
 /* ============================================
+   SECTION NAVIGATION
+   ============================================ */
+
+.section-nav {
+    display: flex;
+    gap: 8px;
+    padding: 12px 0;
+    margin-bottom: 8px;
+    position: sticky;
+    top: 0;
+    background: var(--bg-deep);
+    z-index: 100;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.nav-pill {
+    padding: 8px 16px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--bg-surface);
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.nav-pill:hover {
+    color: var(--text-primary);
+    background: var(--bg-card);
+}
+
+.nav-pill.active {
+    color: white;
+    background: var(--accent-primary);
+}
+
+/* ============================================
    METRICS CARDS
    ============================================ */
 
@@ -904,6 +941,68 @@ tr:hover td {
 
 .strategic-chevron.rotated {
     transform: rotate(180deg);
+}
+
+/* Key Takeaways - Always visible */
+.strategic-takeaways {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-subtle);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(59, 130, 246, 0.05));
+}
+
+.takeaways-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.takeaway-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+    background: var(--bg-surface);
+    border-radius: var(--radius-sm);
+    animation: fadeInUp 0.3s ease-out backwards;
+    animation-delay: calc(var(--delay) * 0.1s);
+}
+
+.takeaway-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.takeaway-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.takeaway-highlight {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.takeaway-detail {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.takeaway-loading {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+@media (max-width: 700px) {
+    .takeaways-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .strategic-content {

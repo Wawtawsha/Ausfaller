@@ -36,6 +36,14 @@
             </div>
         </header>
 
+        <!-- Section Navigation -->
+        <nav class="section-nav" id="section-nav">
+            <a href="#metrics-section" class="nav-pill active" data-section="metrics">Overview</a>
+            <a href="#strategic-section" class="nav-pill" data-section="strategic">Strategy</a>
+            <a href="#charts-section" class="nav-pill" data-section="charts">Charts</a>
+            <a href="#leaderboard-section" class="nav-pill" data-section="leaderboard">Leaderboard</a>
+        </nav>
+
         <!-- Summary Cards (Top) -->
         <section class="metrics-grid" id="metrics-section">
             <div class="metric-card" style="--delay: 0">
@@ -66,7 +74,7 @@
         </section>
 
         <!-- Strategic Analysis -->
-        <section class="strategic-section" style="--delay: 5">
+        <section class="strategic-section" id="strategic-section" style="--delay: 5">
             <div class="strategic-card">
                 <div class="strategic-header" onclick="toggleStrategicAnalysis()">
                     <div class="strategic-title">
@@ -82,6 +90,10 @@
                             <polyline points="6 9 12 15 18 9"/>
                         </svg>
                     </div>
+                </div>
+                <!-- Key Takeaways - Always visible -->
+                <div class="strategic-takeaways" id="strategic-takeaways">
+                    <div class="takeaway-loading">Loading insights...</div>
                 </div>
                 <div class="strategic-content expanded" id="strategic-content">
                     <div class="strategic-loading">Loading strategic analysis...</div>
@@ -121,7 +133,7 @@
         </section>
 
         <!-- Charts Grid -->
-        <section class="charts-grid">
+        <section class="charts-grid" id="charts-section">
             <div class="chart-card" style="--delay: 6">
                 <div class="chart-header">
                     <h3>Hook Types</h3>
@@ -177,7 +189,7 @@
         </section>
 
         <!-- Replicability Leaderboard -->
-        <section class="leaderboard-section" style="--delay: 11">
+        <section class="leaderboard-section" id="leaderboard-section" style="--delay: 11">
             <div class="leaderboard-card">
                 <div class="leaderboard-header">
                     <div>
