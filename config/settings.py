@@ -26,6 +26,12 @@ class Settings(BaseSettings):
     max_concurrent_analyses: int = 2  # Gemini rate limits
     gemini_model: str = "gemini-2.0-flash-lite"  # Can also try: gemini-2.0-flash, gemini-2.5-flash
 
+    # Batch processing settings
+    batch_delay_between_hashtags: int = 30  # Seconds between processing hashtags
+    batch_max_hashtags: int = 50  # Maximum hashtags per batch
+    batch_retry_delay: int = 60  # Extra delay before retry pass
+    batch_max_retries: int = 1  # Number of retry passes for failed hashtags
+
     # Server
     host: str = "0.0.0.0"
     port: int = 8080
