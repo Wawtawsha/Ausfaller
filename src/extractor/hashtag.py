@@ -395,7 +395,17 @@ extract()
 '''
 
         try:
-            venv_python = Path(__file__).parent.parent.parent / "venv" / "Scripts" / "python.exe"
+            # Platform-aware venv path
+            base_path = Path(__file__).parent.parent.parent / "venv"
+            if sys.platform == "win32":
+                venv_python = base_path / "Scripts" / "python.exe"
+            else:
+                venv_python = base_path / "bin" / "python"
+
+            # Fallback to system python if venv doesn't exist
+            if not venv_python.exists():
+                venv_python = sys.executable
+
             result = subprocess.run(
                 [str(venv_python), "-c", script],
                 capture_output=True,
