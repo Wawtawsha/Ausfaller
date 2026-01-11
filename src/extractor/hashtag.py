@@ -395,9 +395,10 @@ extract()
 '''
 
         try:
-            venv_python = Path(__file__).parent.parent.parent / "venv" / "Scripts" / "python.exe"
+            # Use current Python interpreter (works on both Linux and Windows)
+            python_executable = sys.executable
             result = subprocess.run(
-                [str(venv_python), "-c", script],
+                [python_executable, "-c", script],
                 capture_output=True,
                 text=True,
                 timeout=120,
