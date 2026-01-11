@@ -5,6 +5,7 @@ Analyzes video content including visual elements, audio, and text.
 """
 
 import asyncio
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
@@ -152,6 +153,22 @@ class GeminiAnalyzer:
             def do_analysis():
                 # Upload file
                 video_file = self.client.files.upload(file=video_path)
+                logger.info(f"Uploaded file: {video_file.name}, state: {video_file.state}")
+
+                # Wait for file to become ACTIVE (processing can take a few seconds)
+                max_wait = 60  # seconds
+                wait_interval = 2
+                waited = 0
+                while video_file.state.name != "ACTIVE" and waited < max_wait:
+                    logger.info(f"Waiting for file to process... ({waited}s)")
+                    time.sleep(wait_interval)
+                    waited += wait_interval
+                    video_file = self.client.files.get(name=video_file.name)
+
+                if video_file.state.name != "ACTIVE":
+                    raise RuntimeError(f"File did not become ACTIVE after {max_wait}s. State: {video_file.state.name}")
+
+                logger.info(f"File ready: {video_file.name}")
 
                 # Generate content
                 response = self.client.models.generate_content(
