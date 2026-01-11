@@ -305,18 +305,25 @@ function updateLeaderboard(videos) {
         return;
     }
 
-    videos.slice(0, 10).forEach(video => {
+    videos.slice(0, 10).forEach((video, index) => {
         const score = video.replicability_score || 0;
         const scoreClass = score >= 8 ? 'high' : 'medium';
         const difficulty = (video.difficulty || 'unknown').toLowerCase();
         const whyText = video.why_it_works || 'Analysis pending...';
+        const truncatedWhy = whyText.length > 60 ? whyText.substring(0, 60) + '...' : whyText;
 
         const row = document.createElement('tr');
         row.innerHTML = `
             <td><span class="creator-name">@${video.author_username || 'unknown'}</span></td>
             <td><span class="score-pill ${scoreClass}">${score}/10</span></td>
             <td><span class="difficulty-badge ${difficulty}">${difficulty}</span></td>
-            <td class="why-cell" title="${whyText}">${whyText}</td>
+            <td class="why-cell">
+                <div class="why-content" id="why-${index}">
+                    <span class="why-truncated">${truncatedWhy}</span>
+                    <span class="why-full" style="display: none;">${whyText}</span>
+                </div>
+                ${whyText.length > 60 ? `<button class="why-toggle" onclick="toggleWhy(${index})">more</button>` : ''}
+            </td>
             <td>
                 <a href="${video.video_url || '#'}" target="_blank" class="view-btn">
                     View
@@ -330,6 +337,26 @@ function updateLeaderboard(videos) {
         `;
         tbody.appendChild(row);
     });
+}
+
+/**
+ * Toggle "Why It Works" expansion
+ */
+function toggleWhy(index) {
+    const container = document.getElementById(`why-${index}`);
+    const truncated = container.querySelector('.why-truncated');
+    const full = container.querySelector('.why-full');
+    const btn = container.parentElement.querySelector('.why-toggle');
+
+    if (full.style.display === 'none') {
+        truncated.style.display = 'none';
+        full.style.display = 'inline';
+        btn.textContent = 'less';
+    } else {
+        truncated.style.display = 'inline';
+        full.style.display = 'none';
+        btn.textContent = 'more';
+    }
 }
 
 /**

@@ -224,6 +224,46 @@ body {
     background: var(--bg-card);
     border-radius: var(--radius-md);
     padding: 20px;
+    position: relative;
+    cursor: help;
+}
+
+/* Tooltip on hover */
+.metric-card[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    white-space: nowrap;
+    z-index: 50;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 1px solid var(--border-subtle);
+    animation: fadeIn 0.15s ease;
+}
+
+.metric-card[data-tooltip]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--bg-surface);
+    z-index: 51;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.metric-card {
     border: 1px solid var(--border-subtle);
     transition: all 0.3s ease;
     animation: fadeInUp 0.5s ease-out backwards;
@@ -738,10 +778,27 @@ tr:hover td {
 
 .why-cell {
     max-width: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     color: var(--text-secondary);
+}
+
+.why-content {
+    display: inline;
+    line-height: 1.5;
+}
+
+.why-toggle {
+    background: none;
+    border: none;
+    color: var(--accent-primary);
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 4px;
+    font-weight: 500;
+}
+
+.why-toggle:hover {
+    text-decoration: underline;
 }
 
 .view-btn {
