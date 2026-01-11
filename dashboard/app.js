@@ -607,6 +607,202 @@ function renderKeyTakeaways(data) {
 }
 
 /**
+ * Extract a section from markdown by heading
+ */
+function extractSection(content, headingPattern) {
+    const regex = new RegExp(`## ${headingPattern}[\\s\\S]*?(?=\\n## |\\n---\\n## |$)`, 'i');
+    const match = content.match(regex);
+    return match ? match[0] : null;
+}
+
+/**
+ * Parse templates from Content Playbook section
+ */
+function parseTemplates(content) {
+    const section = extractSection(content, 'Content Playbook');
+    if (!section) return [];
+
+    const templates = [];
+    const templateBlocks = section.split(/### Template \d+:/);
+
+    templateBlocks.slice(1).forEach(block => {
+        const lines = block.trim().split('\n');
+        const name = lines[0]?.replace(/[*#]/g, '').trim();
+
+        const template = { name, items: [], why: '' };
+
+        lines.forEach(line => {
+            const hookMatch = line.match(/\*\*Hook:\*\*\s*(.+)/);
+            const audioMatch = line.match(/\*\*Audio:\*\*\s*(.+)/);
+            const visualMatch = line.match(/\*\*Visual:\*\*\s*(.+)/);
+            const difficultyMatch = line.match(/\*\*Difficulty:\*\*\s*(.+)/);
+            const whyMatch = line.match(/\*\*Why it works:\*\*\s*(.+)/);
+
+            if (hookMatch) template.items.push({ label: 'Hook', value: hookMatch[1] });
+            if (audioMatch) template.items.push({ label: 'Audio', value: audioMatch[1] });
+            if (visualMatch) template.items.push({ label: 'Visual', value: visualMatch[1] });
+            if (difficultyMatch) template.items.push({ label: 'Difficulty', value: difficultyMatch[1] });
+            if (whyMatch) template.why = whyMatch[1];
+        });
+
+        if (template.name) templates.push(template);
+    });
+
+    return templates;
+}
+
+/**
+ * Parse gaps from Gaps & Opportunities section
+ */
+function parseGaps(content) {
+    const section = extractSection(content, 'Gaps');
+    if (!section) return [];
+
+    const gaps = [];
+    const lines = section.split('\n');
+    let currentGap = null;
+
+    lines.forEach(line => {
+        const numMatch = line.match(/^\d+\.\s+\*\*(.+?)\*\*\s*[-–]?\s*(.*)$/);
+        if (numMatch) {
+            if (currentGap) gaps.push(currentGap);
+            currentGap = { title: numMatch[1], description: numMatch[2] || '' };
+        } else if (currentGap && line.trim() && !line.startsWith('#')) {
+            currentGap.description += ' ' + line.trim();
+        }
+    });
+    if (currentGap) gaps.push(currentGap);
+
+    return gaps.slice(0, 6); // Max 6
+}
+
+/**
+ * Parse red flags from Red Flags section
+ */
+function parseRedFlags(content) {
+    const section = extractSection(content, 'Red Flags');
+    if (!section) return [];
+
+    const flags = [];
+    const subsections = section.split(/### /);
+
+    subsections.slice(1).forEach(sub => {
+        const lines = sub.trim().split('\n');
+        const title = lines[0]?.trim();
+        const items = [];
+
+        lines.slice(1).forEach(line => {
+            const itemMatch = line.match(/^- (.+)$/);
+            if (itemMatch) items.push(itemMatch[1]);
+        });
+
+        if (title && items.length > 0) {
+            flags.push({ title, items });
+        }
+    });
+
+    return flags;
+}
+
+/**
+ * Render templates section
+ */
+function renderTemplates(data) {
+    const contentEl = document.getElementById('templates-content');
+
+    if (!data || !data.content) {
+        contentEl.innerHTML = '<div class="breakdown-loading">No templates available</div>';
+        return;
+    }
+
+    const templates = parseTemplates(data.content);
+
+    if (templates.length === 0) {
+        contentEl.innerHTML = '<div class="breakdown-loading">No templates found in analysis</div>';
+        return;
+    }
+
+    contentEl.innerHTML = `
+        <div class="templates-grid">
+            ${templates.map(t => `
+                <div class="template-card">
+                    <h4>${t.name}</h4>
+                    ${t.items.map(item => `
+                        <div class="template-item">
+                            <span class="template-label">${item.label}:</span>
+                            <span class="template-value">${item.value}</span>
+                        </div>
+                    `).join('')}
+                    ${t.why ? `<div class="template-why">${t.why}</div>` : ''}
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+/**
+ * Render gaps section
+ */
+function renderGaps(data) {
+    const contentEl = document.getElementById('gaps-content');
+
+    if (!data || !data.content) {
+        contentEl.innerHTML = '<div class="breakdown-loading">No gaps data available</div>';
+        return;
+    }
+
+    const gaps = parseGaps(data.content);
+
+    if (gaps.length === 0) {
+        contentEl.innerHTML = '<div class="breakdown-loading">No gaps found in analysis</div>';
+        return;
+    }
+
+    contentEl.innerHTML = `
+        <div class="gaps-grid">
+            ${gaps.map(g => `
+                <div class="gap-card">
+                    <h4>${g.title}</h4>
+                    <p>${g.description}</p>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+/**
+ * Render red flags section
+ */
+function renderRedFlags(data) {
+    const contentEl = document.getElementById('redflags-content');
+
+    if (!data || !data.content) {
+        contentEl.innerHTML = '<div class="breakdown-loading">No warnings available</div>';
+        return;
+    }
+
+    const flags = parseRedFlags(data.content);
+
+    if (flags.length === 0) {
+        contentEl.innerHTML = '<div class="breakdown-loading">No red flags found in analysis</div>';
+        return;
+    }
+
+    contentEl.innerHTML = `
+        <div class="redflags-grid">
+            ${flags.map(f => `
+                <div class="redflag-card">
+                    <h4>${f.title}</h4>
+                    <ul>
+                        ${f.items.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+/**
  * Render strategic analysis markdown
  */
 function renderStrategicAnalysis(data) {
@@ -615,6 +811,11 @@ function renderStrategicAnalysis(data) {
 
     // Render key takeaways first (always visible)
     renderKeyTakeaways(data);
+
+    // Render breakdown sections
+    renderTemplates(data);
+    renderGaps(data);
+    renderRedFlags(data);
 
     if (!data || !data.content) {
         contentEl.innerHTML = `
@@ -713,7 +914,7 @@ document.addEventListener('DOMContentLoaded', init);
 // Section navigation - update active pill on scroll
 document.addEventListener('DOMContentLoaded', () => {
     const navPills = document.querySelectorAll('.nav-pill');
-    const sections = ['metrics-section', 'strategic-section', 'charts-section', 'leaderboard-section'];
+    const sections = ['metrics-section', 'strategic-section', 'templates-section', 'gaps-section', 'redflags-section', 'charts-section', 'leaderboard-section'];
 
     // Smooth scroll on click
     navPills.forEach(pill => {
@@ -760,8 +961,11 @@ document.addEventListener('keydown', (e) => {
     switch(e.key) {
         case '1': document.getElementById('metrics-section')?.scrollIntoView({ behavior: 'smooth' }); break;
         case '2': document.getElementById('strategic-section')?.scrollIntoView({ behavior: 'smooth' }); break;
-        case '3': document.getElementById('charts-section')?.scrollIntoView({ behavior: 'smooth' }); break;
-        case '4': document.getElementById('leaderboard-section')?.scrollIntoView({ behavior: 'smooth' }); break;
+        case '3': document.getElementById('templates-section')?.scrollIntoView({ behavior: 'smooth' }); break;
+        case '4': document.getElementById('gaps-section')?.scrollIntoView({ behavior: 'smooth' }); break;
+        case '5': document.getElementById('redflags-section')?.scrollIntoView({ behavior: 'smooth' }); break;
+        case '6': document.getElementById('charts-section')?.scrollIntoView({ behavior: 'smooth' }); break;
+        case '7': document.getElementById('leaderboard-section')?.scrollIntoView({ behavior: 'smooth' }); break;
         case 's': case 'S': toggleStrategicAnalysis(); break;
         case 'r': case 'R': if (!e.ctrlKey && !e.metaKey) { init(); } break;
         case '?': showKeyboardHelp(); break;
@@ -778,7 +982,7 @@ function showKeyboardHelp() {
     help.innerHTML = `
         <div class="keyboard-help-content">
             <h4>Keyboard Shortcuts</h4>
-            <div class="shortcut"><kbd>1-4</kbd> Jump to section</div>
+            <div class="shortcut"><kbd>1-7</kbd> Jump to section</div>
             <div class="shortcut"><kbd>S</kbd> Toggle strategy panel</div>
             <div class="shortcut"><kbd>R</kbd> Refresh data</div>
             <div class="shortcut"><kbd>?</kbd> Toggle this help</div>

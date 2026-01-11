@@ -1190,6 +1190,197 @@ tr:hover td {
 }
 
 /* ============================================
+   BREAKDOWN SECTIONS (Templates, Gaps, Red Flags)
+   ============================================ */
+
+.breakdown-section {
+    animation: fadeInUp 0.5s ease-out backwards;
+    animation-delay: calc(var(--delay) * 0.08s);
+    margin-bottom: 24px;
+}
+
+.breakdown-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+    overflow: hidden;
+}
+
+.breakdown-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.breakdown-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.breakdown-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--accent-primary);
+}
+
+.breakdown-icon.warning {
+    color: var(--accent-warning);
+}
+
+.breakdown-title h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.breakdown-badge {
+    font-size: 0.65rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.breakdown-badge.templates {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--accent-primary);
+}
+
+.breakdown-badge.gaps {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--accent-success);
+}
+
+.breakdown-badge.redflags {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--accent-danger);
+}
+
+.breakdown-content {
+    padding: 24px;
+}
+
+.breakdown-loading {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 40px 20px;
+}
+
+/* Template Cards Grid */
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.template-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    border: 1px solid var(--border-subtle);
+    transition: all 0.2s ease;
+}
+
+.template-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+}
+
+.template-card h4 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.template-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+}
+
+.template-label {
+    color: var(--text-muted);
+    min-width: 70px;
+}
+
+.template-value {
+    color: var(--text-secondary);
+}
+
+.template-why {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Gaps Cards */
+.gaps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.gap-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    border-left: 3px solid var(--accent-success);
+}
+
+.gap-card h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--accent-success);
+}
+
+.gap-card p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Red Flags Cards */
+.redflags-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.redflag-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    border-left: 3px solid var(--accent-danger);
+}
+
+.redflag-card h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--accent-danger);
+}
+
+.redflag-card p,
+.redflag-card li {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.redflag-card ul {
+    padding-left: 16px;
+    margin-top: 8px;
+}
+
+/* ============================================
    KEYBOARD HELP
    ============================================ */
 
