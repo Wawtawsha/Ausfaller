@@ -994,6 +994,27 @@ async def get_all_analytics():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/analytics/recent-reply")
+async def get_recent_reply():
+    """
+    Get the most recent Gemini AI analysis reply.
+
+    Returns the full analysis data for the most recently analyzed video.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        recent = storage.get_most_recent_analysis()
+        if not recent:
+            return {"recent_reply": None, "message": "No analyzed videos found"}
+        return {"recent_reply": recent}
+    except Exception as e:
+        logger.error(f"Failed to get recent reply: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.on_event("shutdown")
 async def shutdown_event():
     """Cleanup on shutdown."""
