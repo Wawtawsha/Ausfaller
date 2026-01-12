@@ -353,16 +353,73 @@ class SupabaseStorage:
 
         Returns change in averages (positive = improving, negative = declining).
         """
+        import json
         from datetime import datetime, timedelta
 
-        now = datetime.utcnow()
-        recent_start = (now - timedelta(days=days)).isoformat()
-        previous_start = (now - timedelta(days=days * 2)).isoformat()
-        previous_end = recent_start
+        # Default empty response
+        empty_result = {
+            "period_days": days,
+            "recent_count": 0,
+            "previous_count": 0,
+            "hook_change": None,
+            "viral_change": None,
+            "replicate_change": None
+        }
 
-        logger.debug(f"Fetching trends: recent_start={recent_start}, previous_start={previous_start}")
+        def parse_analysis(post):
+            """Safely extract analysis dict from a post."""
+            try:
+                if isinstance(post, str):
+                    post = json.loads(post)
+                if not isinstance(post, dict):
+                    return None
+                analysis = post.get("analysis")
+                if isinstance(analysis, str):
+                    analysis = json.loads(analysis)
+                if isinstance(analysis, dict):
+                    return analysis
+            except (json.JSONDecodeError, TypeError):
+                pass
+            return None
+
+        def calc_averages(posts):
+            """Calculate average scores from posts."""
+            hook_scores = []
+            viral_scores = []
+            replicate_scores = []
+
+            for post in (posts or []):
+                analysis = parse_analysis(post)
+                if not analysis:
+                    continue
+
+                try:
+                    hook = analysis.get("hook") or {}
+                    trends_data = analysis.get("trends") or {}
+                    replicability = analysis.get("replicability") or {}
+
+                    if hook.get("hook_strength"):
+                        hook_scores.append(float(hook["hook_strength"]))
+                    if trends_data.get("viral_potential_score"):
+                        viral_scores.append(float(trends_data["viral_potential_score"]))
+                    if replicability.get("replicability_score"):
+                        replicate_scores.append(float(replicability["replicability_score"]))
+                except (TypeError, ValueError):
+                    continue
+
+            return {
+                "hook": sum(hook_scores) / len(hook_scores) if hook_scores else None,
+                "viral": sum(viral_scores) / len(viral_scores) if viral_scores else None,
+                "replicate": sum(replicate_scores) / len(replicate_scores) if replicate_scores else None,
+                "count": len(posts or [])
+            }
 
         try:
+            now = datetime.utcnow()
+            recent_start = (now - timedelta(days=days)).isoformat()
+            previous_start = (now - timedelta(days=days * 2)).isoformat()
+            previous_end = recent_start
+
             # Get recent period posts
             recent_result = (
                 self.client.table("posts")
@@ -371,12 +428,8 @@ class SupabaseStorage:
                 .gte("analyzed_at", recent_start)
                 .execute()
             )
-            logger.debug(f"Recent posts found: {len(recent_result.data) if recent_result.data else 0}")
-        except Exception as e:
-            logger.error(f"Error fetching recent posts: {e}")
-            recent_result = type('obj', (object,), {'data': []})()
+            recent_posts = recent_result.data or []
 
-        try:
             # Get previous period posts
             previous_result = (
                 self.client.table("posts")
@@ -386,69 +439,31 @@ class SupabaseStorage:
                 .lt("analyzed_at", previous_end)
                 .execute()
             )
-            logger.debug(f"Previous posts found: {len(previous_result.data) if previous_result.data else 0}")
-        except Exception as e:
-            logger.error(f"Error fetching previous posts: {e}")
-            previous_result = type('obj', (object,), {'data': []})()
+            previous_posts = previous_result.data or []
 
-        def calc_averages(posts):
-            import json
-            if not posts:
-                return {"hook": None, "viral": None, "replicate": None, "count": 0}
+            recent_avg = calc_averages(recent_posts)
+            previous_avg = calc_averages(previous_posts)
 
-            hook_scores = []
-            viral_scores = []
-            replicate_scores = []
-
-            for post in posts:
-                try:
-                    analysis = post.get("analysis", {})
-                    # Handle case where analysis is stored as JSON string
-                    if isinstance(analysis, str):
-                        analysis = json.loads(analysis)
-                    if not analysis or not isinstance(analysis, dict):
-                        continue
-
-                    hook = analysis.get("hook", {}) or {}
-                    trends_data = analysis.get("trends", {}) or {}
-                    replicability = analysis.get("replicability", {}) or {}
-
-                    if hook.get("hook_strength"):
-                        hook_scores.append(float(hook["hook_strength"]))
-                    if trends_data.get("viral_potential_score"):
-                        viral_scores.append(float(trends_data["viral_potential_score"]))
-                    if replicability.get("replicability_score"):
-                        replicate_scores.append(float(replicability["replicability_score"]))
-                except (TypeError, ValueError) as e:
-                    logger.debug(f"Skipping post due to data error: {e}")
-                    continue
-
-            return {
-                "hook": sum(hook_scores) / len(hook_scores) if hook_scores else None,
-                "viral": sum(viral_scores) / len(viral_scores) if viral_scores else None,
-                "replicate": sum(replicate_scores) / len(replicate_scores) if replicate_scores else None,
-                "count": len(posts)
+            result = {
+                "period_days": days,
+                "recent_count": recent_avg["count"],
+                "previous_count": previous_avg["count"],
+                "hook_change": None,
+                "viral_change": None,
+                "replicate_change": None
             }
 
-        recent_avg = calc_averages(recent_result.data if recent_result.data else [])
-        previous_avg = calc_averages(previous_result.data if previous_result.data else [])
+            # Calculate changes if both periods have data
+            if recent_avg["count"] > 0 and previous_avg["count"] > 0:
+                if recent_avg["hook"] and previous_avg["hook"]:
+                    result["hook_change"] = round(recent_avg["hook"] - previous_avg["hook"], 2)
+                if recent_avg["viral"] and previous_avg["viral"]:
+                    result["viral_change"] = round(recent_avg["viral"] - previous_avg["viral"], 2)
+                if recent_avg["replicate"] and previous_avg["replicate"]:
+                    result["replicate_change"] = round(recent_avg["replicate"] - previous_avg["replicate"], 2)
 
-        result = {
-            "period_days": days,
-            "recent_count": recent_avg.get("count", 0),
-            "previous_count": previous_avg.get("count", 0),
-            "hook_change": None,
-            "viral_change": None,
-            "replicate_change": None
-        }
+            return result
 
-        # Calculate changes if both periods have data
-        if recent_avg.get("count", 0) > 0 and previous_avg.get("count", 0) > 0:
-            if recent_avg.get("hook") and previous_avg.get("hook"):
-                result["hook_change"] = round(recent_avg["hook"] - previous_avg["hook"], 2)
-            if recent_avg.get("viral") and previous_avg.get("viral"):
-                result["viral_change"] = round(recent_avg["viral"] - previous_avg["viral"], 2)
-            if recent_avg.get("replicate") and previous_avg.get("replicate"):
-                result["replicate_change"] = round(recent_avg["replicate"] - previous_avg["replicate"], 2)
-
-        return result
+        except Exception as e:
+            logger.error(f"Error in get_metric_trends: {e}", exc_info=True)
+            return empty_result
