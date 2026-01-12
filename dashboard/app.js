@@ -143,35 +143,24 @@ async function fetchRecentReply() {
  * Fetch metric trends
  */
 async function fetchTrends() {
-    console.log('Fetching trends from:', `${API_BASE}/analytics/trends`);
     const response = await fetch(`${API_BASE}/analytics/trends`);
-    console.log('Trends response status:', response.status);
     if (!response.ok) {
-        const text = await response.text();
-        console.error('Trends error response:', text);
         throw new Error(`API Error: ${response.status}`);
     }
-    const data = await response.json();
-    console.log('Trends parsed data:', data);
-    return data;
+    return response.json();
 }
 
 /**
  * Update trend indicators on metric cards
  */
 function updateTrendIndicators(trends) {
-    console.log('updateTrendIndicators called with:', trends);
-
     const hookEl = document.getElementById('trend-hook');
     const viralEl = document.getElementById('trend-viral');
     const replicateEl = document.getElementById('trend-replicate');
 
-    console.log('Trend elements found:', { hookEl: !!hookEl, viralEl: !!viralEl, replicateEl: !!replicateEl });
-
     // Check if we have comparison data
     const hasComparison = trends.previous_count > 0;
     const hasRecent = trends.recent_count > 0;
-    console.log('hasComparison:', hasComparison, 'hasRecent:', hasRecent);
 
     function setTrend(element, value) {
         if (!element) return;
@@ -1580,13 +1569,8 @@ async function init() {
         updateMetrics(data.summary || {});
 
         // Update trend indicators
-        console.log('Trends data:', JSON.stringify(trendsData, null, 2));
         if (trendsData) {
-            console.log('Calling updateTrendIndicators with:', trendsData);
             updateTrendIndicators(trendsData);
-            console.log('updateTrendIndicators completed');
-        } else {
-            console.warn('No trends data received');
         }
 
         // Render recent AI reply
