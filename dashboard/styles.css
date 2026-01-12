@@ -1729,6 +1729,89 @@ tr:hover td {
 }
 
 /* ============================================
+   EMPTY STATES
+   ============================================ */
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-muted);
+    animation: fadeIn 0.4s ease-out;
+}
+
+.empty-state-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+    opacity: 0.6;
+    line-height: 1;
+}
+
+.empty-state-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.empty-state-description {
+    font-size: 0.85rem;
+    max-width: 280px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.empty-state-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.1));
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: var(--radius-sm);
+    color: var(--accent-primary);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.empty-state-cta:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.15));
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-1px);
+}
+
+.empty-state-cta svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Compact empty state for inline sections */
+.empty-state.compact {
+    padding: 32px 16px;
+}
+
+.empty-state.compact .empty-state-icon {
+    font-size: 1.75rem;
+    margin-bottom: 12px;
+}
+
+.empty-state.compact .empty-state-title {
+    font-size: 0.9rem;
+}
+
+.empty-state.compact .empty-state-description {
+    font-size: 0.8rem;
+    margin-bottom: 16px;
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 

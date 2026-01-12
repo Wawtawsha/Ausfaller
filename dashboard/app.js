@@ -424,9 +424,31 @@ function createDoughnutChart(canvasId, data, key, filterType = null) {
     const labels = Object.keys(aggregated);
     const values = Object.values(aggregated);
 
+    // Show empty state for charts with no data
     if (labels.length === 0) {
-        labels.push('No data');
-        values.push(1);
+        const canvas = document.getElementById(canvasId);
+        if (canvas) {
+            const wrapper = canvas.parentElement;
+            if (wrapper && !wrapper.querySelector('.empty-state')) {
+                canvas.style.display = 'none';
+                wrapper.insertAdjacentHTML('beforeend', `
+                    <div class="empty-state compact" style="position: absolute; inset: 0;">
+                        <div class="empty-state-icon">📈</div>
+                        <div class="empty-state-title">No Data Yet</div>
+                        <div class="empty-state-description">Analyze videos to see patterns.</div>
+                    </div>
+                `);
+            }
+        }
+        return null;
+    }
+
+    // Remove any existing empty state and show canvas
+    const canvas = document.getElementById(canvasId);
+    if (canvas) {
+        canvas.style.display = 'block';
+        const wrapper = canvas.parentElement;
+        wrapper?.querySelector('.empty-state')?.remove();
     }
 
     // Highlight active filter segment
@@ -494,9 +516,31 @@ function createHorizontalBarChart(canvasId, data, key, label) {
     const labels = sorted.map(([k]) => k.replace(/_/g, ' '));
     const values = sorted.map(([, v]) => v);
 
+    // Show empty state if no data
     if (labels.length === 0) {
-        labels.push('No data');
-        values.push(0);
+        const canvas = document.getElementById(canvasId);
+        if (canvas) {
+            const wrapper = canvas.parentElement;
+            if (wrapper && !wrapper.querySelector('.empty-state')) {
+                canvas.style.display = 'none';
+                wrapper.insertAdjacentHTML('beforeend', `
+                    <div class="empty-state compact" style="position: absolute; inset: 0;">
+                        <div class="empty-state-icon">📊</div>
+                        <div class="empty-state-title">No Data Yet</div>
+                        <div class="empty-state-description">Analyze videos to see patterns.</div>
+                    </div>
+                `);
+            }
+        }
+        return null;
+    }
+
+    // Remove any existing empty state and show canvas
+    const canvas = document.getElementById(canvasId);
+    if (canvas) {
+        canvas.style.display = 'block';
+        const wrapper = canvas.parentElement;
+        wrapper?.querySelector('.empty-state')?.remove();
     }
 
     createChart(canvasId, {
@@ -534,6 +578,33 @@ function createHorizontalBarChart(canvasId, data, key, label) {
  * Create viral factors bar chart
  */
 function createViralFactorsChart(factors) {
+    // Show empty state if no factors
+    if (!factors || factors.length === 0) {
+        const canvas = document.getElementById('viral-factors-chart');
+        if (canvas) {
+            const wrapper = canvas.parentElement;
+            if (wrapper && !wrapper.querySelector('.empty-state')) {
+                canvas.style.display = 'none';
+                wrapper.insertAdjacentHTML('beforeend', `
+                    <div class="empty-state compact" style="position: absolute; inset: 0;">
+                        <div class="empty-state-icon">🔥</div>
+                        <div class="empty-state-title">No Viral Factors Yet</div>
+                        <div class="empty-state-description">Analyze videos to discover what makes content go viral.</div>
+                    </div>
+                `);
+            }
+        }
+        return null;
+    }
+
+    // Remove any existing empty state and show canvas
+    const canvas = document.getElementById('viral-factors-chart');
+    if (canvas) {
+        canvas.style.display = 'block';
+        const wrapper = canvas.parentElement;
+        wrapper?.querySelector('.empty-state')?.remove();
+    }
+
     const labels = factors.map(f => f.factor?.replace(/_/g, ' ') || 'Unknown');
     const values = factors.map(f => parseInt(f.count) || 0);
 
@@ -686,8 +757,12 @@ function updateLeaderboard(videos, isFiltered = false) {
     if (!videos || videos.length === 0) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 40px;">
-                    No replicable videos found yet
+                <td colspan="5">
+                    <div class="empty-state compact">
+                        <div class="empty-state-icon">🎯</div>
+                        <div class="empty-state-title">No Replicable Videos Yet</div>
+                        <div class="empty-state-description">Run the pipeline to analyze videos and find easy-to-replicate content.</div>
+                    </div>
                 </td>
             </tr>
         `;
@@ -956,9 +1031,10 @@ function renderRecentReply(data) {
 
     if (!data || !data.recent_reply) {
         contentEl.innerHTML = `
-            <div class="reply-empty">
-                <div class="reply-empty-icon">📊</div>
-                <p>No analyzed videos yet. Run the pipeline to see AI analysis here.</p>
+            <div class="empty-state compact">
+                <div class="empty-state-icon">📊</div>
+                <div class="empty-state-title">No AI Analysis Yet</div>
+                <div class="empty-state-description">Run the pipeline to analyze videos and see detailed breakdowns here.</div>
             </div>
         `;
         return;
@@ -1266,14 +1342,26 @@ function renderTemplates(data) {
     const contentEl = document.getElementById('templates-content');
 
     if (!data || !data.content) {
-        contentEl.innerHTML = '<div class="breakdown-loading">No templates available</div>';
+        contentEl.innerHTML = `
+            <div class="empty-state compact">
+                <div class="empty-state-icon">📋</div>
+                <div class="empty-state-title">No Templates Yet</div>
+                <div class="empty-state-description">Strategic analysis will generate content templates after processing videos.</div>
+            </div>
+        `;
         return;
     }
 
     const templates = parseTemplates(data.content);
 
     if (templates.length === 0) {
-        contentEl.innerHTML = '<div class="breakdown-loading">No templates found in analysis</div>';
+        contentEl.innerHTML = `
+            <div class="empty-state compact">
+                <div class="empty-state-icon">📋</div>
+                <div class="empty-state-title">Templates Coming Soon</div>
+                <div class="empty-state-description">Analysis didn't find distinct template patterns. Try analyzing more videos.</div>
+            </div>
+        `;
         return;
     }
 
@@ -1302,14 +1390,26 @@ function renderGaps(data) {
     const contentEl = document.getElementById('gaps-content');
 
     if (!data || !data.content) {
-        contentEl.innerHTML = '<div class="breakdown-loading">No gaps data available</div>';
+        contentEl.innerHTML = `
+            <div class="empty-state compact">
+                <div class="empty-state-icon">💡</div>
+                <div class="empty-state-title">No Gaps Identified</div>
+                <div class="empty-state-description">Run strategic analysis to discover untapped content opportunities.</div>
+            </div>
+        `;
         return;
     }
 
     const gaps = parseGaps(data.content);
 
     if (gaps.length === 0) {
-        contentEl.innerHTML = '<div class="breakdown-loading">No gaps found in analysis</div>';
+        contentEl.innerHTML = `
+            <div class="empty-state compact">
+                <div class="empty-state-icon">✨</div>
+                <div class="empty-state-title">Market Well Covered</div>
+                <div class="empty-state-description">No significant gaps found in current content landscape.</div>
+            </div>
+        `;
         return;
     }
 
@@ -1332,14 +1432,26 @@ function renderRedFlags(data) {
     const contentEl = document.getElementById('redflags-content');
 
     if (!data || !data.content) {
-        contentEl.innerHTML = '<div class="breakdown-loading">No warnings available</div>';
+        contentEl.innerHTML = `
+            <div class="empty-state compact">
+                <div class="empty-state-icon">⚠️</div>
+                <div class="empty-state-title">No Warnings Yet</div>
+                <div class="empty-state-description">Strategic analysis will identify patterns to avoid after processing videos.</div>
+            </div>
+        `;
         return;
     }
 
     const flags = parseRedFlags(data.content);
 
     if (flags.length === 0) {
-        contentEl.innerHTML = '<div class="breakdown-loading">No red flags found in analysis</div>';
+        contentEl.innerHTML = `
+            <div class="empty-state compact">
+                <div class="empty-state-icon">✅</div>
+                <div class="empty-state-title">All Clear</div>
+                <div class="empty-state-description">No red flags detected in the analyzed content.</div>
+            </div>
+        `;
         return;
     }
 
@@ -1374,8 +1486,10 @@ function renderStrategicAnalysis(data) {
 
     if (!data || !data.content) {
         contentEl.innerHTML = `
-            <div class="strategic-empty">
-                <p>No strategic analysis available yet. Run analysis to generate insights.</p>
+            <div class="empty-state">
+                <div class="empty-state-icon">🧠</div>
+                <div class="empty-state-title">No Strategic Analysis</div>
+                <div class="empty-state-description">Run the Claude analysis pipeline to generate strategic insights from your video data.</div>
             </div>
         `;
         return;
