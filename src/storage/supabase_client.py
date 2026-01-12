@@ -456,4 +456,5 @@ class SupabaseStorage:
 
         except Exception as e:
             logger.error(f"Error in get_metric_trends: {e}", exc_info=True)
+            empty_result["error"] = str(e)
             return empty_result
