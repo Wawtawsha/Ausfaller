@@ -423,3 +423,242 @@ class SupabaseStorage:
             result["error"] = str(e)
 
         return result
+
+    # ==================== Account Methods ====================
+
+    def create_account(self, platform: str, username: str) -> dict:
+        """Create a new account to track. Returns the created account."""
+        data = {
+            "platform": platform,
+            "username": username.lstrip("@"),
+            "status": "pending",
+        }
+        result = (
+            self.client.table("accounts")
+            .upsert(data, on_conflict="platform,username")
+            .execute()
+        )
+        logger.info(f"Created account: {platform}/{username}")
+        return result.data[0] if result.data else {}
+
+    def get_account(self, account_id: str) -> Optional[dict]:
+        """Get account by ID."""
+        result = (
+            self.client.table("accounts")
+            .select("*")
+            .eq("id", account_id)
+            .execute()
+        )
+        return result.data[0] if result.data else None
+
+    def get_account_by_username(self, platform: str, username: str) -> Optional[dict]:
+        """Get account by platform and username."""
+        result = (
+            self.client.table("accounts")
+            .select("*")
+            .eq("platform", platform)
+            .eq("username", username.lstrip("@"))
+            .execute()
+        )
+        return result.data[0] if result.data else None
+
+    def list_accounts(self) -> list[dict]:
+        """List all tracked accounts."""
+        result = (
+            self.client.table("account_summary")
+            .select("*")
+            .order("created_at", desc=True)
+            .execute()
+        )
+        return result.data
+
+    def update_account(
+        self,
+        account_id: str,
+        display_name: Optional[str] = None,
+        bio: Optional[str] = None,
+        profile_picture_url: Optional[str] = None,
+        follower_count: Optional[int] = None,
+        following_count: Optional[int] = None,
+        post_count: Optional[int] = None,
+        is_verified: Optional[bool] = None,
+        is_private: Optional[bool] = None,
+        status: Optional[str] = None,
+        scrape_error: Optional[str] = None,
+    ) -> dict:
+        """Update account fields."""
+        data = {"updated_at": datetime.utcnow().isoformat()}
+
+        if display_name is not None:
+            data["display_name"] = display_name
+        if bio is not None:
+            data["bio"] = bio
+        if profile_picture_url is not None:
+            data["profile_picture_url"] = profile_picture_url
+        if follower_count is not None:
+            data["follower_count"] = follower_count
+        if following_count is not None:
+            data["following_count"] = following_count
+        if post_count is not None:
+            data["post_count"] = post_count
+        if is_verified is not None:
+            data["is_verified"] = is_verified
+        if is_private is not None:
+            data["is_private"] = is_private
+        if status is not None:
+            data["status"] = status
+            if status == "active":
+                data["last_scraped_at"] = datetime.utcnow().isoformat()
+        if scrape_error is not None:
+            data["scrape_error"] = scrape_error
+
+        result = (
+            self.client.table("accounts")
+            .update(data)
+            .eq("id", account_id)
+            .execute()
+        )
+        logger.debug(f"Updated account {account_id}")
+        return result.data[0] if result.data else {}
+
+    def delete_account(self, account_id: str) -> bool:
+        """Delete an account (cascades to snapshots, nullifies posts)."""
+        try:
+            self.client.table("accounts").delete().eq("id", account_id).execute()
+            logger.info(f"Deleted account: {account_id}")
+            return True
+        except Exception as e:
+            logger.error(f"Failed to delete account {account_id}: {e}")
+            return False
+
+    def link_posts_to_account(self, account_id: str, author_username: str) -> int:
+        """Link existing posts by author to an account. Returns count linked."""
+        result = (
+            self.client.table("posts")
+            .update({"account_id": account_id})
+            .eq("author_username", author_username)
+            .is_("account_id", "null")
+            .execute()
+        )
+        count = len(result.data) if result.data else 0
+        logger.info(f"Linked {count} posts to account {account_id}")
+        return count
+
+    def get_account_posts(self, account_id: str, limit: int = 100) -> list[dict]:
+        """Get all posts for an account."""
+        result = (
+            self.client.table("posts")
+            .select("*")
+            .eq("account_id", account_id)
+            .order("scraped_at", desc=True)
+            .limit(limit)
+            .execute()
+        )
+        return result.data
+
+    def create_account_snapshot(
+        self,
+        account_id: str,
+        video_count: int = 0,
+        analyzed_count: int = 0,
+        avg_hook_strength: Optional[float] = None,
+        avg_viral_potential: Optional[float] = None,
+        avg_replicability: Optional[float] = None,
+        hook_types: Optional[dict] = None,
+        audio_categories: Optional[dict] = None,
+        visual_styles: Optional[dict] = None,
+        dataset_comparison: Optional[dict] = None,
+        percentile_ranks: Optional[dict] = None,
+        recommendations: Optional[list] = None,
+        gaps: Optional[list] = None,
+    ) -> dict:
+        """Create a snapshot of account metrics at this point in time."""
+        data = {
+            "account_id": account_id,
+            "video_count": video_count,
+            "analyzed_count": analyzed_count,
+        }
+
+        if avg_hook_strength is not None:
+            data["avg_hook_strength"] = avg_hook_strength
+        if avg_viral_potential is not None:
+            data["avg_viral_potential"] = avg_viral_potential
+        if avg_replicability is not None:
+            data["avg_replicability"] = avg_replicability
+        if hook_types is not None:
+            data["hook_types"] = hook_types
+        if audio_categories is not None:
+            data["audio_categories"] = audio_categories
+        if visual_styles is not None:
+            data["visual_styles"] = visual_styles
+        if dataset_comparison is not None:
+            data["dataset_comparison"] = dataset_comparison
+        if percentile_ranks is not None:
+            data["percentile_ranks"] = percentile_ranks
+        if recommendations is not None:
+            data["recommendations"] = recommendations
+        if gaps is not None:
+            data["gaps"] = gaps
+
+        result = self.client.table("account_snapshots").insert(data).execute()
+        logger.info(f"Created snapshot for account {account_id}")
+        return result.data[0] if result.data else {}
+
+    def get_account_snapshots(self, account_id: str, limit: int = 10) -> list[dict]:
+        """Get historical snapshots for an account."""
+        result = (
+            self.client.table("account_snapshots")
+            .select("*")
+            .eq("account_id", account_id)
+            .order("snapshot_at", desc=True)
+            .limit(limit)
+            .execute()
+        )
+        return result.data
+
+    def get_account_comparison(self, account_id: str) -> Optional[dict]:
+        """Get account comparison vs dataset from the view."""
+        result = (
+            self.client.table("account_vs_dataset")
+            .select("*")
+            .eq("account_id", account_id)
+            .execute()
+        )
+        return result.data[0] if result.data else None
+
+    def get_dataset_averages(self) -> dict:
+        """Get overall dataset averages for comparison."""
+        result = (
+            self.client.table("posts")
+            .select("analysis")
+            .not_.is_("analysis", "null")
+            .execute()
+        )
+
+        if not result.data:
+            return {"hook": 0, "viral": 0, "replicability": 0, "count": 0}
+
+        hooks = []
+        virals = []
+        replicabilities = []
+
+        for post in result.data:
+            analysis = post.get("analysis", {})
+            if analysis:
+                hook_val = analysis.get("hook", {}).get("hook_strength")
+                viral_val = analysis.get("trends", {}).get("viral_potential_score")
+                replicate_val = analysis.get("replicability", {}).get("replicability_score")
+
+                if hook_val is not None:
+                    hooks.append(float(hook_val))
+                if viral_val is not None:
+                    virals.append(float(viral_val))
+                if replicate_val is not None:
+                    replicabilities.append(float(replicate_val))
+
+        return {
+            "hook": sum(hooks) / len(hooks) if hooks else 0,
+            "viral": sum(virals) / len(virals) if virals else 0,
+            "replicability": sum(replicabilities) / len(replicabilities) if replicabilities else 0,
+            "count": len(result.data),
+        }
