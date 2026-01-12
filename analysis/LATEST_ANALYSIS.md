@@ -319,6 +319,51 @@ This is a clear trend. Production quality now matters. "Raw" dropped from 47% to
 
 ---
 
+## Gaps and Opportunities
+
+### What's Still Missing
+
+1. **Save-worthy content expansion** - Save triggers up 347% but still underserved. More tutorials, recipes, and reference content needed.
+
+2. **Chill/slow content** - Only 5% use "chill" mood. In an ocean of energetic content, slow stands out.
+
+3. **Series content** - No evidence of serialized content in the data. "Episode 3" format is untapped.
+
+4. **Customer voice** - Only 15% feature "other person" voice. Real customer testimonials, reactions, stories remain rare.
+
+5. **Single-shot content** - Under 1% of content. One unbroken take in a world of fast cuts would be jarring and memorable.
+
+### Emerging Opportunities
+
+1. **Business operations** - Up 225% but still only 13%. Inventory, vendor relations, management decisions—wide open.
+
+2. **Transformation hooks** - New at 2%. Before/after reveals are proven in other niches, just arriving here.
+
+3. **Medium-paced content** - Up to 30%. The middle ground between fast cuts and slow is growing.
+
+4. **Educational value** - "Useful info" doubled to 16% of share triggers. Teaching is rewarded.
+
+---
+
+## Red Flags: What to Avoid
+
+### Declining Patterns
+- **Bar-only settings** - Down from 65% to 21% across four analyses. The niche has moved beyond the bar.
+- **Energetic-only mood** - Down from 57% to 45%. Audiences want variety.
+- **Easy difficulty** - Down from 89% to 72%. Simple content is losing edge.
+
+### Saturated Approaches
+- **Relatable pain + trending audio** - The 2024 formula. Relatable pain held at 29% but isn't growing.
+- **Text hook + statement technique** - 38% + 30% of content. Maximum competition.
+- **Pure music-only content** - Down from 26% to 23%. Voice content is rebounding.
+
+### Technical Mistakes
+- **Bad lighting** - Most mentioned negative factor across all analyses.
+- **Music-content mismatch** - Using trending sounds that don't fit the vibe.
+- **Overproduced without substance** - Polished is growing but needs value underneath.
+
+---
+
 ## Key Takeaways
 
 1. **Home > Bar.** The niche has officially transcended its setting. "Bartender content" is lifestyle content now.
