@@ -474,17 +474,12 @@ These techniques are overused AND underperforming - avoid or differentiate:
 
 ### Why These Are Failing:
 
-1. **Relatable Pain Hooks (25.6% of all content, -54% performance)** - Massively oversaturated. Everyone opens with "POV: You're a bartender and..." or "When the customer says..." The algorithm has seen it millions of times. If you must use it, add a unique twist or unexpected payoff.
-
-2. **Bold Claim Hooks (13.5%, -62%)** - "Bartenders don't want you to know this..." style hooks have been overused to the point of being ignored. The audience is trained to expect clickbait. Either deliver exceptional value or avoid entirely.
-
-3. **Tutorial Format (9.6%, -87% - CRITICAL)** - Tutorial content is essentially dead for reach. If you need to teach, wrap it in a story or trend format. Pure "how to make X cocktail" videos are algorithmic poison.
-
-4. **Behind the Scenes (9.4%, -57%)** - Generic "day in the life" and BTS content no longer impresses. The novelty has worn off. Only use if you have truly unique or dramatic workplace content.
-
-5. **Skit Format (8.0%, -73%)** - Scripted comedy requires excellent execution. Most bar skits feel forced. Unless you have genuine comedic talent and production quality, avoid.
-
-6. **Review Format (4.5%, -77%)** - Product and drink reviews struggle for reach. The format lacks the emotional hooks that drive shares. Consider embedding reviews within storytelling.
+- **Relatable Pain Hooks (25.6% of all content, -54% performance)** - Massively oversaturated. Everyone opens with "POV: You're a bartender and..." or "When the customer says..." The algorithm has seen it millions of times. If you must use it, add a unique twist or unexpected payoff.
+- **Bold Claim Hooks (13.5%, -62%)** - "Bartenders don't want you to know this..." style hooks have been overused to the point of being ignored. The audience is trained to expect clickbait. Either deliver exceptional value or avoid entirely.
+- **Tutorial Format (9.6%, -87% - CRITICAL)** - Tutorial content is essentially dead for reach. If you need to teach, wrap it in a story or trend format. Pure "how to make X cocktail" videos are algorithmic poison.
+- **Behind the Scenes (9.4%, -57%)** - Generic "day in the life" and BTS content no longer impresses. The novelty has worn off. Only use if you have truly unique or dramatic workplace content.
+- **Skit Format (8.0%, -73%)** - Scripted comedy requires excellent execution. Most bar skits feel forced. Unless you have genuine comedic talent and production quality, avoid.
+- **Review Format (4.5%, -77%)** - Product and drink reviews struggle for reach. The format lacks the emotional hooks that drive shares. Consider embedding reviews within storytelling.
 
 ---
 
