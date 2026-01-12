@@ -1052,6 +1052,25 @@ async def get_all_analytics():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/analytics/raw-posts")
+async def get_raw_posts(limit: int = 500):
+    """
+    Get raw analyzed posts for cross-chart filtering.
+
+    Returns posts with full analysis data for client-side aggregation.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        posts = storage.get_analyzed_posts_raw(limit=limit)
+        return {"posts": posts, "count": len(posts)}
+    except Exception as e:
+        logger.error(f"Failed to get raw posts: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/analytics/recent-reply")
 async def get_recent_reply():
     """

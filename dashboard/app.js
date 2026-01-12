@@ -17,6 +17,9 @@ let analyticsData = {
     viral_factors: []
 };
 
+// Store raw posts for cross-chart filtering
+let rawPosts = [];
+
 // Active chart filter state
 let activeChartFilter = null;
 
@@ -148,6 +151,46 @@ async function fetchTrends() {
         throw new Error(`API Error: ${response.status}`);
     }
     return response.json();
+}
+
+/**
+ * Fetch raw posts for cross-chart filtering
+ */
+async function fetchRawPosts() {
+    const response = await fetch(`${API_BASE}/analytics/raw-posts?limit=500`);
+    if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+    }
+    return response.json();
+}
+
+/**
+ * Parse raw posts into filterable format
+ * Extracts hook_type, hook_technique, audio_category, visual_style from each post's analysis
+ */
+function parsePostsForFiltering(posts) {
+    return posts.map(post => {
+        let analysis = post.analysis;
+        // Handle JSON string if needed
+        if (typeof analysis === 'string') {
+            try { analysis = JSON.parse(analysis); } catch { analysis = {}; }
+        }
+        analysis = analysis || {};
+
+        return {
+            id: post.id,
+            platform: post.platform,
+            author: post.author_username,
+            hook_type: analysis.hook_type || null,
+            hook_technique: analysis.hook_technique || null,
+            audio_category: analysis.audio_category || null,
+            visual_style: analysis.visual_style || null,
+            visual_setting: analysis.visual_setting || null,
+            viral_potential: analysis.viral_potential_score || null,
+            replicability: analysis.replicability_score || null,
+            viral_factors: analysis.viral_factors || [],
+        };
+    }).filter(p => p.hook_type || p.audio_category || p.visual_style); // Only keep posts with chart data
 }
 
 /**
@@ -529,9 +572,9 @@ function createDoughnutChart(canvasId, data, key, filterType = null) {
 }
 
 /**
- * Create horizontal bar chart
+ * Create horizontal bar chart with optional filter support
  */
-function createHorizontalBarChart(canvasId, data, key, label) {
+function createHorizontalBarChart(canvasId, data, key, label, filterType = null) {
     const aggregated = aggregateByKey(data, key);
 
     // Sort by value descending
@@ -539,6 +582,8 @@ function createHorizontalBarChart(canvasId, data, key, label) {
         .sort((a, b) => b[1] - a[1])
         .slice(0, 6); // Top 6
 
+    // Store original keys for filtering (before formatting)
+    const originalKeys = sorted.map(([k]) => k);
     const labels = sorted.map(([k]) => k.replace(/_/g, ' '));
     const values = sorted.map(([, v]) => v);
 
@@ -569,6 +614,16 @@ function createHorizontalBarChart(canvasId, data, key, label) {
         wrapper?.querySelector('.empty-state')?.remove();
     }
 
+    // Highlight active filter
+    const backgroundColors = originalKeys.map((key, i) => {
+        if (activeChartFilter && activeChartFilter.type === filterType && activeChartFilter.value === key) {
+            return 'rgba(59, 130, 246, 1)'; // Full opacity for selected
+        }
+        return activeChartFilter && activeChartFilter.type === filterType
+            ? 'rgba(59, 130, 246, 0.3)' // Dimmed for non-selected
+            : 'rgba(59, 130, 246, 0.7)'; // Normal
+    });
+
     createChart(canvasId, {
         type: 'bar',
         data: {
@@ -576,7 +631,7 @@ function createHorizontalBarChart(canvasId, data, key, label) {
             datasets: [{
                 label: label,
                 data: values,
-                backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                backgroundColor: backgroundColors,
                 borderRadius: 4,
                 barThickness: 20
             }]
@@ -595,7 +650,16 @@ function createHorizontalBarChart(canvasId, data, key, label) {
                     grid: { display: false },
                     ticks: { font: { size: 11 } }
                 }
-            }
+            },
+            onClick: filterType ? (event, elements) => {
+                if (elements.length > 0) {
+                    const index = elements[0].index;
+                    const originalKey = originalKeys[index];
+                    if (originalKey && originalKey !== 'No data') {
+                        setChartFilter(filterType, originalKey);
+                    }
+                }
+            } : undefined
         }
     });
 }
@@ -735,32 +799,57 @@ function hideFilterIndicator() {
 }
 
 /**
- * Refresh all charts with current filter
+ * Aggregate raw posts by a specific attribute
+ * Returns array of {[key]: value, count: n} for chart consumption
+ */
+function aggregateRawPosts(posts, attribute) {
+    const counts = {};
+    posts.forEach(post => {
+        const val = post[attribute];
+        if (val) {
+            counts[val] = (counts[val] || 0) + 1;
+        }
+    });
+    return Object.entries(counts).map(([key, count]) => ({
+        [attribute]: key,
+        count
+    }));
+}
+
+/**
+ * Refresh all charts with current filter using rawPosts for cross-filtering
  */
 function refreshChartsWithFilter() {
-    let hooksData = analyticsData.hooks;
-    let audioData = analyticsData.audio;
-    let visualData = analyticsData.visual;
-
-    // Apply filter if active
-    if (activeChartFilter) {
-        const { type, value } = activeChartFilter;
-
-        if (type === 'hook_type') {
-            // Filter hooks data by hook_type
-            hooksData = analyticsData.hooks.filter(h => h.hook_type === value);
-        } else if (type === 'hook_technique') {
-            hooksData = analyticsData.hooks.filter(h => h.hook_technique === value);
-        } else if (type === 'audio') {
-            audioData = analyticsData.audio.filter(a => a.category === value);
-        } else if (type === 'visual') {
-            visualData = analyticsData.visual.filter(v => v.style === value);
-        }
+    // If no filter or no raw posts, use pre-aggregated API data
+    if (!activeChartFilter || rawPosts.length === 0) {
+        createDoughnutChart('hook-types-chart', analyticsData.hooks, 'hook_type', 'hook_type');
+        createHorizontalBarChart('hook-techniques-chart', analyticsData.hooks, 'hook_technique', 'Videos', 'hook_technique');
+        createDoughnutChart('audio-chart', analyticsData.audio, 'category', 'audio');
+        createDoughnutChart('visual-chart', analyticsData.visual, 'style', 'visual');
+        return;
     }
 
-    // Re-render charts with filtered data
-    createDoughnutChart('hook-types-chart', hooksData, 'hook_type', 'hook_type');
-    createHorizontalBarChart('hook-techniques-chart', hooksData, 'hook_technique', 'Videos');
+    // Filter rawPosts by the active filter
+    const { type, value } = activeChartFilter;
+    const filteredPosts = rawPosts.filter(post => {
+        if (type === 'hook_type') return post.hook_type === value;
+        if (type === 'hook_technique') return post.hook_technique === value;
+        if (type === 'audio') return post.audio_category === value;
+        if (type === 'visual') return post.visual_style === value;
+        return true;
+    });
+
+    // Re-aggregate from filtered posts
+    const hookTypesData = aggregateRawPosts(filteredPosts, 'hook_type');
+    const hookTechniquesData = aggregateRawPosts(filteredPosts, 'hook_technique');
+    const audioData = aggregateRawPosts(filteredPosts, 'audio_category')
+        .map(d => ({ category: d.audio_category, count: d.count }));
+    const visualData = aggregateRawPosts(filteredPosts, 'visual_style')
+        .map(d => ({ style: d.visual_style, count: d.count }));
+
+    // Re-render charts with cross-filtered data
+    createDoughnutChart('hook-types-chart', hookTypesData, 'hook_type', 'hook_type');
+    createHorizontalBarChart('hook-techniques-chart', hookTechniquesData, 'hook_technique', 'Videos', 'hook_technique');
     createDoughnutChart('audio-chart', audioData, 'category', 'audio');
     createDoughnutChart('visual-chart', visualData, 'style', 'visual');
 }
@@ -1591,8 +1680,8 @@ async function init() {
         // Show skeleton loading states immediately
         showSkeletons();
 
-        // Fetch analytics, recent reply, strategic analysis, and trends in parallel
-        const [data, replyData, strategicData, trendsData] = await Promise.all([
+        // Fetch analytics, recent reply, strategic analysis, trends, and raw posts in parallel
+        const [data, replyData, strategicData, trendsData, rawPostsData] = await Promise.all([
             fetchAnalytics(),
             fetchRecentReply().catch(err => {
                 console.warn('Failed to fetch recent reply:', err);
@@ -1605,8 +1694,17 @@ async function init() {
             fetchTrends().catch(err => {
                 console.warn('Failed to fetch trends:', err);
                 return null;
+            }),
+            fetchRawPosts().catch(err => {
+                console.warn('Failed to fetch raw posts:', err);
+                return null;
             })
         ]);
+
+        // Parse raw posts for cross-chart filtering
+        if (rawPostsData?.posts) {
+            rawPosts = parsePostsForFiltering(rawPostsData.posts);
+        }
 
         // Update all components
         updateMetrics(data.summary || {});
@@ -1634,7 +1732,7 @@ async function init() {
 
         // Hook charts (with filter support)
         createDoughnutChart('hook-types-chart', data.hooks || [], 'hook_type', 'hook_type');
-        createHorizontalBarChart('hook-techniques-chart', data.hooks || [], 'hook_technique', 'Videos');
+        createHorizontalBarChart('hook-techniques-chart', data.hooks || [], 'hook_technique', 'Videos', 'hook_technique');
 
         // Audio & Visual charts (with filter support)
         createDoughnutChart('audio-chart', data.audio || [], 'category', 'audio');

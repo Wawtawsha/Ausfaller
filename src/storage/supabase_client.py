@@ -82,6 +82,9 @@ class SupabaseStorage:
                     data["comments"] = meta["comment_count"]
                 if meta.get("repost_count"):
                     data["shares"] = meta["repost_count"]
+                # Extract upload timestamp for time-weighted metrics
+                if meta.get("timestamp"):
+                    data["posted_at"] = datetime.utcfromtimestamp(meta["timestamp"]).isoformat()
 
         if analysis and analysis.success:
             data["analysis"] = analysis.to_dict()
