@@ -227,6 +227,41 @@ function restoreMetricCards() {
 }
 
 /**
+ * Animate a number counting up
+ */
+function animateValue(element, start, end, duration, decimals = 0) {
+    if (!element) return;
+
+    // If end is not a number (like "—"), just set it directly
+    if (isNaN(end)) {
+        element.textContent = end;
+        return;
+    }
+
+    const startTime = performance.now();
+    const range = end - start;
+
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Ease out cubic
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const current = start + (range * easeOut);
+
+        element.textContent = decimals > 0 ? current.toFixed(decimals) : Math.floor(current);
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+            element.textContent = decimals > 0 ? end.toFixed(decimals) : end;
+        }
+    }
+
+    requestAnimationFrame(update);
+}
+
+/**
  * Update summary metric cards
  */
 function updateMetrics(summary) {
@@ -235,34 +270,54 @@ function updateMetrics(summary) {
 
     const total = summary.total_videos || 0;
     const analyzed = summary.analyzed_videos || 0;
-    const hookStr = summary.avg_hook_strength ? parseFloat(summary.avg_hook_strength).toFixed(1) : '—';
-    const viral = summary.avg_viral_potential ? parseFloat(summary.avg_viral_potential).toFixed(1) : '—';
-    const replicate = summary.avg_replicability ? parseFloat(summary.avg_replicability).toFixed(1) : '—';
+    const hook = summary.avg_hook_strength ? parseFloat(summary.avg_hook_strength) : null;
+    const viral = summary.avg_viral_potential ? parseFloat(summary.avg_viral_potential) : null;
+    const replicate = summary.avg_replicability ? parseFloat(summary.avg_replicability) : null;
 
-    // Safely update text content
+    // Get elements
     const totalEl = document.getElementById('total-videos');
     const analyzedEl = document.getElementById('analyzed-videos');
     const hookEl = document.getElementById('avg-hook');
     const viralEl = document.getElementById('avg-viral');
     const replicateEl = document.getElementById('avg-replicability');
 
-    if (totalEl) totalEl.textContent = total;
-    if (analyzedEl) analyzedEl.textContent = analyzed;
-    if (hookEl) hookEl.textContent = hookStr;
-    if (viralEl) viralEl.textContent = viral;
-    if (replicateEl) replicateEl.textContent = replicate;
+    // Animate count-up for integers
+    animateValue(totalEl, 0, total, 800);
+    animateValue(analyzedEl, 0, analyzed, 800);
 
-    // Update progress bars
+    // Animate or set dash for score metrics
+    if (hook !== null) {
+        animateValue(hookEl, 0, hook, 1000, 1);
+    } else if (hookEl) {
+        hookEl.textContent = '—';
+    }
+
+    if (viral !== null) {
+        animateValue(viralEl, 0, viral, 1000, 1);
+    } else if (viralEl) {
+        viralEl.textContent = '—';
+    }
+
+    if (replicate !== null) {
+        animateValue(replicateEl, 0, replicate, 1000, 1);
+    } else if (replicateEl) {
+        replicateEl.textContent = '—';
+    }
+
+    // Update progress bars with smooth transition
     const analyzedPercent = total > 0 ? (analyzed / total) * 100 : 0;
     const analyzedBar = document.querySelector('.metric-bar-fill.analyzed');
     const hookBar = document.querySelector('.metric-bar-fill.hook');
     const viralBar = document.querySelector('.metric-bar-fill.viral');
     const replicateBar = document.querySelector('.metric-bar-fill.replicate');
 
-    if (analyzedBar) analyzedBar.style.width = `${analyzedPercent}%`;
-    if (hookBar && hookStr !== '—') hookBar.style.width = `${parseFloat(hookStr) * 10}%`;
-    if (viralBar && viral !== '—') viralBar.style.width = `${parseFloat(viral) * 10}%`;
-    if (replicateBar && replicate !== '—') replicateBar.style.width = `${parseFloat(replicate) * 10}%`;
+    // Delay bar animations slightly for visual effect
+    setTimeout(() => {
+        if (analyzedBar) analyzedBar.style.width = `${analyzedPercent}%`;
+        if (hookBar && hook !== null) hookBar.style.width = `${hook * 10}%`;
+        if (viralBar && viral !== null) viralBar.style.width = `${viral * 10}%`;
+        if (replicateBar && replicate !== null) replicateBar.style.width = `${replicate * 10}%`;
+    }, 300);
 
     // Update footer
     const footerEl = document.getElementById('video-count-footer');
@@ -688,12 +743,137 @@ function initLeaderboardFilters() {
     });
 }
 
+// Error handling state
+let retryCountdownInterval = null;
+
 /**
- * Show error modal
+ * Categorize error and provide helpful context
+ */
+function categorizeError(message) {
+    const msg = message.toLowerCase();
+
+    if (msg.includes('503') || msg.includes('not configured')) {
+        return {
+            title: 'Database Not Connected',
+            icon: '🔌',
+            hint: 'Supabase connection not configured. Check environment variables.',
+            autoRetry: false
+        };
+    }
+    if (msg.includes('500') || msg.includes('internal')) {
+        return {
+            title: 'Server Error',
+            icon: '⚠️',
+            hint: 'The server encountered an error. This may be temporary.',
+            autoRetry: true,
+            retryDelay: 10
+        };
+    }
+    if (msg.includes('network') || msg.includes('fetch') || msg.includes('failed to fetch')) {
+        return {
+            title: 'Network Error',
+            icon: '📡',
+            hint: 'Check your internet connection or try again.',
+            autoRetry: true,
+            retryDelay: 5
+        };
+    }
+    if (msg.includes('timeout')) {
+        return {
+            title: 'Request Timeout',
+            icon: '⏱️',
+            hint: 'The server took too long to respond.',
+            autoRetry: true,
+            retryDelay: 5
+        };
+    }
+
+    return {
+        title: 'Connection Error',
+        icon: '!',
+        hint: '',
+        autoRetry: false
+    };
+}
+
+/**
+ * Show error modal with categorized messaging
  */
 function showError(message) {
-    document.getElementById('error-message').textContent = message;
-    document.getElementById('error-modal').classList.add('visible');
+    const category = categorizeError(message);
+
+    const iconEl = document.getElementById('error-icon');
+    const titleEl = document.getElementById('error-title');
+    const messageEl = document.getElementById('error-message');
+    const hintEl = document.getElementById('error-hint');
+    const retryBtn = document.getElementById('error-retry-btn');
+    const retryText = document.getElementById('retry-text');
+    const countdownEl = document.getElementById('retry-countdown');
+
+    if (iconEl) iconEl.textContent = category.icon;
+    if (titleEl) titleEl.textContent = category.title;
+    if (messageEl) messageEl.textContent = message;
+    if (hintEl) {
+        hintEl.textContent = category.hint;
+        hintEl.style.display = category.hint ? 'block' : 'none';
+    }
+
+    // Clear any existing countdown
+    if (retryCountdownInterval) {
+        clearInterval(retryCountdownInterval);
+        retryCountdownInterval = null;
+    }
+
+    // Set up auto-retry countdown if applicable
+    if (category.autoRetry && category.retryDelay) {
+        let seconds = category.retryDelay;
+        if (retryText) retryText.style.display = 'none';
+        if (countdownEl) {
+            countdownEl.style.display = 'inline';
+            countdownEl.textContent = `Retrying in ${seconds}s...`;
+        }
+        if (retryBtn) retryBtn.disabled = true;
+
+        retryCountdownInterval = setInterval(() => {
+            seconds--;
+            if (countdownEl) countdownEl.textContent = `Retrying in ${seconds}s...`;
+
+            if (seconds <= 0) {
+                clearInterval(retryCountdownInterval);
+                retryCountdownInterval = null;
+                retryConnection();
+            }
+        }, 1000);
+    } else {
+        if (retryText) retryText.style.display = 'inline';
+        if (countdownEl) countdownEl.style.display = 'none';
+        if (retryBtn) retryBtn.disabled = false;
+    }
+
+    document.getElementById('error-modal')?.classList.add('visible');
+}
+
+/**
+ * Retry connection
+ */
+function retryConnection() {
+    if (retryCountdownInterval) {
+        clearInterval(retryCountdownInterval);
+        retryCountdownInterval = null;
+    }
+    dismissError();
+    init();
+}
+
+/**
+ * Dismiss error modal
+ */
+function dismissError() {
+    if (retryCountdownInterval) {
+        clearInterval(retryCountdownInterval);
+        retryCountdownInterval = null;
+    }
+    document.getElementById('error-modal')?.classList.remove('visible');
 }
 
 /**

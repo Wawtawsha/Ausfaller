@@ -678,6 +678,25 @@ body {
     cursor: pointer;
 }
 
+/* Section Headers */
+.section-header {
+    margin-bottom: 16px;
+}
+
+.section-header h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.section-description {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
 .charts-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1011,7 +1030,18 @@ tr:hover td {
 .error-content p {
     color: var(--text-secondary);
     font-size: 0.875rem;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
+}
+
+.error-content p#error-message {
+    margin-bottom: 8px;
+}
+
+.error-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    font-style: italic;
 }
 
 .error-content button {
@@ -1023,11 +1053,29 @@ tr:hover td {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
+    margin: 4px;
 }
 
-.error-content button:hover {
+.error-content button:hover:not(:disabled) {
     background: #dc2626;
     transform: translateY(-1px);
+}
+
+.error-content button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.error-content button.error-dismiss {
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+}
+
+.error-content button.error-dismiss:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--text-muted);
+    transform: none;
 }
 
 /* ============================================

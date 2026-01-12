@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trend Intelligence | Social Analytics</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
@@ -201,7 +202,11 @@
         </section>
 
         <!-- Charts Grid -->
-        <section class="charts-grid" id="charts-section">
+        <div class="section-header" id="charts-section">
+            <h2>Content Breakdown</h2>
+            <p class="section-description">Click any chart segment to filter. Patterns from analyzed videos.</p>
+        </div>
+        <section class="charts-grid">
             <div class="chart-card" style="--delay: 6">
                 <div class="chart-header">
                     <h3>Hook Types</h3>
@@ -299,10 +304,15 @@
     <!-- Error Modal -->
     <div class="error-modal" id="error-modal">
         <div class="error-content">
-            <div class="error-icon">!</div>
-            <h4>Connection Error</h4>
+            <div class="error-icon" id="error-icon">!</div>
+            <h4 id="error-title">Connection Error</h4>
             <p id="error-message">Unable to fetch analytics data</p>
-            <button onclick="location.reload()">Retry</button>
+            <p id="error-hint" class="error-hint"></p>
+            <button id="error-retry-btn" onclick="retryConnection()">
+                <span id="retry-text">Retry</span>
+                <span id="retry-countdown" style="display: none;"></span>
+            </button>
+            <button class="error-dismiss" onclick="dismissError()">Dismiss</button>
         </div>
     </div>
 
