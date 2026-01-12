@@ -1037,8 +1037,10 @@ async def get_all_analytics():
         raise HTTPException(status_code=503, detail="Supabase not configured")
 
     try:
+        summary = storage.get_analytics_summary()
+        summary["total_video_bytes"] = storage.get_total_video_bytes()
         return {
-            "summary": storage.get_analytics_summary(),
+            "summary": summary,
             "hooks": storage.get_hook_trends(limit=10),
             "audio": storage.get_audio_trends(limit=10),
             "visual": storage.get_visual_trends(limit=10),

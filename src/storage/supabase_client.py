@@ -259,6 +259,21 @@ class SupabaseStorage:
             return result.data[0]
         return {}
 
+    def get_total_video_bytes(self) -> int:
+        """Get total bytes of all downloaded videos."""
+        try:
+            result = (
+                self.client.table("posts")
+                .select("file_size_bytes")
+                .not_.is_("file_size_bytes", "null")
+                .execute()
+            )
+            total = sum(row.get("file_size_bytes", 0) or 0 for row in result.data)
+            return total
+        except Exception as e:
+            logger.error(f"Error getting total video bytes: {e}")
+            return 0
+
     def get_niche_analytics(self) -> list[dict]:
         """Get analytics grouped by niche."""
         result = self.client.table("niche_analytics").select("*").execute()

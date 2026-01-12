@@ -331,6 +331,7 @@ function updateMetrics(summary) {
 
     const total = summary.total_videos || 0;
     const analyzed = summary.analyzed_videos || 0;
+    const totalBytes = summary.total_video_bytes || 0;
     const hook = summary.avg_hook_strength ? parseFloat(summary.avg_hook_strength) : null;
     const viral = summary.avg_viral_potential ? parseFloat(summary.avg_viral_potential) : null;
     const replicate = summary.avg_replicability ? parseFloat(summary.avg_replicability) : null;
@@ -338,6 +339,7 @@ function updateMetrics(summary) {
     // Get elements
     const totalEl = document.getElementById('total-videos');
     const analyzedEl = document.getElementById('analyzed-videos');
+    const bytesEl = document.getElementById('total-bytes');
     const hookEl = document.getElementById('avg-hook');
     const viralEl = document.getElementById('avg-viral');
     const replicateEl = document.getElementById('avg-replicability');
@@ -345,6 +347,11 @@ function updateMetrics(summary) {
     // Animate count-up for integers
     animateValue(totalEl, 0, total, 800);
     animateValue(analyzedEl, 0, analyzed, 800);
+
+    // Set formatted bytes
+    if (bytesEl) {
+        bytesEl.textContent = formatBytes(totalBytes);
+    }
 
     // Animate or set dash for score metrics
     if (hook !== null) {
@@ -367,7 +374,10 @@ function updateMetrics(summary) {
 
     // Update progress bars with smooth transition
     const analyzedPercent = total > 0 ? (analyzed / total) * 100 : 0;
+    // Bytes bar: scale to 10GB max for visual reference
+    const bytesPercent = Math.min((totalBytes / (10 * 1024 * 1024 * 1024)) * 100, 100);
     const analyzedBar = document.querySelector('.metric-bar-fill.analyzed');
+    const bytesBar = document.querySelector('.metric-bar-fill.bytes');
     const hookBar = document.querySelector('.metric-bar-fill.hook');
     const viralBar = document.querySelector('.metric-bar-fill.viral');
     const replicateBar = document.querySelector('.metric-bar-fill.replicate');
@@ -375,6 +385,7 @@ function updateMetrics(summary) {
     // Delay bar animations slightly for visual effect
     setTimeout(() => {
         if (analyzedBar) analyzedBar.style.width = `${analyzedPercent}%`;
+        if (bytesBar) bytesBar.style.width = `${bytesPercent}%`;
         if (hookBar && hook !== null) hookBar.style.width = `${hook * 10}%`;
         if (viralBar && viral !== null) viralBar.style.width = `${viral * 10}%`;
         if (replicateBar && replicate !== null) replicateBar.style.width = `${replicate * 10}%`;
@@ -1019,6 +1030,18 @@ function getScoreClass(score) {
     if (score >= 8) return 'high';
     if (score >= 5) return 'medium';
     return 'low';
+}
+
+/**
+ * Format bytes to human readable (KB, MB, GB, TB)
+ */
+function formatBytes(bytes) {
+    if (!bytes || bytes === 0) return '0 B';
+    const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+    const k = 1024;
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    const value = bytes / Math.pow(k, i);
+    return `${value.toFixed(1)} ${units[i]}`;
 }
 
 /**

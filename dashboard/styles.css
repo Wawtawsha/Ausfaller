@@ -414,6 +414,7 @@ body {
 }
 
 .metric-bar-fill.analyzed { background: var(--accent-success); }
+.metric-bar-fill.bytes { background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); }
 .metric-bar-fill.hook { background: linear-gradient(90deg, var(--accent-warning), var(--accent-danger)); }
 .metric-bar-fill.viral { background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary)); }
 .metric-bar-fill.replicate { background: linear-gradient(90deg, var(--accent-cyan), var(--accent-success)); }
