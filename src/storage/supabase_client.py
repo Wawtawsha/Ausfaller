@@ -415,16 +415,9 @@ class SupabaseStorage:
             }
 
         try:
-            # Get ALL analyzed posts (ignore date filtering for now)
-            result = (
-                self.client.table("posts")
-                .select("analysis")
-                .not_.is_("analysis", "null")
-                .limit(500)
-                .execute()
-            )
-            all_posts = result.data or []
-            logger.info(f"Found {len(all_posts)} analyzed posts")
+            # Use the working get_analyzed_posts_raw method
+            all_posts = self.get_analyzed_posts_raw(limit=500)
+            logger.info(f"Found {len(all_posts)} analyzed posts via get_analyzed_posts_raw")
 
             # For now, treat all posts as "recent" since date filtering isn't working
             recent_posts = all_posts
