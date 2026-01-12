@@ -417,7 +417,14 @@ class SupabaseStorage:
         try:
             # Use the working get_analyzed_posts_raw method
             all_posts = self.get_analyzed_posts_raw(limit=500)
-            logger.info(f"Found {len(all_posts)} analyzed posts via get_analyzed_posts_raw")
+
+            # Debug: check what we got
+            debug_info = {
+                "posts_fetched": len(all_posts),
+                "first_post_keys": list(all_posts[0].keys()) if all_posts else [],
+                "first_analysis_type": type(all_posts[0].get("analysis")).__name__ if all_posts else None,
+            }
+            logger.info(f"Trends debug: {debug_info}")
 
             # For now, treat all posts as "recent" since date filtering isn't working
             recent_posts = all_posts
@@ -429,6 +436,7 @@ class SupabaseStorage:
             result = {
                 "period_days": days,
                 "recent_count": recent_avg["count"],
+                "debug": debug_info,  # Include debug in response
                 "previous_count": previous_avg["count"],
                 "hook_change": None,
                 "viral_change": None,
