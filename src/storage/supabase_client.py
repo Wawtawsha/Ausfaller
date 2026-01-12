@@ -420,26 +420,30 @@ class SupabaseStorage:
             previous_start = (now - timedelta(days=days * 2)).isoformat()
             previous_end = recent_start
 
+            # Try analyzed_at first, fall back to scraped_at
             # Get recent period posts
             recent_result = (
                 self.client.table("posts")
-                .select("analysis")
+                .select("analysis, analyzed_at, scraped_at")
                 .not_.is_("analysis", "null")
-                .gte("analyzed_at", recent_start)
                 .execute()
             )
-            recent_posts = recent_result.data or []
+            all_posts = recent_result.data or []
 
-            # Get previous period posts
-            previous_result = (
-                self.client.table("posts")
-                .select("analysis")
-                .not_.is_("analysis", "null")
-                .gte("analyzed_at", previous_start)
-                .lt("analyzed_at", previous_end)
-                .execute()
-            )
-            previous_posts = previous_result.data or []
+            # Split posts by date (prefer analyzed_at, fall back to scraped_at)
+            recent_posts = []
+            previous_posts = []
+
+            for post in all_posts:
+                date_str = post.get("analyzed_at") or post.get("scraped_at")
+                if not date_str:
+                    recent_posts.append(post)  # No date, assume recent
+                    continue
+
+                if date_str >= recent_start:
+                    recent_posts.append(post)
+                elif date_str >= previous_start:
+                    previous_posts.append(post)
 
             recent_avg = calc_averages(recent_posts)
             previous_avg = calc_averages(previous_posts)
