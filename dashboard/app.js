@@ -9,6 +9,17 @@ const API_BASE = '';  // Same origin - served from Railway
 // Chart instances registry - prevents memory leaks
 const chartRegistry = new Map();
 
+// Store raw analytics data for filtering
+let analyticsData = {
+    hooks: [],
+    audio: [],
+    visual: [],
+    viral_factors: []
+};
+
+// Active chart filter state
+let activeChartFilter = null;
+
 // Color palettes
 const COLORS = {
     primary: ['#3b82f6', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#6366f1'],
@@ -281,9 +292,9 @@ function aggregateByKey(data, key) {
 }
 
 /**
- * Create doughnut chart
+ * Create doughnut chart with optional filter support
  */
-function createDoughnutChart(canvasId, data, key) {
+function createDoughnutChart(canvasId, data, key, filterType = null) {
     const aggregated = aggregateByKey(data, key);
     const labels = Object.keys(aggregated);
     const values = Object.values(aggregated);
@@ -293,14 +304,28 @@ function createDoughnutChart(canvasId, data, key) {
         values.push(1);
     }
 
-    createChart(canvasId, {
+    // Highlight active filter segment
+    const backgroundColors = labels.map((label, i) => {
+        if (activeChartFilter && activeChartFilter.type === filterType && activeChartFilter.value === label) {
+            return COLORS.primary[i]; // Full color for selected
+        }
+        return activeChartFilter && activeChartFilter.type === filterType
+            ? `${COLORS.primary[i]}40` // Dimmed for non-selected
+            : COLORS.primary[i]; // Normal when no filter
+    });
+
+    const chart = createChart(canvasId, {
         type: 'doughnut',
         data: {
             labels: labels,
             datasets: [{
                 data: values,
-                backgroundColor: COLORS.primary.slice(0, labels.length),
-                borderWidth: 0,
+                backgroundColor: backgroundColors,
+                borderWidth: activeChartFilter ? 2 : 0,
+                borderColor: labels.map((label, i) =>
+                    activeChartFilter?.type === filterType && activeChartFilter?.value === label
+                        ? '#fff' : 'transparent'
+                ),
                 hoverOffset: 8
             }]
         },
@@ -314,9 +339,20 @@ function createDoughnutChart(canvasId, data, key) {
                         font: { size: 11 }
                     }
                 }
-            }
+            },
+            onClick: filterType ? (event, elements) => {
+                if (elements.length > 0) {
+                    const index = elements[0].index;
+                    const label = labels[index];
+                    if (label !== 'No data') {
+                        setChartFilter(filterType, label);
+                    }
+                }
+            } : undefined
         }
     });
+
+    return chart;
 }
 
 /**
@@ -410,6 +446,101 @@ function createViralFactorsChart(factors) {
             }
         }
     });
+}
+
+/**
+ * Set chart filter and refresh related charts
+ */
+function setChartFilter(filterType, filterValue) {
+    // Toggle off if clicking same filter
+    if (activeChartFilter && activeChartFilter.type === filterType && activeChartFilter.value === filterValue) {
+        clearChartFilter();
+        return;
+    }
+
+    activeChartFilter = { type: filterType, value: filterValue };
+    showFilterIndicator(filterType, filterValue);
+    refreshChartsWithFilter();
+}
+
+/**
+ * Clear active chart filter
+ */
+function clearChartFilter() {
+    activeChartFilter = null;
+    hideFilterIndicator();
+    refreshChartsWithFilter();
+}
+
+/**
+ * Show filter indicator badge
+ */
+function showFilterIndicator(type, value) {
+    let indicator = document.getElementById('chart-filter-indicator');
+    if (!indicator) {
+        indicator = document.createElement('div');
+        indicator.id = 'chart-filter-indicator';
+        indicator.className = 'chart-filter-indicator';
+        const chartsSection = document.getElementById('charts-section');
+        if (chartsSection) {
+            chartsSection.insertBefore(indicator, chartsSection.firstChild);
+        }
+    }
+
+    const displayValue = value.replace(/_/g, ' ');
+    const displayType = type.replace(/_/g, ' ');
+    indicator.innerHTML = `
+        <span class="filter-label">Filtered by ${displayType}:</span>
+        <span class="filter-value">${displayValue}</span>
+        <button class="filter-clear" onclick="clearChartFilter()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+    `;
+    indicator.style.display = 'flex';
+}
+
+/**
+ * Hide filter indicator
+ */
+function hideFilterIndicator() {
+    const indicator = document.getElementById('chart-filter-indicator');
+    if (indicator) {
+        indicator.style.display = 'none';
+    }
+}
+
+/**
+ * Refresh all charts with current filter
+ */
+function refreshChartsWithFilter() {
+    let hooksData = analyticsData.hooks;
+    let audioData = analyticsData.audio;
+    let visualData = analyticsData.visual;
+
+    // Apply filter if active
+    if (activeChartFilter) {
+        const { type, value } = activeChartFilter;
+
+        if (type === 'hook_type') {
+            // Filter hooks data by hook_type
+            hooksData = analyticsData.hooks.filter(h => h.hook_type === value);
+        } else if (type === 'hook_technique') {
+            hooksData = analyticsData.hooks.filter(h => h.hook_technique === value);
+        } else if (type === 'audio') {
+            audioData = analyticsData.audio.filter(a => a.category === value);
+        } else if (type === 'visual') {
+            visualData = analyticsData.visual.filter(v => v.style === value);
+        }
+    }
+
+    // Re-render charts with filtered data
+    createDoughnutChart('hook-types-chart', hooksData, 'hook_type', 'hook_type');
+    createHorizontalBarChart('hook-techniques-chart', hooksData, 'hook_technique', 'Videos');
+    createDoughnutChart('audio-chart', audioData, 'category', 'audio');
+    createDoughnutChart('visual-chart', visualData, 'style', 'visual');
 }
 
 // Store full leaderboard data for filtering
@@ -1060,13 +1191,23 @@ async function init() {
         // Render strategic analysis
         renderStrategicAnalysis(strategicData);
 
-        // Hook charts
-        createDoughnutChart('hook-types-chart', data.hooks || [], 'hook_type');
+        // Store raw data for cross-chart filtering
+        analyticsData.hooks = data.hooks || [];
+        analyticsData.audio = data.audio || [];
+        analyticsData.visual = data.visual || [];
+        analyticsData.viral_factors = data.viral_factors || [];
+
+        // Clear any active filter on refresh
+        activeChartFilter = null;
+        hideFilterIndicator();
+
+        // Hook charts (with filter support)
+        createDoughnutChart('hook-types-chart', data.hooks || [], 'hook_type', 'hook_type');
         createHorizontalBarChart('hook-techniques-chart', data.hooks || [], 'hook_technique', 'Videos');
 
-        // Audio & Visual charts
-        createDoughnutChart('audio-chart', data.audio || [], 'category');
-        createDoughnutChart('visual-chart', data.visual || [], 'style');
+        // Audio & Visual charts (with filter support)
+        createDoughnutChart('audio-chart', data.audio || [], 'category', 'audio');
+        createDoughnutChart('visual-chart', data.visual || [], 'style', 'visual');
 
         // Viral factors
         createViralFactorsChart(data.viral_factors || []);

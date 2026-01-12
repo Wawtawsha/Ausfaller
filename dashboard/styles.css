@@ -621,6 +621,63 @@ body {
    CHARTS
    ============================================ */
 
+/* Chart Filter Indicator */
+.chart-filter-indicator {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.1));
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: var(--radius-md);
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.chart-filter-indicator .filter-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.chart-filter-indicator .filter-value {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent-primary);
+    text-transform: capitalize;
+}
+
+.chart-filter-indicator .filter-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-left: auto;
+    padding: 0;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.chart-filter-indicator .filter-clear svg {
+    width: 12px;
+    height: 12px;
+    stroke: var(--accent-danger);
+}
+
+.chart-filter-indicator .filter-clear:hover {
+    background: rgba(239, 68, 68, 0.25);
+    border-color: var(--accent-danger);
+    transform: scale(1.1);
+}
+
+/* Clickable chart cursors */
+.chart-card canvas {
+    cursor: pointer;
+}
+
 .charts-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
