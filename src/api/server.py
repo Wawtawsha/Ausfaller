@@ -170,6 +170,7 @@ class BatchPipelineRequest(BaseModel):
     platform: Platform
     hashtags: Optional[list[str]] = Field(default=None, description="List of hashtags to process")
     niche_query: Optional[str] = Field(default=None, description="Generate hashtags from niche description")
+    niche: Optional[str] = Field(default=None, description="Niche category for grouping (e.g., 'dj_nightlife', 'bars_restaurants')")
     hashtag_count: int = Field(default=10, ge=1, le=50, description="Number of hashtags to generate")
     videos_per_hashtag: int = Field(default=10, ge=1, le=30)
     skip_analysis: bool = False
@@ -618,6 +619,7 @@ async def process_single_hashtag(
     count: int,
     skip_analysis: bool,
     store_to_supabase: bool,
+    niche: Optional[str] = None,
 ) -> dict:
     """
     Process a single hashtag through the full pipeline.
@@ -679,6 +681,8 @@ async def process_single_hashtag(
                 videos=extraction.videos,
                 downloads=downloads,
                 analyses=analyses if analyses else None,
+                niche=niche,
+                source_hashtag=hashtag,
             )
             logger.info(f"Stored {stored} posts for #{hashtag}")
 
@@ -742,6 +746,7 @@ async def run_batch_pipeline_job(batch_id: str, request: BatchPipelineRequest) -
                     count=request.videos_per_hashtag,
                     skip_analysis=request.skip_analysis,
                     store_to_supabase=request.store_to_supabase,
+                    niche=request.niche,
                 )
 
                 batch_jobs[batch_id]["results"][hashtag].update(result)
@@ -783,6 +788,7 @@ async def run_batch_pipeline_job(batch_id: str, request: BatchPipelineRequest) -
                         platform=request.platform,
                         count=request.videos_per_hashtag,
                         skip_analysis=request.skip_analysis,
+                        niche=request.niche,
                         store_to_supabase=request.store_to_supabase,
                     )
 
@@ -1024,6 +1030,26 @@ async def get_recent_reply():
         return {"recent_reply": recent}
     except Exception as e:
         logger.error(f"Failed to get recent reply: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/trends")
+async def get_metric_trends(days: int = 7):
+    """
+    Get metric trend changes over time.
+
+    Compares averages from recent period vs previous period.
+    Returns positive values for improvements, negative for declines.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        trends = storage.get_metric_trends(days=days)
+        return trends
+    except Exception as e:
+        logger.error(f"Failed to get metric trends: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

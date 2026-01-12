@@ -361,6 +361,36 @@ body {
     font-weight: 400;
 }
 
+.trend-indicator {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.trend-indicator.up {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--accent-success);
+}
+
+.trend-indicator.down {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--accent-danger);
+}
+
+.trend-indicator.neutral {
+    background: rgba(148, 163, 184, 0.1);
+    color: var(--text-muted);
+}
+
+.trend-indicator:empty {
+    display: none;
+}
+
 .metric-bar {
     height: 4px;
     background: var(--bg-surface);

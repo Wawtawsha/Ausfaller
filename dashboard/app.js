@@ -140,6 +140,52 @@ async function fetchRecentReply() {
 }
 
 /**
+ * Fetch metric trends
+ */
+async function fetchTrends() {
+    const response = await fetch(`${API_BASE}/analytics/trends`);
+    if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+    }
+    return response.json();
+}
+
+/**
+ * Update trend indicators on metric cards
+ */
+function updateTrendIndicators(trends) {
+    const hookEl = document.getElementById('trend-hook');
+    const viralEl = document.getElementById('trend-viral');
+    const replicateEl = document.getElementById('trend-replicate');
+
+    function setTrend(element, value) {
+        if (!element) return;
+
+        if (value === null || value === undefined) {
+            element.textContent = '';
+            element.className = 'trend-indicator';
+            return;
+        }
+
+        const absValue = Math.abs(value);
+        if (absValue < 0.1) {
+            element.textContent = '—';
+            element.className = 'trend-indicator neutral';
+        } else if (value > 0) {
+            element.textContent = `↑ ${absValue.toFixed(1)}`;
+            element.className = 'trend-indicator up';
+        } else {
+            element.textContent = `↓ ${absValue.toFixed(1)}`;
+            element.className = 'trend-indicator down';
+        }
+    }
+
+    setTrend(hookEl, trends.hook_change);
+    setTrend(viralEl, trends.viral_change);
+    setTrend(replicateEl, trends.replicate_change);
+}
+
+/**
  * Update connection status indicator
  */
 function setStatus(connected, message = '') {
@@ -1373,8 +1419,8 @@ async function init() {
         // Show skeleton loading states immediately
         showSkeletons();
 
-        // Fetch analytics, recent reply, and strategic analysis in parallel
-        const [data, replyData, strategicData] = await Promise.all([
+        // Fetch analytics, recent reply, strategic analysis, and trends in parallel
+        const [data, replyData, strategicData, trendsData] = await Promise.all([
             fetchAnalytics(),
             fetchRecentReply().catch(err => {
                 console.warn('Failed to fetch recent reply:', err);
@@ -1383,11 +1429,20 @@ async function init() {
             fetchStrategicAnalysis().catch(err => {
                 console.warn('Failed to fetch strategic analysis:', err);
                 return null;
+            }),
+            fetchTrends().catch(err => {
+                console.warn('Failed to fetch trends:', err);
+                return null;
             })
         ]);
 
         // Update all components
         updateMetrics(data.summary || {});
+
+        // Update trend indicators
+        if (trendsData) {
+            updateTrendIndicators(trendsData);
+        }
 
         // Render recent AI reply
         renderRecentReply(replyData);

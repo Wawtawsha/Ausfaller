@@ -38,6 +38,8 @@ class SupabaseStorage:
         video_info: VideoInfo,
         download_result: Optional[DownloadResult] = None,
         analysis: Optional[VideoAnalysis] = None,
+        niche: Optional[str] = None,
+        source_hashtag: Optional[str] = None,
     ) -> dict:
         """
         Store a post with optional download and analysis data.
@@ -55,6 +57,12 @@ class SupabaseStorage:
             "shares": video_info.shares,
             "scraped_at": datetime.utcnow().isoformat(),
         }
+
+        # Add niche tracking
+        if niche:
+            data["niche"] = niche
+        if source_hashtag:
+            data["source_hashtag"] = source_hashtag
 
         if download_result and download_result.success:
             data["local_file_path"] = str(download_result.file_path)
@@ -81,6 +89,8 @@ class SupabaseStorage:
         videos: list[VideoInfo],
         downloads: Optional[list[DownloadResult]] = None,
         analyses: Optional[list[VideoAnalysis]] = None,
+        niche: Optional[str] = None,
+        source_hashtag: Optional[str] = None,
     ) -> int:
         """
         Store multiple posts at once.
@@ -107,7 +117,7 @@ class SupabaseStorage:
                 analysis = analyses_map.get(str(download.file_path))
 
             try:
-                self.store_post(video, download, analysis)
+                self.store_post(video, download, analysis, niche=niche, source_hashtag=source_hashtag)
                 stored += 1
             except Exception as e:
                 logger.error(f"Failed to store post {video.video_id}: {e}")
@@ -336,3 +346,89 @@ class SupabaseStorage:
         if result.data:
             return result.data[0]
         return None
+
+    def get_metric_trends(self, days: int = 7) -> dict:
+        """
+        Get metric trends comparing recent period vs previous period.
+
+        Returns change in averages (positive = improving, negative = declining).
+        """
+        from datetime import datetime, timedelta
+
+        now = datetime.utcnow()
+        recent_start = (now - timedelta(days=days)).isoformat()
+        previous_start = (now - timedelta(days=days * 2)).isoformat()
+        previous_end = recent_start
+
+        # Get recent period posts
+        recent_result = (
+            self.client.table("posts")
+            .select("analysis")
+            .not_.is_("analysis", "null")
+            .gte("analyzed_at", recent_start)
+            .execute()
+        )
+
+        # Get previous period posts
+        previous_result = (
+            self.client.table("posts")
+            .select("analysis")
+            .not_.is_("analysis", "null")
+            .gte("analyzed_at", previous_start)
+            .lt("analyzed_at", previous_end)
+            .execute()
+        )
+
+        def calc_averages(posts):
+            if not posts:
+                return None
+
+            hook_scores = []
+            viral_scores = []
+            replicate_scores = []
+
+            for post in posts:
+                analysis = post.get("analysis", {})
+                if not analysis:
+                    continue
+
+                hook = analysis.get("hook", {})
+                trends = analysis.get("trends", {})
+                replicability = analysis.get("replicability", {})
+
+                if hook.get("hook_strength"):
+                    hook_scores.append(hook["hook_strength"])
+                if trends.get("viral_potential_score"):
+                    viral_scores.append(trends["viral_potential_score"])
+                if replicability.get("replicability_score"):
+                    replicate_scores.append(replicability["replicability_score"])
+
+            return {
+                "hook": sum(hook_scores) / len(hook_scores) if hook_scores else None,
+                "viral": sum(viral_scores) / len(viral_scores) if viral_scores else None,
+                "replicate": sum(replicate_scores) / len(replicate_scores) if replicate_scores else None,
+                "count": len(posts)
+            }
+
+        recent_avg = calc_averages(recent_result.data)
+        previous_avg = calc_averages(previous_result.data)
+
+        trends = {
+            "period_days": days,
+            "recent_count": recent_avg["count"] if recent_avg else 0,
+            "previous_count": previous_avg["count"] if previous_avg else 0,
+            "hook_change": None,
+            "viral_change": None,
+            "replicate_change": None
+        }
+
+        # Calculate changes if both periods have data
+        if recent_avg and previous_avg:
+            if recent_avg["hook"] and previous_avg["hook"]:
+                trends["hook_change"] = round(recent_avg["hook"] - previous_avg["hook"], 2)
+            if recent_avg["viral"] and previous_avg["viral"]:
+                trends["viral_change"] = round(recent_avg["viral"] - previous_avg["viral"], 2)
+            if recent_avg["replicate"] and previous_avg["replicate"]:
+                trends["replicate_change"] = round(recent_avg["replicate"] - previous_avg["replicate"], 2)
+
+        return trends
