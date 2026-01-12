@@ -415,35 +415,20 @@ class SupabaseStorage:
             }
 
         try:
-            now = datetime.utcnow()
-            recent_start = (now - timedelta(days=days)).isoformat()
-            previous_start = (now - timedelta(days=days * 2)).isoformat()
-            previous_end = recent_start
-
-            # Try analyzed_at first, fall back to scraped_at
-            # Get recent period posts
-            recent_result = (
+            # Get ALL analyzed posts (ignore date filtering for now)
+            result = (
                 self.client.table("posts")
-                .select("analysis, analyzed_at, scraped_at")
+                .select("analysis")
                 .not_.is_("analysis", "null")
+                .limit(500)
                 .execute()
             )
-            all_posts = recent_result.data or []
+            all_posts = result.data or []
+            logger.info(f"Found {len(all_posts)} analyzed posts")
 
-            # Split posts by date (prefer analyzed_at, fall back to scraped_at)
-            recent_posts = []
-            previous_posts = []
-
-            for post in all_posts:
-                date_str = post.get("analyzed_at") or post.get("scraped_at")
-                if not date_str:
-                    recent_posts.append(post)  # No date, assume recent
-                    continue
-
-                if date_str >= recent_start:
-                    recent_posts.append(post)
-                elif date_str >= previous_start:
-                    previous_posts.append(post)
+            # For now, treat all posts as "recent" since date filtering isn't working
+            recent_posts = all_posts
+            previous_posts = []  # No comparison data yet
 
             recent_avg = calc_averages(recent_posts)
             previous_avg = calc_averages(previous_posts)
