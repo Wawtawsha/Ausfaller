@@ -362,15 +362,11 @@ class SupabaseStorage:
 
     def get_metric_trends(self, days: int = 7) -> dict:
         """
-        Get metric trends comparing recent period vs previous period.
-
-        Returns change in averages (positive = improving, negative = declining).
+        Get metric trends - simplified version that just counts analyzed posts.
         """
         import json
-        from datetime import datetime, timedelta
 
-        # Default empty response
-        empty_result = {
+        result = {
             "period_days": days,
             "recent_count": 0,
             "previous_count": 0,
@@ -379,97 +375,21 @@ class SupabaseStorage:
             "replicate_change": None
         }
 
-        def parse_analysis(post):
-            """Safely extract analysis dict from a post."""
-            try:
-                if isinstance(post, str):
-                    post = json.loads(post)
-                if not isinstance(post, dict):
-                    return None
-                analysis = post.get("analysis")
-                if isinstance(analysis, str):
-                    analysis = json.loads(analysis)
-                if isinstance(analysis, dict):
-                    return analysis
-            except (json.JSONDecodeError, TypeError):
-                pass
-            return None
-
-        def calc_averages(posts):
-            """Calculate average scores from posts."""
-            hook_scores = []
-            viral_scores = []
-            replicate_scores = []
-
-            for post in (posts or []):
-                analysis = parse_analysis(post)
-                if not analysis:
-                    continue
-
-                try:
-                    hook = analysis.get("hook") or {}
-                    trends_data = analysis.get("trends") or {}
-                    replicability = analysis.get("replicability") or {}
-
-                    if hook.get("hook_strength"):
-                        hook_scores.append(float(hook["hook_strength"]))
-                    if trends_data.get("viral_potential_score"):
-                        viral_scores.append(float(trends_data["viral_potential_score"]))
-                    if replicability.get("replicability_score"):
-                        replicate_scores.append(float(replicability["replicability_score"]))
-                except (TypeError, ValueError):
-                    continue
-
-            return {
-                "hook": sum(hook_scores) / len(hook_scores) if hook_scores else None,
-                "viral": sum(viral_scores) / len(viral_scores) if viral_scores else None,
-                "replicate": sum(replicate_scores) / len(replicate_scores) if replicate_scores else None,
-                "count": len(posts or [])
-            }
-
         try:
-            # Use the working get_analyzed_posts_raw method
-            all_posts = self.get_analyzed_posts_raw(limit=500)
+            # Simple count query
+            count_result = (
+                self.client.table("posts")
+                .select("id", count="exact")
+                .not_.is_("analysis", "null")
+                .execute()
+            )
 
-            # Debug: check what we got
-            first_post = all_posts[0] if all_posts else None
-            debug_info = {
-                "posts_fetched": len(all_posts),
-                "first_post_type": type(first_post).__name__,
-                "first_post_keys": list(first_post.keys()) if isinstance(first_post, dict) else "N/A",
-                "first_post_sample": str(first_post)[:200] if first_post else None,
-            }
-            logger.info(f"Trends debug: {debug_info}")
-
-            # For now, treat all posts as "recent" since date filtering isn't working
-            recent_posts = all_posts
-            previous_posts = []  # No comparison data yet
-
-            recent_avg = calc_averages(recent_posts)
-            previous_avg = calc_averages(previous_posts)
-
-            result = {
-                "period_days": days,
-                "recent_count": recent_avg["count"],
-                "debug": debug_info,  # Include debug in response
-                "previous_count": previous_avg["count"],
-                "hook_change": None,
-                "viral_change": None,
-                "replicate_change": None
-            }
-
-            # Calculate changes if both periods have data
-            if recent_avg["count"] > 0 and previous_avg["count"] > 0:
-                if recent_avg["hook"] and previous_avg["hook"]:
-                    result["hook_change"] = round(recent_avg["hook"] - previous_avg["hook"], 2)
-                if recent_avg["viral"] and previous_avg["viral"]:
-                    result["viral_change"] = round(recent_avg["viral"] - previous_avg["viral"], 2)
-                if recent_avg["replicate"] and previous_avg["replicate"]:
-                    result["replicate_change"] = round(recent_avg["replicate"] - previous_avg["replicate"], 2)
-
-            return result
+            total_analyzed = count_result.count if count_result.count else 0
+            result["recent_count"] = total_analyzed
+            result["debug"] = {"total_analyzed": total_analyzed}
 
         except Exception as e:
             logger.error(f"Error in get_metric_trends: {e}", exc_info=True)
-            empty_result["error"] = str(e)
-            return empty_result
+            result["error"] = str(e)
+
+        return result
