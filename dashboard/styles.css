@@ -172,6 +172,49 @@ body {
     border-left: 1px solid var(--border-subtle);
 }
 
+.refresh-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: 12px;
+}
+
+.refresh-btn:hover {
+    background: var(--bg-card);
+    border-color: var(--accent-primary);
+}
+
+.refresh-btn:active {
+    transform: scale(0.95);
+}
+
+.refresh-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+}
+
+.refresh-btn:hover .refresh-icon {
+    color: var(--accent-primary);
+}
+
+.refresh-btn.loading .refresh-icon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 /* ============================================
    SECTION NAVIGATION
    ============================================ */
@@ -186,6 +229,14 @@ body {
     background: var(--bg-deep);
     z-index: 100;
     border-bottom: 1px solid var(--border-subtle);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.section-nav::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
 }
 
 .nav-pill {
@@ -197,6 +248,8 @@ body {
     border-radius: 20px;
     text-decoration: none;
     transition: all 0.2s ease;
+    flex-shrink: 0; /* Prevent pills from shrinking */
+    white-space: nowrap;
 }
 
 .nav-pill:hover {
@@ -1449,6 +1502,95 @@ tr:hover td {
 .keyboard-help button:hover {
     background: var(--bg-card-hover);
     color: var(--text-primary);
+}
+
+/* ============================================
+   SKELETON LOADING STATES
+   ============================================ */
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, var(--bg-surface) 25%, var(--bg-card-hover) 50%, var(--bg-surface) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+.skeleton-block {
+    display: block;
+    height: 32px;
+    width: 60px;
+    border-radius: 4px;
+    background: inherit;
+}
+
+.skeleton-text {
+    display: block;
+    height: 16px;
+    border-radius: 4px;
+    background: inherit;
+}
+
+.skeleton-text.short { width: 40%; }
+.skeleton-text.medium { width: 60%; }
+.skeleton-text.long { width: 80%; }
+
+/* Skeleton for metric cards */
+.metric-card .metric-value.skeleton {
+    color: transparent;
+}
+
+/* Skeleton for leaderboard rows */
+.skeleton-row td {
+    padding: 16px 24px;
+}
+
+.skeleton-row .skeleton-cell {
+    display: inline-block;
+    height: 16px;
+    border-radius: 4px;
+}
+
+/* Skeleton for chart placeholders */
+.chart-skeleton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+/* Skeleton for breakdown content */
+.breakdown-skeleton {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.breakdown-skeleton-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    border: 1px solid var(--border-subtle);
+}
+
+.breakdown-skeleton-card .skeleton-text {
+    margin-bottom: 8px;
+}
+
+/* Fade transition for content load */
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeContentIn {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
 }
 
 /* ============================================

@@ -26,6 +26,87 @@ Chart.defaults.plugins.legend.labels.usePointStyle = true;
 Chart.defaults.plugins.legend.labels.pointStyle = 'circle';
 
 /**
+ * Show skeleton loading states
+ */
+function showSkeletons() {
+    // Metric cards
+    document.querySelectorAll('.metric-value').forEach(el => {
+        el.dataset.originalContent = el.innerHTML;
+        el.innerHTML = '<span class="skeleton skeleton-block"></span>';
+    });
+
+    // Leaderboard
+    const tbody = document.getElementById('leaderboard-body');
+    if (tbody) {
+        tbody.innerHTML = Array(5).fill(`
+            <tr class="skeleton-row">
+                <td><span class="skeleton skeleton-cell" style="width: 80px;"></span></td>
+                <td><span class="skeleton skeleton-cell" style="width: 50px;"></span></td>
+                <td><span class="skeleton skeleton-cell" style="width: 60px;"></span></td>
+                <td><span class="skeleton skeleton-cell" style="width: 200px;"></span></td>
+                <td><span class="skeleton skeleton-cell" style="width: 50px;"></span></td>
+            </tr>
+        `).join('');
+    }
+
+    // Breakdown sections (templates, gaps, red flags)
+    ['templates-content', 'gaps-content', 'redflags-content'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.innerHTML = `
+                <div class="breakdown-skeleton">
+                    ${Array(3).fill(`
+                        <div class="breakdown-skeleton-card skeleton">
+                            <div class="skeleton-text long"></div>
+                            <div class="skeleton-text medium"></div>
+                            <div class="skeleton-text short"></div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+    });
+
+    // Strategic takeaways
+    const takeaways = document.getElementById('strategic-takeaways');
+    if (takeaways) {
+        takeaways.innerHTML = `
+            <div class="takeaways-grid">
+                ${Array(4).fill(`
+                    <div class="takeaway-item">
+                        <div class="skeleton" style="width: 24px; height: 24px; border-radius: 4px;"></div>
+                        <div style="flex: 1;">
+                            <div class="skeleton skeleton-text long" style="margin-bottom: 4px;"></div>
+                            <div class="skeleton skeleton-text medium"></div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    // Reply content
+    const replyContent = document.getElementById('reply-content');
+    if (replyContent) {
+        replyContent.innerHTML = `
+            <div class="reply-grid">
+                ${Array(4).fill(`
+                    <div class="reply-section">
+                        <div class="skeleton skeleton-text short" style="margin-bottom: 12px;"></div>
+                        ${Array(4).fill(`
+                            <div class="reply-item">
+                                <span class="skeleton skeleton-text" style="width: 60px;"></span>
+                                <span class="skeleton skeleton-text" style="width: 80px;"></span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+}
+
+/**
  * Fetch analytics data from API
  */
 async function fetchAnalytics() {
@@ -63,16 +144,60 @@ function setStatus(connected, message = '') {
     }
 }
 
+// Track last refresh time
+let lastRefreshTime = null;
+let refreshIntervalId = null;
+
 /**
  * Update last updated timestamp
  */
 function updateTimestamp() {
+    lastRefreshTime = Date.now();
+    updateRefreshDisplay();
+
+    // Start interval to update elapsed time
+    if (refreshIntervalId) clearInterval(refreshIntervalId);
+    refreshIntervalId = setInterval(updateRefreshDisplay, 60000); // Update every minute
+}
+
+/**
+ * Update the refresh display with elapsed time
+ */
+function updateRefreshDisplay() {
     const el = document.getElementById('last-updated');
-    const now = new Date();
-    el.textContent = now.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit'
-    });
+    if (!lastRefreshTime) {
+        el.textContent = '';
+        return;
+    }
+
+    const elapsed = Date.now() - lastRefreshTime;
+    const minutes = Math.floor(elapsed / 60000);
+
+    if (minutes < 1) {
+        el.textContent = 'Just now';
+    } else if (minutes === 1) {
+        el.textContent = '1 min ago';
+    } else if (minutes < 60) {
+        el.textContent = `${minutes} mins ago`;
+    } else {
+        const hours = Math.floor(minutes / 60);
+        el.textContent = hours === 1 ? '1 hour ago' : `${hours} hours ago`;
+    }
+}
+
+/**
+ * Refresh dashboard with loading indicator
+ */
+async function refreshDashboard() {
+    const btn = document.getElementById('refresh-btn');
+    if (btn.classList.contains('loading')) return; // Prevent double-click
+
+    btn.classList.add('loading');
+    try {
+        await init();
+    } finally {
+        btn.classList.remove('loading');
+    }
 }
 
 /**
@@ -287,10 +412,18 @@ function createViralFactorsChart(factors) {
     });
 }
 
+// Store full leaderboard data for filtering
+let allLeaderboardData = [];
+
 /**
  * Populate leaderboard table
  */
-function updateLeaderboard(videos) {
+function updateLeaderboard(videos, isFiltered = false) {
+    // Store full data on initial load (not when filtering)
+    if (!isFiltered && videos) {
+        allLeaderboardData = videos;
+    }
+
     const tbody = document.getElementById('leaderboard-body');
     tbody.innerHTML = '';
 
@@ -357,6 +490,47 @@ function toggleWhy(index) {
         full.style.display = 'none';
         btn.textContent = 'more';
     }
+}
+
+/**
+ * Filter leaderboard by criteria
+ */
+function filterLeaderboard(filter) {
+    let filtered = allLeaderboardData;
+
+    if (filter === 'easy') {
+        filtered = allLeaderboardData.filter(v =>
+            (v.difficulty || '').toLowerCase() === 'easy'
+        );
+    } else if (filter === 'score8') {
+        filtered = allLeaderboardData.filter(v =>
+            (v.replicability_score || 0) >= 8
+        );
+    }
+    // 'all' uses full data
+
+    updateLeaderboard(filtered, true);
+}
+
+/**
+ * Initialize leaderboard filter click handlers
+ */
+function initLeaderboardFilters() {
+    document.querySelectorAll('.filter-tag').forEach(tag => {
+        tag.addEventListener('click', () => {
+            // Update active state
+            document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+            tag.classList.add('active');
+
+            // Determine filter type from text content
+            const text = tag.textContent.toLowerCase();
+            let filter = 'all';
+            if (text.includes('easy')) filter = 'easy';
+            else if (text.includes('8+')) filter = 'score8';
+
+            filterLeaderboard(filter);
+        });
+    });
 }
 
 /**
@@ -861,6 +1035,9 @@ async function init() {
     try {
         setStatus(false, 'Loading...');
 
+        // Show skeleton loading states immediately
+        showSkeletons();
+
         // Fetch analytics, recent reply, and strategic analysis in parallel
         const [data, replyData, strategicData] = await Promise.all([
             fetchAnalytics(),
@@ -913,6 +1090,9 @@ document.addEventListener('DOMContentLoaded', init);
 
 // Section navigation - update active pill on scroll
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize leaderboard filters
+    initLeaderboardFilters();
+
     const navPills = document.querySelectorAll('.nav-pill');
     const sections = ['metrics-section', 'strategic-section', 'templates-section', 'gaps-section', 'redflags-section', 'charts-section', 'leaderboard-section'];
 
