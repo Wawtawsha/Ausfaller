@@ -160,13 +160,18 @@ async function fetchTrends() {
  * Update trend indicators on metric cards
  */
 function updateTrendIndicators(trends) {
+    console.log('updateTrendIndicators called with:', trends);
+
     const hookEl = document.getElementById('trend-hook');
     const viralEl = document.getElementById('trend-viral');
     const replicateEl = document.getElementById('trend-replicate');
 
+    console.log('Trend elements found:', { hookEl: !!hookEl, viralEl: !!viralEl, replicateEl: !!replicateEl });
+
     // Check if we have comparison data
     const hasComparison = trends.previous_count > 0;
     const hasRecent = trends.recent_count > 0;
+    console.log('hasComparison:', hasComparison, 'hasRecent:', hasRecent);
 
     function setTrend(element, value) {
         if (!element) return;
@@ -1575,9 +1580,11 @@ async function init() {
         updateMetrics(data.summary || {});
 
         // Update trend indicators
-        console.log('Trends data:', trendsData);
+        console.log('Trends data:', JSON.stringify(trendsData, null, 2));
         if (trendsData) {
+            console.log('Calling updateTrendIndicators with:', trendsData);
             updateTrendIndicators(trendsData);
+            console.log('updateTrendIndicators completed');
         } else {
             console.warn('No trends data received');
         }
