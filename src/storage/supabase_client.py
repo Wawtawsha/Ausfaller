@@ -392,6 +392,7 @@ class SupabaseStorage:
             previous_result = type('obj', (object,), {'data': []})()
 
         def calc_averages(posts):
+            import json
             if not posts:
                 return {"hook": None, "viral": None, "replicate": None, "count": 0}
 
@@ -402,6 +403,9 @@ class SupabaseStorage:
             for post in posts:
                 try:
                     analysis = post.get("analysis", {})
+                    # Handle case where analysis is stored as JSON string
+                    if isinstance(analysis, str):
+                        analysis = json.loads(analysis)
                     if not analysis or not isinstance(analysis, dict):
                         continue
 
