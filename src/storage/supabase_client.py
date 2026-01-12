@@ -71,6 +71,18 @@ class SupabaseStorage:
             if download_result.title:
                 data["caption"] = download_result.title
 
+            # Extract engagement from yt-dlp metadata (more accurate than hashtag grid)
+            if download_result.metadata:
+                meta = download_result.metadata
+                if meta.get("view_count"):
+                    data["views"] = meta["view_count"]
+                if meta.get("like_count"):
+                    data["likes"] = meta["like_count"]
+                if meta.get("comment_count"):
+                    data["comments"] = meta["comment_count"]
+                if meta.get("repost_count"):
+                    data["shares"] = meta["repost_count"]
+
         if analysis and analysis.success:
             data["analysis"] = analysis.to_dict()
             data["analyzed_at"] = datetime.utcnow().isoformat()
