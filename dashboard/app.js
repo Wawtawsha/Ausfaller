@@ -145,6 +145,7 @@ async function fetchRecentReply() {
 function setStatus(connected, message = '') {
     const dot = document.getElementById('status-dot');
     const text = document.getElementById('status-text');
+    if (!dot || !text) return; // Elements not yet in DOM
 
     if (connected) {
         dot.classList.add('connected');
@@ -176,6 +177,8 @@ function updateTimestamp() {
  */
 function updateRefreshDisplay() {
     const el = document.getElementById('last-updated');
+    if (!el) return; // Element not yet in DOM
+
     if (!lastRefreshTime) {
         el.textContent = '';
         return;
@@ -201,7 +204,7 @@ function updateRefreshDisplay() {
  */
 async function refreshDashboard() {
     const btn = document.getElementById('refresh-btn');
-    if (btn.classList.contains('loading')) return; // Prevent double-click
+    if (!btn || btn.classList.contains('loading')) return; // Prevent double-click
 
     btn.classList.add('loading');
     try {
@@ -221,28 +224,34 @@ function updateMetrics(summary) {
     const viral = summary.avg_viral_potential ? parseFloat(summary.avg_viral_potential).toFixed(1) : '—';
     const replicate = summary.avg_replicability ? parseFloat(summary.avg_replicability).toFixed(1) : '—';
 
-    document.getElementById('total-videos').textContent = total;
-    document.getElementById('analyzed-videos').textContent = analyzed;
-    document.getElementById('avg-hook').textContent = hookStr;
-    document.getElementById('avg-viral').textContent = viral;
-    document.getElementById('avg-replicability').textContent = replicate;
+    // Safely update text content
+    const totalEl = document.getElementById('total-videos');
+    const analyzedEl = document.getElementById('analyzed-videos');
+    const hookEl = document.getElementById('avg-hook');
+    const viralEl = document.getElementById('avg-viral');
+    const replicateEl = document.getElementById('avg-replicability');
+
+    if (totalEl) totalEl.textContent = total;
+    if (analyzedEl) analyzedEl.textContent = analyzed;
+    if (hookEl) hookEl.textContent = hookStr;
+    if (viralEl) viralEl.textContent = viral;
+    if (replicateEl) replicateEl.textContent = replicate;
 
     // Update progress bars
     const analyzedPercent = total > 0 ? (analyzed / total) * 100 : 0;
-    document.querySelector('.metric-bar-fill.analyzed').style.width = `${analyzedPercent}%`;
+    const analyzedBar = document.querySelector('.metric-bar-fill.analyzed');
+    const hookBar = document.querySelector('.metric-bar-fill.hook');
+    const viralBar = document.querySelector('.metric-bar-fill.viral');
+    const replicateBar = document.querySelector('.metric-bar-fill.replicate');
 
-    if (hookStr !== '—') {
-        document.querySelector('.metric-bar-fill.hook').style.width = `${parseFloat(hookStr) * 10}%`;
-    }
-    if (viral !== '—') {
-        document.querySelector('.metric-bar-fill.viral').style.width = `${parseFloat(viral) * 10}%`;
-    }
-    if (replicate !== '—') {
-        document.querySelector('.metric-bar-fill.replicate').style.width = `${parseFloat(replicate) * 10}%`;
-    }
+    if (analyzedBar) analyzedBar.style.width = `${analyzedPercent}%`;
+    if (hookBar && hookStr !== '—') hookBar.style.width = `${parseFloat(hookStr) * 10}%`;
+    if (viralBar && viral !== '—') viralBar.style.width = `${parseFloat(viral) * 10}%`;
+    if (replicateBar && replicate !== '—') replicateBar.style.width = `${parseFloat(replicate) * 10}%`;
 
     // Update footer
-    document.getElementById('video-count-footer').textContent = `${analyzed} videos analyzed`;
+    const footerEl = document.getElementById('video-count-footer');
+    if (footerEl) footerEl.textContent = `${analyzed} videos analyzed`;
 }
 
 /**
