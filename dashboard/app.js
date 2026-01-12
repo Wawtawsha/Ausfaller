@@ -158,8 +158,20 @@ function updateTrendIndicators(trends) {
     const viralEl = document.getElementById('trend-viral');
     const replicateEl = document.getElementById('trend-replicate');
 
+    // Check if we have comparison data
+    const hasComparison = trends.previous_count > 0;
+    const hasRecent = trends.recent_count > 0;
+
     function setTrend(element, value) {
         if (!element) return;
+
+        // If no previous period data but we have recent data, show "NEW"
+        if (!hasComparison && hasRecent) {
+            element.textContent = 'NEW';
+            element.className = 'trend-indicator new';
+            element.title = `Based on ${trends.recent_count} videos from last ${trends.period_days} days`;
+            return;
+        }
 
         if (value === null || value === undefined) {
             element.textContent = '';
@@ -171,12 +183,15 @@ function updateTrendIndicators(trends) {
         if (absValue < 0.1) {
             element.textContent = '—';
             element.className = 'trend-indicator neutral';
+            element.title = 'No significant change';
         } else if (value > 0) {
             element.textContent = `↑ ${absValue.toFixed(1)}`;
             element.className = 'trend-indicator up';
+            element.title = `Up ${absValue.toFixed(1)} from previous ${trends.period_days} days`;
         } else {
             element.textContent = `↓ ${absValue.toFixed(1)}`;
             element.className = 'trend-indicator down';
+            element.title = `Down ${absValue.toFixed(1)} from previous ${trends.period_days} days`;
         }
     }
 
