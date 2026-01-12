@@ -215,9 +215,24 @@ async function refreshDashboard() {
 }
 
 /**
+ * Restore metric cards from skeleton state
+ */
+function restoreMetricCards() {
+    document.querySelectorAll('.metric-value').forEach(el => {
+        if (el.dataset.originalContent) {
+            el.innerHTML = el.dataset.originalContent;
+            delete el.dataset.originalContent;
+        }
+    });
+}
+
+/**
  * Update summary metric cards
  */
 function updateMetrics(summary) {
+    // First restore DOM structure destroyed by skeletons
+    restoreMetricCards();
+
     const total = summary.total_videos || 0;
     const analyzed = summary.analyzed_videos || 0;
     const hookStr = summary.avg_hook_strength ? parseFloat(summary.avg_hook_strength).toFixed(1) : '—';
