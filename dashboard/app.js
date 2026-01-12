@@ -1307,19 +1307,32 @@ function parseGaps(content) {
     const gaps = [];
     const lines = section.split('\n');
     let currentGap = null;
+    let currentSubsection = '';
 
     lines.forEach(line => {
+        // Track subsection headers
+        const subMatch = line.match(/^### (.+)$/);
+        if (subMatch) {
+            currentSubsection = subMatch[1];
+            return;
+        }
+
+        // Match numbered items: 1. **Title** - description
         const numMatch = line.match(/^\d+\.\s+\*\*(.+?)\*\*\s*[-–]?\s*(.*)$/);
         if (numMatch) {
             if (currentGap) gaps.push(currentGap);
-            currentGap = { title: numMatch[1], description: numMatch[2] || '' };
-        } else if (currentGap && line.trim() && !line.startsWith('#')) {
+            currentGap = {
+                title: numMatch[1],
+                description: numMatch[2] || '',
+                category: currentSubsection
+            };
+        } else if (currentGap && line.trim() && !line.startsWith('#') && !line.startsWith('---')) {
             currentGap.description += ' ' + line.trim();
         }
     });
     if (currentGap) gaps.push(currentGap);
 
-    return gaps.slice(0, 6); // Max 6
+    return gaps.slice(0, 8); // Max 8
 }
 
 /**
@@ -1428,12 +1441,16 @@ function renderGaps(data) {
         return;
     }
 
+    // Convert markdown bold to HTML
+    const parseMd = (text) => text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
     contentEl.innerHTML = `
         <div class="gaps-grid">
             ${gaps.map(g => `
                 <div class="gap-card">
+                    ${g.category ? `<span class="gap-category">${g.category}</span>` : ''}
                     <h4>${g.title}</h4>
-                    <p>${g.description}</p>
+                    <p>${parseMd(g.description)}</p>
                 </div>
             `).join('')}
         </div>
@@ -1470,13 +1487,16 @@ function renderRedFlags(data) {
         return;
     }
 
+    // Convert markdown bold to HTML
+    const parseMd = (text) => text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
     contentEl.innerHTML = `
         <div class="redflags-grid">
             ${flags.map(f => `
                 <div class="redflag-card">
                     <h4>${f.title}</h4>
                     <ul>
-                        ${f.items.map(item => `<li>${item}</li>`).join('')}
+                        ${f.items.map(item => `<li>${parseMd(item)}</li>`).join('')}
                     </ul>
                 </div>
             `).join('')}

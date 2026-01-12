@@ -1542,6 +1542,19 @@ tr:hover td {
     line-height: 1.5;
 }
 
+.gap-category {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+}
+
 /* Red Flags Cards */
 .redflags-grid {
     display: grid;
@@ -1573,6 +1586,11 @@ tr:hover td {
 .redflag-card ul {
     padding-left: 16px;
     margin-top: 8px;
+}
+
+.redflag-card li strong {
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 /* ============================================
