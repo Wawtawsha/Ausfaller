@@ -337,6 +337,157 @@ Based on 873 analyzed videos with time-normalized metrics:
 
 ---
 
+## Content Playbook
+
+### Template 1: The Home Storytime
+- **Format**: Storytime
+- **Hook**: Curiosity gap
+- **Setting**: Home
+- **Audio**: Dialogue or original audio
+- **Duration**: 60-120 seconds
+- **Performance**: 338K views/day
+- **Difficulty**: Medium
+
+**Why it works:** The home setting feels intimate and relatable. Curiosity gap hooks create an irresistible need to watch until the end. Storytime format allows for natural pacing and emotional connection.
+
+**How to replicate:**
+1. Start with an intriguing statement that raises questions ("So this customer walked in and said something I'll never forget...")
+2. Film in a comfortable home setting with good natural lighting
+3. Tell the story conversationally, building tension
+4. Deliver a satisfying payoff at 60-90 seconds
+5. End with a reaction or reflection
+
+### Template 2: The Outdoor Confession
+- **Format**: Storytime
+- **Hook**: Relatable pain
+- **Setting**: Outdoor
+- **Audio**: Original audio
+- **Duration**: 60-120 seconds
+- **Performance**: 157K views/day
+- **Difficulty**: Easy
+
+**Why it works:** Outdoor settings signal authenticity - you're not performing, you're sharing. Relatable pain hooks create immediate emotional connection. The combination feels like getting advice from a friend.
+
+**How to replicate:**
+1. Open with a relatable frustration ("Every bartender knows this feeling...")
+2. Film outside during golden hour or in interesting outdoor location
+3. Share the story as if talking to a friend
+4. Include a lesson or takeaway
+5. Keep it authentic and unpolished
+
+### Template 3: The Trend Rider
+- **Format**: Trend
+- **Hook**: None needed (trend recognition)
+- **Setting**: Home
+- **Audio**: Trending audio
+- **Duration**: 15-30 seconds
+- **Performance**: 141K views/day
+- **Difficulty**: Easy
+
+**Why it works:** Trending audio provides built-in discoverability. Home setting keeps production simple. The algorithm rewards trend participation.
+
+**How to replicate:**
+1. Monitor trending sounds daily
+2. Adapt the trend to bartending context quickly
+3. Film in home setting for fast turnaround
+4. Post within 24-48 hours of trend emerging
+5. Use relevant hashtags
+
+### Template 4: The Bar Trend Statement
+- **Format**: Trend
+- **Hook**: Bold claim
+- **Setting**: Bar
+- **Audio**: Trending audio
+- **Duration**: 15-30 seconds
+- **Performance**: 128K views/day
+- **Difficulty**: Medium
+
+**Why it works:** Bold claims in a bar setting establish authority. Trending audio provides reach. The combination of professional credibility and viral format creates shareability.
+
+**How to replicate:**
+1. Make a controversial or surprising claim about bartending
+2. Film during a slow bar shift with good lighting
+3. Use currently trending audio
+4. Keep it punchy - under 30 seconds
+5. End with a confident statement or reaction
+
+### Template 5: The Outdoor POV
+- **Format**: POV
+- **Hook**: Visual
+- **Setting**: Outdoor
+- **Audio**: Music or dialogue
+- **Duration**: 30-60 seconds
+- **Performance**: 149K views/day
+- **Difficulty**: Medium
+
+**Why it works:** POV format creates immersion. Outdoor settings provide visual interest and break pattern of typical bar content. The combination feels fresh and cinematic.
+
+**How to replicate:**
+1. Start with an interesting visual hook
+2. Film from first-person perspective in interesting outdoor location
+3. Create a mini-narrative or moment
+4. Use music to set mood
+5. Keep camera moving for dynamic feel
+
+---
+
+## Gaps & Opportunities
+
+These are underrepresented techniques that significantly outperform average:
+
+| Category | Value | Count | Performance | Opportunity |
+|----------|-------|-------|-------------|-------------|
+| Hook Technique | **Open loop** | 12 | +535% | HIGH |
+| Hook Technique | **Transformation** | 16 | +200% | HIGH |
+| Format | POV + Skit | 4 | +54% | MEDIUM |
+| Format | Music only | 3 | +46% | MEDIUM |
+| Format | List | 7 | +35% | MEDIUM |
+| Format | Showcase | 4 | +30% | MEDIUM |
+
+### How to Exploit These Gaps:
+
+1. **Open Loop Hooks (535% better, only 12 videos)** - This is the biggest opportunity. Start videos with unresolved tension: "What happened next changed everything..." or "I never expected them to say THIS..." The key is creating an itch that can only be scratched by watching to the end.
+
+2. **Transformation Hooks (200% better, only 16 videos)** - Show before/after or skill progression. "Watch me turn this into a $25 cocktail" or "Day 1 vs Day 100 behind the bar."
+
+3. **POV + Skit Hybrid (54% better, only 4 videos)** - Combine first-person perspective with comedic scenarios. Underexplored format with high potential.
+
+4. **Music-Only Content (46% better, only 3 videos)** - No talking, just satisfying visuals with music. ASMR-adjacent bartending content is wide open.
+
+5. **List Format (35% better, only 7 videos)** - "5 drinks every bartender should know" style content. Easy to produce, performs well, but underused.
+
+---
+
+## Red Flags
+
+These techniques are overused AND underperforming - avoid or differentiate:
+
+| Category | Value | Market Share | Performance | Risk Level |
+|----------|-------|--------------|-------------|------------|
+| Hook | **Relatable pain** | 25.6% | -54% | HIGH |
+| Hook | **Bold claim** | 13.5% | -62% | HIGH |
+| Format | **Tutorial** | 9.6% | -87% | CRITICAL |
+| Format | Behind scenes | 9.4% | -57% | HIGH |
+| Format | Skit | 8.0% | -73% | HIGH |
+| Hook | Confession | 7.9% | -45% | MEDIUM |
+| Format | Review | 4.5% | -77% | HIGH |
+
+### Why These Are Failing:
+
+1. **Relatable Pain Hooks (25.6% of all content, -54% performance)** - Massively oversaturated. Everyone opens with "POV: You're a bartender and..." or "When the customer says..." The algorithm has seen it millions of times. If you must use it, add a unique twist or unexpected payoff.
+
+2. **Bold Claim Hooks (13.5%, -62%)** - "Bartenders don't want you to know this..." style hooks have been overused to the point of being ignored. The audience is trained to expect clickbait. Either deliver exceptional value or avoid entirely.
+
+3. **Tutorial Format (9.6%, -87% - CRITICAL)** - Tutorial content is essentially dead for reach. If you need to teach, wrap it in a story or trend format. Pure "how to make X cocktail" videos are algorithmic poison.
+
+4. **Behind the Scenes (9.4%, -57%)** - Generic "day in the life" and BTS content no longer impresses. The novelty has worn off. Only use if you have truly unique or dramatic workplace content.
+
+5. **Skit Format (8.0%, -73%)** - Scripted comedy requires excellent execution. Most bar skits feel forced. Unless you have genuine comedic talent and production quality, avoid.
+
+6. **Review Format (4.5%, -77%)** - Product and drink reviews struggle for reach. The format lacks the emotional hooks that drive shares. Consider embedding reviews within storytelling.
+
+---
+
 ## KEY INSIGHTS
 
 1. **Tell stories, don't teach.** Storytime is 26x better than tutorials.
