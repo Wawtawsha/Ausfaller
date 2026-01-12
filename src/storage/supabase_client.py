@@ -360,48 +360,64 @@ class SupabaseStorage:
         previous_start = (now - timedelta(days=days * 2)).isoformat()
         previous_end = recent_start
 
-        # Get recent period posts
-        recent_result = (
-            self.client.table("posts")
-            .select("analysis")
-            .not_.is_("analysis", "null")
-            .gte("analyzed_at", recent_start)
-            .execute()
-        )
+        logger.debug(f"Fetching trends: recent_start={recent_start}, previous_start={previous_start}")
 
-        # Get previous period posts
-        previous_result = (
-            self.client.table("posts")
-            .select("analysis")
-            .not_.is_("analysis", "null")
-            .gte("analyzed_at", previous_start)
-            .lt("analyzed_at", previous_end)
-            .execute()
-        )
+        try:
+            # Get recent period posts
+            recent_result = (
+                self.client.table("posts")
+                .select("analysis")
+                .not_.is_("analysis", "null")
+                .gte("analyzed_at", recent_start)
+                .execute()
+            )
+            logger.debug(f"Recent posts found: {len(recent_result.data) if recent_result.data else 0}")
+        except Exception as e:
+            logger.error(f"Error fetching recent posts: {e}")
+            recent_result = type('obj', (object,), {'data': []})()
+
+        try:
+            # Get previous period posts
+            previous_result = (
+                self.client.table("posts")
+                .select("analysis")
+                .not_.is_("analysis", "null")
+                .gte("analyzed_at", previous_start)
+                .lt("analyzed_at", previous_end)
+                .execute()
+            )
+            logger.debug(f"Previous posts found: {len(previous_result.data) if previous_result.data else 0}")
+        except Exception as e:
+            logger.error(f"Error fetching previous posts: {e}")
+            previous_result = type('obj', (object,), {'data': []})()
 
         def calc_averages(posts):
             if not posts:
-                return None
+                return {"hook": None, "viral": None, "replicate": None, "count": 0}
 
             hook_scores = []
             viral_scores = []
             replicate_scores = []
 
             for post in posts:
-                analysis = post.get("analysis", {})
-                if not analysis:
+                try:
+                    analysis = post.get("analysis", {})
+                    if not analysis or not isinstance(analysis, dict):
+                        continue
+
+                    hook = analysis.get("hook", {}) or {}
+                    trends_data = analysis.get("trends", {}) or {}
+                    replicability = analysis.get("replicability", {}) or {}
+
+                    if hook.get("hook_strength"):
+                        hook_scores.append(float(hook["hook_strength"]))
+                    if trends_data.get("viral_potential_score"):
+                        viral_scores.append(float(trends_data["viral_potential_score"]))
+                    if replicability.get("replicability_score"):
+                        replicate_scores.append(float(replicability["replicability_score"]))
+                except (TypeError, ValueError) as e:
+                    logger.debug(f"Skipping post due to data error: {e}")
                     continue
-
-                hook = analysis.get("hook", {})
-                trends = analysis.get("trends", {})
-                replicability = analysis.get("replicability", {})
-
-                if hook.get("hook_strength"):
-                    hook_scores.append(hook["hook_strength"])
-                if trends.get("viral_potential_score"):
-                    viral_scores.append(trends["viral_potential_score"])
-                if replicability.get("replicability_score"):
-                    replicate_scores.append(replicability["replicability_score"])
 
             return {
                 "hook": sum(hook_scores) / len(hook_scores) if hook_scores else None,
@@ -410,25 +426,25 @@ class SupabaseStorage:
                 "count": len(posts)
             }
 
-        recent_avg = calc_averages(recent_result.data)
-        previous_avg = calc_averages(previous_result.data)
+        recent_avg = calc_averages(recent_result.data if recent_result.data else [])
+        previous_avg = calc_averages(previous_result.data if previous_result.data else [])
 
-        trends = {
+        result = {
             "period_days": days,
-            "recent_count": recent_avg["count"] if recent_avg else 0,
-            "previous_count": previous_avg["count"] if previous_avg else 0,
+            "recent_count": recent_avg.get("count", 0),
+            "previous_count": previous_avg.get("count", 0),
             "hook_change": None,
             "viral_change": None,
             "replicate_change": None
         }
 
         # Calculate changes if both periods have data
-        if recent_avg and previous_avg:
-            if recent_avg["hook"] and previous_avg["hook"]:
-                trends["hook_change"] = round(recent_avg["hook"] - previous_avg["hook"], 2)
-            if recent_avg["viral"] and previous_avg["viral"]:
-                trends["viral_change"] = round(recent_avg["viral"] - previous_avg["viral"], 2)
-            if recent_avg["replicate"] and previous_avg["replicate"]:
-                trends["replicate_change"] = round(recent_avg["replicate"] - previous_avg["replicate"], 2)
+        if recent_avg.get("count", 0) > 0 and previous_avg.get("count", 0) > 0:
+            if recent_avg.get("hook") and previous_avg.get("hook"):
+                result["hook_change"] = round(recent_avg["hook"] - previous_avg["hook"], 2)
+            if recent_avg.get("viral") and previous_avg.get("viral"):
+                result["viral_change"] = round(recent_avg["viral"] - previous_avg["viral"], 2)
+            if recent_avg.get("replicate") and previous_avg.get("replicate"):
+                result["replicate_change"] = round(recent_avg["replicate"] - previous_avg["replicate"], 2)
 
-        return trends
+        return result
