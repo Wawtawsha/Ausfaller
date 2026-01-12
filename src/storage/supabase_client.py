@@ -247,6 +247,19 @@ class SupabaseStorage:
             return result.data[0]
         return {}
 
+    def get_niche_analytics(self) -> list[dict]:
+        """Get analytics grouped by niche."""
+        result = self.client.table("niche_analytics").select("*").execute()
+        return result.data
+
+    def get_hashtag_performance(self, niche: Optional[str] = None) -> list[dict]:
+        """Get hashtag performance, optionally filtered by niche."""
+        query = self.client.table("hashtag_performance").select("*")
+        if niche:
+            query = query.eq("niche", niche)
+        result = query.execute()
+        return result.data
+
     def get_hook_trends(self, limit: int = 20) -> list[dict]:
         """Get hook type and technique distribution."""
         result = (
@@ -419,10 +432,12 @@ class SupabaseStorage:
             all_posts = self.get_analyzed_posts_raw(limit=500)
 
             # Debug: check what we got
+            first_post = all_posts[0] if all_posts else None
             debug_info = {
                 "posts_fetched": len(all_posts),
-                "first_post_keys": list(all_posts[0].keys()) if all_posts else [],
-                "first_analysis_type": type(all_posts[0].get("analysis")).__name__ if all_posts else None,
+                "first_post_type": type(first_post).__name__,
+                "first_post_keys": list(first_post.keys()) if isinstance(first_post, dict) else "N/A",
+                "first_post_sample": str(first_post)[:200] if first_post else None,
             }
             logger.info(f"Trends debug: {debug_info}")
 
