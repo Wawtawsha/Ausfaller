@@ -880,6 +880,44 @@ async def get_analytics_summary():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/analytics/niche")
+async def get_niche_analytics():
+    """
+    Get analytics grouped by niche.
+
+    Shows video counts, analyzed counts, and average scores per niche.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        niches = storage.get_niche_analytics()
+        return {"niche_analytics": niches}
+    except Exception as e:
+        logger.error(f"Failed to get niche analytics: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/hashtag-performance")
+async def get_hashtag_performance(niche: Optional[str] = None):
+    """
+    Get hashtag performance metrics, optionally filtered by niche.
+
+    Shows which hashtags produced the best content per niche.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        performance = storage.get_hashtag_performance(niche=niche)
+        return {"hashtag_performance": performance}
+    except Exception as e:
+        logger.error(f"Failed to get hashtag performance: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/analytics/hooks")
 async def get_hook_trends(limit: int = 20):
     """
