@@ -143,11 +143,17 @@ async function fetchRecentReply() {
  * Fetch metric trends
  */
 async function fetchTrends() {
+    console.log('Fetching trends from:', `${API_BASE}/analytics/trends`);
     const response = await fetch(`${API_BASE}/analytics/trends`);
+    console.log('Trends response status:', response.status);
     if (!response.ok) {
+        const text = await response.text();
+        console.error('Trends error response:', text);
         throw new Error(`API Error: ${response.status}`);
     }
-    return response.json();
+    const data = await response.json();
+    console.log('Trends parsed data:', data);
+    return data;
 }
 
 /**
@@ -1569,8 +1575,11 @@ async function init() {
         updateMetrics(data.summary || {});
 
         // Update trend indicators
+        console.log('Trends data:', trendsData);
         if (trendsData) {
             updateTrendIndicators(trendsData);
+        } else {
+            console.warn('No trends data received');
         }
 
         // Render recent AI reply
