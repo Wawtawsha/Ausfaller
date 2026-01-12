@@ -375,9 +375,17 @@ function updateMetrics(summary) {
     const total = summary.total_videos || 0;
     const analyzed = summary.analyzed_videos || 0;
     const totalBytes = summary.total_video_bytes || 0;
-    const hook = summary.avg_hook_strength ? parseFloat(summary.avg_hook_strength) : null;
-    const viral = summary.avg_viral_potential ? parseFloat(summary.avg_viral_potential) : null;
-    const replicate = summary.avg_replicability ? parseFloat(summary.avg_replicability) : null;
+
+    // Prefer weighted averages (by views/day) over simple averages
+    const hook = summary.weighted_avg_hook_strength
+        ? parseFloat(summary.weighted_avg_hook_strength)
+        : (summary.avg_hook_strength ? parseFloat(summary.avg_hook_strength) : null);
+    const viral = summary.weighted_avg_viral_potential
+        ? parseFloat(summary.weighted_avg_viral_potential)
+        : (summary.avg_viral_potential ? parseFloat(summary.avg_viral_potential) : null);
+    const replicate = summary.weighted_avg_replicability
+        ? parseFloat(summary.weighted_avg_replicability)
+        : (summary.avg_replicability ? parseFloat(summary.avg_replicability) : null);
 
     // Get elements
     const totalEl = document.getElementById('total-videos');
