@@ -29,8 +29,9 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from src.extractor import HashtagExtractor, Platform, ExtractionResult, VideoInfo
+from src.extractor import ProfileExtractor, ProfileInfo, ProfileExtractionResult
 from src.downloader import VideoDownloader, DownloadResult
-from src.analyzer import GeminiAnalyzer, VideoAnalysis
+from src.analyzer import GeminiAnalyzer, VideoAnalysis, AccountComparer
 from src.storage import SupabaseStorage
 from src.generator import HashtagGenerator
 from config.settings import settings
@@ -55,14 +56,17 @@ app.add_middleware(
 
 # Global instances (lazy initialized)
 _extractor: Optional[HashtagExtractor] = None
+_profile_extractor: Optional[ProfileExtractor] = None
 _downloader: Optional[VideoDownloader] = None
 _analyzer: Optional[GeminiAnalyzer] = None
+_comparer: Optional[AccountComparer] = None
 _storage: Optional[SupabaseStorage] = None
 _generator: Optional[HashtagGenerator] = None
 
 # Job storage
 jobs: dict[str, dict] = {}
 batch_jobs: dict[str, dict] = {}
+account_jobs: dict[str, dict] = {}
 
 
 class JobStatus(str, Enum):
@@ -260,6 +264,22 @@ def get_generator() -> HashtagGenerator:
             )
         _generator = HashtagGenerator(api_key=settings.gemini_api_key)
     return _generator
+
+
+def get_profile_extractor() -> ProfileExtractor:
+    """Get or create the profile extractor."""
+    global _profile_extractor
+    if _profile_extractor is None:
+        _profile_extractor = ProfileExtractor()
+    return _profile_extractor
+
+
+def get_comparer() -> AccountComparer:
+    """Get or create the account comparer."""
+    global _comparer
+    if _comparer is None:
+        _comparer = AccountComparer()
+    return _comparer
 
 
 # Endpoints
@@ -1139,6 +1159,442 @@ async def get_strategic_analysis():
         }
     except Exception as e:
         logger.error(f"Failed to read strategic analysis: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ==================== Account Analysis Endpoints ====================
+
+class AccountJobStatus(str, Enum):
+    QUEUED = "queued"
+    SCRAPING = "scraping"
+    DOWNLOADING = "downloading"
+    ANALYZING = "analyzing"
+    COMPARING = "comparing"
+    COMPLETED = "completed"
+    FAILED = "failed"
+
+
+class CreateAccountRequest(BaseModel):
+    platform: Platform
+    username: str = Field(..., description="Username (without @)")
+
+
+class AccountResponse(BaseModel):
+    id: str
+    platform: str
+    username: str
+    display_name: Optional[str] = None
+    follower_count: Optional[int] = None
+    status: str
+    created_at: str
+
+
+@app.post("/accounts")
+async def create_account(request: CreateAccountRequest):
+    """
+    Add an account to track.
+
+    Creates the account record and optionally links any existing posts.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        account = storage.create_account(
+            platform=request.platform.value,
+            username=request.username,
+        )
+
+        # Link any existing posts from this author
+        if account.get("id"):
+            linked = storage.link_posts_to_account(
+                account_id=account["id"],
+                author_username=request.username,
+            )
+            account["posts_linked"] = linked
+
+        return account
+    except Exception as e:
+        logger.error(f"Failed to create account: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/accounts")
+async def list_accounts():
+    """
+    List all tracked accounts with summary stats.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        accounts = storage.list_accounts()
+        return {"accounts": accounts, "count": len(accounts)}
+    except Exception as e:
+        logger.error(f"Failed to list accounts: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/accounts/{account_id}")
+async def get_account(account_id: str):
+    """
+    Get account details by ID.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        account = storage.get_account(account_id)
+        if not account:
+            raise HTTPException(status_code=404, detail="Account not found")
+        return account
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to get account: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.delete("/accounts/{account_id}")
+async def delete_account(account_id: str):
+    """
+    Delete an account (cascades snapshots, nullifies post links).
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        success = storage.delete_account(account_id)
+        if not success:
+            raise HTTPException(status_code=404, detail="Account not found or delete failed")
+        return {"message": "Account deleted", "account_id": account_id}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to delete account: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/accounts/{account_id}/analyze")
+async def analyze_account(
+    account_id: str,
+    background_tasks: BackgroundTasks,
+    video_count: int = 30,
+):
+    """
+    Run full analysis on an account: scrape profile → download videos → analyze → compare.
+
+    Returns a job_id to poll for status.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    # Verify account exists
+    account = storage.get_account(account_id)
+    if not account:
+        raise HTTPException(status_code=404, detail="Account not found")
+
+    job_id = str(uuid.uuid4())
+
+    account_jobs[job_id] = {
+        "job_id": job_id,
+        "account_id": account_id,
+        "status": AccountJobStatus.QUEUED,
+        "platform": account["platform"],
+        "username": account["username"],
+        "video_count": video_count,
+        "progress": {
+            "videos_found": 0,
+            "videos_downloaded": 0,
+            "videos_analyzed": 0,
+        },
+        "comparison": None,
+        "error": None,
+        "started_at": None,
+        "completed_at": None,
+    }
+
+    # Update account status
+    storage.update_account(account_id, status="analyzing")
+
+    background_tasks.add_task(run_account_analysis_job, job_id, account, video_count)
+
+    return {
+        "job_id": job_id,
+        "status": AccountJobStatus.QUEUED,
+        "message": f"Analysis queued for @{account['username']}",
+    }
+
+
+async def run_account_analysis_job(
+    job_id: str,
+    account: dict,
+    video_count: int,
+) -> None:
+    """Background task to run full account analysis."""
+    account_jobs[job_id]["started_at"] = datetime.utcnow().isoformat()
+    storage = get_storage()
+    account_id = account["id"]
+
+    try:
+        # Step 1: Scrape profile
+        account_jobs[job_id]["status"] = AccountJobStatus.SCRAPING
+        logger.info(f"[{job_id}] Scraping profile @{account['username']}")
+
+        profile_extractor = get_profile_extractor()
+        platform = Platform(account["platform"])
+
+        extraction = await profile_extractor.extract_profile(
+            platform=platform,
+            username=account["username"],
+            video_count=video_count,
+        )
+
+        if not extraction.success:
+            raise Exception(f"Profile extraction failed: {extraction.error}")
+
+        # Update account with profile info
+        if extraction.profile_info:
+            pi = extraction.profile_info
+            storage.update_account(
+                account_id,
+                display_name=pi.display_name,
+                bio=pi.bio,
+                profile_picture_url=pi.profile_picture_url,
+                follower_count=pi.follower_count,
+                following_count=pi.following_count,
+                post_count=pi.post_count,
+                is_verified=pi.is_verified,
+                is_private=pi.is_private,
+            )
+
+            if pi.is_private:
+                raise Exception("Account is private - cannot access videos")
+
+        account_jobs[job_id]["progress"]["videos_found"] = len(extraction.videos)
+
+        if not extraction.videos:
+            raise Exception("No videos found on profile")
+
+        # Step 2: Download videos
+        account_jobs[job_id]["status"] = AccountJobStatus.DOWNLOADING
+        logger.info(f"[{job_id}] Downloading {len(extraction.videos)} videos")
+
+        downloader = get_downloader()
+        urls = [v.video_url for v in extraction.videos]
+
+        downloads = await downloader.download_batch(
+            urls=urls,
+            platform=platform.value,
+            max_concurrent=settings.max_concurrent_downloads,
+        )
+
+        successful_downloads = [d for d in downloads if d.success and d.file_path]
+        account_jobs[job_id]["progress"]["videos_downloaded"] = len(successful_downloads)
+
+        if not successful_downloads:
+            raise Exception("No videos downloaded successfully")
+
+        # Step 3: Analyze videos
+        account_jobs[job_id]["status"] = AccountJobStatus.ANALYZING
+        logger.info(f"[{job_id}] Analyzing {len(successful_downloads)} videos")
+
+        analyzer = get_analyzer()
+        paths = [d.file_path for d in successful_downloads]
+
+        analyses = await analyzer.analyze_batch(
+            video_paths=paths,
+            max_concurrent=settings.max_concurrent_analyses,
+        )
+
+        successful_analyses = [a for a in analyses if a.success]
+        account_jobs[job_id]["progress"]["videos_analyzed"] = len(successful_analyses)
+
+        # Step 4: Store posts linked to account
+        stored = storage.store_batch(
+            videos=extraction.videos,
+            downloads=downloads,
+            analyses=analyses,
+        )
+        logger.info(f"[{job_id}] Stored {stored} posts")
+
+        # Link posts to account
+        storage.link_posts_to_account(account_id, account["username"])
+
+        # Step 5: Generate comparison
+        account_jobs[job_id]["status"] = AccountJobStatus.COMPARING
+        logger.info(f"[{job_id}] Generating comparison")
+
+        # Get account posts and dataset posts for comparison
+        account_posts = storage.get_account_posts(account_id)
+        dataset_posts = storage.get_analyzed_posts_raw(limit=500)
+        dataset_averages = storage.get_dataset_averages()
+
+        comparer = get_comparer()
+        comparison = comparer.generate_full_comparison(
+            account_posts=account_posts,
+            dataset_posts=dataset_posts,
+            dataset_averages=dataset_averages,
+        )
+
+        account_jobs[job_id]["comparison"] = comparison
+
+        # Create a snapshot
+        storage.create_account_snapshot(
+            account_id=account_id,
+            video_count=comparison["scores"]["video_count"],
+            analyzed_count=comparison["scores"]["analyzed_count"],
+            avg_hook_strength=comparison["scores"]["account_averages"]["hook"],
+            avg_viral_potential=comparison["scores"]["account_averages"]["viral"],
+            avg_replicability=comparison["scores"]["account_averages"]["replicability"],
+            hook_types=comparison["patterns"]["account_patterns"].get("hook_types"),
+            audio_categories=comparison["patterns"]["account_patterns"].get("audio_categories"),
+            visual_styles=comparison["patterns"]["account_patterns"].get("visual_styles"),
+            dataset_comparison=comparison["scores"]["vs_dataset"],
+            percentile_ranks=comparison["scores"]["percentiles"],
+            recommendations=comparison["recommendations"],
+            gaps=comparison["gaps"],
+        )
+
+        # Update account status
+        storage.update_account(account_id, status="active")
+        storage.client.table("accounts").update({
+            "last_analyzed_at": datetime.utcnow().isoformat()
+        }).eq("id", account_id).execute()
+
+        account_jobs[job_id]["status"] = AccountJobStatus.COMPLETED
+        logger.info(f"[{job_id}] Account analysis completed")
+
+    except Exception as e:
+        logger.error(f"[{job_id}] Account analysis failed: {e}")
+        account_jobs[job_id]["status"] = AccountJobStatus.FAILED
+        account_jobs[job_id]["error"] = str(e)
+        if storage:
+            storage.update_account(account_id, status="error", scrape_error=str(e))
+
+    finally:
+        account_jobs[job_id]["completed_at"] = datetime.utcnow().isoformat()
+
+
+@app.get("/accounts/{account_id}/analyze/{job_id}")
+async def get_account_analysis_status(account_id: str, job_id: str):
+    """
+    Get status of an account analysis job.
+    """
+    if job_id not in account_jobs:
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    job = account_jobs[job_id]
+
+    if job["account_id"] != account_id:
+        raise HTTPException(status_code=404, detail="Job not found for this account")
+
+    return job
+
+
+@app.get("/accounts/{account_id}/comparison")
+async def get_account_comparison(account_id: str):
+    """
+    Get full comparison data for an account vs the dataset.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        # Get account posts
+        account_posts = storage.get_account_posts(account_id)
+        if not account_posts:
+            return {
+                "message": "No posts found for account",
+                "comparison": None,
+            }
+
+        # Get dataset for comparison
+        dataset_posts = storage.get_analyzed_posts_raw(limit=500)
+        dataset_averages = storage.get_dataset_averages()
+
+        comparer = get_comparer()
+        comparison = comparer.generate_full_comparison(
+            account_posts=account_posts,
+            dataset_posts=dataset_posts,
+            dataset_averages=dataset_averages,
+        )
+
+        return {"comparison": comparison}
+    except Exception as e:
+        logger.error(f"Failed to get account comparison: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/accounts/{account_id}/snapshots")
+async def get_account_snapshots(account_id: str, limit: int = 10):
+    """
+    Get historical snapshots for an account.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        snapshots = storage.get_account_snapshots(account_id, limit=limit)
+        return {"snapshots": snapshots, "count": len(snapshots)}
+    except Exception as e:
+        logger.error(f"Failed to get snapshots: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/accounts/{account_id}/snapshot")
+async def create_account_snapshot(account_id: str):
+    """
+    Create a new snapshot of current account metrics.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        # Get current account posts and generate comparison
+        account_posts = storage.get_account_posts(account_id)
+        if not account_posts:
+            raise HTTPException(status_code=400, detail="No posts to snapshot")
+
+        dataset_posts = storage.get_analyzed_posts_raw(limit=500)
+        dataset_averages = storage.get_dataset_averages()
+
+        comparer = get_comparer()
+        comparison = comparer.generate_full_comparison(
+            account_posts=account_posts,
+            dataset_posts=dataset_posts,
+            dataset_averages=dataset_averages,
+        )
+
+        snapshot = storage.create_account_snapshot(
+            account_id=account_id,
+            video_count=comparison["scores"]["video_count"],
+            analyzed_count=comparison["scores"]["analyzed_count"],
+            avg_hook_strength=comparison["scores"]["account_averages"]["hook"],
+            avg_viral_potential=comparison["scores"]["account_averages"]["viral"],
+            avg_replicability=comparison["scores"]["account_averages"]["replicability"],
+            hook_types=comparison["patterns"]["account_patterns"].get("hook_types"),
+            audio_categories=comparison["patterns"]["account_patterns"].get("audio_categories"),
+            visual_styles=comparison["patterns"]["account_patterns"].get("visual_styles"),
+            dataset_comparison=comparison["scores"]["vs_dataset"],
+            percentile_ranks=comparison["scores"]["percentiles"],
+            recommendations=comparison["recommendations"],
+            gaps=comparison["gaps"],
+        )
+
+        return snapshot
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to create snapshot: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

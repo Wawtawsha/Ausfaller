@@ -51,6 +51,7 @@
             <a href="#redflags-section" class="nav-pill" data-section="redflags">Red Flags</a>
             <a href="#charts-section" class="nav-pill" data-section="charts">Charts</a>
             <a href="#leaderboard-section" class="nav-pill" data-section="leaderboard">Leaderboard</a>
+            <a href="#accounts-section" class="nav-pill" data-section="accounts">Accounts</a>
         </nav>
 
         <!-- Summary Cards (Top) -->
@@ -298,6 +299,137 @@
                 </div>
             </div>
         </section>
+
+        <!-- Account Analysis -->
+        <section class="accounts-section" id="accounts-section" style="--delay: 12">
+            <div class="accounts-card">
+                <div class="accounts-header">
+                    <div class="accounts-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="accounts-icon">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        <h3>Account Analysis</h3>
+                        <span class="accounts-badge">Compare vs Dataset</span>
+                    </div>
+                    <button class="add-account-btn" onclick="showAddAccountModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Account
+                    </button>
+                </div>
+
+                <!-- Account List -->
+                <div class="accounts-list" id="accounts-list">
+                    <div class="accounts-loading">Loading accounts...</div>
+                </div>
+
+                <!-- Selected Account Detail -->
+                <div class="account-detail" id="account-detail" style="display: none;">
+                    <div class="account-profile">
+                        <div class="profile-info">
+                            <img id="account-avatar" src="" alt="Avatar" class="profile-avatar" style="display: none;">
+                            <div class="profile-text">
+                                <h4 id="account-username">@username</h4>
+                                <span id="account-followers" class="profile-followers">0 followers</span>
+                                <span id="account-status" class="profile-status">pending</span>
+                            </div>
+                        </div>
+                        <div class="profile-actions">
+                            <button class="analyze-btn" id="analyze-account-btn" onclick="analyzeCurrentAccount()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="17 8 12 3 7 8"/>
+                                    <line x1="12" y1="3" x2="12" y2="15"/>
+                                </svg>
+                                Run Analysis
+                            </button>
+                            <button class="delete-btn" onclick="deleteCurrentAccount()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Score Comparison -->
+                    <div class="comparison-grid" id="comparison-grid">
+                        <div class="comparison-card">
+                            <div class="comparison-label">Hook Strength</div>
+                            <div class="comparison-values">
+                                <span class="comparison-account" id="cmp-hook-account">—</span>
+                                <span class="comparison-vs">vs</span>
+                                <span class="comparison-dataset" id="cmp-hook-dataset">—</span>
+                            </div>
+                            <div class="comparison-diff" id="cmp-hook-diff">—</div>
+                            <div class="comparison-percentile" id="cmp-hook-percentile">—</div>
+                        </div>
+                        <div class="comparison-card">
+                            <div class="comparison-label">Viral Potential</div>
+                            <div class="comparison-values">
+                                <span class="comparison-account" id="cmp-viral-account">—</span>
+                                <span class="comparison-vs">vs</span>
+                                <span class="comparison-dataset" id="cmp-viral-dataset">—</span>
+                            </div>
+                            <div class="comparison-diff" id="cmp-viral-diff">—</div>
+                            <div class="comparison-percentile" id="cmp-viral-percentile">—</div>
+                        </div>
+                        <div class="comparison-card">
+                            <div class="comparison-label">Replicability</div>
+                            <div class="comparison-values">
+                                <span class="comparison-account" id="cmp-replicate-account">—</span>
+                                <span class="comparison-vs">vs</span>
+                                <span class="comparison-dataset" id="cmp-replicate-dataset">—</span>
+                            </div>
+                            <div class="comparison-diff" id="cmp-replicate-diff">—</div>
+                            <div class="comparison-percentile" id="cmp-replicate-percentile">—</div>
+                        </div>
+                    </div>
+
+                    <!-- Gaps -->
+                    <div class="account-gaps" id="account-gaps">
+                        <h5>Gaps Identified</h5>
+                        <ul id="gaps-list"></ul>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="account-recommendations" id="account-recommendations">
+                        <h5>Recommendations</h5>
+                        <ul id="recommendations-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add Account Modal -->
+        <div class="modal" id="add-account-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Add Account to Track</h4>
+                    <button class="modal-close" onclick="hideAddAccountModal()">&times;</button>
+                </div>
+                <form id="add-account-form" onsubmit="submitAddAccount(event)">
+                    <div class="form-group">
+                        <label for="account-platform">Platform</label>
+                        <select id="account-platform" required>
+                            <option value="tiktok">TikTok</option>
+                            <option value="instagram">Instagram</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="account-username-input">Username</label>
+                        <input type="text" id="account-username-input" placeholder="username (without @)" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" onclick="hideAddAccountModal()">Cancel</button>
+                        <button type="submit" class="btn-submit">Add Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <footer class="footer">
             <span>Powered by Gemini + Claude AI</span>

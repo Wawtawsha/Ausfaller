@@ -1772,7 +1772,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initLeaderboardFilters();
 
     const navPills = document.querySelectorAll('.nav-pill');
-    const sections = ['metrics-section', 'strategic-section', 'templates-section', 'gaps-section', 'redflags-section', 'charts-section', 'leaderboard-section'];
+    const sections = ['metrics-section', 'strategic-section', 'templates-section', 'gaps-section', 'redflags-section', 'charts-section', 'leaderboard-section', 'accounts-section'];
 
     // Smooth scroll on click
     navPills.forEach(pill => {
@@ -1824,6 +1824,7 @@ document.addEventListener('keydown', (e) => {
         case '5': document.getElementById('redflags-section')?.scrollIntoView({ behavior: 'smooth' }); break;
         case '6': document.getElementById('charts-section')?.scrollIntoView({ behavior: 'smooth' }); break;
         case '7': document.getElementById('leaderboard-section')?.scrollIntoView({ behavior: 'smooth' }); break;
+        case '8': document.getElementById('accounts-section')?.scrollIntoView({ behavior: 'smooth' }); break;
         case 's': case 'S': toggleStrategicAnalysis(); break;
         case 'r': case 'R': if (!e.ctrlKey && !e.metaKey) { init(); } break;
         case '?': showKeyboardHelp(); break;
@@ -1840,7 +1841,7 @@ function showKeyboardHelp() {
     help.innerHTML = `
         <div class="keyboard-help-content">
             <h4>Keyboard Shortcuts</h4>
-            <div class="shortcut"><kbd>1-7</kbd> Jump to section</div>
+            <div class="shortcut"><kbd>1-8</kbd> Jump to section</div>
             <div class="shortcut"><kbd>S</kbd> Toggle strategy panel</div>
             <div class="shortcut"><kbd>R</kbd> Refresh data</div>
             <div class="shortcut"><kbd>?</kbd> Toggle this help</div>
@@ -1849,3 +1850,393 @@ function showKeyboardHelp() {
     `;
     document.body.appendChild(help);
 }
+
+// ==================== Account Analysis ====================
+
+// Account state
+let accountsList = [];
+let selectedAccount = null;
+let currentAccountJob = null;
+
+/**
+ * Fetch all tracked accounts
+ */
+async function fetchAccounts() {
+    try {
+        const response = await fetch(`${API_BASE}/accounts`);
+        if (!response.ok) throw new Error('Failed to fetch accounts');
+        const data = await response.json();
+        accountsList = data.accounts || [];
+        renderAccountsList();
+    } catch (error) {
+        console.error('Error fetching accounts:', error);
+        document.getElementById('accounts-list').innerHTML = `
+            <div class="accounts-empty">
+                <p>No accounts tracked yet</p>
+                <button onclick="showAddAccountModal()" class="add-first-btn">Add your first account</button>
+            </div>
+        `;
+    }
+}
+
+/**
+ * Render the accounts list
+ */
+function renderAccountsList() {
+    const container = document.getElementById('accounts-list');
+
+    if (!accountsList.length) {
+        container.innerHTML = `
+            <div class="accounts-empty">
+                <p>No accounts tracked yet</p>
+                <button onclick="showAddAccountModal()" class="add-first-btn">Add your first account</button>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = accountsList.map(account => `
+        <div class="account-item ${selectedAccount?.id === account.id ? 'selected' : ''}"
+             onclick="selectAccount('${account.id}')">
+            <div class="account-item-info">
+                <span class="account-item-username">@${account.username}</span>
+                <span class="account-item-platform">${account.platform}</span>
+            </div>
+            <div class="account-item-stats">
+                <span class="account-item-videos">${account.scraped_video_count || 0} videos</span>
+                <span class="account-item-status status-${account.status}">${account.status}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+/**
+ * Select an account to view details
+ */
+async function selectAccount(accountId) {
+    selectedAccount = accountsList.find(a => a.id === accountId);
+    if (!selectedAccount) return;
+
+    // Update UI selection
+    renderAccountsList();
+
+    // Show detail panel
+    document.getElementById('account-detail').style.display = 'block';
+
+    // Update profile info
+    document.getElementById('account-username').textContent = `@${selectedAccount.username}`;
+    document.getElementById('account-followers').textContent =
+        selectedAccount.follower_count ? `${formatNumber(selectedAccount.follower_count)} followers` : '';
+    document.getElementById('account-status').textContent = selectedAccount.status;
+    document.getElementById('account-status').className = `profile-status status-${selectedAccount.status}`;
+
+    // Avatar
+    const avatar = document.getElementById('account-avatar');
+    if (selectedAccount.profile_picture_url) {
+        avatar.src = selectedAccount.profile_picture_url;
+        avatar.style.display = 'block';
+    } else {
+        avatar.style.display = 'none';
+    }
+
+    // Fetch comparison if account has been analyzed
+    if (selectedAccount.status === 'active' && selectedAccount.analyzed_video_count > 0) {
+        await fetchAccountComparison(accountId);
+    } else {
+        // Show placeholder
+        document.getElementById('comparison-grid').innerHTML = `
+            <div class="comparison-placeholder">
+                <p>Run analysis to see comparison data</p>
+            </div>
+        `;
+        document.getElementById('account-gaps').style.display = 'none';
+        document.getElementById('account-recommendations').style.display = 'none';
+    }
+}
+
+/**
+ * Fetch comparison data for an account
+ */
+async function fetchAccountComparison(accountId) {
+    try {
+        const response = await fetch(`${API_BASE}/accounts/${accountId}/comparison`);
+        if (!response.ok) throw new Error('Failed to fetch comparison');
+        const data = await response.json();
+
+        if (data.comparison) {
+            renderComparison(data.comparison);
+        }
+    } catch (error) {
+        console.error('Error fetching comparison:', error);
+    }
+}
+
+/**
+ * Render comparison data
+ */
+function renderComparison(comparison) {
+    const scores = comparison.scores;
+
+    // Hook
+    document.getElementById('cmp-hook-account').textContent = scores.account_averages.hook.toFixed(1);
+    document.getElementById('cmp-hook-dataset').textContent = (scores.account_averages.hook - scores.vs_dataset.hook).toFixed(1);
+    renderDiff('cmp-hook-diff', scores.vs_dataset.hook);
+    document.getElementById('cmp-hook-percentile').textContent = `${scores.percentiles.hook}th percentile`;
+
+    // Viral
+    document.getElementById('cmp-viral-account').textContent = scores.account_averages.viral.toFixed(1);
+    document.getElementById('cmp-viral-dataset').textContent = (scores.account_averages.viral - scores.vs_dataset.viral).toFixed(1);
+    renderDiff('cmp-viral-diff', scores.vs_dataset.viral);
+    document.getElementById('cmp-viral-percentile').textContent = `${scores.percentiles.viral}th percentile`;
+
+    // Replicability
+    document.getElementById('cmp-replicate-account').textContent = scores.account_averages.replicability.toFixed(1);
+    document.getElementById('cmp-replicate-dataset').textContent = (scores.account_averages.replicability - scores.vs_dataset.replicability).toFixed(1);
+    renderDiff('cmp-replicate-diff', scores.vs_dataset.replicability);
+    document.getElementById('cmp-replicate-percentile').textContent = `${scores.percentiles.replicability}th percentile`;
+
+    // Reset comparison grid
+    document.getElementById('comparison-grid').innerHTML = `
+        <div class="comparison-card">
+            <div class="comparison-label">Hook Strength</div>
+            <div class="comparison-values">
+                <span class="comparison-account" id="cmp-hook-account">${scores.account_averages.hook.toFixed(1)}</span>
+                <span class="comparison-vs">vs</span>
+                <span class="comparison-dataset">${(scores.account_averages.hook - scores.vs_dataset.hook).toFixed(1)}</span>
+            </div>
+            <div class="comparison-diff ${scores.vs_dataset.hook >= 0 ? 'positive' : 'negative'}">${scores.vs_dataset.hook >= 0 ? '+' : ''}${scores.vs_dataset.hook.toFixed(1)}</div>
+            <div class="comparison-percentile">${scores.percentiles.hook}th percentile</div>
+        </div>
+        <div class="comparison-card">
+            <div class="comparison-label">Viral Potential</div>
+            <div class="comparison-values">
+                <span class="comparison-account">${scores.account_averages.viral.toFixed(1)}</span>
+                <span class="comparison-vs">vs</span>
+                <span class="comparison-dataset">${(scores.account_averages.viral - scores.vs_dataset.viral).toFixed(1)}</span>
+            </div>
+            <div class="comparison-diff ${scores.vs_dataset.viral >= 0 ? 'positive' : 'negative'}">${scores.vs_dataset.viral >= 0 ? '+' : ''}${scores.vs_dataset.viral.toFixed(1)}</div>
+            <div class="comparison-percentile">${scores.percentiles.viral}th percentile</div>
+        </div>
+        <div class="comparison-card">
+            <div class="comparison-label">Replicability</div>
+            <div class="comparison-values">
+                <span class="comparison-account">${scores.account_averages.replicability.toFixed(1)}</span>
+                <span class="comparison-vs">vs</span>
+                <span class="comparison-dataset">${(scores.account_averages.replicability - scores.vs_dataset.replicability).toFixed(1)}</span>
+            </div>
+            <div class="comparison-diff ${scores.vs_dataset.replicability >= 0 ? 'positive' : 'negative'}">${scores.vs_dataset.replicability >= 0 ? '+' : ''}${scores.vs_dataset.replicability.toFixed(1)}</div>
+            <div class="comparison-percentile">${scores.percentiles.replicability}th percentile</div>
+        </div>
+    `;
+
+    // Gaps
+    const gapsContainer = document.getElementById('account-gaps');
+    const gapsList = document.getElementById('gaps-list');
+    if (comparison.gaps && comparison.gaps.length) {
+        gapsContainer.style.display = 'block';
+        gapsList.innerHTML = comparison.gaps.map(gap => `<li>${gap}</li>`).join('');
+    } else {
+        gapsContainer.style.display = 'none';
+    }
+
+    // Recommendations
+    const recsContainer = document.getElementById('account-recommendations');
+    const recsList = document.getElementById('recommendations-list');
+    if (comparison.recommendations && comparison.recommendations.length) {
+        recsContainer.style.display = 'block';
+        recsList.innerHTML = comparison.recommendations.map(rec => `<li>${rec}</li>`).join('');
+    } else {
+        recsContainer.style.display = 'none';
+    }
+}
+
+function renderDiff(elementId, diff) {
+    const el = document.getElementById(elementId);
+    el.textContent = `${diff >= 0 ? '+' : ''}${diff.toFixed(1)}`;
+    el.className = `comparison-diff ${diff >= 0 ? 'positive' : 'negative'}`;
+}
+
+/**
+ * Show add account modal
+ */
+function showAddAccountModal() {
+    document.getElementById('add-account-modal').classList.add('show');
+    document.getElementById('account-username-input').focus();
+}
+
+/**
+ * Hide add account modal
+ */
+function hideAddAccountModal() {
+    document.getElementById('add-account-modal').classList.remove('show');
+    document.getElementById('add-account-form').reset();
+}
+
+/**
+ * Submit new account
+ */
+async function submitAddAccount(event) {
+    event.preventDefault();
+
+    const platform = document.getElementById('account-platform').value;
+    const username = document.getElementById('account-username-input').value.trim();
+
+    if (!username) return;
+
+    try {
+        const response = await fetch(`${API_BASE}/accounts`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ platform, username })
+        });
+
+        if (!response.ok) throw new Error('Failed to add account');
+
+        hideAddAccountModal();
+        await fetchAccounts();
+
+        // Select the new account
+        const data = await response.json();
+        if (data.id) {
+            selectAccount(data.id);
+        }
+    } catch (error) {
+        console.error('Error adding account:', error);
+        alert('Failed to add account: ' + error.message);
+    }
+}
+
+/**
+ * Analyze current account
+ */
+async function analyzeCurrentAccount() {
+    if (!selectedAccount) return;
+
+    const btn = document.getElementById('analyze-account-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Analyzing...';
+
+    try {
+        const response = await fetch(`${API_BASE}/accounts/${selectedAccount.id}/analyze`, {
+            method: 'POST'
+        });
+
+        if (!response.ok) throw new Error('Failed to start analysis');
+
+        const data = await response.json();
+        currentAccountJob = data.job_id;
+
+        // Poll for completion
+        pollAccountJob();
+    } catch (error) {
+        console.error('Error analyzing account:', error);
+        btn.disabled = false;
+        btn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            Run Analysis
+        `;
+        alert('Failed to start analysis: ' + error.message);
+    }
+}
+
+/**
+ * Poll for account analysis job completion
+ */
+async function pollAccountJob() {
+    if (!currentAccountJob || !selectedAccount) return;
+
+    try {
+        const response = await fetch(`${API_BASE}/accounts/${selectedAccount.id}/analyze/${currentAccountJob}`);
+        const job = await response.json();
+
+        const btn = document.getElementById('analyze-account-btn');
+
+        if (job.status === 'completed') {
+            btn.disabled = false;
+            btn.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                Run Analysis
+            `;
+            currentAccountJob = null;
+
+            // Refresh account data and comparison
+            await fetchAccounts();
+            if (selectedAccount) {
+                await selectAccount(selectedAccount.id);
+            }
+        } else if (job.status === 'failed') {
+            btn.disabled = false;
+            btn.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                Run Analysis
+            `;
+            currentAccountJob = null;
+            alert('Analysis failed: ' + (job.error || 'Unknown error'));
+        } else {
+            // Update status
+            const progress = job.progress || {};
+            btn.innerHTML = `<span class="spinner"></span> ${job.status} (${progress.videos_analyzed || 0}/${progress.videos_found || 0})`;
+
+            // Continue polling
+            setTimeout(pollAccountJob, 2000);
+        }
+    } catch (error) {
+        console.error('Error polling job:', error);
+        setTimeout(pollAccountJob, 5000);
+    }
+}
+
+/**
+ * Delete current account
+ */
+async function deleteCurrentAccount() {
+    if (!selectedAccount) return;
+
+    if (!confirm(`Delete @${selectedAccount.username}? This will remove the account but keep any scraped posts.`)) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE}/accounts/${selectedAccount.id}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) throw new Error('Failed to delete account');
+
+        selectedAccount = null;
+        document.getElementById('account-detail').style.display = 'none';
+        await fetchAccounts();
+    } catch (error) {
+        console.error('Error deleting account:', error);
+        alert('Failed to delete account: ' + error.message);
+    }
+}
+
+/**
+ * Format number with K/M suffix
+ */
+function formatNumber(num) {
+    if (num >= 1000000) {
+        return (num / 1000000).toFixed(1) + 'M';
+    } else if (num >= 1000) {
+        return (num / 1000).toFixed(1) + 'K';
+    }
+    return num.toString();
+}
+
+// Load accounts on page load
+document.addEventListener('DOMContentLoaded', () => {
+    fetchAccounts();
+});
