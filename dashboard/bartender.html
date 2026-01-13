@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bartender Intelligence | Trend Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Shared base styles -->
+    <link rel="stylesheet" href="base.css">
+    <!-- Bartender theme -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="niche-bartender">
+    <div class="noise-overlay"></div>
+
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8 22h8M12 11v11M5 3l7 8 7-8"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Bartender Intelligence</h1>
+                        <span class="tagline">Nightlife Content Analytics</span>
+                    </div>
+                </div>
+                <div class="status-section">
+                    <div class="status-indicator" id="status-dot"></div>
+                    <span class="status-text" id="status-text">Connecting...</span>
+                    <span class="update-time" id="last-updated"></span>
+                    <button class="refresh-btn" id="refresh-btn" onclick="refreshDashboard()" title="Refresh data">
+                        <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section Navigation -->
+        <nav class="section-nav" id="section-nav">
+            <a href="#metrics-section" class="nav-pill active" data-section="metrics">Overview</a>
+            <a href="#strategic-section" class="nav-pill" data-section="strategic">Strategy</a>
+            <a href="#templates-section" class="nav-pill" data-section="templates">Templates</a>
+            <a href="#gaps-section" class="nav-pill" data-section="gaps">Gaps</a>
+            <a href="#redflags-section" class="nav-pill" data-section="redflags">Red Flags</a>
+            <a href="#charts-section" class="nav-pill" data-section="charts">Charts</a>
+            <a href="#leaderboard-section" class="nav-pill" data-section="leaderboard">Leaderboard</a>
+            <a href="#accounts-section" class="nav-pill" data-section="accounts">Accounts</a>
+        </nav>
+
+        <!-- Summary Cards (Top) -->
+        <section class="metrics-grid" id="metrics-section">
+            <div class="metric-card" style="--delay: 0" data-tooltip="Total videos scraped from hashtags">
+                <div class="metric-label">Total Videos</div>
+                <div class="metric-value" id="total-videos">—</div>
+                <div class="metric-bar"><div class="metric-bar-fill" style="width: 100%"></div></div>
+            </div>
+            <div class="metric-card" style="--delay: 1" data-tooltip="Videos processed by Gemini AI analysis">
+                <div class="metric-label">Analyzed</div>
+                <div class="metric-value" id="analyzed-videos">—</div>
+                <div class="metric-bar"><div class="metric-bar-fill analyzed" style="width: 0%"></div></div>
+            </div>
+            <div class="metric-card" style="--delay: 2" data-tooltip="Total size of all downloaded video files">
+                <div class="metric-label">Data Processed</div>
+                <div class="metric-value" id="total-bytes">—</div>
+                <div class="metric-bar"><div class="metric-bar-fill bytes" style="width: 0%"></div></div>
+            </div>
+            <div class="metric-card highlight" style="--delay: 3" data-tooltip="How attention-grabbing the first 3 seconds are. 8+ is strong.">
+                <div class="metric-label">Avg Hook Strength</div>
+                <div class="metric-value"><span id="avg-hook">—</span><span class="metric-suffix">/10</span><span class="trend-indicator" id="trend-hook"></span></div>
+                <div class="metric-bar"><div class="metric-bar-fill hook" style="width: 0%"></div></div>
+            </div>
+            <div class="metric-card highlight" style="--delay: 4" data-tooltip="Likelihood of being shared/going viral based on content patterns">
+                <div class="metric-label">Avg Viral Potential</div>
+                <div class="metric-value"><span id="avg-viral">—</span><span class="metric-suffix">/10</span><span class="trend-indicator" id="trend-viral"></span></div>
+                <div class="metric-bar"><div class="metric-bar-fill viral" style="width: 0%"></div></div>
+            </div>
+            <div class="metric-card highlight" style="--delay: 5" data-tooltip="How easy it is to recreate this content style. Higher = easier to copy.">
+                <div class="metric-label">Avg Replicability</div>
+                <div class="metric-value"><span id="avg-replicability">—</span><span class="metric-suffix">/10</span><span class="trend-indicator" id="trend-replicate"></span></div>
+                <div class="metric-bar"><div class="metric-bar-fill replicate" style="width: 0%"></div></div>
+            </div>
+        </section>
+
+        <!-- Strategic Analysis -->
+        <section class="strategic-section" id="strategic-section" style="--delay: 5">
+            <div class="strategic-card">
+                <div class="strategic-header" onclick="toggleStrategicAnalysis()">
+                    <div class="strategic-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="strategic-icon">
+                            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                        </svg>
+                        <h3>Strategic Analysis</h3>
+                        <span class="strategic-badge">Claude Intelligence</span>
+                    </div>
+                    <div class="strategic-meta">
+                        <span class="strategic-updated" id="strategic-updated">—</span>
+                        <svg class="strategic-chevron rotated" id="strategic-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </div>
+                </div>
+                <!-- Key Takeaways - Always visible -->
+                <div class="strategic-takeaways" id="strategic-takeaways">
+                    <div class="takeaway-loading">Loading insights...</div>
+                </div>
+                <div class="strategic-content expanded" id="strategic-content">
+                    <div class="strategic-loading">Loading strategic analysis...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Templates -->
+        <section class="breakdown-section" id="templates-section" style="--delay: 6">
+            <div class="breakdown-card">
+                <div class="breakdown-header">
+                    <div class="breakdown-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="breakdown-icon">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="9" y1="21" x2="9" y2="9"/>
+                        </svg>
+                        <h3>Content Templates</h3>
+                        <span class="breakdown-badge templates">Playbook</span>
+                    </div>
+                </div>
+                <div class="breakdown-content" id="templates-content">
+                    <div class="breakdown-loading">Loading templates...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gaps & Opportunities -->
+        <section class="breakdown-section" id="gaps-section" style="--delay: 7">
+            <div class="breakdown-card">
+                <div class="breakdown-header">
+                    <div class="breakdown-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="breakdown-icon">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="8" x2="12" y2="12"/>
+                            <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        </svg>
+                        <h3>Gaps & Opportunities</h3>
+                        <span class="breakdown-badge gaps">Untapped</span>
+                    </div>
+                </div>
+                <div class="breakdown-content" id="gaps-content">
+                    <div class="breakdown-loading">Loading opportunities...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Red Flags -->
+        <section class="breakdown-section" id="redflags-section" style="--delay: 8">
+            <div class="breakdown-card">
+                <div class="breakdown-header">
+                    <div class="breakdown-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="breakdown-icon warning">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        <h3>Red Flags</h3>
+                        <span class="breakdown-badge redflags">Avoid</span>
+                    </div>
+                </div>
+                <div class="breakdown-content" id="redflags-content">
+                    <div class="breakdown-loading">Loading warnings...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent AI Reply -->
+        <section class="recent-reply-section" style="--delay: 9">
+            <div class="reply-card">
+                <div class="reply-header">
+                    <div class="reply-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="reply-icon">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        <h3>Latest AI Analysis</h3>
+                    </div>
+                    <div class="reply-meta" id="reply-meta">
+                        <span class="reply-author">—</span>
+                        <span class="reply-time">—</span>
+                    </div>
+                </div>
+                <div class="reply-content" id="reply-content">
+                    <div class="reply-loading">Loading latest analysis...</div>
+                </div>
+                <div class="reply-footer" id="reply-footer" style="display: none;">
+                    <a href="#" id="reply-video-link" target="_blank" class="reply-link">
+                        View Original Video
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                            <polyline points="15 3 21 3 21 9"/>
+                            <line x1="10" y1="14" x2="21" y2="3"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Grid -->
+        <div class="section-header" id="charts-section">
+            <h2>Content Breakdown</h2>
+            <p class="section-description">Click any chart segment to filter. Patterns from analyzed videos.</p>
+        </div>
+        <section class="charts-grid">
+            <div class="chart-card" style="--delay: 6">
+                <div class="chart-header">
+                    <h3>Hook Types</h3>
+                    <span class="chart-badge">Distribution</span>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="hook-types-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card" style="--delay: 7">
+                <div class="chart-header">
+                    <h3>Hook Techniques</h3>
+                    <span class="chart-badge">What Works</span>
+                </div>
+                <div class="chart-wrapper horizontal">
+                    <canvas id="hook-techniques-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card" style="--delay: 8">
+                <div class="chart-header">
+                    <h3>Audio Categories</h3>
+                    <span class="chart-badge">Sound Mix</span>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="audio-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card" style="--delay: 9">
+                <div class="chart-header">
+                    <h3>Visual Styles</h3>
+                    <span class="chart-badge">Aesthetics</span>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="visual-chart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Viral Factors - Full Width -->
+        <section class="viral-section" style="--delay: 10">
+            <div class="chart-card wide">
+                <div class="chart-header">
+                    <h3>Viral Factors</h3>
+                    <span class="chart-badge accent">Key Success Drivers</span>
+                </div>
+                <div class="chart-wrapper wide">
+                    <canvas id="viral-factors-chart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Replicability Leaderboard -->
+        <section class="leaderboard-section" id="leaderboard-section" style="--delay: 11">
+            <div class="leaderboard-card">
+                <div class="leaderboard-header">
+                    <div>
+                        <h3>Replicability Leaderboard</h3>
+                        <p class="leaderboard-subtitle">Easiest high-performing content to recreate</p>
+                    </div>
+                    <div class="leaderboard-filters">
+                        <span class="filter-tag active">All</span>
+                        <span class="filter-tag">Easy</span>
+                        <span class="filter-tag">Score 8+</span>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table id="replicability-table">
+                        <thead>
+                            <tr>
+                                <th>Creator</th>
+                                <th>Score</th>
+                                <th>Difficulty</th>
+                                <th>Why It Works</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Account Analysis -->
+        <section class="accounts-section" id="accounts-section" style="--delay: 12">
+            <div class="accounts-card">
+                <div class="accounts-header">
+                    <div class="accounts-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="accounts-icon">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        <h3>Account Analysis</h3>
+                        <span class="accounts-badge">Compare vs Dataset</span>
+                    </div>
+                    <button class="add-account-btn" onclick="showAddAccountModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Account
+                    </button>
+                </div>
+
+                <!-- Account List -->
+                <div class="accounts-list" id="accounts-list">
+                    <div class="accounts-loading">Loading accounts...</div>
+                </div>
+
+                <!-- Selected Account Detail -->
+                <div class="account-detail" id="account-detail" style="display: none;">
+                    <div class="account-profile">
+                        <div class="profile-info">
+                            <img id="account-avatar" src="" alt="Avatar" class="profile-avatar" style="display: none;">
+                            <div class="profile-text">
+                                <h4 id="account-username">@username</h4>
+                                <span id="account-followers" class="profile-followers">0 followers</span>
+                                <span id="account-status" class="profile-status">pending</span>
+                            </div>
+                        </div>
+                        <div class="profile-actions">
+                            <button class="analyze-btn" id="analyze-account-btn" onclick="analyzeCurrentAccount()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="17 8 12 3 7 8"/>
+                                    <line x1="12" y1="3" x2="12" y2="15"/>
+                                </svg>
+                                Run Analysis
+                            </button>
+                            <button class="delete-btn" onclick="deleteCurrentAccount()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Score Comparison -->
+                    <div class="comparison-grid" id="comparison-grid">
+                        <div class="comparison-card">
+                            <div class="comparison-label">Hook Strength</div>
+                            <div class="comparison-values">
+                                <span class="comparison-account" id="cmp-hook-account">—</span>
+                                <span class="comparison-vs">vs</span>
+                                <span class="comparison-dataset" id="cmp-hook-dataset">—</span>
+                            </div>
+                            <div class="comparison-diff" id="cmp-hook-diff">—</div>
+                            <div class="comparison-percentile" id="cmp-hook-percentile">—</div>
+                        </div>
+                        <div class="comparison-card">
+                            <div class="comparison-label">Viral Potential</div>
+                            <div class="comparison-values">
+                                <span class="comparison-account" id="cmp-viral-account">—</span>
+                                <span class="comparison-vs">vs</span>
+                                <span class="comparison-dataset" id="cmp-viral-dataset">—</span>
+                            </div>
+                            <div class="comparison-diff" id="cmp-viral-diff">—</div>
+                            <div class="comparison-percentile" id="cmp-viral-percentile">—</div>
+                        </div>
+                        <div class="comparison-card">
+                            <div class="comparison-label">Replicability</div>
+                            <div class="comparison-values">
+                                <span class="comparison-account" id="cmp-replicate-account">—</span>
+                                <span class="comparison-vs">vs</span>
+                                <span class="comparison-dataset" id="cmp-replicate-dataset">—</span>
+                            </div>
+                            <div class="comparison-diff" id="cmp-replicate-diff">—</div>
+                            <div class="comparison-percentile" id="cmp-replicate-percentile">—</div>
+                        </div>
+                    </div>
+
+                    <!-- Gaps -->
+                    <div class="account-gaps" id="account-gaps">
+                        <h5>Gaps Identified</h5>
+                        <ul id="gaps-list"></ul>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="account-recommendations" id="account-recommendations">
+                        <h5>Recommendations</h5>
+                        <ul id="recommendations-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add Account Modal -->
+        <div class="modal" id="add-account-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Add Account to Track</h4>
+                    <button class="modal-close" onclick="hideAddAccountModal()">&times;</button>
+                </div>
+                <form id="add-account-form" onsubmit="submitAddAccount(event)">
+                    <div class="form-group">
+                        <label for="account-platform">Platform</label>
+                        <select id="account-platform" required>
+                            <option value="tiktok">TikTok</option>
+                            <option value="instagram">Instagram</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="account-username-input">Username</label>
+                        <input type="text" id="account-username-input" placeholder="username (without @)" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" onclick="hideAddAccountModal()">Cancel</button>
+                        <button type="submit" class="btn-submit">Add Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <span>Powered by Gemini + Claude AI</span>
+            <span class="separator">•</span>
+            <span id="video-count-footer">0 videos processed</span>
+        </footer>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="error-modal" id="error-modal">
+        <div class="error-content">
+            <div class="error-icon" id="error-icon">!</div>
+            <h4 id="error-title">Connection Error</h4>
+            <p id="error-message">Unable to fetch analytics data</p>
+            <p id="error-hint" class="error-hint"></p>
+            <button id="error-retry-btn" onclick="retryConnection()">
+                <span id="retry-text">Retry</span>
+                <span id="retry-countdown" style="display: none;"></span>
+            </button>
+            <button class="error-dismiss" onclick="dismissError()">Dismiss</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="shared/nav.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
