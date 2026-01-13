@@ -136,3 +136,107 @@ WHERE niche IS NOT NULL
 GROUP BY niche
 HAVING COUNT(*) >= 5
 ORDER BY avg_views_per_day DESC NULLS LAST;
+
+
+-- Score inconsistency detection: Flags posts with scores that violate validation rules
+CREATE OR REPLACE VIEW score_inconsistencies AS
+SELECT
+    id,
+    video_url,
+    views,
+
+    -- Current scores
+    (analysis->'hook'->>'hook_strength')::int as hook_score,
+    (analysis->'trends'->>'viral_potential_score')::int as viral_score,
+    (analysis->'replicability'->>'replicability_score')::int as replicability_score,
+
+    -- Hook inconsistency flags
+    CASE
+        WHEN COALESCE(analysis->'hook'->>'hook_type', '') IN ('', 'none')
+             AND (analysis->'hook'->>'hook_strength')::int > 3
+        THEN 'no_hook_high_score'
+
+        WHEN LOWER(COALESCE(analysis->'hook'->>'hook_technique', '')) IN ('open_loop', 'curiosity_gap', 'pattern_interrupt', 'controversy')
+             AND (analysis->'hook'->>'hook_strength')::int < 6
+        THEN 'strong_technique_low_score'
+
+        WHEN COALESCE((analysis->'hook'->>'hook_timing_seconds')::numeric, 0) > 3
+             AND (analysis->'hook'->>'hook_strength')::int > 5
+        THEN 'late_hook_high_score'
+
+        ELSE NULL
+    END as hook_issue,
+
+    -- Viral inconsistency flags
+    CASE
+        WHEN LOWER(COALESCE(analysis->'trends'->>'trend_lifecycle_stage', '')) IN ('declining', 'dead')
+             AND (analysis->'trends'->>'viral_potential_score')::int > 5
+        THEN 'dead_trend_high_viral'
+
+        WHEN LOWER(COALESCE(analysis->'trends'->>'format_originality', '')) = 'copy'
+             AND (analysis->'trends'->>'viral_potential_score')::int > 4
+        THEN 'copy_high_viral'
+
+        WHEN (analysis->'trends'->>'viral_potential_score')::int >
+             COALESCE((analysis->'emotion'->>'relatability_score')::int, 5) + 3
+        THEN 'viral_exceeds_relatability'
+
+        ELSE NULL
+    END as viral_issue,
+
+    -- Replicability inconsistency flags
+    CASE
+        WHEN LOWER(COALESCE(analysis->'replicability'->>'budget_estimate', '')) IN ('high', 'over_200', 'over 200')
+             AND (analysis->'replicability'->>'replicability_score')::int > 4
+        THEN 'high_budget_high_replicability'
+
+        WHEN LOWER(COALESCE(analysis->'replicability'->>'difficulty_level', '')) = 'expert'
+             AND (analysis->'replicability'->>'replicability_score')::int > 3
+        THEN 'expert_high_replicability'
+
+        WHEN LOWER(COALESCE(analysis->'replicability'->>'difficulty_level', '')) = 'easy'
+             AND (analysis->'replicability'->>'replicability_score')::int < 7
+        THEN 'easy_low_replicability'
+
+        WHEN LOWER(COALESCE(analysis->'replicability'->>'budget_estimate', '')) = 'free'
+             AND (analysis->'replicability'->>'replicability_score')::int < 7
+        THEN 'free_low_replicability'
+
+        ELSE NULL
+    END as replicability_issue
+
+FROM posts
+WHERE analysis IS NOT NULL;
+
+
+-- Summary of inconsistencies for quick review
+CREATE OR REPLACE VIEW score_inconsistency_summary AS
+SELECT
+    'hook' as score_type,
+    hook_issue as issue_type,
+    COUNT(*) as count
+FROM score_inconsistencies
+WHERE hook_issue IS NOT NULL
+GROUP BY hook_issue
+
+UNION ALL
+
+SELECT
+    'viral' as score_type,
+    viral_issue as issue_type,
+    COUNT(*) as count
+FROM score_inconsistencies
+WHERE viral_issue IS NOT NULL
+GROUP BY viral_issue
+
+UNION ALL
+
+SELECT
+    'replicability' as score_type,
+    replicability_issue as issue_type,
+    COUNT(*) as count
+FROM score_inconsistencies
+WHERE replicability_issue IS NOT NULL
+GROUP BY replicability_issue
+
+ORDER BY score_type, count DESC;

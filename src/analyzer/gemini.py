@@ -58,7 +58,7 @@ class VisualAnalysis:
     camera_movement: list[str] = field(default_factory=list)  # pan, zoom, static, tracking
     transition_types: list[str] = field(default_factory=list)  # cut, swipe, zoom, morph, etc.
     text_overlays: list[dict] = field(default_factory=list)  # [{text, style, position, timing}]
-    visual_effects: list[str] = field(default_factory=list)  # green_screen, split_screen, duet, filter, etc.
+    visual_effects: list[str] = field(default_factory=list)  # green_screen, split_screen, duet, stitch, collab, filter, picture_in_picture, etc.
     editing_pace: str = ""  # fast_cuts, medium, slow, single_shot
     estimated_cuts_count: int = 0
     face_visibility: str = ""  # full_face, partial, no_face, multiple_people
@@ -72,7 +72,7 @@ class VisualAnalysis:
 @dataclass
 class ContentStructure:
     """Content format and structure analysis."""
-    format_type: str = ""  # tutorial, storytime, day_in_life, transformation, reaction, duet, pov, skit, etc.
+    format_type: str = ""  # tutorial, storytime, day_in_life, transformation, reaction, duet, pov, skit, explainer, demo, walkthrough, commentary, vlog, shorts, etc.
     narrative_structure: str = ""  # linear, before_after, problem_solution, list, reveal, etc.
     pacing: str = ""  # fast, medium, slow, varied
     estimated_duration_seconds: int = 0
@@ -102,16 +102,17 @@ class EngagementMechanics:
 @dataclass
 class TrendSignals:
     """Trend identification and signals."""
+    source_platform: str = ""  # tiktok, youtube_shorts, youtube, instagram_reels
     is_trend_participation: bool = False
     trend_name: str = ""  # Name of trend if identifiable
-    trend_category: str = ""  # dance, challenge, sound, format, meme, hashtag
+    trend_category: str = ""  # dance, challenge, sound, format, meme, hashtag, tutorial_style
     trend_adaptation_quality: int = 0  # 1-10 how well they adapted the trend
     trend_lifecycle_stage: str = ""  # emerging, growing, peak, declining, dead
     format_originality: str = ""  # original, trend_adaptation, remix, copy
     viral_potential_score: int = 0  # 1-10
     viral_factors: list[str] = field(default_factory=list)  # what could make it go viral
     meme_potential: bool = False
-    remix_potential: bool = False  # Could others duet/stitch this
+    remix_potential: bool = False  # Could others duet/stitch/react to this
 
 
 @dataclass
@@ -195,6 +196,25 @@ class DataEngineeringContext:
 
 
 @dataclass
+class TechnicalSpecs:
+    """Observable technical video specifications."""
+    video_resolution: str = ""  # 480p|720p|1080p|4k
+    aspect_ratio: str = ""  # 9:16|16:9|1:1|4:5|other
+    has_captions: bool = False
+    caption_style: str = ""  # burned_in|auto_generated|none
+    audio_language: str = ""  # english|spanish|other|multilingual|none
+
+
+@dataclass
+class BrandSafety:
+    """Brand safety and content classification."""
+    brand_safety_score: int = 0  # 1-10: advertiser-friendly rating
+    content_rating: str = ""  # all_ages|teen|mature|adult
+    sponsorship_fit: list[str] = field(default_factory=list)  # brand categories that fit
+    copyright_risk: str = ""  # low|medium|high
+
+
+@dataclass
 class VideoAnalysis:
     """Complete marketing intelligence for a video."""
     success: bool
@@ -220,6 +240,10 @@ class VideoAnalysis:
     educational: EducationalAnalysis = field(default_factory=EducationalAnalysis)
     data_engineering: DataEngineeringContext = field(default_factory=DataEngineeringContext)
 
+    # Technical specifications and brand safety
+    technical: TechnicalSpecs = field(default_factory=TechnicalSpecs)
+    brand_safety: BrandSafety = field(default_factory=BrandSafety)
+
     # Summary insights
     why_it_works: str = ""
     competitive_advantage: str = ""  # What makes this stand out
@@ -244,9 +268,11 @@ class VideoAnalysis:
 
 
 # Comprehensive analysis prompt
-ANALYSIS_PROMPT = """You are an elite social media marketing analyst specializing in short-form video content. Analyze this video with extreme precision and extract every possible marketing insight.
+ANALYSIS_PROMPT = """You are an elite social media marketing analyst specializing in video content across platforms (TikTok, YouTube Shorts, YouTube, Instagram Reels). Analyze this video with extreme precision and extract every possible marketing insight.
 
 Your analysis must be exhaustive and systematic. Extract data that can be used for trend analysis and pattern recognition across thousands of videos.
+
+NOTE: This is VIDEO-ONLY analysis. Text posts and images are handled separately by a different system.
 
 Respond with a JSON object matching this EXACT structure:
 
@@ -258,7 +284,7 @@ Respond with a JSON object matching this EXACT structure:
         "hook_text": "exact text if text-based hook, empty string if not",
         "hook_technique": "open_loop|curiosity_gap|pattern_interrupt|controversy|transformation|challenge|relatable_pain|bold_claim|weird_flex|confession",
         "hook_timing_seconds": 0.0,
-        "hook_strength": 8,
+        "hook_strength": "<CALCULATE_USING_RUBRIC_1_TO_10>",
         "attention_retention_method": "how they maintain interest after hook"
     },
 
@@ -287,7 +313,7 @@ Respond with a JSON object matching this EXACT structure:
         "text_overlays": [
             {"text": "actual text shown", "style": "bold|caption|subtitle|meme", "position": "center|top|bottom", "timing": "throughout|intro|key_moment"}
         ],
-        "visual_effects": ["green_screen", "split_screen", "duet", "stitch", "filter", "slow_mo", "time_lapse"],
+        "visual_effects": ["green_screen", "split_screen", "duet", "stitch", "collab", "filter", "slow_mo", "time_lapse", "picture_in_picture"],
         "editing_pace": "fast_cuts|medium|slow|single_shot",
         "estimated_cuts_count": 10,
         "face_visibility": "full_face|partial|no_face|multiple_people",
@@ -299,7 +325,7 @@ Respond with a JSON object matching this EXACT structure:
     },
 
     "structure": {
-        "format_type": "tutorial|storytime|day_in_life|transformation|reaction|duet|pov|skit|rant|review|asmr|challenge|trend|educational|behind_scenes|get_ready|what_i_eat",
+        "format_type": "tutorial|storytime|day_in_life|transformation|reaction|duet|pov|skit|rant|review|asmr|challenge|trend|educational|behind_scenes|get_ready|what_i_eat|explainer|demo|walkthrough|commentary|vlog|shorts",
         "narrative_structure": "linear|before_after|problem_solution|list|reveal|journey|comparison|q_and_a",
         "pacing": "fast|medium|slow|varied",
         "estimated_duration_seconds": 30,
@@ -319,19 +345,20 @@ Respond with a JSON object matching this EXACT structure:
         "share_triggers": ["relatability", "humor", "useful_info", "shocking", "emotional", "outrage"],
         "save_triggers": ["tutorial", "reference", "inspiration", "recipe", "tips"],
         "engagement_hooks": ["specific techniques used"],
-        "controversy_level": 3,
+        "controversy_level": "<SCORE_0_TO_10>",
         "fomo_elements": ["limited_time", "exclusive", "trend_joining"],
         "social_proof_used": false
     },
 
     "trends": {
+        "source_platform": "tiktok|youtube_shorts|youtube|instagram_reels|unknown",
         "is_trend_participation": true,
         "trend_name": "name of trend if applicable",
-        "trend_category": "dance|challenge|sound|format|meme|hashtag|filter",
-        "trend_adaptation_quality": 8,
+        "trend_category": "dance|challenge|sound|format|meme|hashtag|filter|tutorial_style",
+        "trend_adaptation_quality": "<SCORE_1_TO_10>",
         "trend_lifecycle_stage": "emerging|growing|peak|declining|evergreen",
         "format_originality": "original|trend_adaptation|remix|copy",
-        "viral_potential_score": 7,
+        "viral_potential_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
         "viral_factors": ["relatability", "shareability", "trend_timing", "hook_strength"],
         "meme_potential": true,
         "remix_potential": true
@@ -342,9 +369,9 @@ Respond with a JSON object matching this EXACT structure:
         "secondary_emotions": ["curiosity", "nostalgia"],
         "emotional_arc": "flat|building|peak_early|peak_late|rollercoaster|release",
         "humor_type": "observational|self_deprecating|absurd|dark|physical|situational|none",
-        "relatability_score": 8,
+        "relatability_score": "<SCORE_1_TO_10>",
         "relatability_factors": ["shared experience", "common struggle", "universal truth"],
-        "aspiration_score": 6,
+        "aspiration_score": "<SCORE_1_TO_10>",
         "nostalgia_elements": ["90s reference", "childhood memory"],
         "controversy_elements": ["hot take", "unpopular opinion"]
     },
@@ -371,7 +398,7 @@ Respond with a JSON object matching this EXACT structure:
     },
 
     "replicability": {
-        "replicability_score": 7,
+        "replicability_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
         "difficulty_level": "easy|moderate|difficult|expert",
         "required_resources": ["smartphone", "ring_light", "tripod"],
         "required_skills": ["basic_editing", "on_camera_presence", "timing"],
@@ -380,6 +407,21 @@ Respond with a JSON object matching this EXACT structure:
         "key_success_factors": ["what makes this work that must be replicated"],
         "common_mistakes_to_avoid": ["pitfalls when recreating this style"],
         "niche_adaptation_tips": ["how to adapt this for restaurant/bar/nightlife promotion"]
+    },
+
+    "technical": {
+        "video_resolution": "480p|720p|1080p|4k",
+        "aspect_ratio": "9:16|16:9|1:1|4:5|other",
+        "has_captions": true,
+        "caption_style": "burned_in|auto_generated|none",
+        "audio_language": "english|spanish|other|multilingual|none"
+    },
+
+    "brand_safety": {
+        "brand_safety_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
+        "content_rating": "all_ages|teen|mature|adult",
+        "sponsorship_fit": ["lifestyle", "tech", "food_beverage", "fashion", "fitness", "entertainment", "education"],
+        "copyright_risk": "low|medium|high"
     },
 
     "why_it_works": "comprehensive explanation of success factors",
@@ -445,6 +487,17 @@ REPLICABILITY_SCORE (1-10) - This is INVERSE of difficulty:
   - If time_investment = "over_8hrs" → replicability_score MUST be <= 4
   - If time_investment = "under_1hr" → replicability_score MUST be >= 7
 
+BRAND_SAFETY_SCORE (1-10):
+  1-3: Controversial, explicit, potentially offensive, or illegal content
+  4-5: Edgy content, profanity, may not suit family-friendly brands
+  6-7: Generally safe, minor concerns (mild language, suggestive themes)
+  8-10: Fully brand-safe, suitable for all advertisers
+
+COPYRIGHT_RISK:
+  low: Original music/no music, original content, no recognizable IP
+  medium: Popular song snippet, recognizable IP referenced, trending audio
+  high: Full copyrighted song, movie/TV clips, branded content without disclosure
+
 Respond ONLY with the JSON object. No other text."""
 
 
@@ -464,12 +517,12 @@ Respond with a JSON object matching this EXACT structure:
     "description": "What this video teaches and how it delivers the content",
 
     "educational": {
-        "explanation_clarity": 7,
-        "demonstration_quality": 8,
-        "technical_depth": 6,
-        "practical_applicability": 9,
-        "educational_value": 8,
-        "career_relevance": 7,
+        "explanation_clarity": "<SCORE_1_TO_10>",
+        "demonstration_quality": "<SCORE_1_TO_10>",
+        "technical_depth": "<SCORE_1_TO_10>",
+        "practical_applicability": "<SCORE_1_TO_10>",
+        "educational_value": "<SCORE_1_TO_10>",
+        "career_relevance": "<SCORE_1_TO_10>",
         "content_type": "tutorial|demo|career_advice|tool_review|news|opinion|comparison|troubleshooting",
         "teaching_technique": "screen_share|live_coding|whiteboard|slides|talking_head|animation|diagram|mixed",
         "tools_mentioned": ["microsoft_fabric", "azure_data_factory", "power_bi", "databricks", "synapse", "ssis", "sql_server"],
@@ -488,7 +541,7 @@ Respond with a JSON object matching this EXACT structure:
     "hook": {
         "hook_type": "question|statement|problem|result|curiosity",
         "hook_text": "exact text if text-based hook",
-        "hook_strength": 7,
+        "hook_strength": "<CALCULATE_USING_RUBRIC_1_TO_10>",
         "attention_retention_method": "how they maintain viewer interest"
     },
 
@@ -516,7 +569,7 @@ Respond with a JSON object matching this EXACT structure:
     },
 
     "replicability": {
-        "replicability_score": 7,
+        "replicability_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
         "difficulty_level": "easy|moderate|difficult|expert",
         "required_resources": ["screen_recorder", "microphone", "demo_environment"],
         "key_success_factors": ["what makes this educational content effective"]
@@ -570,55 +623,139 @@ class GeminiAnalyzer:
         return ANALYSIS_PROMPT
 
     def _validate_and_correct_scores(self, data: dict) -> dict:
-        """Auto-correct scores that conflict with resource requirements.
+        """Auto-correct scores that conflict with observable factors.
 
-        Ensures replicability_score is consistent with budget, difficulty, and time.
-        Also validates hook_strength based on hook presence.
+        Validates all three key scores against their supporting data:
+        - hook_strength: validated against hook_type, technique, timing
+        - viral_potential_score: validated against trends, engagement, relatability
+        - replicability_score: validated against budget, difficulty, time
         """
-        # Replicability validation
-        replicability = data.get("replicability", {})
-        if replicability:
-            budget = replicability.get("budget_estimate", "")
-            difficulty = replicability.get("difficulty_level", "")
-            time_inv = replicability.get("time_investment", "")
-            score = replicability.get("replicability_score", 5)
-
-            original_score = score
-
-            # Budget constraints
-            if budget in ["high", "over_200"] and score > 4:
-                score = 4
-            elif budget == "free" and score < 7:
-                score = 7
-
-            # Difficulty constraints
-            if difficulty == "expert" and score > 3:
-                score = 3
-            elif difficulty == "easy" and score < 7:
-                score = 7
-
-            # Time constraints
-            if time_inv in ["over_8hrs", "8+hrs"] and score > 4:
-                score = 4
-            elif time_inv in ["under_1hr", "<1hr"] and score < 7:
-                score = 7
-
-            if score != original_score:
-                logger.debug(f"Auto-corrected replicability: {original_score} → {score}")
-                replicability["replicability_score"] = score
-                data["replicability"] = replicability
-
-        # Hook validation - if no hook type, cap hook_strength
+        # === HOOK STRENGTH VALIDATION ===
         hook = data.get("hook", {})
         if hook:
             hook_type = hook.get("hook_type", "")
-            hook_strength = hook.get("hook_strength", 5)
+            hook_technique = hook.get("hook_technique", "")
+            hook_timing = hook.get("hook_timing_seconds", 0)
+            hook_text = hook.get("hook_text", "")
+            score = hook.get("hook_strength", 5)
+            original = score
 
+            # No hook type = weak hook (cap at 3)
             if not hook_type or hook_type.lower() in ["none", ""]:
-                if hook_strength > 3:
-                    logger.debug(f"Auto-corrected hook_strength (no hook): {hook_strength} → 3")
-                    hook["hook_strength"] = 3
-                    data["hook"] = hook
+                score = min(score, 3)
+
+            # Strong techniques deserve minimum scores (floor at 6)
+            strong_techniques = ["open_loop", "curiosity_gap", "pattern_interrupt", "controversy"]
+            if hook_technique.lower() in strong_techniques and score < 6:
+                score = max(score, 6)
+
+            # Late hooks are weaker - if hook hits after 3s, cap at 5
+            if hook_timing > 3.0 and score > 5:
+                score = min(score, 5)
+
+            # Text hook without text is suspicious - cap at 4
+            if hook_type.lower() == "text" and not hook_text and score > 4:
+                score = min(score, 4)
+
+            # Immediate hooks (0-1s) with good technique get floor of 5
+            if hook_timing <= 1.0 and hook_technique and score < 5:
+                score = max(score, 5)
+
+            if score != original:
+                logger.debug(f"Auto-corrected hook_strength: {original} → {score}")
+                hook["hook_strength"] = score
+                data["hook"] = hook
+
+        # === VIRAL POTENTIAL VALIDATION ===
+        trends = data.get("trends", {})
+        engagement = data.get("engagement", {})
+        emotion = data.get("emotion", {})
+        if trends:
+            viral_score = trends.get("viral_potential_score", 5)
+            original = viral_score
+
+            lifecycle = trends.get("trend_lifecycle_stage", "").lower()
+            meme_potential = trends.get("meme_potential", False)
+            remix_potential = trends.get("remix_potential", False)
+            originality = trends.get("format_originality", "").lower()
+            viral_factors = trends.get("viral_factors", [])
+
+            # Dying trends cap viral potential at 5
+            if lifecycle in ["declining", "dead"] and viral_score > 5:
+                viral_score = min(viral_score, 5)
+
+            # Peak trends get floor of 5
+            if lifecycle in ["peak", "growing"] and viral_score < 5:
+                viral_score = max(viral_score, 5)
+
+            # Meme + remix potential = high viral floor (6)
+            if meme_potential and remix_potential and viral_score < 6:
+                viral_score = max(viral_score, 6)
+
+            # Direct copies have limited viral potential (cap at 4)
+            if originality == "copy" and viral_score > 4:
+                viral_score = min(viral_score, 4)
+
+            # Many viral factors = should have decent score (floor at 5)
+            if len(viral_factors) >= 4 and viral_score < 5:
+                viral_score = max(viral_score, 5)
+
+            # Cross-check with engagement share triggers
+            if engagement:
+                share_triggers = engagement.get("share_triggers", [])
+                if len(share_triggers) >= 3 and viral_score < 5:
+                    viral_score = max(viral_score, 5)
+
+            # Cross-check with relatability - viral shouldn't exceed relatability by 4+
+            if emotion:
+                relatability = emotion.get("relatability_score", 5)
+                if viral_score > relatability + 3:
+                    viral_score = min(viral_score, relatability + 3)
+
+            if viral_score != original:
+                logger.debug(f"Auto-corrected viral_potential: {original} → {viral_score}")
+                trends["viral_potential_score"] = viral_score
+                data["trends"] = trends
+
+        # === REPLICABILITY VALIDATION ===
+        replicability = data.get("replicability", {})
+        if replicability:
+            budget = replicability.get("budget_estimate", "").lower()
+            difficulty = replicability.get("difficulty_level", "").lower()
+            time_inv = replicability.get("time_investment", "").lower()
+            score = replicability.get("replicability_score", 5)
+            original = score
+
+            # Budget constraints
+            if budget in ["high", "over_200", "over 200"] and score > 4:
+                score = min(score, 4)
+            elif budget == "free" and score < 7:
+                score = max(score, 7)
+            elif budget == "low" and score < 6:
+                score = max(score, 6)
+
+            # Difficulty constraints
+            if difficulty == "expert" and score > 3:
+                score = min(score, 3)
+            elif difficulty == "difficult" and score > 5:
+                score = min(score, 5)
+            elif difficulty == "easy" and score < 7:
+                score = max(score, 7)
+            elif difficulty == "moderate" and score > 7:
+                score = min(score, 7)
+
+            # Time constraints
+            if time_inv in ["over_8hrs", "8+hrs", ">8hrs"] and score > 4:
+                score = min(score, 4)
+            elif time_inv in ["3-8hrs", "3_8hrs"] and score > 6:
+                score = min(score, 6)
+            elif time_inv in ["under_1hr", "<1hr", "under 1hr"] and score < 7:
+                score = max(score, 7)
+
+            if score != original:
+                logger.debug(f"Auto-corrected replicability: {original} → {score}")
+                replicability["replicability_score"] = score
+                data["replicability"] = replicability
 
         return data
 
@@ -758,6 +895,8 @@ class GeminiAnalyzer:
                 replicability=self._parse_nested_dataclass(data, "replicability", ReplicabilityAnalysis),
                 educational=self._parse_nested_dataclass(data, "educational", EducationalAnalysis),
                 data_engineering=self._parse_nested_dataclass(data, "data_engineering", DataEngineeringContext),
+                technical=self._parse_nested_dataclass(data, "technical", TechnicalSpecs),
+                brand_safety=self._parse_nested_dataclass(data, "brand_safety", BrandSafety),
                 why_it_works=data.get("why_it_works", ""),
                 competitive_advantage=data.get("competitive_advantage", ""),
                 improvement_opportunities=data.get("improvement_opportunities", []),
