@@ -30,6 +30,15 @@
                     </div>
                 </div>
                 <div class="status-section">
+                    <!-- Niche Mode Toggle -->
+                    <div class="niche-toggle" id="niche-toggle">
+                        <button class="niche-btn active" data-niche="entertainment" onclick="setNicheMode('entertainment')">
+                            Entertainment
+                        </button>
+                        <button class="niche-btn" data-niche="data_engineering" onclick="setNicheMode('data_engineering')">
+                            Data Engineering
+                        </button>
+                    </div>
                     <div class="status-indicator" id="status-dot"></div>
                     <span class="status-text" id="status-text">Connecting...</span>
                     <span class="update-time" id="last-updated"></span>
@@ -81,10 +90,27 @@
                 <div class="metric-value"><span id="avg-viral">—</span><span class="metric-suffix">/10</span><span class="trend-indicator" id="trend-viral"></span></div>
                 <div class="metric-bar"><div class="metric-bar-fill viral" style="width: 0%"></div></div>
             </div>
-            <div class="metric-card highlight" style="--delay: 5" data-tooltip="How easy it is to recreate this content style. Higher = easier to copy.">
+            <div class="metric-card highlight" style="--delay: 5" data-tooltip="How easy it is to recreate this content style. Higher = easier to copy." data-niche="entertainment">
                 <div class="metric-label">Avg Replicability</div>
                 <div class="metric-value"><span id="avg-replicability">—</span><span class="metric-suffix">/10</span><span class="trend-indicator" id="trend-replicate"></span></div>
                 <div class="metric-bar"><div class="metric-bar-fill replicate" style="width: 0%"></div></div>
+            </div>
+
+            <!-- Data Engineering Metrics (hidden by default) -->
+            <div class="metric-card highlight" style="--delay: 3; display: none;" data-tooltip="How clearly concepts are explained. 8+ is excellent." data-niche="data_engineering">
+                <div class="metric-label">Avg Explanation Clarity</div>
+                <div class="metric-value"><span id="avg-clarity">—</span><span class="metric-suffix">/10</span></div>
+                <div class="metric-bar"><div class="metric-bar-fill clarity" style="width: 0%"></div></div>
+            </div>
+            <div class="metric-card highlight" style="--delay: 4; display: none;" data-tooltip="Overall educational value and learning potential." data-niche="data_engineering">
+                <div class="metric-label">Avg Educational Value</div>
+                <div class="metric-value"><span id="avg-educational">—</span><span class="metric-suffix">/10</span></div>
+                <div class="metric-bar"><div class="metric-bar-fill educational" style="width: 0%"></div></div>
+            </div>
+            <div class="metric-card highlight" style="--delay: 5; display: none;" data-tooltip="Level of technical detail and depth." data-niche="data_engineering">
+                <div class="metric-label">Avg Technical Depth</div>
+                <div class="metric-value"><span id="avg-depth">—</span><span class="metric-suffix">/10</span></div>
+                <div class="metric-bar"><div class="metric-bar-fill depth" style="width: 0%"></div></div>
             </div>
         </section>
 

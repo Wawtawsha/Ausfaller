@@ -168,6 +168,33 @@ class ReplicabilityAnalysis:
 
 
 @dataclass
+class EducationalAnalysis:
+    """Educational content quality metrics for B2B/technical content."""
+    explanation_clarity: int = 0  # 1-10: How clearly concepts are explained
+    demonstration_quality: int = 0  # 1-10: Quality of visual demos/walkthroughs
+    technical_depth: int = 0  # 1-10: Level of technical detail
+    practical_applicability: int = 0  # 1-10: Can viewers apply this immediately?
+    educational_value: int = 0  # 1-10: Overall learning value
+    career_relevance: int = 0  # 1-10: Career development value
+
+    content_type: str = ""  # tutorial, demo, career_advice, tool_review, news, opinion, comparison
+    teaching_technique: str = ""  # screen_share, live_coding, whiteboard, slides, talking_head, animation
+    tools_mentioned: list[str] = field(default_factory=list)  # fabric, adf, power_bi, databricks, etc.
+    concepts_covered: list[str] = field(default_factory=list)  # etl, data_modeling, medallion, orchestration
+    skill_level_target: str = ""  # beginner, intermediate, advanced, expert
+    credential_signals: list[str] = field(default_factory=list)  # mvp, mct, certified, senior_engineer
+
+
+@dataclass
+class DataEngineeringContext:
+    """Data engineering specific context."""
+    microsoft_stack: bool = False  # Uses Microsoft tools (Fabric, ADF, Power BI)
+    cloud_platform: str = ""  # azure, aws, gcp, multi, on_prem
+    data_layer: str = ""  # ingestion, transformation, serving, orchestration, governance
+    architecture_pattern: str = ""  # medallion, lambda, kappa, data_mesh, traditional
+
+
+@dataclass
 class VideoAnalysis:
     """Complete marketing intelligence for a video."""
     success: bool
@@ -188,6 +215,10 @@ class VideoAnalysis:
     niche: NicheAnalysis = field(default_factory=NicheAnalysis)
     production: ProductionAnalysis = field(default_factory=ProductionAnalysis)
     replicability: ReplicabilityAnalysis = field(default_factory=ReplicabilityAnalysis)
+
+    # Educational/B2B analysis (for data_engineering niche mode)
+    educational: EducationalAnalysis = field(default_factory=EducationalAnalysis)
+    data_engineering: DataEngineeringContext = field(default_factory=DataEngineeringContext)
 
     # Summary insights
     why_it_works: str = ""
@@ -372,12 +403,112 @@ CRITICAL INSTRUCTIONS:
 Respond ONLY with the JSON object. No other text."""
 
 
+# Educational analysis prompt for data engineering content
+EDUCATIONAL_ANALYSIS_PROMPT = """You are an expert data engineering content analyst. Analyze this video for educational value and technical quality for data professionals.
+
+Focus on:
+- Clarity of technical explanations
+- Quality of demonstrations (screen recordings, live coding, whiteboard)
+- Practical applicability for data engineers
+- Tool coverage and accuracy
+- Career development value
+
+Respond with a JSON object matching this EXACT structure:
+
+{
+    "description": "What this video teaches and how it delivers the content",
+
+    "educational": {
+        "explanation_clarity": 7,
+        "demonstration_quality": 8,
+        "technical_depth": 6,
+        "practical_applicability": 9,
+        "educational_value": 8,
+        "career_relevance": 7,
+        "content_type": "tutorial|demo|career_advice|tool_review|news|opinion|comparison|troubleshooting",
+        "teaching_technique": "screen_share|live_coding|whiteboard|slides|talking_head|animation|diagram|mixed",
+        "tools_mentioned": ["microsoft_fabric", "azure_data_factory", "power_bi", "databricks", "synapse", "ssis", "sql_server"],
+        "concepts_covered": ["data_modeling", "etl", "elt", "medallion_architecture", "data_warehouse", "lakehouse", "orchestration", "data_quality"],
+        "skill_level_target": "beginner|intermediate|advanced|expert",
+        "credential_signals": ["mvp", "mct", "certified", "senior_engineer", "principal", "architect", "consultant"]
+    },
+
+    "data_engineering": {
+        "microsoft_stack": true,
+        "cloud_platform": "azure|aws|gcp|multi|on_prem",
+        "data_layer": "ingestion|transformation|serving|orchestration|governance|storage|compute",
+        "architecture_pattern": "medallion|lambda|kappa|data_mesh|data_vault|traditional|star_schema"
+    },
+
+    "hook": {
+        "hook_type": "question|statement|problem|result|curiosity",
+        "hook_text": "exact text if text-based hook",
+        "hook_strength": 7,
+        "attention_retention_method": "how they maintain viewer interest"
+    },
+
+    "production": {
+        "overall_quality": "low|medium|high|professional",
+        "audio_quality": "poor|acceptable|good|excellent",
+        "visual_clarity": "poor|acceptable|good|excellent",
+        "screen_recording_quality": "poor|acceptable|good|excellent",
+        "editing_style": "raw|light_edit|polished|highly_produced"
+    },
+
+    "structure": {
+        "format_type": "tutorial|walkthrough|explanation|comparison|review|tips|career|news",
+        "has_intro": true,
+        "has_summary": true,
+        "step_by_step": true,
+        "estimated_duration_seconds": 60,
+        "pacing": "fast|medium|slow"
+    },
+
+    "engagement": {
+        "cta_type": "subscribe|follow|comment|like|none",
+        "community_building": true,
+        "encourages_questions": true
+    },
+
+    "replicability": {
+        "replicability_score": 7,
+        "difficulty_level": "easy|moderate|difficult|expert",
+        "required_resources": ["screen_recorder", "microphone", "demo_environment"],
+        "key_success_factors": ["what makes this educational content effective"]
+    },
+
+    "why_it_works": "explanation of what makes this educational content effective",
+    "improvement_opportunities": ["suggestions for better educational delivery"]
+}
+
+CRITICAL INSTRUCTIONS:
+1. Focus on EDUCATIONAL VALUE - how well does this teach data engineering concepts?
+2. Identify SPECIFIC tools and technologies mentioned (Microsoft Fabric, Azure Data Factory, Power BI, Databricks, etc.)
+3. Rate teaching effectiveness, not entertainment value
+4. For data engineering content, pay special attention to:
+   - Microsoft data platform tools (Fabric, Synapse, ADF, Power BI, SSIS)
+   - Cloud data architecture patterns
+   - Practical demonstrations vs theoretical explanations
+   - Career development advice
+   - Certification and credential mentions
+5. Use ONLY predefined values where options are given
+6. If something is not present, use empty string "" or empty array [] or 0
+
+Respond ONLY with the JSON object. No other text."""
+
+
 class GeminiAnalyzer:
     """Analyze videos using Gemini for comprehensive marketing intelligence."""
 
-    def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None):
+    def __init__(
+        self,
+        api_key: Optional[str] = None,
+        model: Optional[str] = None,
+        niche_mode: Optional[str] = None
+    ):
         self.api_key = api_key or settings.gemini_api_key
         self.model = model or settings.gemini_model
+        self.niche_mode = niche_mode or settings.niche_mode
 
         if not self.api_key:
             raise ValueError(
@@ -385,7 +516,13 @@ class GeminiAnalyzer:
             )
 
         self.client = genai.Client(api_key=self.api_key)
-        logger.info(f"GeminiAnalyzer initialized with model: {self.model}")
+        logger.info(f"GeminiAnalyzer initialized with model: {self.model}, niche_mode: {self.niche_mode}")
+
+    def _get_prompt(self) -> str:
+        """Get the appropriate analysis prompt based on niche mode."""
+        if self.niche_mode == "data_engineering":
+            return EDUCATIONAL_ANALYSIS_PROMPT
+        return ANALYSIS_PROMPT
 
     def _parse_nested_dataclass(self, data: dict, key: str, dataclass_type: type) -> Any:
         """Parse nested dictionary into dataclass."""
@@ -437,7 +574,7 @@ class GeminiAnalyzer:
         try:
             logger.info(f"Analyzing video: {video_path.name}")
 
-            prompt = custom_prompt or ANALYSIS_PROMPT
+            prompt = custom_prompt or self._get_prompt()
 
             loop = asyncio.get_event_loop()
 
@@ -518,6 +655,8 @@ class GeminiAnalyzer:
                 niche=self._parse_nested_dataclass(data, "niche", NicheAnalysis),
                 production=self._parse_nested_dataclass(data, "production", ProductionAnalysis),
                 replicability=self._parse_nested_dataclass(data, "replicability", ReplicabilityAnalysis),
+                educational=self._parse_nested_dataclass(data, "educational", EducationalAnalysis),
+                data_engineering=self._parse_nested_dataclass(data, "data_engineering", DataEngineeringContext),
                 why_it_works=data.get("why_it_works", ""),
                 competitive_advantage=data.get("competitive_advantage", ""),
                 improvement_opportunities=data.get("improvement_opportunities", []),

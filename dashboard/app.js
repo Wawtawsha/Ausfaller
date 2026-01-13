@@ -23,6 +23,18 @@ let rawPosts = [];
 // Active chart filter state
 let activeChartFilter = null;
 
+// Current niche mode: 'entertainment' or 'data_engineering'
+let currentNicheMode = 'entertainment';
+
+// Educational analytics data
+let educationalData = {
+    metrics: [],
+    tools: [],
+    contentTypes: [],
+    techniques: [],
+    skillLevels: []
+};
+
 // Color palettes
 const COLORS = {
     primary: ['#3b82f6', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#6366f1'],
@@ -162,6 +174,86 @@ async function fetchRawPosts() {
         throw new Error(`API Error: ${response.status}`);
     }
     return response.json();
+}
+
+/**
+ * Set niche mode and update UI
+ */
+function setNicheMode(mode) {
+    currentNicheMode = mode;
+
+    // Update toggle buttons
+    document.querySelectorAll('.niche-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.niche === mode);
+    });
+
+    // Show/hide niche-specific metric cards
+    document.querySelectorAll('[data-niche]').forEach(el => {
+        const elNiche = el.dataset.niche;
+        if (elNiche === mode) {
+            el.style.display = '';
+        } else if (elNiche) {
+            el.style.display = 'none';
+        }
+    });
+
+    // Fetch and update educational metrics if switching to data_engineering
+    if (mode === 'data_engineering') {
+        fetchEducationalAnalytics().then(updateEducationalMetrics).catch(console.error);
+    }
+}
+
+/**
+ * Fetch educational analytics data
+ */
+async function fetchEducationalAnalytics() {
+    const [metrics, tools, contentTypes, techniques, skillLevels] = await Promise.all([
+        fetch(`${API_BASE}/analytics/educational`).then(r => r.json()).catch(() => ({ metrics: [] })),
+        fetch(`${API_BASE}/analytics/tools`).then(r => r.json()).catch(() => ({ tools: [] })),
+        fetch(`${API_BASE}/analytics/content-types`).then(r => r.json()).catch(() => ({ content_types: [] })),
+        fetch(`${API_BASE}/analytics/teaching-techniques`).then(r => r.json()).catch(() => ({ techniques: [] })),
+        fetch(`${API_BASE}/analytics/skill-levels`).then(r => r.json()).catch(() => ({ skill_levels: [] })),
+    ]);
+
+    educationalData = {
+        metrics: metrics.metrics || [],
+        tools: tools.tools || [],
+        contentTypes: contentTypes.content_types || [],
+        techniques: techniques.techniques || [],
+        skillLevels: skillLevels.skill_levels || [],
+    };
+
+    return educationalData;
+}
+
+/**
+ * Update educational metrics display
+ */
+function updateEducationalMetrics(data) {
+    // Calculate averages from metrics
+    const metrics = data.metrics || [];
+
+    if (metrics.length > 0) {
+        const totals = metrics.reduce((acc, m) => ({
+            clarity: acc.clarity + (parseFloat(m.avg_clarity) || 0),
+            educational: acc.educational + (parseFloat(m.avg_educational_value) || 0),
+            depth: acc.depth + (parseFloat(m.avg_technical_depth) || 0),
+            count: acc.count + 1,
+        }), { clarity: 0, educational: 0, depth: 0, count: 0 });
+
+        const avgClarity = (totals.clarity / totals.count).toFixed(1);
+        const avgEducational = (totals.educational / totals.count).toFixed(1);
+        const avgDepth = (totals.depth / totals.count).toFixed(1);
+
+        document.getElementById('avg-clarity').textContent = avgClarity;
+        document.getElementById('avg-educational').textContent = avgEducational;
+        document.getElementById('avg-depth').textContent = avgDepth;
+
+        // Update progress bars
+        document.querySelector('.metric-bar-fill.clarity').style.width = `${avgClarity * 10}%`;
+        document.querySelector('.metric-bar-fill.educational').style.width = `${avgEducational * 10}%`;
+        document.querySelector('.metric-bar-fill.depth').style.width = `${avgDepth * 10}%`;
+    }
 }
 
 /**

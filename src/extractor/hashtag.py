@@ -32,6 +32,8 @@ logger = logging.getLogger(__name__)
 class Platform(str, Enum):
     TIKTOK = "tiktok"
     INSTAGRAM = "instagram"
+    YOUTUBE_SHORTS = "youtube_shorts"
+    SUBSTACK = "substack"
 
 
 @dataclass

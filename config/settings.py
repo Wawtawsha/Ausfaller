@@ -8,9 +8,15 @@ class Settings(BaseSettings):
     # Gemini API
     gemini_api_key: str = ""
 
+    # YouTube Data API v3
+    youtube_api_key: str = ""
+
     # Supabase (for future use)
     supabase_url: str = ""
     supabase_key: str = ""
+
+    # Niche mode: "entertainment" (default) or "data_engineering"
+    niche_mode: str = "entertainment"
 
     # Scraping behavior
     scrape_delay_min: float = 3.0  # Min seconds between requests

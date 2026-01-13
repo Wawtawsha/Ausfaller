@@ -141,6 +141,38 @@ body {
     gap: 12px;
 }
 
+/* Niche Mode Toggle */
+.niche-toggle {
+    display: flex;
+    background: var(--bg-surface);
+    border-radius: var(--radius-sm);
+    padding: 2px;
+    margin-right: 16px;
+    border: 1px solid var(--border-subtle);
+}
+
+.niche-btn {
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.niche-btn:hover {
+    color: var(--text-secondary);
+}
+
+.niche-btn.active {
+    background: var(--accent-primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
 .status-indicator {
     width: 10px;
     height: 10px;

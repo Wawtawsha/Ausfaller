@@ -30,6 +30,8 @@ from pydantic import BaseModel, Field
 
 from src.extractor import HashtagExtractor, Platform, ExtractionResult, VideoInfo
 from src.extractor import ProfileExtractor, ProfileInfo, ProfileExtractionResult
+from src.extractor.youtube_shorts import YouTubeShortsExtractor
+from src.extractor.substack import SubstackExtractor
 from src.downloader import VideoDownloader, DownloadResult
 from src.analyzer import GeminiAnalyzer, VideoAnalysis, AccountComparer
 from src.storage import SupabaseStorage
@@ -1159,6 +1161,229 @@ async def get_strategic_analysis():
         }
     except Exception as e:
         logger.error(f"Failed to read strategic analysis: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ==================== YouTube Shorts & Substack Endpoints ====================
+
+class YouTubeShortsRequest(BaseModel):
+    query: str = Field(..., description="Search query (e.g., 'microsoft fabric tutorial')")
+    count: int = Field(default=30, ge=1, le=50, description="Number of videos to extract")
+    order: str = Field(default="relevance", description="Sort order: relevance, date, viewCount")
+
+
+class SubstackRequest(BaseModel):
+    publication: str = Field(..., description="Publication subdomain (e.g., 'engdata' for engdata.substack.com)")
+    count: int = Field(default=30, ge=1, le=100, description="Number of posts to extract")
+
+
+class MultiSubstackRequest(BaseModel):
+    publications: list[str] = Field(..., description="List of publication subdomains")
+    count_per_publication: int = Field(default=10, ge=1, le=50)
+
+
+@app.post("/extract/youtube-shorts")
+async def extract_youtube_shorts(request: YouTubeShortsRequest):
+    """
+    Extract YouTube Shorts matching a search query.
+
+    Uses YouTube Data API v3 to search for Shorts (videos under 60 seconds).
+    Requires YOUTUBE_API_KEY in environment.
+    """
+    if not settings.youtube_api_key:
+        raise HTTPException(
+            status_code=503,
+            detail="YouTube API key not configured. Set YOUTUBE_API_KEY in .env"
+        )
+
+    try:
+        extractor = YouTubeShortsExtractor(api_key=settings.youtube_api_key)
+        result = await extractor.search_shorts(
+            query=request.query,
+            count=request.count,
+            order=request.order
+        )
+
+        return {
+            "success": result.success,
+            "videos_requested": result.videos_requested,
+            "videos_found": result.videos_found,
+            "videos": [v.to_dict() for v in result.videos],
+            "error": result.error,
+        }
+    except Exception as e:
+        logger.error(f"YouTube Shorts extraction failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/extract/substack")
+async def extract_substack(request: SubstackRequest):
+    """
+    Extract posts and embedded videos from a Substack publication.
+
+    Parses the RSS feed to find posts with embedded videos (YouTube, Loom, etc.).
+    """
+    try:
+        extractor = SubstackExtractor()
+        posts, result = await extractor.extract_publication(
+            publication_name=request.publication,
+            count=request.count
+        )
+
+        return {
+            "success": result.success,
+            "publication": request.publication,
+            "posts_found": len(posts),
+            "videos_found": result.videos_found,
+            "posts": [
+                {
+                    "title": p.title,
+                    "url": p.url,
+                    "author": p.author,
+                    "published_at": p.published_at.isoformat() if p.published_at else None,
+                    "embedded_videos": p.embedded_videos,
+                }
+                for p in posts
+            ],
+            "videos": [v.to_dict() for v in result.videos],
+            "error": result.error,
+        }
+    except Exception as e:
+        logger.error(f"Substack extraction failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/extract/substack/multiple")
+async def extract_multiple_substacks(request: MultiSubstackRequest):
+    """
+    Extract from multiple Substack publications at once.
+    """
+    try:
+        extractor = SubstackExtractor()
+        result = await extractor.extract_multiple_publications(
+            publication_names=request.publications,
+            count_per_publication=request.count_per_publication
+        )
+
+        return {
+            "success": result.success,
+            "publications_requested": len(request.publications),
+            "videos_found": result.videos_found,
+            "videos": [v.to_dict() for v in result.videos],
+            "error": result.error,
+        }
+    except Exception as e:
+        logger.error(f"Multiple Substack extraction failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ==================== Educational Analytics Endpoints ====================
+
+@app.get("/analytics/educational")
+async def get_educational_analytics():
+    """
+    Get educational content analytics for data engineering niche.
+
+    Returns clarity, depth, value metrics aggregated by niche and hashtag.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        result = storage.client.table("educational_metrics").select("*").execute()
+        return {"metrics": result.data}
+    except Exception as e:
+        logger.error(f"Failed to get educational metrics: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/tools")
+async def get_tool_coverage():
+    """
+    Get tool coverage breakdown for data engineering content.
+
+    Shows which tools (Fabric, ADF, Power BI, etc.) are most mentioned.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        result = storage.client.table("tool_coverage").select("*").execute()
+        return {"tools": result.data}
+    except Exception as e:
+        logger.error(f"Failed to get tool coverage: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/content-types")
+async def get_content_type_distribution():
+    """
+    Get content type distribution (tutorial, demo, career advice, etc.).
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        result = storage.client.table("content_type_distribution").select("*").execute()
+        return {"content_types": result.data}
+    except Exception as e:
+        logger.error(f"Failed to get content type distribution: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/teaching-techniques")
+async def get_teaching_techniques():
+    """
+    Get teaching technique effectiveness metrics.
+
+    Shows which techniques (screen share, live coding, etc.) perform best.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        result = storage.client.table("teaching_techniques").select("*").execute()
+        return {"techniques": result.data}
+    except Exception as e:
+        logger.error(f"Failed to get teaching techniques: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/skill-levels")
+async def get_skill_level_distribution():
+    """
+    Get skill level distribution of analyzed content.
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        result = storage.client.table("skill_level_distribution").select("*").execute()
+        return {"skill_levels": result.data}
+    except Exception as e:
+        logger.error(f"Failed to get skill level distribution: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/analytics/data-engineering-context")
+async def get_data_engineering_context():
+    """
+    Get data engineering context breakdown (cloud platforms, data layers, patterns).
+    """
+    storage = get_storage()
+    if not storage:
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    try:
+        result = storage.client.table("data_engineering_context").select("*").execute()
+        return {"context": result.data}
+    except Exception as e:
+        logger.error(f"Failed to get data engineering context: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
