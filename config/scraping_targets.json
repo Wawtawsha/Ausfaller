@@ -1,0 +1,110 @@
+{
+  "niche": "data_engineering",
+  "description": "Microsoft Fabric, Azure Data Factory, SSIS, data engineering patterns",
+  "generated": "2026-01-13",
+  "reference_account": "engdata",
+
+  "tiktok_hashtags": {
+    "high_priority": [
+      {"tag": "microsoftfabric", "note": "Core platform - direct match to engdata focus"},
+      {"tag": "azuredatafactory", "note": "Core platform - ADF content"},
+      {"tag": "dataengineering", "note": "Primary niche hashtag"},
+      {"tag": "dataengineer", "note": "Career/identity hashtag"},
+      {"tag": "powerbi", "note": "Adjacent Microsoft tool, high volume"}
+    ],
+    "medium_priority": [
+      {"tag": "sqlserver", "note": "Database platform"},
+      {"tag": "azure", "note": "Cloud platform umbrella"},
+      {"tag": "etl", "note": "Core skill/concept"},
+      {"tag": "datawarehouse", "note": "Architecture pattern"},
+      {"tag": "datapipeline", "note": "Core concept"},
+      {"tag": "bigdata", "note": "Industry term"},
+      {"tag": "sql", "note": "Core skill"},
+      {"tag": "businessintelligence", "note": "Adjacent field"},
+      {"tag": "dataanalytics", "note": "Adjacent field"}
+    ],
+    "low_priority": [
+      {"tag": "techtok", "note": "General tech content"},
+      {"tag": "coding", "note": "General programming"},
+      {"tag": "python", "note": "Language often used in DE"},
+      {"tag": "cloudcomputing", "note": "Infrastructure umbrella"},
+      {"tag": "datascience", "note": "Adjacent field"},
+      {"tag": "techcareer", "note": "Career content"},
+      {"tag": "learntocode", "note": "Educational content"}
+    ]
+  },
+
+  "youtube_queries": {
+    "high_priority": [
+      {"query": "microsoft fabric tutorial", "order": "date", "note": "Core platform tutorials"},
+      {"query": "microsoft fabric data engineering", "order": "relevance", "note": "DE-specific Fabric"},
+      {"query": "azure data factory tutorial", "order": "date", "note": "ADF content"},
+      {"query": "fabric lakehouse", "order": "relevance", "note": "Key Fabric feature"},
+      {"query": "ssis tutorial", "order": "viewCount", "note": "Legacy but still relevant"}
+    ],
+    "medium_priority": [
+      {"query": "fabric pipeline tutorial", "order": "date", "note": "Pipeline-specific"},
+      {"query": "power bi dataflow", "order": "relevance", "note": "Adjacent feature"},
+      {"query": "azure synapse tutorial", "order": "date", "note": "Related platform"},
+      {"query": "data engineering tutorial", "order": "viewCount", "note": "General DE content"},
+      {"query": "etl pipeline tutorial", "order": "relevance", "note": "Core concept"},
+      {"query": "data warehouse design", "order": "relevance", "note": "Architecture"}
+    ],
+    "low_priority": [
+      {"query": "sql server tutorial", "order": "date", "note": "Database fundamentals"},
+      {"query": "databricks tutorial", "order": "date", "note": "Competitor platform"},
+      {"query": "snowflake tutorial", "order": "date", "note": "Competitor platform"},
+      {"query": "dbt tutorial", "order": "date", "note": "Popular DE tool"}
+    ]
+  },
+
+  "youtube_channels": {
+    "high_priority": [
+      {"name": "Microsoft Power BI", "id": "UCv_hzC5eJkx3g1LSYeThp8Q", "note": "Official Power BI/Fabric content"},
+      {"name": "Guy in a Cube", "id": "UCFp1vaKzpfvoGai0vE5VJ0w", "note": "Power BI/Fabric experts"},
+      {"name": "SQLBI", "id": "UCmL-dGXT98fmpnVbD1EqmWQ", "note": "DAX/Power BI authority"},
+      {"name": "Pragmatic Works", "id": "UC5CugyvTdOloiuTc9nN09TA", "note": "Microsoft data platform training"}
+    ],
+    "medium_priority": [
+      {"name": "Adam Marczak - Azure for Everyone", "id": "UCdmEIMC3LBil4o0tjaTbj0w", "note": "Azure tutorials"},
+      {"name": "Data Mozart", "id": "UCyOi7k1pXLf1s6hGBgLUgTw", "note": "Power BI/Fabric content"},
+      {"name": "Kahan Data Solutions", "id": "UCXV8l2R4uxb5ojDDYkV8F-Q", "note": "Fabric content creator"}
+    ],
+    "low_priority": [
+      {"name": "Microsoft Azure", "id": "UC0m-80FnNY2Qb7obvTL_2fA", "note": "Official Azure channel"},
+      {"name": "Microsoft Developer", "id": "UCsMica-v34Irf9KVTh6xx-g", "note": "Microsoft dev content"}
+    ]
+  },
+
+  "substack_publications": {
+    "high_priority": [
+      {"name": "dataengineeringcommunity", "note": "Monthly DE digest, Fabric coverage"},
+      {"name": "dataopsleadership", "note": "DataOps patterns, Fabric/Azure/Databricks"},
+      {"name": "pipeline2insights", "note": "Microsoft certifications, DP-700 focus"}
+    ],
+    "medium_priority": [
+      {"name": "seattledataguy", "note": "Data engineering career and tutorials"},
+      {"name": "moderndatastack", "note": "Modern DE tools and patterns"},
+      {"name": "dataengineeringweekly", "note": "Industry news roundup"},
+      {"name": "pragmaticengineer", "note": "Engineering leadership, some DE content"}
+    ],
+    "low_priority": [
+      {"name": "benn", "note": "Analytics/BI perspective from Mode"},
+      {"name": "analyticsengineering", "note": "dbt/analytics engineering focus"}
+    ]
+  },
+
+  "scraping_params": {
+    "tiktok": {
+      "videos_per_hashtag": 30,
+      "delay_between_hashtags_sec": 30
+    },
+    "youtube": {
+      "videos_per_query": 30,
+      "videos_per_channel": 20
+    },
+    "substack": {
+      "posts_per_publication": 20
+    }
+  }
+}
