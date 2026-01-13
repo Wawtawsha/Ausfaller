@@ -391,7 +391,7 @@ CRITICAL INSTRUCTIONS:
 1. Be EXHAUSTIVE - extract every detail that could be useful for trend analysis
 2. Use ONLY the predefined values where options are given (e.g., hook_type must be one of the listed options)
 3. Provide SPECIFIC details, not generic observations
-4. Score numerically where asked (1-10 scale)
+4. Score numerically where asked (1-10 scale) - USE THE RUBRICS BELOW
 5. If something is not present or not applicable, use empty string "" or empty array [] or 0
 6. For the hospitality/nightlife industry focus, pay special attention to:
    - Venue/atmosphere showcase techniques
@@ -399,6 +399,51 @@ CRITICAL INSTRUCTIONS:
    - Staff personality content
    - Event/promotion patterns
    - Location/vibe marketing
+
+SCORING RUBRICS - YOU MUST FOLLOW THESE EXACTLY:
+
+HOOK_STRENGTH (1-10):
+  1-2: No hook, slow start, unclear value, viewer likely scrolls immediately
+  3-4: Weak hook, generic opening, minimal curiosity, slight pattern interrupt
+  5-6: Basic hook present, some curiosity created, standard technique used
+  7-8: Strong curiosity gap + pattern interrupt + emotional trigger, direct camera
+  9-10: Multiple hook layers (visual+text+audio), irresistible, immediate scroll-stop
+
+  Calculate using these weighted factors:
+  - Immediate attention capture (0-3 seconds): 30%
+  - Curiosity gap creation: 25%
+  - Pattern interruption: 20%
+  - Emotional trigger: 15%
+  - Visual/audio contrast: 10%
+
+VIRAL_POTENTIAL_SCORE (1-10):
+  1-2: No shareability, niche-only appeal, no emotional trigger
+  3-4: Some relatability, weak share triggers, limited audience appeal
+  5-6: Relatable content, clear niche appeal, moderate share potential
+  7-8: Strong emotional resonance, broad appeal, multiple share triggers
+  9-10: Universal relatability, strong emotions, meme potential, trend-aligned
+
+  Calculate using these weighted factors:
+  - Emotional trigger strength: 25%
+  - Shareability (would viewers send this to friends?): 20%
+  - Trend alignment: 20%
+  - Relatability: 20%
+  - Production quality: 15%
+
+REPLICABILITY_SCORE (1-10) - This is INVERSE of difficulty:
+  9-10: Phone only, <30 minutes, no special skills needed, free to make
+  7-8: Phone + basic gear (ring light), <1 hour, basic editing skills
+  5-6: Some equipment needed, 1-3 hours, intermediate skills required
+  3-4: Professional gear needed, 3-8 hours, advanced skills, $50-200 budget
+  1-2: Production crew needed, 8+ hours, expert skills, $200+ budget
+
+  MUST match these constraints (auto-corrected if violated):
+  - If budget_estimate = "free" → replicability_score MUST be >= 7
+  - If budget_estimate = "over_200" → replicability_score MUST be <= 4
+  - If difficulty_level = "expert" → replicability_score MUST be <= 3
+  - If difficulty_level = "easy" → replicability_score MUST be >= 7
+  - If time_investment = "over_8hrs" → replicability_score MUST be <= 4
+  - If time_investment = "under_1hr" → replicability_score MUST be >= 7
 
 Respond ONLY with the JSON object. No other text."""
 
@@ -524,6 +569,59 @@ class GeminiAnalyzer:
             return EDUCATIONAL_ANALYSIS_PROMPT
         return ANALYSIS_PROMPT
 
+    def _validate_and_correct_scores(self, data: dict) -> dict:
+        """Auto-correct scores that conflict with resource requirements.
+
+        Ensures replicability_score is consistent with budget, difficulty, and time.
+        Also validates hook_strength based on hook presence.
+        """
+        # Replicability validation
+        replicability = data.get("replicability", {})
+        if replicability:
+            budget = replicability.get("budget_estimate", "")
+            difficulty = replicability.get("difficulty_level", "")
+            time_inv = replicability.get("time_investment", "")
+            score = replicability.get("replicability_score", 5)
+
+            original_score = score
+
+            # Budget constraints
+            if budget in ["high", "over_200"] and score > 4:
+                score = 4
+            elif budget == "free" and score < 7:
+                score = 7
+
+            # Difficulty constraints
+            if difficulty == "expert" and score > 3:
+                score = 3
+            elif difficulty == "easy" and score < 7:
+                score = 7
+
+            # Time constraints
+            if time_inv in ["over_8hrs", "8+hrs"] and score > 4:
+                score = 4
+            elif time_inv in ["under_1hr", "<1hr"] and score < 7:
+                score = 7
+
+            if score != original_score:
+                logger.debug(f"Auto-corrected replicability: {original_score} → {score}")
+                replicability["replicability_score"] = score
+                data["replicability"] = replicability
+
+        # Hook validation - if no hook type, cap hook_strength
+        hook = data.get("hook", {})
+        if hook:
+            hook_type = hook.get("hook_type", "")
+            hook_strength = hook.get("hook_strength", 5)
+
+            if not hook_type or hook_type.lower() in ["none", ""]:
+                if hook_strength > 3:
+                    logger.debug(f"Auto-corrected hook_strength (no hook): {hook_strength} → 3")
+                    hook["hook_strength"] = 3
+                    data["hook"] = hook
+
+        return data
+
     def _parse_nested_dataclass(self, data: dict, key: str, dataclass_type: type) -> Any:
         """Parse nested dictionary into dataclass."""
         nested_data = data.get(key, {})
@@ -637,6 +735,9 @@ class GeminiAnalyzer:
                     description=response_text[:500],
                     raw_response=response_text,
                 )
+
+            # Validate and auto-correct scores
+            data = self._validate_and_correct_scores(data)
 
             logger.info(f"Analysis complete: {video_path.name}")
 
