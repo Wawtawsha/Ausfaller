@@ -296,3 +296,475 @@ body {
         padding: 16px;
     }
 }
+
+/* ============================================
+   SPARKLINE COMPONENT
+   ============================================ */
+
+.sparkline-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sparkline {
+    display: block;
+    overflow: visible;
+}
+
+.sparkline-up {
+    color: #10b981;
+}
+
+.sparkline-down {
+    color: #ef4444;
+}
+
+.sparkline-neutral {
+    color: #94a3b8;
+}
+
+.sparkline-empty {
+    color: #475569;
+}
+
+.sparkline-line {
+    vector-effect: non-scaling-stroke;
+}
+
+.sparkline-area {
+    opacity: 0.8;
+}
+
+.sparkline-dot {
+    filter: drop-shadow(0 0 2px currentColor);
+}
+
+@keyframes sparkline-draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* ============================================
+   TREND INDICATORS
+   ============================================ */
+
+.trend-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'JetBrains Mono', 'Outfit', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.trend-up {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.trend-down {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.trend-neutral {
+    color: #94a3b8;
+    background: rgba(148, 163, 184, 0.1);
+}
+
+.trend-new {
+    color: #8b5cf6;
+    background: rgba(139, 92, 246, 0.1);
+}
+
+.trend-success {
+    color: #10b981;
+}
+
+.trend-warning {
+    color: #f59e0b;
+}
+
+.trend-arrow {
+    font-size: 0.875rem;
+    line-height: 1;
+}
+
+.trend-value {
+    font-weight: 600;
+}
+
+.trend-label {
+    opacity: 0.8;
+    font-size: 0.7rem;
+}
+
+.trend-comparison {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75rem;
+}
+
+.comparison-value {
+    font-weight: 600;
+}
+
+.comparison-label {
+    opacity: 0.7;
+}
+
+/* ============================================
+   ACCESSIBILITY UTILITIES
+   ============================================ */
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Make sr-only content visible when focused */
+.sr-only-focusable:focus,
+.sr-only-focusable:active {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* Skip to main content link */
+.skip-link {
+    position: fixed;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    padding: 12px 24px;
+    background: var(--accent-primary, #3b82f6);
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 16px;
+}
+
+/* Focus indicators */
+*:focus-visible {
+    outline: 2px solid var(--accent-primary, #3b82f6);
+    outline-offset: 2px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .sparkline-line {
+        stroke-dasharray: none !important;
+        stroke-dashoffset: 0 !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .trend-up,
+    .trend-down,
+    .trend-neutral {
+        border: 1px solid currentColor;
+    }
+
+    .sparkline-line {
+        stroke-width: 2.5;
+    }
+}
+
+/* Accessible hidden data table for charts */
+.chart-data-table {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+/* Make table visible when focused */
+.chart-data-table:focus-within {
+    position: static;
+    width: auto;
+    height: auto;
+    clip: auto;
+    overflow: visible;
+    margin-top: 16px;
+}
+
+.chart-data-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.chart-data-table th,
+.chart-data-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chart-data-table th {
+    font-weight: 600;
+    color: var(--text-primary, #f1f5f9);
+}
+
+.chart-data-table td {
+    color: var(--text-secondary, #94a3b8);
+}
+
+/* ============================================
+   EXPORT FUNCTIONALITY
+   ============================================ */
+
+.export-toolbar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.export-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-secondary, #94a3b8);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.export-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary, #f1f5f9);
+}
+
+.export-btn:active {
+    transform: scale(0.98);
+}
+
+.export-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.export-btn.exporting {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.export-btn.exporting svg {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Export mode - removes animations for clean capture */
+.export-mode * {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Export notification toast */
+.export-notification {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    background: var(--bg-card, #1a1a1a);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.export-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.export-notification-success {
+    border-left: 3px solid #10b981;
+}
+
+.export-notification-success .notification-icon {
+    color: #10b981;
+}
+
+.export-notification-error {
+    border-left: 3px solid #ef4444;
+}
+
+.export-notification-error .notification-icon {
+    color: #ef4444;
+}
+
+.notification-icon {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.notification-message {
+    color: var(--text-primary, #f1f5f9);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* ============================================
+   ACCESSIBLE COLOR PALETTE
+   ============================================ */
+
+:root {
+    /* Chart colors - all pass WCAG 3:1 on dark backgrounds */
+    --chart-blue: #60a5fa;
+    --chart-purple: #a78bfa;
+    --chart-green: #34d399;
+    --chart-yellow: #fbbf24;
+    --chart-red: #f87171;
+    --chart-cyan: #22d3ee;
+    --chart-orange: #fb923c;
+    --chart-pink: #f472b6;
+}
+
+/* Pattern fills for colorblind accessibility */
+.pattern-stripes {
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        currentColor 2px,
+        currentColor 4px
+    );
+}
+
+.pattern-dots {
+    background-image: radial-gradient(
+        circle,
+        currentColor 1px,
+        transparent 1px
+    );
+    background-size: 4px 4px;
+}
+
+.pattern-crosshatch {
+    background-image:
+        repeating-linear-gradient(45deg, transparent, transparent 2px, currentColor 2px, currentColor 3px),
+        repeating-linear-gradient(-45deg, transparent, transparent 2px, currentColor 2px, currentColor 3px);
+}
+
+.pattern-horizontal {
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        currentColor 2px,
+        currentColor 4px
+    );
+}
+
+.pattern-vertical {
+    background-image: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        currentColor 2px,
+        currentColor 4px
+    );
+}
+
+/* ============================================
+   ENHANCED METRIC CARDS (Shared)
+   ============================================ */
+
+.metric-sparkline {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.metric-trend-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+}
+
+.metric-context {
+    font-size: 0.7rem;
+    color: var(--text-muted, #64748b);
+}
+
+/* ============================================
+   MOBILE TOUCH TARGETS
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Ensure minimum 48x48px touch targets */
+    .export-btn,
+    .niche-link,
+    button,
+    [role="button"],
+    a {
+        min-height: 48px;
+        min-width: 48px;
+    }
+
+    .export-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .export-btn span {
+        display: none;
+    }
+
+    .export-btn {
+        padding: 12px;
+    }
+}

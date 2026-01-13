@@ -5,12 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Engineering Intelligence | Trend Dashboard</title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+    <!-- Export libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
     <!-- Shared base styles -->
     <link rel="stylesheet" href="base.css">
     <!-- Data Engineering theme -->
     <link rel="stylesheet" href="data-engineering/styles.css">
 </head>
 <body class="niche-data-engineering">
+    <!-- Skip to main content for accessibility -->
+    <a href="#metrics-section" class="skip-link">Skip to main content</a>
+
     <!-- Noise texture overlay -->
     <div class="noise-overlay"></div>
 
@@ -39,6 +51,36 @@
                     <p class="header-subtitle">Tracking tutorials, courses & technical education across platforms</p>
                 </div>
                 <div class="header-right">
+                    <!-- Export Toolbar -->
+                    <div class="export-toolbar" role="toolbar" aria-label="Export options">
+                        <button class="export-btn" data-export="pdf" title="Export as PDF">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                            <span>PDF</span>
+                        </button>
+                        <button class="export-btn" data-export="csv" title="Export data as CSV">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="8" y1="13" x2="16" y2="13"/>
+                                <line x1="8" y1="17" x2="16" y2="17"/>
+                                <line x1="10" y1="9" x2="14" y2="9"/>
+                            </svg>
+                            <span>CSV</span>
+                        </button>
+                        <button class="export-btn" data-export="png" title="Export as image">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21 15 16 10 5 21"/>
+                            </svg>
+                            <span>PNG</span>
+                        </button>
+                    </div>
                     <div class="header-stats">
                         <div class="header-stat">
                             <span class="stat-value" id="total-creators">--</span>
@@ -61,7 +103,7 @@
         </header>
 
         <!-- Metrics Grid -->
-        <section class="metrics-section">
+        <section class="metrics-section" id="metrics-section" aria-label="Key performance metrics">
             <div class="metrics-grid">
                 <div class="metric-card metric-primary">
                     <div class="metric-icon">
@@ -166,9 +208,9 @@
         <!-- Main Content Grid -->
         <div class="content-grid">
             <!-- Tool Coverage -->
-            <section class="card card-large">
+            <section class="card card-large" aria-labelledby="tool-coverage-title">
                 <div class="card-header">
-                    <h2 class="card-title">
+                    <h2 class="card-title" id="tool-coverage-title">
                         <span class="title-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
@@ -179,7 +221,7 @@
                     <span class="card-badge">TECH STACK</span>
                 </div>
                 <div class="card-content">
-                    <div class="tool-grid" id="toolGrid">
+                    <div class="tool-grid" id="toolGrid" role="list" aria-label="Technology tools covered in content">
                         <!-- Tools populated by JS -->
                         <div class="skeleton tool-skeleton"></div>
                         <div class="skeleton tool-skeleton"></div>
@@ -192,9 +234,9 @@
             </section>
 
             <!-- Content Types -->
-            <section class="card">
+            <section class="card" aria-labelledby="content-types-title">
                 <div class="card-header">
-                    <h2 class="card-title">
+                    <h2 class="card-title" id="content-types-title">
                         <span class="title-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -208,7 +250,8 @@
                     </h2>
                 </div>
                 <div class="card-content">
-                    <div class="bar-chart" id="contentTypeChart">
+                    <div class="bar-chart" id="contentTypeChart" role="img" aria-label="Distribution of content types">
+                        <table class="sr-only" id="content-types-table" aria-label="Content Types Data"></table>
                         <div class="skeleton bar-skeleton"></div>
                         <div class="skeleton bar-skeleton"></div>
                         <div class="skeleton bar-skeleton"></div>
@@ -218,9 +261,9 @@
             </section>
 
             <!-- Teaching Techniques -->
-            <section class="card">
+            <section class="card" aria-labelledby="teaching-techniques-title">
                 <div class="card-header">
-                    <h2 class="card-title">
+                    <h2 class="card-title" id="teaching-techniques-title">
                         <span class="title-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
@@ -232,7 +275,7 @@
                     </h2>
                 </div>
                 <div class="card-content">
-                    <div class="technique-grid" id="techniqueGrid">
+                    <div class="technique-grid" id="techniqueGrid" role="list" aria-label="Teaching techniques used in content">
                         <div class="skeleton technique-skeleton"></div>
                         <div class="skeleton technique-skeleton"></div>
                         <div class="skeleton technique-skeleton"></div>
@@ -241,9 +284,9 @@
             </section>
 
             <!-- Skill Level Distribution -->
-            <section class="card">
+            <section class="card" aria-labelledby="skill-levels-title">
                 <div class="card-header">
-                    <h2 class="card-title">
+                    <h2 class="card-title" id="skill-levels-title">
                         <span class="title-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <line x1="12" y1="20" x2="12" y2="10"/>
@@ -255,7 +298,8 @@
                     </h2>
                 </div>
                 <div class="card-content">
-                    <div class="skill-distribution" id="skillDistribution">
+                    <div class="skill-distribution" id="skillDistribution" role="img" aria-label="Distribution of content by skill level">
+                        <table class="sr-only" id="skill-levels-table" aria-label="Skill Levels Data"></table>
                         <div class="skeleton skill-skeleton"></div>
                     </div>
                 </div>
@@ -322,9 +366,9 @@
             </section>
 
             <!-- Top Creators Leaderboard -->
-            <section class="card card-medium">
+            <section class="card card-medium" aria-labelledby="top-educators-title">
                 <div class="card-header">
-                    <h2 class="card-title">
+                    <h2 class="card-title" id="top-educators-title">
                         <span class="title-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <circle cx="12" cy="8" r="7"/>
@@ -336,7 +380,7 @@
                     <span class="card-badge">LEADERBOARD</span>
                 </div>
                 <div class="card-content">
-                    <div class="leaderboard" id="leaderboard">
+                    <div class="leaderboard" id="leaderboard" role="list" aria-label="Top educators ranked by performance">
                         <div class="skeleton leaderboard-skeleton"></div>
                         <div class="skeleton leaderboard-skeleton"></div>
                         <div class="skeleton leaderboard-skeleton"></div>
@@ -359,6 +403,18 @@
 
     <!-- Scripts -->
     <script src="shared/nav.js"></script>
+    <script src="shared/sparkline.js"></script>
+    <script src="shared/export.js"></script>
     <script src="data-engineering/app.js"></script>
+    <script>
+        // Initialize export functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const exporter = new DashboardExport({
+                filename: 'data-engineering-intelligence-report',
+                dashboardSelector: '.container'
+            });
+            exporter.init();
+        });
+    </script>
 </body>
 </html>
