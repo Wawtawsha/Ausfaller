@@ -622,6 +622,30 @@ class GeminiAnalyzer:
             return EDUCATIONAL_ANALYSIS_PROMPT
         return ANALYSIS_PROMPT
 
+    def _safe_int(self, value, default: int = 5) -> int:
+        """Safely convert a value to int, returning default if not possible."""
+        if isinstance(value, int):
+            return value
+        if isinstance(value, float):
+            return int(value)
+        if isinstance(value, str):
+            try:
+                return int(value)
+            except ValueError:
+                return default
+        return default
+
+    def _safe_float(self, value, default: float = 0.0) -> float:
+        """Safely convert a value to float, returning default if not possible."""
+        if isinstance(value, (int, float)):
+            return float(value)
+        if isinstance(value, str):
+            try:
+                return float(value)
+            except ValueError:
+                return default
+        return default
+
     def _validate_and_correct_scores(self, data: dict) -> dict:
         """Auto-correct scores that conflict with observable factors.
 
@@ -630,14 +654,22 @@ class GeminiAnalyzer:
         - viral_potential_score: validated against trends, engagement, relatability
         - replicability_score: validated against budget, difficulty, time
         """
+        try:
+            return self._do_validate_scores(data)
+        except Exception as e:
+            logger.warning(f"Score validation failed, using raw data: {e}")
+            return data
+
+    def _do_validate_scores(self, data: dict) -> dict:
+        """Internal score validation logic."""
         # === HOOK STRENGTH VALIDATION ===
         hook = data.get("hook", {})
         if hook:
             hook_type = hook.get("hook_type", "")
             hook_technique = hook.get("hook_technique", "")
-            hook_timing = hook.get("hook_timing_seconds", 0)
+            hook_timing = self._safe_float(hook.get("hook_timing_seconds", 0), 0.0)
             hook_text = hook.get("hook_text", "")
-            score = hook.get("hook_strength", 5)
+            score = self._safe_int(hook.get("hook_strength", 5), 5)
             original = score
 
             # No hook type = weak hook (cap at 3)
@@ -671,7 +703,7 @@ class GeminiAnalyzer:
         engagement = data.get("engagement", {})
         emotion = data.get("emotion", {})
         if trends:
-            viral_score = trends.get("viral_potential_score", 5)
+            viral_score = self._safe_int(trends.get("viral_potential_score", 5), 5)
             original = viral_score
 
             lifecycle = trends.get("trend_lifecycle_stage", "").lower()
@@ -708,7 +740,7 @@ class GeminiAnalyzer:
 
             # Cross-check with relatability - viral shouldn't exceed relatability by 4+
             if emotion:
-                relatability = emotion.get("relatability_score", 5)
+                relatability = self._safe_int(emotion.get("relatability_score", 5), 5)
                 if viral_score > relatability + 3:
                     viral_score = min(viral_score, relatability + 3)
 
@@ -720,10 +752,10 @@ class GeminiAnalyzer:
         # === REPLICABILITY VALIDATION ===
         replicability = data.get("replicability", {})
         if replicability:
-            budget = replicability.get("budget_estimate", "").lower()
-            difficulty = replicability.get("difficulty_level", "").lower()
-            time_inv = replicability.get("time_investment", "").lower()
-            score = replicability.get("replicability_score", 5)
+            budget = str(replicability.get("budget_estimate", "")).lower()
+            difficulty = str(replicability.get("difficulty_level", "")).lower()
+            time_inv = str(replicability.get("time_investment", "")).lower()
+            score = self._safe_int(replicability.get("replicability_score", 5), 5)
             original = score
 
             # Budget constraints
@@ -760,15 +792,29 @@ class GeminiAnalyzer:
         return data
 
     def _parse_nested_dataclass(self, data: dict, key: str, dataclass_type: type) -> Any:
-        """Parse nested dictionary into dataclass."""
+        """Parse nested dictionary into dataclass with type coercion."""
         nested_data = data.get(key, {})
         if not isinstance(nested_data, dict):
             return dataclass_type()
 
         field_values = {}
-        for field_name in dataclass_type.__dataclass_fields__:
+        for field_name, field_info in dataclass_type.__dataclass_fields__.items():
             if field_name in nested_data:
-                field_values[field_name] = nested_data[field_name]
+                value = nested_data[field_name]
+                field_type = field_info.type
+
+                # Coerce types for common mismatches
+                if field_type == int or field_type == 'int':
+                    value = self._safe_int(value, 0)
+                elif field_type == float or field_type == 'float':
+                    value = self._safe_float(value, 0.0)
+                elif field_type == bool or field_type == 'bool':
+                    if isinstance(value, str):
+                        value = value.lower() in ('true', '1', 'yes')
+                    else:
+                        value = bool(value) if value is not None else False
+
+                field_values[field_name] = value
 
         try:
             return dataclass_type(**field_values)
