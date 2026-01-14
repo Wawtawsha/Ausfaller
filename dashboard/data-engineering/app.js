@@ -3,7 +3,7 @@
  * Handles data fetching and rendering for educational content analytics
  */
 
-const API_BASE_URL = 'https://social-scraper-production-e116.up.railway.app';
+const API_BASE_URL = 'https://ausfaller.up.railway.app';
 
 // DOM Elements
 const elements = {
