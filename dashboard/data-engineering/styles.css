@@ -1427,6 +1427,164 @@ tr:hover td {
     border-top: 1px solid var(--border-subtle);
 }
 
+/* ============================================
+   ICON FIXES - Missing styles
+   ============================================ */
+
+/* Metric Card Icons */
+.metric-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.metric-icon svg {
+    width: 20px;
+    height: 20px;
+    color: var(--accent-primary);
+}
+
+.metric-icon.icon-clarity svg { color: var(--accent-warning); }
+.metric-icon.icon-depth svg { color: var(--accent-secondary); }
+.metric-icon.icon-value svg { color: var(--accent-primary); }
+.metric-icon.icon-replicability svg { color: var(--accent-info); }
+
+/* Card Title Icons */
+.title-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.title-icon svg {
+    width: 20px;
+    height: 20px;
+    color: var(--accent-primary);
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.card-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    padding: 6px 12px;
+    background: var(--bg-surface);
+    color: var(--text-muted);
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* ============================================
+   ANALYSIS BODY - Text formatting
+   ============================================ */
+
+.analysis-body {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.analysis-body h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-secondary);
+    margin: 20px 0 10px;
+}
+
+.analysis-body h4:first-child {
+    margin-top: 0;
+}
+
+.analysis-body p {
+    margin: 12px 0;
+}
+
+.analysis-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0;
+}
+
+.analysis-body li {
+    position: relative;
+    padding-left: 20px;
+    margin: 8px 0;
+}
+
+.analysis-body li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+}
+
+/* ============================================
+   CONTENT GRID - Simplified layout
+   ============================================ */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    border: 1px solid var(--border-subtle);
+}
+
+.card-large,
+.card-wide {
+    grid-column: 1 / -1;
+}
+
+.card-medium {
+    /* Default single column */
+}
+
+@media (max-width: 900px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Responsive adjustments for compact components */
 @media (max-width: 768px) {
     .tool-row {
