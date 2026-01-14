@@ -575,6 +575,21 @@ Respond with a JSON object matching this EXACT structure:
         "key_success_factors": ["what makes this educational content effective"]
     },
 
+    "technical": {
+        "video_resolution": "480p|720p|1080p|4k",
+        "aspect_ratio": "9:16|16:9|1:1|4:5|other",
+        "has_captions": true,
+        "caption_style": "burned_in|auto_generated|none",
+        "audio_language": "english|spanish|other|multilingual|none"
+    },
+
+    "brand_safety": {
+        "brand_safety_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
+        "content_rating": "all_ages|teen|mature|adult",
+        "sponsorship_fit": ["tech", "education", "software", "cloud", "enterprise"],
+        "copyright_risk": "low|medium|high"
+    },
+
     "why_it_works": "explanation of what makes this educational content effective",
     "improvement_opportunities": ["suggestions for better educational delivery"]
 }
