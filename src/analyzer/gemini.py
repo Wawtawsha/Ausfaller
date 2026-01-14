@@ -102,7 +102,7 @@ class EngagementMechanics:
 @dataclass
 class TrendSignals:
     """Trend identification and signals."""
-    source_platform: str = ""  # tiktok, youtube_shorts, youtube, instagram_reels
+    source_platform: str = ""  # tiktok, youtube_shorts, youtube
     is_trend_participation: bool = False
     trend_name: str = ""  # Name of trend if identifiable
     trend_category: str = ""  # dance, challenge, sound, format, meme, hashtag, tutorial_style
@@ -268,7 +268,7 @@ class VideoAnalysis:
 
 
 # Comprehensive analysis prompt
-ANALYSIS_PROMPT = """You are an elite social media marketing analyst specializing in video content across platforms (TikTok, YouTube Shorts, YouTube, Instagram Reels). Analyze this video with extreme precision and extract every possible marketing insight.
+ANALYSIS_PROMPT = """You are an elite social media marketing analyst specializing in video content across platforms (TikTok, YouTube Shorts, YouTube). Analyze this video with extreme precision and extract every possible marketing insight.
 
 Your analysis must be exhaustive and systematic. Extract data that can be used for trend analysis and pattern recognition across thousands of videos.
 
@@ -351,7 +351,7 @@ Respond with a JSON object matching this EXACT structure:
     },
 
     "trends": {
-        "source_platform": "tiktok|youtube_shorts|youtube|instagram_reels|unknown",
+        "source_platform": "tiktok|youtube_shorts|youtube|unknown",
         "is_trend_participation": true,
         "trend_name": "name of trend if applicable",
         "trend_category": "dance|challenge|sound|format|meme|hashtag|filter|tutorial_style",
