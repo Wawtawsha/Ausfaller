@@ -316,7 +316,7 @@ async function renderContext() {
  */
 async function renderStrategicAnalysis() {
     const data = await fetchData('/analytics/strategic-analysis');
-    if (!data?.analysis) {
+    if (!data?.content) {
         elements.strategicAnalysis.innerHTML = `
             <div class="analysis-empty">
                 <p>Strategic analysis will be generated after content is analyzed by AI.</p>
@@ -329,10 +329,10 @@ async function renderStrategicAnalysis() {
     elements.strategicAnalysis.innerHTML = `
         <div class="analysis-card">
             <div class="analysis-body">
-                ${formatAnalysisText(data.analysis)}
+                ${formatAnalysisText(data.content)}
             </div>
             <div class="analysis-footer">
-                Generated ${new Date(data.generated_at || Date.now()).toLocaleDateString()}
+                Generated ${new Date(data.updated_at || Date.now()).toLocaleDateString()}
             </div>
         </div>
     `;
