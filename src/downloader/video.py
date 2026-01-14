@@ -106,11 +106,11 @@ class VideoDownloader:
         # yt-dlp command
         cmd = [
             self.ytdlp_path,
-            "--no-warnings",
             "--no-progress",
+            "--js-runtimes", "node",  # Use Node.js for YouTube extraction
+            "--remote-components", "ejs:github",  # Download EJS component for YouTube
             "-f", "best[ext=mp4]/best",  # Prefer mp4
             "--max-filesize", "100M",  # Max 100MB
-            f"--match-filter", f"duration<{max_duration}",
             "--write-info-json",  # Save metadata
             "-o", output_template,
             url,
@@ -131,13 +131,19 @@ class VideoDownloader:
                 timeout=120,  # 2 minute timeout
             )
 
+            logger.debug(f"yt-dlp returncode: {process.returncode}")
+            logger.debug(f"yt-dlp stdout: {stdout[:200] if stdout else 'None'}")
+            logger.debug(f"yt-dlp stderr: {stderr[:200] if stderr else 'None'}")
+
             if process.returncode != 0:
-                error_msg = stderr.decode() if stderr else "Unknown error"
-                logger.error(f"yt-dlp failed: {error_msg}")
+                error_msg = stderr.decode() if stderr else ""
+                stdout_msg = stdout.decode() if stdout else ""
+                full_error = error_msg or stdout_msg or f"yt-dlp exited with code {process.returncode}"
+                logger.error(f"Download failed (code {process.returncode}): {full_error}")
                 return DownloadResult(
                     success=False,
                     video_url=url,
-                    error=error_msg,
+                    error=full_error,
                 )
 
             # Find the downloaded file
