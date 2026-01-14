@@ -1823,6 +1823,248 @@ async def create_account_snapshot(account_id: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# =============================================================================
+# BATCH PROCESSING ENDPOINTS
+# =============================================================================
+
+class BatchCollectRequest(BaseModel):
+    """Request for batch collection."""
+    youtube_queries: Optional[list[str]] = Field(default=None, description="YouTube search queries")
+    tiktok_hashtags: Optional[list[str]] = Field(default=None, description="TikTok hashtags (without #)")
+    substack_publications: Optional[list[str]] = Field(default=None, description="Substack publication names")
+    count_per_source: int = Field(default=50, ge=1, le=200, description="Items to collect per query/hashtag")
+
+
+class BatchProcessRequest(BaseModel):
+    """Request for full batch processing."""
+    batch_id: str = Field(description="Batch ID from collection")
+    niche: str = Field(default="data_engineering", description="Niche for analysis")
+    max_concurrent_downloads: int = Field(default=5, ge=1, le=10)
+    max_concurrent_analyses: int = Field(default=3, ge=1, le=5)
+    store_to_supabase: bool = Field(default=True)
+
+
+# In-memory batch job storage
+batch_collect_jobs: dict = {}
+
+
+@app.post("/batch/collect")
+async def batch_collect(request: BatchCollectRequest, background_tasks: BackgroundTasks):
+    """
+    Collect content URLs from multiple sources for batch processing.
+
+    Returns a batch_id that can be used to check status and start processing.
+    """
+    from src.batch import BatchProcessor
+
+    if not request.youtube_queries and not request.tiktok_hashtags and not request.substack_publications:
+        raise HTTPException(
+            status_code=400,
+            detail="Must provide at least one source (youtube_queries, tiktok_hashtags, or substack_publications)"
+        )
+
+    batch_id = str(uuid.uuid4())
+
+    batch_collect_jobs[batch_id] = {
+        "batch_id": batch_id,
+        "status": "collecting",
+        "request": request.model_dump(),
+        "started_at": datetime.utcnow().isoformat(),
+        "completed_at": None,
+        "result": None,
+        "error": None,
+    }
+
+    async def run_collection():
+        try:
+            processor = BatchProcessor()
+            result = await processor.collect_all(
+                youtube_queries=request.youtube_queries,
+                tiktok_hashtags=request.tiktok_hashtags,
+                substack_pubs=request.substack_publications,
+                count_per_source=request.count_per_source,
+            )
+
+            # Flatten all items
+            all_items = (
+                result.get("youtube_shorts", []) +
+                result.get("tiktok", []) +
+                result.get("substack", [])
+            )
+
+            # Save collection to file
+            processor.save_collection(batch_id, all_items)
+
+            # Get stats
+            stats = processor.get_batch_stats(all_items)
+
+            batch_collect_jobs[batch_id]["status"] = "completed"
+            batch_collect_jobs[batch_id]["completed_at"] = datetime.utcnow().isoformat()
+            batch_collect_jobs[batch_id]["result"] = stats
+
+        except Exception as e:
+            logger.error(f"Batch collection failed: {e}")
+            batch_collect_jobs[batch_id]["status"] = "failed"
+            batch_collect_jobs[batch_id]["error"] = str(e)
+
+    background_tasks.add_task(run_collection)
+
+    return {
+        "batch_id": batch_id,
+        "status": "collecting",
+        "message": "Batch collection started. Use GET /batch/collect/{batch_id} to check status."
+    }
+
+
+@app.get("/batch/collect/{batch_id}")
+async def get_batch_collect_status(batch_id: str):
+    """Get status of a batch collection job."""
+    if batch_id not in batch_collect_jobs:
+        raise HTTPException(status_code=404, detail="Batch not found")
+
+    return batch_collect_jobs[batch_id]
+
+
+@app.post("/batch/process/{batch_id}")
+async def batch_process(batch_id: str, request: BatchProcessRequest, background_tasks: BackgroundTasks):
+    """
+    Process a collected batch: download all videos and analyze with Gemini.
+
+    This runs the full pipeline on previously collected URLs.
+    """
+    from src.batch import BatchProcessor
+    from src.batch.analyzer import BatchAnalyzer
+
+    # Check if collection exists
+    if batch_id not in batch_collect_jobs:
+        raise HTTPException(status_code=404, detail="Batch not found. Run /batch/collect first.")
+
+    if batch_collect_jobs[batch_id]["status"] != "completed":
+        raise HTTPException(status_code=400, detail=f"Batch not ready. Status: {batch_collect_jobs[batch_id]['status']}")
+
+    process_job_id = f"{batch_id}_process"
+    batch_collect_jobs[process_job_id] = {
+        "batch_id": batch_id,
+        "process_id": process_job_id,
+        "status": "downloading",
+        "started_at": datetime.utcnow().isoformat(),
+        "progress": {
+            "downloaded": 0,
+            "analyzed": 0,
+            "stored": 0,
+            "total": 0,
+        },
+        "error": None,
+    }
+
+    async def run_processing():
+        try:
+            processor = BatchProcessor()
+            analyzer = BatchAnalyzer(requests_per_minute=30)
+
+            # Load collected items
+            items = processor.load_collection(batch_id)
+            batch_collect_jobs[process_job_id]["progress"]["total"] = len(items)
+
+            # Download all
+            logger.info(f"Downloading {len(items)} items...")
+            batch_collect_jobs[process_job_id]["status"] = "downloading"
+            downloaded_items = await processor.download_batch(
+                items=items,
+                max_concurrent=request.max_concurrent_downloads,
+            )
+
+            downloaded_count = sum(1 for i in downloaded_items if i.get("download_success"))
+            batch_collect_jobs[process_job_id]["progress"]["downloaded"] = downloaded_count
+
+            # Analyze all
+            logger.info(f"Analyzing {downloaded_count} videos...")
+            batch_collect_jobs[process_job_id]["status"] = "analyzing"
+            analysis_result = await analyzer.analyze_with_concurrency(
+                items=downloaded_items,
+                batch_id=batch_id,
+                max_concurrent=request.max_concurrent_analyses,
+                niche_mode=request.niche,
+            )
+
+            batch_collect_jobs[process_job_id]["progress"]["analyzed"] = analysis_result.analyzed
+
+            # Store to Supabase
+            if request.store_to_supabase:
+                batch_collect_jobs[process_job_id]["status"] = "storing"
+                storage = get_storage()
+                if storage:
+                    results = analyzer.load_results(batch_id)
+                    stored = 0
+                    for item in results:
+                        if item.get("analysis"):
+                            try:
+                                from src.extractor import VideoInfo, Platform
+                                video_info = VideoInfo(
+                                    platform=Platform(item["source"]) if item["source"] in ["tiktok", "youtube_shorts"] else Platform.TIKTOK,
+                                    video_url=item["url"],
+                                    video_id=item.get("video_id", ""),
+                                    author_username=item.get("author", ""),
+                                    likes=item.get("likes", 0),
+                                    views=item.get("views", 0),
+                                    caption=item.get("title", ""),
+                                )
+
+                                from src.analyzer import VideoAnalysis
+                                analysis = VideoAnalysis(**item["analysis"]) if isinstance(item["analysis"], dict) else item["analysis"]
+
+                                storage.store_post(
+                                    video_info=video_info,
+                                    analysis=analysis,
+                                    niche=request.niche,
+                                )
+                                stored += 1
+                            except Exception as e:
+                                logger.warning(f"Failed to store item: {e}")
+
+                    batch_collect_jobs[process_job_id]["progress"]["stored"] = stored
+
+            # Summary
+            summary = analyzer.get_analysis_summary(analyzer.load_results(batch_id))
+
+            batch_collect_jobs[process_job_id]["status"] = "completed"
+            batch_collect_jobs[process_job_id]["completed_at"] = datetime.utcnow().isoformat()
+            batch_collect_jobs[process_job_id]["summary"] = summary
+
+        except Exception as e:
+            logger.error(f"Batch processing failed: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
+            batch_collect_jobs[process_job_id]["status"] = "failed"
+            batch_collect_jobs[process_job_id]["error"] = str(e)
+
+    background_tasks.add_task(run_processing)
+
+    return {
+        "process_id": process_job_id,
+        "status": "downloading",
+        "message": "Batch processing started. Use GET /batch/process/{process_id} to check status."
+    }
+
+
+@app.get("/batch/process/{process_id}")
+async def get_batch_process_status(process_id: str):
+    """Get status of a batch processing job."""
+    if process_id not in batch_collect_jobs:
+        raise HTTPException(status_code=404, detail="Process job not found")
+
+    return batch_collect_jobs[process_id]
+
+
+@app.get("/batch/jobs")
+async def list_batch_jobs():
+    """List all batch jobs (collection and processing)."""
+    return {
+        "jobs": list(batch_collect_jobs.values()),
+        "count": len(batch_collect_jobs),
+    }
+
+
 @app.on_event("shutdown")
 async def shutdown_event():
     """Cleanup on shutdown."""
