@@ -118,28 +118,34 @@ class VideoDownloader:
 
         try:
             logger.info(f"Downloading: {url}")
+            logger.debug(f"Command: {' '.join(cmd)}")
 
-            # Run yt-dlp
-            process = await asyncio.create_subprocess_exec(
-                *cmd,
-                stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE,
+            # Run yt-dlp in thread pool to avoid Windows asyncio subprocess issues
+            def run_ytdlp():
+                return subprocess.run(
+                    cmd,
+                    capture_output=True,
+                    timeout=120,
+                )
+
+            result = await asyncio.wait_for(
+                asyncio.to_thread(run_ytdlp),
+                timeout=130,  # slightly longer than subprocess timeout
             )
 
-            stdout, stderr = await asyncio.wait_for(
-                process.communicate(),
-                timeout=120,  # 2 minute timeout
-            )
+            returncode = result.returncode
+            stdout = result.stdout
+            stderr = result.stderr
 
-            logger.debug(f"yt-dlp returncode: {process.returncode}")
-            logger.debug(f"yt-dlp stdout: {stdout[:200] if stdout else 'None'}")
-            logger.debug(f"yt-dlp stderr: {stderr[:200] if stderr else 'None'}")
+            logger.info(f"yt-dlp returncode: {returncode}")
+            if stderr:
+                logger.info(f"yt-dlp stderr: {stderr[:500].decode('utf-8', errors='replace')}")
 
-            if process.returncode != 0:
+            if returncode != 0:
                 error_msg = stderr.decode() if stderr else ""
                 stdout_msg = stdout.decode() if stdout else ""
-                full_error = error_msg or stdout_msg or f"yt-dlp exited with code {process.returncode}"
-                logger.error(f"Download failed (code {process.returncode}): {full_error}")
+                full_error = error_msg or stdout_msg or f"yt-dlp exited with code {returncode}"
+                logger.error(f"Download failed (code {returncode}): {full_error}")
                 return DownloadResult(
                     success=False,
                     video_url=url,
@@ -171,7 +177,7 @@ class VideoDownloader:
 
             if json_file and json_file.exists():
                 try:
-                    metadata = json.loads(json_file.read_text())
+                    metadata = json.loads(json_file.read_text(encoding='utf-8'))
                     title = metadata.get("title")
                     author = metadata.get("uploader") or metadata.get("channel")
                     duration = float(metadata.get("duration", 0))
@@ -200,11 +206,14 @@ class VideoDownloader:
                 error="Download timed out",
             )
         except Exception as e:
-            logger.error(f"Download failed: {e}")
+            import traceback
+            error_msg = str(e) if str(e) else f"{type(e).__name__}: {repr(e)}"
+            logger.error(f"Download failed: {error_msg}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
             return DownloadResult(
                 success=False,
                 video_url=url,
-                error=str(e),
+                error=error_msg,
             )
 
     async def download_batch(
