@@ -29,22 +29,37 @@ def get_supabase_client():
     return create_client(url, key)
 
 
-def fetch_all_analyzed_posts(client):
-    """Fetch all posts with analysis data."""
+def fetch_all_analyzed_posts(client, niche_mode=None):
+    """Fetch all posts with analysis data, optionally filtered by niche mode.
+
+    Args:
+        client: Supabase client
+        niche_mode: 'data_engineering' or 'entertainment' or None for all
+    """
+    # Define niche groupings
+    ENTERTAINMENT_NICHES = ['bars_restaurants', 'dj_electronic', 'clubs_nightlife', 'events_parties', 'default']
+    DATA_ENGINEERING_NICHES = ['data_engineering']
+
     # Fetch in batches due to Supabase limits
     all_posts = []
     limit = 1000
     offset = 0
 
     while True:
-        result = (
+        query = (
             client.table("posts")
             .select("id, platform, platform_id, author_username, video_url, analysis, views, likes, comments, shares, scraped_at, analyzed_at, niche, source_hashtag")
             .not_.is_("analysis", "null")
             .order("analyzed_at", desc=True)
-            .range(offset, offset + limit - 1)
-            .execute()
         )
+
+        # Filter by niche mode
+        if niche_mode == 'data_engineering':
+            query = query.in_("niche", DATA_ENGINEERING_NICHES)
+        elif niche_mode == 'entertainment':
+            query = query.in_("niche", ENTERTAINMENT_NICHES)
+
+        result = query.range(offset, offset + limit - 1).execute()
 
         if not result.data:
             break
@@ -235,11 +250,19 @@ def aggregate_analysis(posts):
 
 def main():
     """Main entry point."""
-    print("Connecting to Supabase...", file=sys.stderr)
+    import argparse
+    parser = argparse.ArgumentParser(description='Aggregate video analysis from Supabase')
+    parser.add_argument('--niche', choices=['data_engineering', 'entertainment', 'all'],
+                        default='all', help='Filter by niche mode')
+    args = parser.parse_args()
+
+    niche_mode = None if args.niche == 'all' else args.niche
+
+    print(f"Connecting to Supabase (niche: {args.niche})...", file=sys.stderr)
     client = get_supabase_client()
 
     print("Fetching analyzed posts...", file=sys.stderr)
-    posts = fetch_all_analyzed_posts(client)
+    posts = fetch_all_analyzed_posts(client, niche_mode=niche_mode)
     print(f"Found {len(posts)} analyzed posts", file=sys.stderr)
 
     if not posts:
@@ -248,6 +271,7 @@ def main():
 
     print("Aggregating analysis...", file=sys.stderr)
     aggregated = aggregate_analysis(posts)
+    aggregated["niche_mode"] = args.niche
 
     # Output JSON to stdout
     print(json.dumps(aggregated, indent=2))

@@ -201,6 +201,11 @@ function setNicheMode(mode) {
     if (mode === 'data_engineering') {
         fetchEducationalAnalytics().then(updateEducationalMetrics).catch(console.error);
     }
+
+    // Refetch strategic analysis for the selected niche
+    fetchStrategicAnalysis()
+        .then(renderStrategicAnalysis)
+        .catch(err => console.warn('Failed to fetch strategic analysis:', err));
 }
 
 /**
@@ -1398,10 +1403,11 @@ function renderRecentReply(data) {
 }
 
 /**
- * Fetch strategic analysis
+ * Fetch strategic analysis (filtered by current niche mode)
  */
 async function fetchStrategicAnalysis() {
-    const response = await fetch(`${API_BASE}/analytics/strategic-analysis`);
+    const nicheParam = currentNicheMode ? `?niche=${currentNicheMode}` : '';
+    const response = await fetch(`${API_BASE}/analytics/strategic-analysis${nicheParam}`);
     if (!response.ok) throw new Error('Failed to fetch strategic analysis');
     return response.json();
 }

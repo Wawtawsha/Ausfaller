@@ -1135,19 +1135,35 @@ async def get_metric_trends(days: int = 7):
 
 
 @app.get("/analytics/strategic-analysis")
-async def get_strategic_analysis():
+async def get_strategic_analysis(niche: Optional[str] = None):
     """
     Get the latest strategic trend analysis (markdown).
 
-    Returns the content of analysis/LATEST_ANALYSIS.md if it exists.
+    Args:
+        niche: 'data_engineering' or 'entertainment' - returns niche-specific analysis
+
+    Returns the content of analysis/LATEST_ANALYSIS_{NICHE}.md if it exists,
+    or falls back to analysis/LATEST_ANALYSIS.md for backwards compatibility.
     """
-    analysis_path = Path("analysis/LATEST_ANALYSIS.md")
+    # Map niche to file path
+    if niche == "data_engineering":
+        analysis_path = Path("analysis/LATEST_ANALYSIS_DATA_ENGINEERING.md")
+    elif niche == "entertainment":
+        analysis_path = Path("analysis/LATEST_ANALYSIS_ENTERTAINMENT.md")
+    else:
+        # Fallback to generic file
+        analysis_path = Path("analysis/LATEST_ANALYSIS.md")
+
+    # If niche-specific file doesn't exist, try generic
+    if not analysis_path.exists():
+        analysis_path = Path("analysis/LATEST_ANALYSIS.md")
 
     if not analysis_path.exists():
         return {
             "content": None,
             "message": "No strategic analysis available yet",
-            "updated_at": None
+            "updated_at": None,
+            "niche": niche
         }
 
     try:
@@ -1157,7 +1173,9 @@ async def get_strategic_analysis():
 
         return {
             "content": content,
-            "updated_at": updated_at
+            "updated_at": updated_at,
+            "niche": niche,
+            "file": analysis_path.name
         }
     except Exception as e:
         logger.error(f"Failed to read strategic analysis: {e}")
