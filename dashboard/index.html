@@ -2005,6 +2005,165 @@
         }
 
         /* ============================================
+           13. CHOCO-BRUTAL (Chocolatey + Neo-Brutalist)
+           ============================================ */
+        body.theme-choco-brutal {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #1a1410;
+            color: #d8c7a1;
+        }
+
+        .theme-choco-brutal .header {
+            margin-bottom: 60px;
+        }
+
+        .theme-choco-brutal .kicker {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #1a1410;
+            background: #e1b655;
+            padding: 6px 12px;
+            border: 2px solid #c28e61;
+            margin-bottom: 20px;
+        }
+
+        .theme-choco-brutal .main-title {
+            font-size: clamp(3rem, 12vw, 7rem);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            color: #e8dcc4;
+        }
+
+        .theme-choco-brutal .divider {
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(90deg, #c28e61 0, #c28e61 10px, transparent 10px, transparent 20px);
+            margin: 24px 0;
+        }
+
+        .theme-choco-brutal .divider-line,
+        .theme-choco-brutal .divider-accent {
+            display: none;
+        }
+
+        .theme-choco-brutal .subtitle {
+            font-size: 1.1rem;
+            color: #a89070;
+            max-width: 500px;
+            line-height: 1.5;
+        }
+
+        .theme-choco-brutal .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .theme-choco-brutal .card {
+            background: #241c16;
+            border: 3px solid #c28e61;
+            padding: 32px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 6px 6px 0 #654321;
+            transition: all 0.15s ease;
+        }
+
+        .theme-choco-brutal .card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 9px 9px 0 #654321;
+            background: #e1b655;
+            color: #1a1410;
+        }
+
+        .theme-choco-brutal .card:hover .card-description {
+            color: #3d2e1f;
+        }
+
+        .theme-choco-brutal .card:hover .stat-label {
+            color: #5a4a38;
+        }
+
+        .theme-choco-brutal .card-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #c28e61;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .theme-choco-brutal .card:hover .card-number {
+            color: #1a1410;
+        }
+
+        .theme-choco-brutal .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            color: #e8dcc4;
+        }
+
+        .theme-choco-brutal .card:hover .card-title {
+            color: #1a1410;
+        }
+
+        .theme-choco-brutal .card-description {
+            font-size: 0.9rem;
+            color: #a89070;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .theme-choco-brutal .stats-row {
+            display: flex;
+            gap: 24px;
+            padding-top: 16px;
+            border-top: 3px solid #c28e61;
+        }
+
+        .theme-choco-brutal .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e1b655;
+        }
+
+        .theme-choco-brutal .card:hover .stat-value {
+            color: #1a1410;
+        }
+
+        .theme-choco-brutal .stat-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+            color: #6b5a48;
+        }
+
+        .theme-choco-brutal .footer {
+            margin-top: 80px;
+            padding: 20px;
+            border: 3px solid #c28e61;
+            background: #e1b655;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #1a1410;
+        }
+
+        .theme-choco-brutal .footer a {
+            color: #1a1410;
+        }
+
+        /* ============================================
            RESPONSIVE
            ============================================ */
         @media (max-width: 800px) {
@@ -2054,6 +2213,7 @@
         <button class="theme-btn" data-theme="chocolatey">Chocolatey</button>
         <button class="theme-btn" data-theme="choco-retro">Choco-Retro</button>
         <button class="theme-btn" data-theme="choco-memphis">Choco-Memphis</button>
+        <button class="theme-btn" data-theme="choco-brutal">Choco-Brutal</button>
     </div>
 
     <div class="container">
