@@ -1651,6 +1651,360 @@
         }
 
         /* ============================================
+           11. CHOCO-RETRO (Chocolatey + Retro 70s design)
+           ============================================ */
+        body.theme-choco-retro {
+            font-family: 'DM Sans', sans-serif;
+            background: #1a1410;
+            color: #d8c7a1;
+        }
+
+        .theme-choco-retro .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .theme-choco-retro .kicker {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #1a1410;
+            background: #c28e61;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-bottom: 24px;
+        }
+
+        .theme-choco-retro .main-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1;
+            color: #e1b655;
+        }
+
+        .theme-choco-retro .divider {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 28px 0;
+        }
+
+        .theme-choco-retro .divider-line {
+            display: none;
+        }
+
+        .theme-choco-retro .divider-accent {
+            width: 10px;
+            height: 10px;
+            background: #654321;
+            border-radius: 50%;
+        }
+
+        .theme-choco-retro .divider-accent:nth-child(2) {
+            background: #c28e61;
+        }
+
+        .theme-choco-retro .divider-accent:nth-child(3) {
+            background: #e1b655;
+        }
+
+        .theme-choco-retro .subtitle {
+            font-size: 1.1rem;
+            color: #a89070;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .theme-choco-retro .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .theme-choco-retro .card {
+            background: #241c16;
+            border-radius: 24px;
+            padding: 40px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 8px 8px 0 #3d2e1f;
+            transition: all 0.2s ease;
+        }
+
+        .theme-choco-retro .card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0 #3d2e1f;
+        }
+
+        .theme-choco-retro .card-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            background: #c28e61;
+            color: #1a1410;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .theme-choco-retro .card:nth-child(2) .card-number {
+            background: #e1b655;
+        }
+
+        .theme-choco-retro .card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #e8dcc4;
+        }
+
+        .theme-choco-retro .card-description {
+            font-size: 0.95rem;
+            color: #a89070;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .theme-choco-retro .stats-row {
+            display: flex;
+            gap: 28px;
+            padding-top: 20px;
+            border-top: 2px dashed #3d2e1f;
+        }
+
+        .theme-choco-retro .stat-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #c28e61;
+        }
+
+        .theme-choco-retro .card:nth-child(2) .stat-value {
+            color: #e1b655;
+        }
+
+        .theme-choco-retro .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #6b5a48;
+            margin-top: 4px;
+        }
+
+        .theme-choco-retro .footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 32px;
+            font-size: 0.85rem;
+            color: #6b5a48;
+        }
+
+        .theme-choco-retro .footer a {
+            color: #c28e61;
+            text-decoration: none;
+        }
+
+        /* ============================================
+           12. CHOCO-MEMPHIS (Chocolatey + Memphis design)
+           ============================================ */
+        body.theme-choco-memphis {
+            font-family: 'DM Sans', sans-serif;
+            background: #1a1410;
+            color: #d8c7a1;
+        }
+
+        .theme-choco-memphis .container {
+            position: relative;
+        }
+
+        .theme-choco-memphis .header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .theme-choco-memphis .kicker {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #1a1410;
+            background: #c28e61;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            transform: rotate(-2deg);
+        }
+
+        .theme-choco-memphis .main-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 12vw, 6rem);
+            font-weight: 800;
+            line-height: 0.95;
+            color: #e8dcc4;
+            text-shadow: 4px 4px 0 #654321;
+        }
+
+        .theme-choco-memphis .divider {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .theme-choco-memphis .divider-line {
+            display: none;
+        }
+
+        .theme-choco-memphis .divider-accent {
+            width: 16px;
+            height: 16px;
+        }
+
+        .theme-choco-memphis .divider-accent:nth-child(1) {
+            background: #c28e61;
+            border-radius: 50%;
+        }
+
+        .theme-choco-memphis .divider-accent:nth-child(2) {
+            background: #e1b655;
+            transform: rotate(45deg);
+        }
+
+        .theme-choco-memphis .divider-accent:nth-child(3) {
+            background: #8b5a2b;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        .theme-choco-memphis .subtitle {
+            font-size: 1.1rem;
+            color: #a89070;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .theme-choco-memphis .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 50px;
+        }
+
+        .theme-choco-memphis .card {
+            background: #241c16;
+            border: 3px solid #c28e61;
+            border-radius: 20px;
+            padding: 36px;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .theme-choco-memphis .card::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border: 3px solid #e1b655;
+            border-radius: 20px;
+            transform: translate(6px, 6px);
+            z-index: -1;
+        }
+
+        .theme-choco-memphis .card:hover {
+            transform: translate(-3px, -3px);
+        }
+
+        .theme-choco-memphis .card:nth-child(2)::before {
+            border-color: #8b5a2b;
+        }
+
+        .theme-choco-memphis .card-number {
+            display: inline-block;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #1a1410;
+            background: #e1b655;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .theme-choco-memphis .card:nth-child(2) .card-number {
+            background: #c28e61;
+        }
+
+        .theme-choco-memphis .card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #e8dcc4;
+        }
+
+        .theme-choco-memphis .card-description {
+            font-size: 0.95rem;
+            color: #a89070;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .theme-choco-memphis .stats-row {
+            display: flex;
+            gap: 24px;
+            padding-top: 20px;
+            border-top: 2px dashed #3d2e1f;
+        }
+
+        .theme-choco-memphis .stat-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #c28e61;
+        }
+
+        .theme-choco-memphis .card:nth-child(2) .stat-value {
+            color: #e1b655;
+        }
+
+        .theme-choco-memphis .stat-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #6b5a48;
+            margin-top: 4px;
+        }
+
+        .theme-choco-memphis .footer {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 0.85rem;
+            color: #6b5a48;
+        }
+
+        .theme-choco-memphis .footer a {
+            color: #c28e61;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ============================================
            RESPONSIVE
            ============================================ */
         @media (max-width: 800px) {
@@ -1698,6 +2052,8 @@
         <button class="theme-btn" data-theme="luxury">Luxury</button>
         <button class="theme-btn" data-theme="memphis">Memphis</button>
         <button class="theme-btn" data-theme="chocolatey">Chocolatey</button>
+        <button class="theme-btn" data-theme="choco-retro">Choco-Retro</button>
+        <button class="theme-btn" data-theme="choco-memphis">Choco-Memphis</button>
     </div>
 
     <div class="container">
