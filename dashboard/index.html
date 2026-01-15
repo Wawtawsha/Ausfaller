@@ -689,7 +689,7 @@
                     const data = await res.json();
                     const metrics = data.metrics?.[0] || {};
                     animateValue(document.getElementById('de-videos'), metrics.total_videos);
-                    animateValue(document.getElementById('de-analyzed'), metrics.analyzed_count);
+                    animateValue(document.getElementById('de-analyzed'), metrics.analyzed_videos);
                     animateValue(document.getElementById('de-creators'), metrics.unique_creators);
                 }
             } catch (e) {

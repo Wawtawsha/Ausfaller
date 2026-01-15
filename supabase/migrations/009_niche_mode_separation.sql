@@ -138,11 +138,14 @@ CREATE VIEW analytics_summary AS
 SELECT
     COUNT(*) as total_videos,
     COUNT(CASE WHEN analysis IS NOT NULL THEN 1 END) as analyzed_videos,
+    COUNT(DISTINCT author_username) as unique_creators,
     AVG((analysis->'hook'->>'hook_strength')::int) as avg_hook_strength,
     AVG((analysis->'trends'->>'viral_potential_score')::int) as avg_viral_potential,
     AVG((analysis->'replicability'->>'replicability_score')::int) as avg_replicability,
     MIN(scraped_at) as first_scraped,
-    MAX(scraped_at) as last_scraped
+    MAX(scraped_at) as last_scraped,
+    SUM(file_size_bytes) as total_video_bytes,
+    'entertainment' as niche_mode
 FROM posts
 WHERE niche_mode = 'entertainment';
 
@@ -720,6 +723,7 @@ CREATE VIEW educational_metrics AS
 SELECT
     COUNT(*) as total_videos,
     COUNT(*) FILTER (WHERE analysis IS NOT NULL) as analyzed_videos,
+    COUNT(DISTINCT author_username) as unique_creators,
     AVG((analysis->'educational'->>'explanation_clarity')::numeric) as avg_clarity,
     AVG((analysis->'educational'->>'technical_depth')::numeric) as avg_depth,
     AVG((analysis->'educational'->>'educational_value')::numeric) as avg_edu_value,
