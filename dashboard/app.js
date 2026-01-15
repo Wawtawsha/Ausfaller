@@ -136,7 +136,8 @@ function showSkeletons() {
  * Fetch analytics data from API
  */
 async function fetchAnalytics() {
-    const response = await fetch(`${API_BASE}/analytics/all`);
+    const nicheParam = currentNicheMode ? `?niche_mode=${currentNicheMode}` : '';
+    const response = await fetch(`${API_BASE}/analytics/all${nicheParam}`);
     if (!response.ok) {
         throw new Error(`API Error: ${response.status}`);
     }
@@ -169,7 +170,8 @@ async function fetchTrends() {
  * Fetch raw posts for cross-chart filtering
  */
 async function fetchRawPosts() {
-    const response = await fetch(`${API_BASE}/analytics/raw-posts?limit=500`);
+    const nicheParam = currentNicheMode ? `&niche_mode=${currentNicheMode}` : '';
+    const response = await fetch(`${API_BASE}/analytics/raw-posts?limit=500${nicheParam}`);
     if (!response.ok) {
         throw new Error(`API Error: ${response.status}`);
     }

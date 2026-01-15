@@ -610,6 +610,150 @@ CRITICAL INSTRUCTIONS:
 Respond ONLY with the JSON object. No other text."""
 
 
+COMBINED_ANALYSIS_PROMPT = """You are an expert content analyst specializing in both entertainment and educational video content. Analyze this video with dual focus: marketing effectiveness AND educational value.
+
+Extract BOTH entertainment metrics (hooks, viral potential, engagement) AND educational metrics (clarity, technical depth, career value).
+
+Respond with a JSON object matching this EXACT structure:
+
+{
+    "description": "Comprehensive description of video content, what it teaches, and how it engages",
+
+    "hook": {
+        "hook_type": "question|statement|shock|visual|sound|text|action|problem|result|curiosity",
+        "hook_text": "exact text if text-based hook",
+        "hook_technique": "open_loop|curiosity_gap|pattern_interrupt|controversy|transformation|challenge|relatable_pain|bold_claim",
+        "hook_timing_seconds": 0.0,
+        "hook_strength": "<CALCULATE_USING_RUBRIC_1_TO_10>",
+        "attention_retention_method": "how they maintain interest"
+    },
+
+    "audio": {
+        "sound_name": "song or sound name if identifiable",
+        "sound_artist": "artist name if known",
+        "sound_category": "trending_audio|original_audio|voiceover|dialogue|music_only",
+        "is_trending_sound": false,
+        "sound_mood": "energetic|chill|dramatic|comedic|emotional|suspenseful|upbeat",
+        "voice_present": true,
+        "voice_type": "creator_voice|ai_voice|other_person|narrator",
+        "voice_tone": "conversational|authoritative|excited|sarcastic|professional",
+        "speech_pace": "fast|medium|slow"
+    },
+
+    "visual": {
+        "visual_style": "aesthetic|raw|polished|cinematic|casual|professional",
+        "camera_type": "selfie|pov|tripod|handheld|screen_record",
+        "editing_pace": "fast_cuts|medium|slow|single_shot",
+        "face_visibility": "full_face|partial|no_face|multiple_people",
+        "setting_type": "home|office|studio|outdoor|screen_recording"
+    },
+
+    "structure": {
+        "format_type": "tutorial|storytime|day_in_life|transformation|reaction|pov|skit|explainer|demo|walkthrough|comparison|tips|career",
+        "narrative_structure": "linear|before_after|problem_solution|list|reveal|step_by_step",
+        "pacing": "fast|medium|slow|varied",
+        "estimated_duration_seconds": 60,
+        "has_intro": true,
+        "has_outro": true,
+        "loop_friendly": false
+    },
+
+    "engagement": {
+        "cta_type": "follow|like|comment|share|save|subscribe|none",
+        "cta_placement": "beginning|middle|end|none",
+        "comment_bait": ["question", "opinion_request", "controversy"],
+        "share_triggers": ["relatability", "humor", "useful_info", "shocking"],
+        "controversy_level": "<SCORE_0_TO_10>"
+    },
+
+    "trends": {
+        "source_platform": "tiktok|youtube_shorts|youtube|unknown",
+        "is_trend_participation": false,
+        "trend_name": "name if applicable",
+        "viral_potential_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
+        "viral_factors": ["relatability", "shareability", "hook_strength", "educational_value"]
+    },
+
+    "emotion": {
+        "primary_emotion": "joy|surprise|curiosity|inspiration|amusement|trust",
+        "relatability_score": "<SCORE_1_TO_10>",
+        "aspiration_score": "<SCORE_1_TO_10>"
+    },
+
+    "production": {
+        "overall_quality": "low|medium|high|professional",
+        "audio_quality": "poor|acceptable|good|excellent",
+        "visual_clarity": "poor|acceptable|good|excellent",
+        "editing_style": "raw|light_edit|polished|highly_produced"
+    },
+
+    "replicability": {
+        "replicability_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
+        "difficulty_level": "easy|moderate|difficult|expert",
+        "required_resources": ["camera", "microphone", "editing_software", "demo_environment"],
+        "key_success_factors": ["what makes this content effective"]
+    },
+
+    "educational": {
+        "explanation_clarity": "<SCORE_1_TO_10>",
+        "demonstration_quality": "<SCORE_1_TO_10>",
+        "technical_depth": "<SCORE_1_TO_10>",
+        "practical_applicability": "<SCORE_1_TO_10>",
+        "educational_value": "<SCORE_1_TO_10>",
+        "career_relevance": "<SCORE_1_TO_10>",
+        "content_type": "tutorial|demo|career_advice|tool_review|news|opinion|entertainment|mixed",
+        "teaching_technique": "screen_share|live_coding|whiteboard|slides|talking_head|demonstration|mixed",
+        "tools_mentioned": ["list", "specific", "tools", "or", "products"],
+        "concepts_covered": ["list", "topics", "or", "concepts"],
+        "skill_level_target": "beginner|intermediate|advanced|expert|all_levels"
+    },
+
+    "data_engineering": {
+        "microsoft_stack": false,
+        "cloud_platform": "azure|aws|gcp|multi|on_prem|none",
+        "data_layer": "ingestion|transformation|serving|orchestration|governance|none",
+        "architecture_pattern": "medallion|lambda|kappa|data_mesh|traditional|none"
+    },
+
+    "niche": {
+        "primary_niche": "broad category",
+        "sub_niches": ["specific", "sub", "categories"],
+        "topics": ["specific topics covered"],
+        "keywords": ["suggested", "hashtags"]
+    },
+
+    "technical": {
+        "video_resolution": "480p|720p|1080p|4k",
+        "aspect_ratio": "9:16|16:9|1:1|other",
+        "has_captions": true,
+        "audio_language": "english|spanish|other|multilingual"
+    },
+
+    "brand_safety": {
+        "brand_safety_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
+        "content_rating": "all_ages|teen|mature|adult",
+        "sponsorship_fit": ["brand", "categories", "that", "fit"],
+        "copyright_risk": "low|medium|high"
+    },
+
+    "why_it_works": "explanation of what makes this content effective (both engagement AND educational)",
+    "competitive_advantage": "what makes this stand out from similar content",
+    "improvement_opportunities": ["suggestions for improvement"]
+}
+
+CRITICAL INSTRUCTIONS:
+1. Analyze BOTH entertainment value (hooks, viral potential) AND educational value (clarity, depth)
+2. Score entertainment metrics on hook strength, viral potential, replicability
+3. Score educational metrics on clarity, depth, practical applicability
+4. Identify specific tools, products, or technologies mentioned
+5. For educational content, pay attention to teaching technique and demonstration quality
+6. For entertainment content, focus on hook, emotion, and engagement triggers
+7. Use ONLY predefined values where options are given
+8. If something is not applicable, use empty string "", empty array [], or 0
+
+Respond ONLY with the JSON object. No other text."""
+
+
 class GeminiAnalyzer:
     """Analyze videos using Gemini for comprehensive marketing intelligence."""
 
@@ -635,6 +779,8 @@ class GeminiAnalyzer:
         """Get the appropriate analysis prompt based on niche mode."""
         if self.niche_mode == "data_engineering":
             return EDUCATIONAL_ANALYSIS_PROMPT
+        elif self.niche_mode == "both":
+            return COMBINED_ANALYSIS_PROMPT
         return ANALYSIS_PROMPT
 
     def _safe_int(self, value, default: int = 5) -> int:

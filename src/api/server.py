@@ -112,6 +112,10 @@ class DownloadRequest(BaseModel):
 
 class AnalyzeRequest(BaseModel):
     video_paths: list[str] = Field(..., description="List of video file paths")
+    niche_mode: Optional[str] = Field(
+        default=None,
+        description="Analysis mode: 'entertainment', 'data_engineering', or 'both'. Defaults to global setting."
+    )
 
 
 class PipelineRequest(BaseModel):
@@ -120,6 +124,10 @@ class PipelineRequest(BaseModel):
     count: int = Field(default=30, ge=1, le=50)
     skip_analysis: bool = Field(default=False, description="Skip Gemini analysis")
     store_to_supabase: bool = Field(default=False, description="Store results in Supabase")
+    niche_mode: Optional[str] = Field(
+        default=None,
+        description="Analysis mode: 'entertainment', 'data_engineering', or 'both'. Defaults to global setting."
+    )
 
 
 class JobResponse(BaseModel):
@@ -177,6 +185,10 @@ class BatchPipelineRequest(BaseModel):
     hashtags: Optional[list[str]] = Field(default=None, description="List of hashtags to process")
     niche_query: Optional[str] = Field(default=None, description="Generate hashtags from niche description")
     niche: Optional[str] = Field(default=None, description="Niche category for grouping (e.g., 'dj_nightlife', 'bars_restaurants')")
+    niche_mode: Optional[str] = Field(
+        default=None,
+        description="Analysis mode: 'entertainment', 'data_engineering', or 'both'. Defaults to global setting."
+    )
     hashtag_count: int = Field(default=10, ge=1, le=50, description="Number of hashtags to generate")
     videos_per_hashtag: int = Field(default=10, ge=1, le=30)
     skip_analysis: bool = False
@@ -367,9 +379,14 @@ async def analyze_videos(request: AnalyzeRequest):
     """
     Analyze videos with Gemini.
 
+    Args:
+        request.niche_mode: 'entertainment', 'data_engineering', or 'both'
+
     Returns list of analysis results.
     """
-    analyzer = get_analyzer()
+    # Create analyzer with specified niche_mode (or use default from settings)
+    niche_mode = request.niche_mode or settings.niche_mode
+    analyzer = GeminiAnalyzer(api_key=settings.gemini_api_key, niche_mode=niche_mode)
 
     paths = [Path(p) for p in request.video_paths]
     results = await analyzer.analyze_batch(
@@ -470,7 +487,9 @@ async def run_pipeline_job(job_id: str, request: PipelineRequest) -> None:
             jobs[job_id]["status"] = JobStatus.ANALYZING
             logger.info(f"[{job_id}] Analyzing {len(successful_downloads)} videos")
 
-            analyzer = get_analyzer()
+            # Create analyzer with specified niche_mode
+            niche_mode = request.niche_mode or settings.niche_mode
+            analyzer = GeminiAnalyzer(api_key=settings.gemini_api_key, niche_mode=niche_mode)
             paths = [d.file_path for d in successful_downloads]
 
             analyses = await analyzer.analyze_batch(
@@ -486,10 +505,12 @@ async def run_pipeline_job(job_id: str, request: PipelineRequest) -> None:
             if storage:
                 logger.info(f"[{job_id}] Storing to Supabase")
                 analyses_list = analyses if not request.skip_analysis else None
+                niche_mode = request.niche_mode or settings.niche_mode
                 stored = storage.store_batch(
                     videos=extraction.videos,
                     downloads=downloads,
                     analyses=analyses_list,
+                    niche_mode=niche_mode,
                 )
                 logger.info(f"[{job_id}] Stored {stored} posts to Supabase")
             else:
@@ -642,9 +663,14 @@ async def process_single_hashtag(
     skip_analysis: bool,
     store_to_supabase: bool,
     niche: Optional[str] = None,
+    niche_mode: Optional[str] = None,
 ) -> dict:
     """
     Process a single hashtag through the full pipeline.
+
+    Args:
+        niche: Business vertical for grouping (e.g., 'dj_nightlife')
+        niche_mode: Analysis mode ('entertainment', 'data_engineering', 'both')
 
     Returns dict with extraction, download, and analysis results.
     """
@@ -686,7 +712,9 @@ async def process_single_hashtag(
     # Step 3: Analyze (optional)
     analyses = []
     if not skip_analysis:
-        analyzer = get_analyzer()
+        # Create analyzer with specified niche_mode
+        effective_niche_mode = niche_mode or settings.niche_mode
+        analyzer = GeminiAnalyzer(api_key=settings.gemini_api_key, niche_mode=effective_niche_mode)
         paths = [d.file_path for d in successful_downloads]
 
         analyses = await analyzer.analyze_batch(
@@ -699,12 +727,14 @@ async def process_single_hashtag(
     if store_to_supabase:
         storage = get_storage()
         if storage:
+            effective_niche_mode = niche_mode or settings.niche_mode
             stored = storage.store_batch(
                 videos=extraction.videos,
                 downloads=downloads,
                 analyses=analyses if analyses else None,
                 niche=niche,
                 source_hashtag=hashtag,
+                niche_mode=effective_niche_mode,
             )
             logger.info(f"Stored {stored} posts for #{hashtag}")
 
@@ -769,6 +799,7 @@ async def run_batch_pipeline_job(batch_id: str, request: BatchPipelineRequest) -
                     skip_analysis=request.skip_analysis,
                     store_to_supabase=request.store_to_supabase,
                     niche=request.niche,
+                    niche_mode=request.niche_mode,
                 )
 
                 batch_jobs[batch_id]["results"][hashtag].update(result)
@@ -811,6 +842,7 @@ async def run_batch_pipeline_job(batch_id: str, request: BatchPipelineRequest) -
                         count=request.videos_per_hashtag,
                         skip_analysis=request.skip_analysis,
                         niche=request.niche,
+                        niche_mode=request.niche_mode,
                         store_to_supabase=request.store_to_supabase,
                     )
 
@@ -884,18 +916,21 @@ async def list_batch_jobs():
 # ==================== Analytics Endpoints ====================
 
 @app.get("/analytics/summary")
-async def get_analytics_summary():
+async def get_analytics_summary(niche_mode: Optional[str] = None):
     """
-    Get overall analytics summary.
+    Get analytics summary for a specific niche_mode.
 
-    Returns total videos, averages for hook strength, viral potential, replicability.
+    Args:
+        niche_mode: 'entertainment', 'data_engineering', or None (defaults to entertainment)
+
+    Returns different metrics based on niche_mode.
     """
     storage = get_storage()
     if not storage:
         raise HTTPException(status_code=503, detail="Supabase not configured")
 
     try:
-        summary = storage.get_analytics_summary()
+        summary = storage.get_analytics_summary(niche_mode=niche_mode)
         return summary
     except Exception as e:
         logger.error(f"Failed to get analytics summary: {e}")
@@ -1047,9 +1082,12 @@ async def get_replicability_leaderboard(
 
 
 @app.get("/analytics/all")
-async def get_all_analytics():
+async def get_all_analytics(niche_mode: Optional[str] = None):
     """
     Get all analytics data in one request.
+
+    Args:
+        niche_mode: 'entertainment', 'data_engineering', or None (defaults to entertainment)
 
     Combines summary, hooks, audio, visual, viral, and replicability data.
     Ideal for dashboard rendering.
@@ -1059,25 +1097,37 @@ async def get_all_analytics():
         raise HTTPException(status_code=503, detail="Supabase not configured")
 
     try:
-        summary = storage.get_analytics_summary()
+        summary = storage.get_analytics_summary(niche_mode=niche_mode)
         summary["total_video_bytes"] = storage.get_total_video_bytes()
-        return {
-            "summary": summary,
-            "hooks": storage.get_hook_trends(limit=10),
-            "audio": storage.get_audio_trends(limit=10),
-            "visual": storage.get_visual_trends(limit=10),
-            "viral_factors": storage.get_viral_factors(limit=10),
-            "top_replicable": storage.get_replicability_leaderboard(min_score=7, limit=10),
-        }
+        summary["niche_mode"] = niche_mode or "entertainment"
+
+        # Return different data based on niche_mode
+        if niche_mode == "data_engineering":
+            return {
+                "summary": summary,
+                "dataset_averages": storage.get_dataset_averages(niche_mode="data_engineering"),
+            }
+        else:
+            return {
+                "summary": summary,
+                "hooks": storage.get_hook_trends(limit=10),
+                "audio": storage.get_audio_trends(limit=10),
+                "visual": storage.get_visual_trends(limit=10),
+                "viral_factors": storage.get_viral_factors(limit=10),
+                "top_replicable": storage.get_replicability_leaderboard(min_score=7, limit=10),
+            }
     except Exception as e:
         logger.error(f"Failed to get all analytics: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/analytics/raw-posts")
-async def get_raw_posts(limit: int = 500):
+async def get_raw_posts(limit: int = 500, niche_mode: Optional[str] = None):
     """
     Get raw analyzed posts for cross-chart filtering.
+
+    Args:
+        niche_mode: 'entertainment', 'data_engineering', or None for all
 
     Returns posts with full analysis data for client-side aggregation.
     """
@@ -1086,8 +1136,8 @@ async def get_raw_posts(limit: int = 500):
         raise HTTPException(status_code=503, detail="Supabase not configured")
 
     try:
-        posts = storage.get_analyzed_posts_raw(limit=limit)
-        return {"posts": posts, "count": len(posts)}
+        posts = storage.get_analyzed_posts_raw(limit=limit, niche_mode=niche_mode)
+        return {"posts": posts, "count": len(posts), "niche_mode": niche_mode}
     except Exception as e:
         logger.error(f"Failed to get raw posts: {e}")
         raise HTTPException(status_code=500, detail=str(e))

@@ -40,9 +40,14 @@ class SupabaseStorage:
         analysis: Optional[VideoAnalysis] = None,
         niche: Optional[str] = None,
         source_hashtag: Optional[str] = None,
+        niche_mode: Optional[str] = None,
     ) -> dict:
         """
         Store a post with optional download and analysis data.
+
+        Args:
+            niche: Business vertical (e.g., 'dj_nightlife', 'bars_restaurants')
+            niche_mode: Analysis mode ('entertainment', 'data_engineering', 'both')
 
         Returns the inserted/updated record.
         """
@@ -63,6 +68,8 @@ class SupabaseStorage:
             data["niche"] = niche
         if source_hashtag:
             data["source_hashtag"] = source_hashtag
+        # Set niche_mode (defaults to global setting if not specified)
+        data["niche_mode"] = niche_mode or settings.niche_mode
 
         if download_result and download_result.success:
             data["local_file_path"] = str(download_result.file_path)
@@ -106,9 +113,14 @@ class SupabaseStorage:
         analyses: Optional[list[VideoAnalysis]] = None,
         niche: Optional[str] = None,
         source_hashtag: Optional[str] = None,
+        niche_mode: Optional[str] = None,
     ) -> int:
         """
         Store multiple posts at once.
+
+        Args:
+            niche: Business vertical (e.g., 'dj_nightlife', 'bars_restaurants')
+            niche_mode: Analysis mode ('entertainment', 'data_engineering', 'both')
 
         Returns count of stored posts.
         """
@@ -132,7 +144,10 @@ class SupabaseStorage:
                 analysis = analyses_map.get(str(download.file_path))
 
             try:
-                self.store_post(video, download, analysis, niche=niche, source_hashtag=source_hashtag)
+                self.store_post(
+                    video, download, analysis,
+                    niche=niche, source_hashtag=source_hashtag, niche_mode=niche_mode
+                )
                 stored += 1
             except Exception as e:
                 logger.error(f"Failed to store post {video.video_id}: {e}")
@@ -195,30 +210,39 @@ class SupabaseStorage:
         self,
         platform: Optional[str] = None,
         hashtag: Optional[str] = None,
+        niche_mode: Optional[str] = None,
         limit: int = 50,
     ) -> list[dict]:
-        """Get recent posts, optionally filtered."""
+        """Get recent posts, optionally filtered by platform, hashtag, or niche_mode."""
         query = self.client.table("posts").select("*").order("scraped_at", desc=True).limit(limit)
 
         if platform:
             query = query.eq("platform", platform)
         if hashtag:
             query = query.contains("hashtags", [hashtag])
+        if niche_mode:
+            query = query.eq("niche_mode", niche_mode)
 
         result = query.execute()
         return result.data
 
-    def get_unanalyzed_posts(self, limit: int = 20) -> list[dict]:
-        """Get posts that haven't been analyzed yet."""
-        result = (
+    def get_unanalyzed_posts(
+        self,
+        limit: int = 20,
+        niche_mode: Optional[str] = None,
+    ) -> list[dict]:
+        """Get posts that haven't been analyzed yet, optionally filtered by niche_mode."""
+        query = (
             self.client.table("posts")
             .select("*")
             .is_("analyzed_at", "null")
             .not_.is_("local_file_path", "null")
             .order("scraped_at", desc=True)
             .limit(limit)
-            .execute()
         )
+        if niche_mode:
+            query = query.eq("niche_mode", niche_mode)
+        result = query.execute()
         return result.data
 
     def update_post_analysis(self, post_id: str, analysis: VideoAnalysis) -> None:
@@ -255,9 +279,22 @@ class SupabaseStorage:
 
     # ==================== Analytics Methods ====================
 
-    def get_analytics_summary(self) -> dict:
-        """Get overall analytics summary."""
-        result = self.client.table("analytics_summary").select("*").execute()
+    def get_analytics_summary(self, niche_mode: Optional[str] = None) -> dict:
+        """
+        Get analytics summary for a specific niche_mode.
+
+        Args:
+            niche_mode: 'entertainment', 'data_engineering', or None for entertainment (default view)
+
+        Returns summary stats for the specified niche.
+        """
+        if niche_mode == "data_engineering":
+            # Use data engineering summary view
+            result = self.client.table("data_engineering_summary").select("*").execute()
+        else:
+            # Default to entertainment view (analytics_summary is filtered to entertainment)
+            result = self.client.table("analytics_summary").select("*").execute()
+
         if result.data:
             return result.data[0]
         return {}
@@ -362,16 +399,19 @@ class SupabaseStorage:
         self,
         limit: int = 100,
         platform: Optional[str] = None,
+        niche_mode: Optional[str] = None,
     ) -> list[dict]:
-        """Get raw analyzed posts for custom aggregation."""
+        """Get raw analyzed posts for custom aggregation, optionally filtered by niche_mode."""
         query = (
             self.client.table("posts")
-            .select("id, platform, platform_id, video_url, author_username, analysis, scraped_at")
+            .select("id, platform, platform_id, video_url, author_username, analysis, scraped_at, niche_mode")
             .not_.is_("analysis", "null")
             .order("scraped_at", desc=True)
         )
         if platform:
             query = query.eq("platform", platform)
+        if niche_mode:
+            query = query.eq("niche_mode", niche_mode)
 
         result = query.limit(limit).execute()
         return result.data
@@ -626,39 +666,82 @@ class SupabaseStorage:
         )
         return result.data[0] if result.data else None
 
-    def get_dataset_averages(self) -> dict:
-        """Get overall dataset averages for comparison."""
-        result = (
+    def get_dataset_averages(self, niche_mode: Optional[str] = None) -> dict:
+        """
+        Get dataset averages for comparison, optionally filtered by niche_mode.
+
+        Args:
+            niche_mode: 'entertainment', 'data_engineering', or None for all data
+
+        Returns different metrics based on niche_mode:
+            - entertainment: hook, viral, replicability
+            - data_engineering: clarity, depth, edu_value, practical
+        """
+        query = (
             self.client.table("posts")
-            .select("analysis")
+            .select("analysis, niche_mode")
             .not_.is_("analysis", "null")
-            .execute()
         )
+        if niche_mode:
+            query = query.eq("niche_mode", niche_mode)
+
+        result = query.execute()
 
         if not result.data:
+            if niche_mode == "data_engineering":
+                return {"clarity": 0, "depth": 0, "edu_value": 0, "practical": 0, "count": 0}
             return {"hook": 0, "viral": 0, "replicability": 0, "count": 0}
 
-        hooks = []
-        virals = []
-        replicabilities = []
+        if niche_mode == "data_engineering":
+            # Data engineering metrics
+            clarities = []
+            depths = []
+            edu_values = []
+            practicals = []
 
-        for post in result.data:
-            analysis = post.get("analysis", {})
-            if analysis:
-                hook_val = analysis.get("hook", {}).get("hook_strength")
-                viral_val = analysis.get("trends", {}).get("viral_potential_score")
-                replicate_val = analysis.get("replicability", {}).get("replicability_score")
+            for post in result.data:
+                analysis = post.get("analysis", {})
+                if analysis:
+                    edu = analysis.get("educational", {})
+                    if edu.get("explanation_clarity") is not None:
+                        clarities.append(float(edu["explanation_clarity"]))
+                    if edu.get("technical_depth") is not None:
+                        depths.append(float(edu["technical_depth"]))
+                    if edu.get("educational_value") is not None:
+                        edu_values.append(float(edu["educational_value"]))
+                    if edu.get("practical_applicability") is not None:
+                        practicals.append(float(edu["practical_applicability"]))
 
-                if hook_val is not None:
-                    hooks.append(float(hook_val))
-                if viral_val is not None:
-                    virals.append(float(viral_val))
-                if replicate_val is not None:
-                    replicabilities.append(float(replicate_val))
+            return {
+                "clarity": sum(clarities) / len(clarities) if clarities else 0,
+                "depth": sum(depths) / len(depths) if depths else 0,
+                "edu_value": sum(edu_values) / len(edu_values) if edu_values else 0,
+                "practical": sum(practicals) / len(practicals) if practicals else 0,
+                "count": len(result.data),
+            }
+        else:
+            # Entertainment metrics (default)
+            hooks = []
+            virals = []
+            replicabilities = []
 
-        return {
-            "hook": sum(hooks) / len(hooks) if hooks else 0,
-            "viral": sum(virals) / len(virals) if virals else 0,
-            "replicability": sum(replicabilities) / len(replicabilities) if replicabilities else 0,
-            "count": len(result.data),
-        }
+            for post in result.data:
+                analysis = post.get("analysis", {})
+                if analysis:
+                    hook_val = analysis.get("hook", {}).get("hook_strength")
+                    viral_val = analysis.get("trends", {}).get("viral_potential_score")
+                    replicate_val = analysis.get("replicability", {}).get("replicability_score")
+
+                    if hook_val is not None:
+                        hooks.append(float(hook_val))
+                    if viral_val is not None:
+                        virals.append(float(viral_val))
+                    if replicate_val is not None:
+                        replicabilities.append(float(replicate_val))
+
+            return {
+                "hook": sum(hooks) / len(hooks) if hooks else 0,
+                "viral": sum(virals) / len(virals) if virals else 0,
+                "replicability": sum(replicabilities) / len(replicabilities) if replicabilities else 0,
+                "count": len(result.data),
+            }
