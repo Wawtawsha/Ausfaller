@@ -551,7 +551,7 @@
         }
     </style>
 </head>
-<body class="theme-light">
+<body class="theme-dark">
     <div class="theme-toggle">
         <span class="theme-toggle-label">Dark Mode</span>
         <label class="toggle-switch">
@@ -640,10 +640,12 @@
             setTheme(checkbox.checked);
         });
 
-        // Load saved preference
+        // Load saved preference (default to dark)
         const savedDarkMode = localStorage.getItem('ausfaller-dark-mode');
         if (savedDarkMode !== null) {
             setTheme(savedDarkMode === 'true');
+        } else {
+            setTheme(true); // Default to dark mode
         }
 
         // Stats animation
