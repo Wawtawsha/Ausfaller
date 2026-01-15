@@ -199,6 +199,9 @@ function setNicheMode(mode) {
         }
     });
 
+    // Refetch ALL data for the selected niche mode
+    refreshDashboard();
+
     // Fetch and update educational metrics if switching to data_engineering
     if (mode === 'data_engineering') {
         fetchEducationalAnalytics().then(updateEducationalMetrics).catch(console.error);
@@ -208,6 +211,55 @@ function setNicheMode(mode) {
     fetchStrategicAnalysis()
         .then(renderStrategicAnalysis)
         .catch(err => console.warn('Failed to fetch strategic analysis:', err));
+}
+
+/**
+ * Refresh all dashboard data with current niche_mode
+ */
+async function refreshDashboard() {
+    try {
+        showSkeletons();
+
+        // Fetch analytics with niche_mode filter
+        const data = await fetchAnalytics();
+
+        // Update summary metrics
+        if (data.summary) {
+            updateMetrics(data.summary);
+        }
+
+        // Update charts (entertainment mode only has these)
+        if (currentNicheMode === 'entertainment' || !currentNicheMode) {
+            if (data.hooks) {
+                analyticsData.hooks = data.hooks;
+                renderHookChart(data.hooks);
+            }
+            if (data.audio) {
+                analyticsData.audio = data.audio;
+                renderAudioChart(data.audio);
+            }
+            if (data.visual) {
+                analyticsData.visual = data.visual;
+                renderVisualChart(data.visual);
+            }
+            if (data.viral_factors) {
+                analyticsData.viral_factors = data.viral_factors;
+                renderViralChart(data.viral_factors);
+            }
+            if (data.top_replicable) {
+                renderLeaderboard(data.top_replicable);
+            }
+        }
+
+        // Fetch raw posts with niche_mode filter
+        const rawData = await fetchRawPosts();
+        if (rawData.posts) {
+            rawPosts = rawData.posts;
+        }
+
+    } catch (err) {
+        console.error('Dashboard refresh failed:', err);
+    }
 }
 
 /**
