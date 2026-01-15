@@ -20,40 +20,83 @@ from src.extractor.substack import SubstackExtractor
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# Data engineering Substack publications (verified working)
+# Data engineering Substack publications (expanded list)
 DATA_ENGINEERING_PUBLICATIONS = [
-    # Core data engineering (verified)
+    # Core data engineering (verified working)
     "dataengineeringweekly",
     "dataengineeringcentral",
     "moderndata101",
     "marvelousmlops",
-    "benn",  # Benn Stancil - analytics
-    "datatalks",
-
-    # Additional data engineering
+    "benn",
     "seattledataguy",
-    "startdataengineering",
-    "dataenguncomplicated",
-    "practicaldataeng",
+    "ergestx",
     "thedataengineer",
-    "ergestx",  # Data engineering tips
-    "learndataengineering",
     "dataqualitycamp",
-
-    # Analytics & BI
-    "theanalyticsengineer",
-    "sqlpatterns",
-    "daborado",  # Power BI / DAX
-    "sqlbi",
-
-    # Cloud/Platform specific
+    "startdataengineering",
+    "learndataengineering",
+    "datatalks",
     "clouddata",
-    "databricksblog",
-    "snowflakenews",
 
-    # Data leadership
-    "rundatateams",
-    "localdatastack",
+    # Data/Analytics newsletters
+    "thesequel",
+    "groupbydata",
+    "datafold",
+    "getdbt",
+    "airbyte",
+    "tristan",  # Tristan Handy / dbt
+    "annafelicity",
+    "sarahsnewsletter",
+    "mikeckennedy",
+    "technically",
+    "periscopedata",
+    "maboroshi",
+
+    # Tech/Engineering adjacent
+    "bytebytego",
+    "pragmaticengineer",
+    "theengineeringmanager",
+    "highgrowthengineering",
+    "lethain",
+    "lcamtuf",
+    "changelog",
+    "pointer",
+    "tldr",
+
+    # ML/AI + Data
+    "deeplearningweekly",
+    "thesequence",
+    "lastweekinai",
+    "importai",
+    "machinelearnings",
+    "gradientflow",
+    "aisupremacy",
+
+    # Cloud/Platform
+    "clouddeveloper",
+    "awsweekly",
+    "gcpweekly",
+    "azureweekly",
+    "serverlessland",
+    "cloudirregular",
+
+    # Analytics/BI specific
+    "amplitudenewsletter",
+    "mixpanel",
+    "analyticsengineering",
+    "metricstack",
+    "preql",
+    "hyperquery",
+    "mode",
+    "census",
+    "hightouch",
+
+    # Data leadership/careers
+    "lennysnewsletter",
+    "eczachly",  # Zach Wilson
+    "datawithchad",
+    "ananelson",
+    "davidsj",
+    "mikekaminsky",
 ]
 
 OUTPUT_DIR = Path(r'C:\Users\steph\.social-scraper\cache\substack')
