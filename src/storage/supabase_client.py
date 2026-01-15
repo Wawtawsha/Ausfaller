@@ -18,6 +18,23 @@ from src.analyzer.gemini import VideoAnalysis
 
 logger = logging.getLogger(__name__)
 
+# Valid niche_mode values for data separation
+VALID_NICHE_MODES = {"entertainment", "data_engineering", "both"}
+
+
+def validate_niche_mode(niche_mode: Optional[str]) -> str:
+    """
+    Validate and return niche_mode, defaulting to settings if None.
+
+    Raises ValueError for invalid modes to prevent data corruption.
+    """
+    mode = niche_mode or settings.niche_mode
+    if mode not in VALID_NICHE_MODES:
+        raise ValueError(
+            f"Invalid niche_mode '{mode}'. Must be one of: {VALID_NICHE_MODES}"
+        )
+    return mode
+
 
 class SupabaseStorage:
     """Storage client for Supabase."""
@@ -128,8 +145,8 @@ class SupabaseStorage:
             data["niche"] = niche
         if source_hashtag:
             data["source_hashtag"] = source_hashtag
-        # Set niche_mode (defaults to global setting if not specified)
-        data["niche_mode"] = niche_mode or settings.niche_mode
+        # Validate and set niche_mode (raises ValueError for invalid modes)
+        data["niche_mode"] = validate_niche_mode(niche_mode)
 
         if download_result and download_result.success:
             data["local_file_path"] = str(download_result.file_path)
@@ -184,6 +201,9 @@ class SupabaseStorage:
 
         Returns count of stored posts.
         """
+        # Validate niche_mode early to fail fast before processing
+        validated_mode = validate_niche_mode(niche_mode)
+
         downloads_map = {}
         if downloads:
             for d in downloads:
@@ -206,7 +226,7 @@ class SupabaseStorage:
             try:
                 self.store_post(
                     video, download, analysis,
-                    niche=niche, source_hashtag=source_hashtag, niche_mode=niche_mode
+                    niche=niche, source_hashtag=source_hashtag, niche_mode=validated_mode
                 )
                 stored += 1
             except Exception as e:

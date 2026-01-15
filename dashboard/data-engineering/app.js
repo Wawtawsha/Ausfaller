@@ -3,7 +3,11 @@
  * Handles data fetching and rendering for educational content analytics
  */
 
-const API_BASE_URL = 'https://ausfaller.up.railway.app';
+// Use relative URL to work both locally and in production
+const API_BASE_URL = '';
+
+// Current niche mode for this dashboard
+const currentNicheMode = 'data_engineering';
 
 // DOM Elements
 const elements = {
@@ -58,11 +62,21 @@ const skillLevelColors = {
 };
 
 /**
- * Fetch data from API endpoint
+ * Fetch data from API endpoint with niche_mode parameter
  */
-async function fetchData(endpoint) {
+async function fetchData(endpoint, extraParams = {}) {
     try {
-        const response = await fetch(`${API_BASE_URL}${endpoint}`);
+        const url = new URL(`${API_BASE_URL}${endpoint}`, window.location.origin);
+
+        // Always include niche_mode for proper data filtering
+        const params = { niche_mode: currentNicheMode, ...extraParams };
+        Object.entries(params).forEach(([key, value]) => {
+            if (value !== null && value !== undefined && value !== '') {
+                url.searchParams.set(key, value);
+            }
+        });
+
+        const response = await fetch(url.toString());
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -565,16 +579,79 @@ function processNumberedLists(text) {
 }
 
 /**
- * Render top creators leaderboard
+ * Render top educators leaderboard from analyzed posts
  */
 async function renderLeaderboard() {
-    // For now, show placeholder since we don't have analyzed data
-    elements.leaderboard.innerHTML = `
-        <div class="leaderboard-empty">
-            <p>Leaderboard will populate after content analysis.</p>
-            <p class="leaderboard-note">649 videos collected, awaiting AI analysis.</p>
+    const data = await fetchData('/analytics/raw-posts', { limit: 500 });
+
+    if (!data || !data.posts || data.posts.length === 0) {
+        elements.leaderboard.innerHTML = `
+            <div class="leaderboard-empty">
+                <p>No analyzed content yet.</p>
+            </div>
+        `;
+        return;
+    }
+
+    // Aggregate by creator
+    const creatorStats = {};
+    data.posts.forEach(post => {
+        const username = post.author_username || 'Unknown';
+        if (!creatorStats[username]) {
+            creatorStats[username] = {
+                username,
+                platform: post.platform,
+                videos: 0,
+                totalClarity: 0,
+                totalDepth: 0,
+                totalValue: 0,
+            };
+        }
+        const stats = creatorStats[username];
+        stats.videos++;
+
+        // Extract educational scores from analysis
+        if (post.analysis?.educational) {
+            const edu = post.analysis.educational;
+            stats.totalClarity += edu.explanation_clarity || 0;
+            stats.totalDepth += edu.technical_depth || 0;
+            stats.totalValue += edu.educational_value || 0;
+        }
+    });
+
+    // Calculate averages and sort by educational value
+    const creators = Object.values(creatorStats)
+        .map(c => ({
+            ...c,
+            avgClarity: c.videos > 0 ? (c.totalClarity / c.videos).toFixed(1) : 0,
+            avgDepth: c.videos > 0 ? (c.totalDepth / c.videos).toFixed(1) : 0,
+            avgValue: c.videos > 0 ? (c.totalValue / c.videos).toFixed(1) : 0,
+        }))
+        .filter(c => c.videos >= 2)  // Require at least 2 videos
+        .sort((a, b) => b.avgValue - a.avgValue)
+        .slice(0, 10);
+
+    if (creators.length === 0) {
+        elements.leaderboard.innerHTML = `
+            <div class="leaderboard-empty">
+                <p>Not enough analyzed content for rankings.</p>
+            </div>
+        `;
+        return;
+    }
+
+    elements.leaderboard.innerHTML = creators.map((creator, i) => `
+        <div class="leaderboard-item">
+            <div class="rank">${i + 1}</div>
+            <div class="creator-info">
+                <div class="creator-name">@${creator.username}</div>
+                <div class="creator-stats">${creator.videos} videos • ${creator.platform}</div>
+            </div>
+            <div class="scores">
+                <span class="score" title="Educational Value">${creator.avgValue}</span>
+            </div>
         </div>
-    `;
+    `).join('');
 }
 
 /**

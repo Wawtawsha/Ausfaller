@@ -668,8 +668,9 @@
         }
 
         async function fetchStats() {
+            // Fetch entertainment stats (bartender/nightlife niche)
             try {
-                const res = await fetch(`${API_BASE_URL}/analytics/all`);
+                const res = await fetch(`${API_BASE_URL}/analytics/all?niche_mode=entertainment`);
                 if (res.ok) {
                     const data = await res.json();
                     const summary = data.summary || {};
@@ -683,8 +684,9 @@
                 });
             }
 
+            // Fetch data engineering stats
             try {
-                const res = await fetch(`${API_BASE_URL}/analytics/educational`);
+                const res = await fetch(`${API_BASE_URL}/analytics/educational?niche_mode=data_engineering`);
                 if (res.ok) {
                     const data = await res.json();
                     const metrics = data.metrics?.[0] || {};

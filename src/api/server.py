@@ -1152,9 +1152,13 @@ async def analyze_account(
     account_id: str,
     background_tasks: BackgroundTasks,
     video_count: int = 30,
+    niche_mode: Optional[str] = None,
 ):
     """
     Run full analysis on an account: scrape profile → download videos → analyze → compare.
+
+    Args:
+        niche_mode: Analysis mode ('entertainment', 'data_engineering', 'both'). Defaults to global setting.
 
     Returns a job_id to poll for status.
     """
@@ -1190,7 +1194,7 @@ async def analyze_account(
     # Update account status
     storage.update_account(account_id, status="analyzing")
 
-    background_tasks.add_task(run_account_analysis_job, job_id, account, video_count)
+    background_tasks.add_task(run_account_analysis_job, job_id, account, video_count, niche_mode)
 
     return {
         "job_id": job_id,
@@ -1203,6 +1207,7 @@ async def run_account_analysis_job(
     job_id: str,
     account: dict,
     video_count: int,
+    niche_mode: Optional[str] = None,
 ) -> None:
     """Background task to run full account analysis."""
     account_jobs[job_id]["started_at"] = datetime.utcnow().isoformat()
@@ -1288,6 +1293,7 @@ async def run_account_analysis_job(
             videos=extraction.videos,
             downloads=downloads,
             analyses=analyses,
+            niche_mode=niche_mode,
         )
         logger.info(f"[{job_id}] Stored {stored} posts")
 
@@ -1481,7 +1487,8 @@ class BatchCollectRequest(BaseModel):
 class BatchProcessRequest(BaseModel):
     """Request for full batch processing."""
     batch_id: str = Field(description="Batch ID from collection")
-    niche: str = Field(default="data_engineering", description="Niche for analysis")
+    niche: Optional[str] = Field(default=None, description="Business vertical for grouping (e.g., 'dj_nightlife')")
+    niche_mode: str = Field(default="data_engineering", description="Analysis mode: 'entertainment', 'data_engineering', or 'both'")
     max_concurrent_downloads: int = Field(default=5, ge=1, le=10)
     max_concurrent_analyses: int = Field(default=3, ge=1, le=5)
     store_to_supabase: bool = Field(default=True)
@@ -1627,7 +1634,7 @@ async def batch_process(batch_id: str, request: BatchProcessRequest, background_
                 items=downloaded_items,
                 batch_id=batch_id,
                 max_concurrent=request.max_concurrent_analyses,
-                niche_mode=request.niche,
+                niche_mode=request.niche_mode,
             )
 
             batch_collect_jobs[process_job_id]["progress"]["analyzed"] = analysis_result.analyzed
@@ -1660,6 +1667,7 @@ async def batch_process(batch_id: str, request: BatchProcessRequest, background_
                                     video_info=video_info,
                                     analysis=analysis,
                                     niche=request.niche,
+                                    niche_mode=request.niche_mode,
                                 )
                                 stored += 1
                             except Exception as e:

@@ -97,9 +97,12 @@ async def get_all_analytics(niche_mode: Optional[str] = None):
 
 
 @router.get("/hooks")
-async def get_hook_trends(limit: int = 20):
+async def get_hook_trends(limit: int = 20, niche_mode: Optional[str] = None):
     """
     Get hook type and technique distribution.
+
+    Args:
+        niche_mode: Filter by analysis mode. Currently returns entertainment data only.
 
     Shows which hook types (text, question, visual, etc.) and techniques
     (relatable_pain, curiosity_gap, etc.) are most common.
@@ -109,17 +112,21 @@ async def get_hook_trends(limit: int = 20):
         raise HTTPException(status_code=503, detail="Supabase not configured")
 
     try:
+        # Note: Database views filter by niche_mode internally
         hooks = storage.get_hook_trends(limit=limit)
-        return {"hook_trends": hooks}
+        return {"hook_trends": hooks, "niche_mode": niche_mode or "entertainment"}
     except Exception as e:
         logger.error(f"Failed to get hook trends: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/audio")
-async def get_audio_trends(limit: int = 20):
+async def get_audio_trends(limit: int = 20, niche_mode: Optional[str] = None):
     """
     Get audio/sound category distribution.
+
+    Args:
+        niche_mode: Filter by analysis mode. Currently returns entertainment data only.
 
     Shows trending_audio, voiceover, dialogue, etc. breakdown.
     """
@@ -129,16 +136,19 @@ async def get_audio_trends(limit: int = 20):
 
     try:
         audio = storage.get_audio_trends(limit=limit)
-        return {"audio_trends": audio}
+        return {"audio_trends": audio, "niche_mode": niche_mode or "entertainment"}
     except Exception as e:
         logger.error(f"Failed to get audio trends: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/visual")
-async def get_visual_trends(limit: int = 20):
+async def get_visual_trends(limit: int = 20, niche_mode: Optional[str] = None):
     """
     Get visual style and setting distribution.
+
+    Args:
+        niche_mode: Filter by analysis mode. Currently returns entertainment data only.
 
     Shows casual vs raw vs polished styles, and setting types (bar, outdoor, etc.).
     """
@@ -148,16 +158,19 @@ async def get_visual_trends(limit: int = 20):
 
     try:
         visual = storage.get_visual_trends(limit=limit)
-        return {"visual_trends": visual}
+        return {"visual_trends": visual, "niche_mode": niche_mode or "entertainment"}
     except Exception as e:
         logger.error(f"Failed to get visual trends: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/viral")
-async def get_viral_trends(limit: int = 20):
+async def get_viral_trends(limit: int = 20, niche_mode: Optional[str] = None):
     """
     Get viral potential score distribution and top viral factors.
+
+    Args:
+        niche_mode: Filter by analysis mode. Currently returns entertainment data only.
     """
     storage = get_storage()
     if not storage:
@@ -169,6 +182,7 @@ async def get_viral_trends(limit: int = 20):
         return {
             "viral_score_distribution": viral,
             "top_viral_factors": factors,
+            "niche_mode": niche_mode or "entertainment",
         }
     except Exception as e:
         logger.error(f"Failed to get viral trends: {e}")
