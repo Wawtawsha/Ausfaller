@@ -88,13 +88,35 @@ def build_video_items():
     return matched_items
 
 
-async def run_analysis(limit: int = None, delay: float = 2.0, store_to_db: bool = True):
+async def run_analysis(limit: int = None, delay: float = 2.0, store_to_db: bool = True, resume_file: str = None):
     """Run batch analysis on all videos."""
     from src.analyzer.gemini import GeminiAnalyzer
     from supabase import create_client
 
     # Build items list
     items = build_video_items()
+
+    # Load already-analyzed video IDs if resuming
+    analyzed_ids = set()
+    if resume_file:
+        resume_path = Path(resume_file)
+        if resume_path.exists():
+            with open(resume_path) as f:
+                for line in f:
+                    try:
+                        entry = json.loads(line)
+                        vid = entry.get('video_id', '')
+                        if vid:
+                            analyzed_ids.add(vid)
+                    except:
+                        pass
+            logger.info(f"Resuming: loaded {len(analyzed_ids)} already-analyzed video IDs")
+
+    # Filter out already-analyzed items
+    if analyzed_ids:
+        original_count = len(items)
+        items = [item for item in items if item.get('video_id', '') not in analyzed_ids]
+        logger.info(f"Skipping {original_count - len(items)} already-analyzed videos")
 
     if limit:
         items = items[:limit]
@@ -112,9 +134,13 @@ async def run_analysis(limit: int = None, delay: float = 2.0, store_to_db: bool 
     if store_to_db:
         db_client = create_client(settings.supabase_url, settings.supabase_key)
 
-    # Generate batch ID for this run
-    batch_id = f"combined_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-    results_file = OUTPUT_DIR / f"{batch_id}_results.jsonl"
+    # Use existing results file if resuming, otherwise create new
+    if resume_file:
+        results_file = Path(resume_file)
+        batch_id = results_file.stem
+    else:
+        batch_id = f"combined_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        results_file = OUTPUT_DIR / f"{batch_id}_results.jsonl"
 
     total = len(items)
     logger.info(f"Starting analysis of {total} videos")
@@ -227,6 +253,7 @@ def main():
     parser.add_argument('--limit', type=int, help='Limit number of videos to analyze')
     parser.add_argument('--delay', type=float, default=2.0, help='Delay between requests (seconds)')
     parser.add_argument('--no-store', action='store_true', help='Skip storing to database')
+    parser.add_argument('--resume', type=str, help='Resume from existing results file (skips already-analyzed)')
     args = parser.parse_args()
 
     # Check for Gemini API key
@@ -240,7 +267,8 @@ def main():
     asyncio.run(run_analysis(
         limit=args.limit,
         delay=args.delay,
-        store_to_db=not args.no_store
+        store_to_db=not args.no_store,
+        resume_file=args.resume
     ))
 
 
