@@ -129,6 +129,8 @@ class Platform(str, Enum):
 4. Substack extraction is RSS-based, no API key needed
 5. Dashboard toggle switches between entertainment metrics (hooks, viral potential) and educational metrics (clarity, depth, value)
 6. The `dadausfaller` directory was a temporary clone - use `social-scraper` as the working directory
+7. **NEVER analyze video content yourself** - Always send videos to Gemini API for analysis. Use `src/analyzer/gemini.py` and the `GeminiAnalyzer` class. Claude should orchestrate/script the analysis, not perform it directly.
+8. **Dashboard is deployed on Vercel+Railway** - No local server needed to view the dashboard. Data goes to Supabase, frontend is hosted.
 
 ## Recent Changes (January 13, 2026)
 
