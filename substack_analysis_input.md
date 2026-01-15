@@ -1,8 +1,8 @@
 # Substack Analysis Input
-Generated: 2026-01-15T01:16:49.517608
-Source: substack_posts_20260115_011643.json
-Total posts available: 152
-Posts included: 100
+Generated: 2026-01-15T01:26:11.643535
+Source: substack_posts_20260115_012517.json
+Total posts available: 509
+Posts included: 509
 
 
 # Substack Content Analysis - Data Engineering Niche
@@ -1480,6 +1480,5732 @@ At least, answer this question. Answer it now, before it's too late. Before this
 
 **Content Preview:**
 At a party given by a billionaire on Shelter Island, Kurt Vonnegut informs his pal, Joseph Heller, that their host, a hedge fund manager, had made more money in a single day than Heller had earned from his wildly popular novel Catch-22 over its whole history. Heller responds, &#8220;Yes, but I have something he will never have &#8230; enough.&#8221; &#8211; from Morgan Housel&#8217;s The Psychology of Money , recounting a story from Vanguard founder John Bogle It&#8217;s both everywhere and, somehow, still, nobody knows how to talk about it. I don&#8217;t know what else we would say. I don&#8217;t know what we can say, other than what everyone already says: &#8220;It&#8217;s gotten so crazy,&#8221; and, &#8220;can you imagine?,&#8221; and, &#8220;man, that is a lot of money.&#8221; But man, that is a lot of money. Which one? I can&#8217;t keep track. It&#8217;s OpenAI, raising money that values the company at $500 billion , which is $200 billion more than its valuation just five months ago&#8212;which was, then, the largest private fundraise in history . It&#8217;s Meta, adding almost $200 billion to its market cap in a day, only to be outdone by Microsoft going up by $265 billion on the same day . It&#8217;s Microsoft, becoming a $4 trillion company , less than seven years after Apple became the first company to reach a measly one trillion . (Even Broadcom&#8212;whose website looks like a regional home security provider 1 &#8212;is worth more than that today.) And that all happened over the last week. The week before, it was Ramp, raising $500 million &#8212;million, with an M, how quaint&#8212;at a $22.5 billion valuation, less than two months after they raised $200 million at a $16 billion valuation. It was Meta, buying Scale AI&#8217;s CEO for $15 billion , or OpenAI, buying Jony Ive for $6 billion . It was Meta again, trying to buy an engineer from Thinking Machines for $250 million a year, and not only getting rejected, but getting rejected for economically ra...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 101: What It Actually Takes to Build a Data Pipeline System
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/what-it-actually-takes-to-build-a
+**Published:** 2026-01-14T17:59:10+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; Today I am continuing my series on data pipelines. In the prior article we discussed the types of data pipelines that exist. Today, we&#8217;ll be discussing the components you&#8217;ll need if you plan to build your own data pipeline from scratch. But before we jump in, I wanted to share a bit about Estuary , a platform I&#8217;ve used to help make clients&#8217; data workflows easier and am an adviser for. Estuary helps teams easily move data in real-time or on a schedule, from databases and SaaS apps to data lakes and warehouses, empowering data leaders to focus on strategy and impact rather than getting bogged down by infrastructure challenges. If you want to simplify your data workflows, check them out today. Now let&#8217;s jump into the article! When I first started in the data world, it was common that many data teams would build their own data pipeline solutions. There were still dozens of options in terms of off the shelf tools of course, nevertheless, you&#8217;d see custom pipelines developed everywhere. In 2025, I saw less of this. In fact, in many cases data teams would go straight to picking tools or solutions. But let&#8217;s say you do want to go down this route. You want to build your own data pipeline solution? How would you do it? What Components You&#8217;ll Need Below I&#8217;ll outline the components most every data pipeline system I&#8217;ve worked with requires/has had. Secrets And Connection Management I am going to start the list of components off with secrets and connection management. Because this is how you&#8217;ll likely set up source and destinations, without sources and destinations, you really have no reason to build your pipeline. You just have orphaned SQL logic doing nothing, and Python pushing data nowhere. It&#8217;s also crucial in how easy you make it to manage the rest of your system. Do you want your data team members to have to write a custom connection script...
+
+**Embedded Videos:** 2
+
+
+---
+## Post 102: Common Data Pipeline Patterns You’ll See in the Real World
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/common-data-pipeline-patterns-youll
+**Published:** 2026-01-05T19:58:06+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; This is the first newsletter for 2026! One of my goals in 2026 is to put together series. So this is the first of a longer series focused on data pipelines. I wanted to start out by discussing the types of data pipelines I&#8217;ve seen in terms of how they are used as data pipelines can be used for more that one specific use case. Some of this content will also live inside the Data Leaders Playbook , along with upcoming webinars and discussions. If you don&#8217;t want to miss what&#8217;s coming next, you can sign up here . Now let&#8217;s dive in! Whether you&#8217;re working at a large enterprise or a small business, there has likely been some need to take data out of the various source systems, process it, and then use it for either operational or analytical purposes. Add in a few lines of code or a low-code solution, and the term data pipeline might start getting thrown around. This might make some data engineers angry, but if you think about it, someone extracting data from a data source into Excel, adding in VLOOKUPs , some data cleansing via formulas and IFELSE() statements is essentially building a data pipeline&#8230;. Ok, it&#8217;s not the exact same thing, but when you stop and think about it, it can functionally solve a similar problem(although often in a more limited and specific way) My point is that there are a lot of different ways and reasons people build data pipelines. So, to kick off 2026, I wanted to discuss some of the key reasons data pipelines exist and the types of pipelines you will run into. Source Standardization Pipelines Some of the first pipelines I helped build and manage were focused on taking data sets from dozens of companies and standardizing them to a single core data model . In particular, this involved getting data via SFTP in different formats, including comma-delimited, pipe-delimited, XML , and even positional files, where you had to have a separate file that ...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 103: Snowflake vs Databricks Is the Wrong Debate
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/snowflake-vs-databricks-is-the-wrong
+**Published:** 2025-12-12T15:49:29+00:00
+
+**Content Preview:**
+Over the last few years, Databricks has been executing a strategy to take over the entire data workflow. Maybe it never started that way. Maybe when they first came out, they only ever planned to be a managed Spark solution. But I have a hard time believing that, mostly because I believe their leadership has the vision and capabilities to see far beyond that. Databricks has always been pretty upfront that they want to be the end-to-end data stack. But they&#8217;ve been approaching it piece by piece. Or should I say role by role? Obviously, at first, their focus was on the data scientist and ML engineer. But in 2020, they wanted to shift the narrative. They were more than just managed Spark, they were a data platform that could replace your others. So they championed the idea of the Data Lakehouse. You could view this as a capturing of the data engineering market. But this didn&#8217;t happen overnight. If you look at some of the posts and content shown below, Databricks tends to push an idea or concept very hard when they really want to capture that market. Shown below when they pushed the concept of the Data Lakehouse and now their data visualization and analytical workflows. I&#8217;ve already written about the Data Lakehouse and how it was heavily pushed by Databricks in 2020, so I don&#8217;t want to dive too deeply here. I believe there are far more interesting recent happenings that stick out. This past month, I believe Databricks started to make its final push into gaining the mental market share for analysts. How? Databricks just partnered with the biggest analytics creator. Alex The Analyst. There are several reasons I believe this is significant. Although many companies partner with data creators all the time, I think, if we look at Alex the Analyst&#8217;s audience, we&#8217;ll see that Databricks wants to put the final nail in the coffin of the data analytics workflow. They want to show end-users that hey, if you&#8217;re an analyst, Databricks is for y...
+
+**Embedded Videos:** 4
+
+
+---
+## Post 104: How I Run System Design Interviews for Data Engineers 
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/how-i-run-system-design-interviews
+**Published:** 2025-12-09T17:54:01+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; Today we have another amazing guest author. Mehdi Ouazza &#8212;better known as &#8212;is a data engineer and developer advocate at MotherDuck with over a decade of experience building data systems at companies like Klarna, BackMarket, and Trade Republic. He combines deep engineering expertise with a playful, approachable style, creating blogs, videos, and social content that make complex data and software topics easier to grasp. When he&#8217;s not shipping pipelines or crafting educational content, he&#8217;s usually experimenting with creative ideas that bring a fresh, off-beat energy to the developer community. He&#8217;ll be sharing how he runs system design interviews for data engineers, but I won&#8217;t get too ahead of myself. So let&#8217;s jump into the article! After hundreds of technical interviews for data engineering positions, I&#8217;ve developed what I call the &#8220;exploration&#8221; approach to system design interviews. Think of it like exploring a new city: you start with a bird&#8217;s-eye view of the whole map, then zoom into specific neighborhoods that look interesting, getting to know some streets really well while keeping track of how they connect to the bigger picture. It&#8217;s become my secret weapon for truly understanding a candidate&#8217;s technical knowledge while keeping the conversation engaging and productive. This type of interview matters even more in our current AI-assisted world. Coding matters less than ever before. We can generate vast amounts of code with tools like Copilot or ChatGPT. But understanding how components work, their foundations, and their trade-offs? That&#8217;s irreplaceable. If you&#8217;re interviewing with me, consider this your cheat code. Setting the stage Be human You would be surprised how many interviewers miss the obvious: presenting yourself as a human being . I&#8217;ve sat through countless interviews where the interviewer jumps s...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 105: Translating Data Buzzwords Into Real Requirements
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/translating-data-buzzwords-into-real
+**Published:** 2025-12-02T15:12:23+00:00
+
+**Content Preview:**
+One of the challenges many data teams and leaders face is helping the business understand what they are asking for. It might be that a business executive just came from a conference or read an article and now they are suddenly requesting your team to build an AI-powered, virtual 3-D pie chart that allows for self-service, dynamic drill-downs &#8220;like that demo they saw on stage.&#8221; Or maybe someone from finance forwards you a Gartner report and asks why you still don&#8217;t have a Data Mesh, a Lakehouse, and whatever the latest marketing term is this month. None of this is malicious...ok, perhaps a little from the marketing and sales from vendors &#8230; It&#8217;s a symptom of a bigger problem: Most of the vocabulary we use in data has escaped into the business without the underlying meaning. People hear terms, &#8220;real-time,&#8221; &#8220;semantic layer,&#8221; &#8220;self-service,&#8221; &#8220;data quality&#8221;, and either don&#8217;t clarify their understanding or are waiting for someone else to properly define them. This gap creates: Mismatched expectations Projects that sound good but don&#8217;t solve real problems And a lot of unnecessary fire drills So in this article, I want to break down a handful of terms that data teams constantly find themselves explaining, not because the business isn&#8217;t smart, but because these concepts are overloaded, over-marketed, and often misused. Batch And Real-Time - What Do You Really Need? Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 106: Own the Spreadsheet, Own the World
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/own-the-spreadsheet-own-the-world
+**Published:** 2025-11-28T18:05:47+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; Today I wanted to discuss spreadsheets and well Excel. It&#8217;s a tool that continues to be used decades later by both non-data and data teams alike. For some, this is a frustrating fact as they think everything should be in code and version control. For others they are making it part of their workflows. But before diving into today&#8217;s newsletter, I want to take a moment to thank this issue&#8217;s sponsor: Hex . Hex brings the magic of AI to data analysis workflows, whether you&#8217;re using code or no-code. Hex helps organizations work together with data and avoid jumping between different data tools for querying, data science, visualization, and spreadsheets. Over 1600 organizations use Hex to do everything from deep analysis to self-serve. Now let&#8217;s jump into the article! Can we get an Excel export? For many data teams, this ask can be somewhat frustrating. You&#8217;ve likely poured hours or days into a dashboard only to feel as if the team that asked for it just wanted an Excel report. Then, of course, there are all the one-off actual Excel reports and lookup tables being managed by a single person in companies. In fact, at many companies, it&#8217;s these one-off Excel reports, VBA scripts, and Google sheets that run whole departments from operations to accounting. Not your polished, QAed, dynamic and impactful dashboard! It really can feel like the meme below. It might make many new and more experienced data professionals scratch their heads. We have all this technology, data platforms that can crunch more data than ever before, and yet, somehow, everything seems to continue to touch Excel. I recently had one person show me the financial model they built in Excel using Claude. So, like the QWERTY keyboard, spreadsheets will be with us if we ever manage to set up a colony on Mars. And like the QWERTY keyboard, there will always be a minority resistance group that complains about its ...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 107: What It Really Takes to Move From Senior to Staff Data Engineer 
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/what-it-really-takes-to-move-from
+**Published:** 2025-11-17T20:14:44+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; Today&#8217;s article is an interview with Brian Femiano who is currently a staff data engineer at Apple. He&#8217;s been doing data engineer for nearly 20 years with 9 of those as a staff eng. He&#8217;s worked across many domains including ad tech, music, social media, and intelligence. In his own words he enjoys mentoring tech professionals and helping folks level up, especially his managers. He lives with his wife Rachel and two boys. Now let&#8217;s jump into the article! Once you start pushing past senior-level, whether that&#8217;s as a data engineer, analyst or other IC, there are a lot of skills that start becoming important that have nothing to do with technology. Or at least less so. I&#8217;ve already written several takes on this in the past so I wanted to bring in someone else&#8217;s perspective. So for this article we have Brian Femiano who is currently a staff data engineer at Apple(in case you missed the intro) and he&#8217;ll be sharing about: Career Path And Motivation Defining The Staff Role Technical Design &amp; Systems Thinking Collaboration &amp; Communication Big-Picture Advice If you&#8217;re stuck at senior or are just curious what it takes, then this article is for you! Career Path &amp; Motivation Q. How did you get into data engineering? And what do you enjoy about it? I started with Java services then one day got into the early Cloudera HFS/MapReduce training videos and got hooked. Distributed computing finally felt approachable for me and was really cool to see applied to data and not just number crunching. Q. Can you share the key moments or projects that shaped your path from senior to staff data engineer? Years ago I was on a team and someone needed to organize work into JIRA, assign that work out, document progress, help unblock teammates, and keep stakeholders outside of engineering informed. It&#8217;s not the kind of fun stuff devs enjoy doing but it had to get don...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 108: 5 Things in Data Engineering That Have Changed In The Last 10 Years
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/5-things-in-data-engineering-that-d11
+**Published:** 2025-11-07T16:20:13+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; Before diving into today&#8217;s newsletter, I want to take a moment to thank this issue&#8217;s sponsor: Hex . Hex brings the magic of AI to data analysis workflows, whether you&#8217;re using code or no-code. Hex helps organizations work together with data and avoid jumping between different data tools for querying, data science, visualization, and spreadsheets. Over 1600 organizations use Hex to do everything from deep analysis to self-serve. Now let&#8217;s jump into the article! A few months back, I wrote an article about what hasn&#8217;t changed in the data world. And much of what hasn&#8217;t changed are the problems we face. Of course, there are also plenty of things that have changed in the data world since I started. For example, the technologies and practices we use. Even the words and terms we use, although mostly the same, have changed. Whether you like it or not. When I started, no one used the term analytics engineer, and even the concept of a data engineer was still relatively new(at least in terms of how popular it later became). In the same way, I have seen plenty of things change. Some of these changes are temporary, I believe (like my first point), others are likely larger trends. So let&#8217;s dive into what&#8217;s changed in the data world in the last decade. 1) Everyone Wants Seniors On Their Team Source - Generative AI as Seniority-Biased Technological Change: Evidence from U.S. R&#233;sum&#233; and Job Posting Data Something strange started to happen a a few years ago. Whenever I was speaking with data leaders and they brought up hiring, they always referenced senior engineer s and analysts. That&#8217;s the only position they were looking for. It didn&#8217;t really click what was going on until the chart above came out recently&#8230;and well things became clear. Both in terms of anecdotally and in terms of data there is a trend to hire more senior engineers over a mixed tea...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 109: We’re All Living in Different Data Decades
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/were-all-living-in-different-data
+**Published:** 2025-10-30T16:14:18+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; Today I&#8217;ll be reviewing some trends and thoughts I&#8217;ve been mulling over for 2025. This newsletter is also my 200th newsletter! So I&#8217;ll take a quick moment on that as well. But before diving into today&#8217;s newsletter, I want to take a moment to thank this issue&#8217;s sponsor: Hex . Hex brings the magic of AI to data analysis workflows, whether you&#8217;re using code or no-code. Hex helps organizations work together with data and avoid jumping between different data tools for querying, data science, visualization, and spreadsheets. Over 1600 organizations use Hex to do everything from deep analysis to self-serve. Now let&#8217;s jump into the article! First off, woah, what a busy 2025! It&#8217;s flown by and with that, I am also realizing that this is my 200th newsletter! 200! Thank you to everyone who has been reading it really does mean a lot. I had personally meant this final quarter of 2025 to be a bit of a breather and yet, but as they say&#8230; If you want to make God laugh, tell Him about your plans. I&#8217;ve been traveling and speaking. Working with a lot of great clients. A start-up I invested in got acquired(ok that didn&#8217;t really involve me). So many congrats to the team. Another start-up I advise just raised their series A , which I&#8217;ll talk more about later. Not to mention I went to Europe for the first time and actually was able to take some time off without panicking and needing to open my laptop every five minutes. Somehow I still have more to do for 2025. With all of that I did want to share a trends and points my mind keeps going back to as I am now starting the path to my next decade in data. The Data World Spans Decades If you open up Google and start looking into different ways you could set up your data infrastructure, you&#8217;ll likely find hundreds of possible designs, from Netflix and Uber to newsletters like mine. It can be tempting to thin...
+
+**Embedded Videos:** 2
+
+
+---
+## Post 110: Three Traits That Differentiate Great Senior Data Engineers
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/three-traits-that-differentiate-great
+**Published:** 2025-10-20T18:53:44+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; Before diving into today&#8217;s newsletter, I want to take a moment to thank this issue&#8217;s sponsor: Hex . Hex brings the magic of AI to data analysis workflows, whether you&#8217;re using code or no-code. Hex helps organizations work together with data and avoid jumping between different data tools for querying, data science, visualization, and spreadsheets. Over 1600 organizations use Hex to do everything from deep analysis to self-serve. Now let&#8217;s jump into the article! Early in my career I had a conversation with a friend who was working as a director leading both software and data teams. One of the points they brought up was the fact that they often found that some of their senior level analysts and data scientists would provide them massive chart dumps when they ran any form of analysis. Somewhere deep in a word document or python notebook layered with charts and explanations might be a conclusion. I had actually not considered this point before having this conversation. Now it&#8217;s been years since that chat and since then I&#8217;ve had nearly a hundred conversations with data leaders, and several skills and traits kept standing out in terms of what differentiates engineers and analysts. Here are three of them. Getting Buy-In And Influencing Decisions I don&#8217;t recall who told me this idea before, but someone once described that at every level(junior, mid, senior, etc), there are levels inside it. This breaks down into more &#8220;junior&#8221; and &#8220;senior&#8221; at that specific level. Once you start going from a more &#8220;junior senior&#8221; to a &#8220;senior senior&#8221; many data leaders I&#8217;ve spoken with are looking to see if their ICs can start to get buy-in for their projects. At this level many senior engineers and analysts are likely starting to feel antsy. Like they should be promoted to staff. And although every company has a different definition of wh...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 111: When Words Become Data Architecture
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/when-words-become-data-architecture
+**Published:** 2025-10-15T20:50:51+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; Before we dive in, a quick plug for Retool . Their new AI-assisted dev capability lets you build internal tools on top of your live data&#8212;without wrangling a prototype or settling for a static BI dashboard. Describe what you need, and Retool creates a secure app you can fully customize. Perfect for building interactive dashboards and admin tools connected to your warehouse, dbt, or orchestration metadata. Now let&#8217;s jump into the article! It&#8217;s the early 1950s, and an American journalist named Edward Hunter begins publishing a series of reports(and eventually books) about U.S. prisoners of war in Korea. He claimed they were being &#8220;brainwashed&#8221;. But the term brainwashed up until this point actually didn&#8217;t exist in English (or at least wasn&#8217;t popularized). The term caught fire. It appeared in headlines, films, and congressional hearings . It&#8217;s important to note that Hunter wasn&#8217;t merely a journalist; he was a seasoned propaganda expert who had served in the OSS, the predecessor to the CIA. The U.S. military seized on the idea of &#8220;brainwashing&#8221; to discredit confessions made by American POWs, including statements admitting to biological warfare. Depending on the source, some claimed that the word &#8220;brainwashing&#8221; was injected into the English language solely so the military could have a defense against the American POWs who were making said statements. Now, why am I writing about this? The Seattle Data Guy who now lives in Denver? Because many of the words we use in our day-to-day as data engineers and analysts were only created in the past few decades, and yet many of them dictate our choices on tooling, on design, and the work we take on. So I wanted to dig into how the words that we use play that role. Words Shape the Way We Work I used brainwashing as an example because it&#8217;s a little dramatic, and it shows how language can sha...
+
+**Embedded Videos:** 4
+
+
+---
+## Post 112: 7 Questions Every Data Team Should Ask the Business
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/7-questions-every-data-team-should
+**Published:** 2025-10-07T14:38:27+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; Before diving into today&#8217;s newsletter, I want to take a moment to thank this issue&#8217;s sponsor, BMC . Many data teams still spend too much time babysitting pipelines and stitching together scripts. Control-M helps automate that work, coordinating data workflows, triggering ML jobs, and syncing across cloud platforms, so teams can focus on analysis instead of maintenance. Check out their latest case study to see how it can simplify complex workflows . Now let&#8217;s jump into the article! A common challenge for data teams is figuring out what to work on that will drive the most value. In some cases, the business has projects they believe should be taken on that you might disagree with, but you don&#8217;t have a solid list of suggestions, so you&#8217;re stuck with what they&#8217;ve asked you to work on. In other cases, the business team might not know exactly how they&#8217;d like to use data, other than perhaps a dashboard or two. That means you can&#8217;t just ask, &#8220;What data projects do you need?&#8221; and expect a helpful answer. Instead, you need to ask questions that uncover pain points, opportunities, and processes where data could make a meaningful difference. At Facebook, we conducted this exercise every six months to realign priorities and identify new, high-impact projects. We&#8217;d go and talk to our business partners to understand their current and future needs. From there, we&#8217;d work to come up with projects we believed aligned. If you are looking for questions to help you better align with the business, here are seven questions you can ask to surface valuable data. (Also, I&#8217;d love to hear if you have any questions you&#8217;d recommend.) 1) What&#8217;s keeping your team from hitting its targets right now? Not everything is about data. Many leaders recognize that there may be areas where they are struggling to meet targets. Perhaps they aren&#8217;t convert...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 113: Everyone Says ‘Data Teams Should Drive Value’ But How?
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/everyone-says-data-teams-should-drive
+**Published:** 2025-10-04T13:18:58+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; Before diving into today&#8217;s newsletter, I want to take a moment to thank this issue&#8217;s sponsor, BMC . Many data teams still spend too much time babysitting pipelines and stitching together scripts. Control-M helps automate that work, coordinating data workflows, triggering ML jobs, and syncing across cloud platforms, so teams can focus on analysis instead of maintenance. Check out their latest case study to see how it can simplify complex workflows . Now let&#8217;s jump into the article! I&#8217;ve been think a lot about the fact that for many companies where the data team work ends, the business value only starts to begin. Even with a simple dashboard or model. You deliver the data product, then what? Value is supposed to appear right? After all that&#8217;s what the speaker said at a conference &#8220;data teams need to provide value&#8221; or some other cliche line. Of course data teams need to provide value . But how a team provides value is often left vague. That&#8217;s where many leaders get stuck. They want their team to be &#8220;strategic&#8221; or &#8220; business-driven ,&#8221; but they haven&#8217;t clearly defined what role their data team actually plays. A team tasked with building out a data warehouse will provide value in a very different way than a team embedded with marketing to improve campaign ROI. Over the years, I&#8217;ve seen multiple types of data teams. It can be tempting to think about data teams based on roles. That&#8217;s the analytics team, the data engineering team, the data infra team, etc. But I think it&#8217;s more important to think about the function you want your data team to have. What are the goals, what is the business function it provides. Sometimes data teams are strategic partners who connect business problems to data solutions. Others might be enabling other teams by being the platform builders who develop and maintain the data infrastructure and...
+
+**Embedded Videos:** 2
+
+
+---
+## Post 114: How To Turn Around A Failing Data Team
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/how-to-turn-around-a-failing-data
+**Published:** 2025-09-27T16:47:00+00:00
+
+**Content Preview:**
+A few years ago, I heard the same observation from several data and business leaders. &#8220;The default state of data teams is failure.&#8221; This was in the early 2020s, when many data teams felt like they had ballooned in size. Everyone wanted to be data-driven and cheap money made it easy. Fast-forward to 2025 and the landscape looks very different. Companies are running leaner. Many have intentionally shrunk their data teams and, in some cases, lean more on external partners instead of adding headcount. As a consultant, I&#8217;m often brought in when a previous team has disbanded or when leadership wants to turn around a struggling data environment. Across these engagements, I&#8217;ve seen recurring patterns, root causes that explain why some data stacks and teams fail to deliver, and what it really takes to bring them back on track. This is based off of my talk at Big Data London. Picture Source - Thank you Szabolcs Magyar Root Causes of Data Team Failure There are many challenges data teams and leaders face. But it&#8217;s not just about picking the wrong technology. Many data leaders find themselves leading data teams with minimal coaching after being an IC . Others get pulled into being a catch all team where they have to manage not only the reporting but automated processes that might be better suited for a different team while also having to figure out how to lead AI initiatives for their companies. All that said, here are some common causes of data teams failing. Lack Of Ownership Lack of ownership can show up in many forms. I liked the way it was described by in his article 6 Archetypes of Broken Ownership . In which he references that ownership depends on three elements: mandate, knowledge, and responsibility. If any one of these is missing, true ownership breaks down. Consider a leader who has the power to make a decision (mandate) but lacks deep understanding (knowledge) and isn&#8217;t accountable for the consequences (responsibility). They make ...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 115: The "D" In Data Stands For Discipline
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/the-d-in-data-stands-for-discipline
+**Published:** 2025-09-17T21:55:27+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; Before diving in to that, I wanted to let y&#8217;all know that I&#8217;ll be running several events in person in the UK, Seattle and Denver. The first will be in the UK, so if you&#8217;d like to join me after Big Data London, you can sign up here ! Also, special thanks to Estuary for partnering on this event! Food and drinks will be provided as well as a live band! Now let&#8217;s jump into the article! A seasoned data leader once told me something that stuck: the d in data stands for discipline. Now to be clear, pretty much every field requires discipline. But we often focus on the exciting parts of data work in articles. Not the tedious, repetitive, mundane, just doing the right thing type work. It is those unglamorous but critical habits that help you deliver good work: Resisting the urge to over-engineer a simple problem Enforcing standards even when it feels tedious Saying &#8220;no&#8221; to the ad-hoc requests that would derail your team from finishing meaningful work Committing to an idea even if it doesn&#8217;t provide immediate results None of these are flashy. They don&#8217;t exactly make for a good case study or talk at a conference. But looking back into my article from a couple weeks ago. But they are more habits that I&#8217;ve seen separate good and great data teams. There are plenty of benefits from doing all the small things well. Below are three ways discipline shows up in a high-performing data teams. Practicing Restraint In Data Infrastructure Choices Here I often think back to my early cooking days. As a young cook, I&#8217;d pile every technique I knew onto a single plate. I wasn&#8217;t thinking about the diner&#8217;s experience. I really was just showing off. Over time I learned that every component must earn its place. In the same way, data infrastructure is a tempting place to use tool after tool and build a massively complex system to report churn. It&#8217;s tempting to ...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 116: Data Teams: It’s Time to Touch Grass
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/data-teams-its-time-to-touch-grass
+**Published:** 2025-09-08T22:57:09+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; I know it&#8217;s been a while since I last wrote, I&#8217;ve been completing projects and just got back from camping out in the mountains of Colorado. I wanted to share some thoughts about data the challenges data professionals face even once you&#8217;ve been able to put together a dashboard or develop a model. Before diving in to that, I wanted to let y&#8217;all know that I&#8217;ll be running several events in person in the UK, Seattle and Denver. The first will be in the UK, so if you&#8217;d like to join me after Big Data London, you can sign up here ! Food and drinks will be provided as well as a live band! Now let&#8217;s jump into the article! Intro This weekend I got to step away from my computer and disappear into the mountains of Colorado. No cell service. 36-degree nights. Elk bugling in the background. In those moments, the only thing that mattered was simple, staying warm and dry. Now it&#8217;s back to the data mines for me. Where I find that many of our professional lives revolve around data and metrics, numbers we obsess over, charts we polish, dashboards we argue about in meetings. Yet those numbers are almost always one step removed from reality. They&#8217;re shadows on the wall, so to speak. A limited reality that often fails to paint the full picture. In business and data, we often confuse KPIs moving with progress and assume our dashboards and metrics are telling us the whole truth. So in this piece, I want to outline some of the challenges data teams face when they take data at face value, and how to stay grounded in reality. Data Is Often A Derivative Of Reality One of the points I always come back to is this, the data us analysts and data engineers work with is a derivative of reality, not reality itself. What we capture in our tables, orders placed, clicks logged, tickets closed, are slivers of what happened. We can learn a lot from that data, don&#8217;t get me wrong. They p...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 117: What Separates Good From Great Data Teams
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/what-separates-good-from-great-data
+**Published:** 2025-08-28T17:48:53+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; I&#8217;ve had the chance to work with dozens of data teams, each at different stages and with very different infrastructure setups. Sometimes I only learned about a tool because one team happened to use it, and then I never saw it again. While tools can certainly make life easier, what really made certain teams stand out wasn&#8217;t the stack, it was the traits they consistently showed in how they worked and what they delivered. Those traits are what I want to share with you today. Before we dive in, a quick note: I still find that many data teams spend much of their time trying to get data from data sources into their data warehouse. That&#8217;s where Estuary comes in. It makes moving data in real-time or batch simple, freeing teams to focus more on high-value workflows. I&#8217;ve used it with clients myself, which is why I now also work with them as an advisor. If you&#8217;re interested you should check out this recent case study . Now let&#8217;s jump into the article! Intro I don&#8217;t remember when I first paused and looked at the work I delivered, and was bummed out, because it really didn&#8217;t go anywhere. I&#8217;ve spoken with many data ICs and executives who&#8217;ve had this experience. They spend hours, days, months building tables, dashboards and ML models and no one used them. Or they failed to get implemented. For many, this is when things click. I&#8217;ve got to do more than just deliver a query. If I really want to drive impact, I&#8217;ve got to, at the very least ask why. Why are we building this? Who is this for? What problem does it solve? And beyond that, how do I ensure it goes beyond me. Because in the end, if your dashboard or ML model never get&#8217;s implemented, it might as well have not been done. Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 118: 5 Things in Data Engineering That Still Hold True After 10 Years
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/5-things-in-data-engineering-that
+**Published:** 2025-08-18T18:07:37+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; When I first started in the data world back in 2015, Hadoop was everywhere. Hortonworks, Cloudera, MapR, all promising to reshape the future of data. Fast forward a decade, and many newer practitioners don&#8217;t even recognize those names. And yet, for all the hype cycles and shiny new platforms, so many of the fundamental challenges in data haven&#8217;t really changed. But before that, if you're a data leader looking to understand what is going on in the broader data world as well as elevate your leadership skills, I recently released my self-paced Data Leaders Playbook Accelerator. If you'd like to check out the program, you can sign up here . Now let&#8217;s jump into the article! When I started in the data world back in 2015 Hadoop was at it&#8217;s peak. Actually I happened to be scrolling through an old instagram account and found a picture from a DAMA conference where Horton Works sponsored it(you can see it below). At the time, Hadoop and its ecosystem were everywhere, Hortonworks, Cloudera, MapR, each promising to reshape the future of data. Fast forward just ten years and many newer practitioners don&#8217;t even recognize those names. And yet, in data engineering, a decade is barely enough time for fundamentals to change. Underneath the hype cycles and new logos, many of the same challenges remain. 1. Schema Design and Data Modeling Remain Essential How some companies approach data modeling has changed in the past decade since I first opened up Kimball . Many now lean on date partitions and table overwrites to simplify how they track history, instead of slowly changing dimensions. In addition, AI is beginning to influence the conversation. Tools can now help generate schema recommendations, flag inconsistencies, or even propose transformations based on usage patterns(actually this was going to be the project I took on at Facebook prior to leaving). But while those capabilities are new, the ...
+
+**Embedded Videos:** 7
+
+
+---
+## Post 119: The Inconvenient Truths of Self-Service Analytics
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/the-inconvenient-truths-of-self-service
+**Published:** 2025-08-08T18:59:06+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; I&#8217;ve been speaking with data leaders and executives for the past few years about how to make data useful. And of course, self-service analytics comes up frequently. Some people believe in it, others don&#8217;t. So let&#8217;s talk about it! But before that, if you're a data leader looking to understand what is going on in the broader data world as well as elevate your leadership skills, consider signing up for my 6-Week Data Leaders Playbook Accelerator program that I will be running in September! Now let&#8217;s jump into the article! Self-service analytics is a hoax. A myth. The so-called holy grail. If you&#8217;ve worked in data long enough, you&#8217;ve heard that line. Maybe you&#8217;ve even thought it yourself, like the time your CEO asked for a &#8220;quick data pull&#8221; despite you building them a perfectly good dashboard that already answered the question. When I first entered the data world, self-service analytics was everywhere. Tableau was pushing it hard, then Salesforce bought them for $15.7 billion, and every vendor promised it would free analysts from endless requests. A decade later, we&#8217;re still chasing that dragon. Now the narrative has shifted: dashboards are &#8220;dead,&#8221; or the problem was that Tableau and Looker just &#8220;never did it right.&#8221; Say that self-service is a failure in the wrong room, and someone will tell you, &#8220;You were just doing it wrong.&#8221; Wherever you stand on the debate, I want to explore where self-service has struggled, and what might actually work next. Self-Service&#8217;s Inconvenient Truths Here are a few uncomfortable truths that even the strongest believers in self-service can&#8217;t deny: It&#8217;s been over a decade&#8230; and companies of all sizes are still struggling to answer basic questions. Instead of fixing the root cause, they just keep migrating tools, hoping the next one will magically solve everything...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 120: Anyone Else Struggling to Keep Up With Data Tools
+
+**Publication:** SeattleDataGuy’s Newsletter
+**Author:** SeattleDataGuy
+**URL:** https://seattledataguy.substack.com/p/anyone-else-struggling-to-keep-up
+**Published:** 2025-07-31T20:54:10+00:00
+
+**Content Preview:**
+Hi, fellow future and current Data Leaders; Ben here &#128075; I was skimming through the data engineering subreddit again and I found a post that I believe we can all relate to. It was titled &#8220;Are You Guys Managing To Keep Up&#8221;. Who hasn&#8217;t felt that way in the data world. Every day there is some new technology we have to learn or design approach that is being tested. So how do you keep up? That&#8217;s what we&#8217;ll be discussing in this article! But before we jump in, I wanted to share a bit about Estuary , a platform I've used to help make clients' data workflows easier and am an adviser for. Estuary helps teams easily move data in real-time or on a schedule, from databases and SaaS apps to data lakes and warehouses, empowering data leaders to focus on strategy and impact rather than getting bogged down by infrastructure challenges. If you want to simplify your data workflows, check them out today. Now let&#8217;s jump into the article! Are you managing to keep up? One of the truths I&#8217;ve realized about working in the data world, and really the technology world, is that you can work a lifetime and never ever touch massive swaths of technologies. Like Sisyphus, you could spend every day pushing the boulder of new technology up the hill, only to have it roll down back to the bottom. You could only work on Snowflake or Databricks , and in twenty years, never have touched the other. Okay, that might be unlikely, given how some companies set up their data stacks. Somehow, even smaller companies are finding a way to use both. Probably some classic vendor-driven development . Still, if you&#8217;ve only worked in big tech, you might never see some of these solutions while working on unique tools that are developed in-house. So how do you actually keep up? That&#8217;s what the poster below asked the data engineering subreddit. Source There are thousands of articles to read, never-ending tutorials, and you&#8217;d probably be more likely to climb...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 121: Leverage Points and Where to Find Them
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/leverage-points-and-where-to-find
+**Published:** 2025-12-20T21:41:01+00:00
+
+**Content Preview:**
+In this issue of the newsletter I wrote about the most useful skill to learn as a data professional, which I believe to be your ability to find points of maximum leverage in a business that drastically improve performance with relatively little effort. So the logical next question is, how? The answer is simple but not easy. Use patterns lifted from case studies . In this newsletter we&#8217;ll get into two of my favorite patterns and two case studies for each. Pattern 1: Lifting demand constraints Pattern 2: Plugging revenue leaks Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. Lifting Demand Constraints As data professionals you&#8217;re probably familiar with things like funnel analysis. It&#8217;s an awesome way to find inefficiencies in sales and marketing processes. But you almost never think about demand. You can often get 2x to 10x improvements in sales or marketing ROI by fixing demand vs doing funnel analysis. Yes funnel analysis can reveal leakage, as we&#8217;ll explore later, but before going there, look at demand constraints first Doing that can mean anything from improving the offer, the product, positioning, pricing, etc. Here are two case studies where improving demand led to massive improvements in profitability. I&#8217;ve deliberately chosen non-SaaS examples to show that these patterns apply everywhere. Case Study 1: Improving restaurant profitability Restaurants are notorious for being low-margin, high-failure businesses. They&#8217;re capital intensive (the kitchen alone can cost $15,000 to $150,000) and have high fixed costs. Rents and operating costs are a constant drain. And yet profitable restaurants do exist. In an interview on the Tim Ferriss podcast Nick Kokonas, who is known for his partnership with chef Grant Achatz, owning several high-end restaurants and for founding the reservation business Tock, explains how he completely turned the restaurant model in its head. Demand for most restaur...
+
+**Embedded Videos:** 2
+
+
+---
+## Post 122: Tinkering Without Permission
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/tinkering-without-permission
+**Published:** 2025-12-06T19:35:19+00:00
+
+**Content Preview:**
+Last newsletter (on the most useful skill to learn as a data professional) turned out to be one of my best performing posts. I really appreciate all the wonderful comments and messages I received, and I promise to continue writing more about it. Which brings us to this issue. There are a handful of attitudes (or mindsets if you like) that enable you to start building this skill while still on the job. Tinkering without permission is by far my favorite. I&#8217;ve used this exact attitude to: Learn for free while on the job Cultivate more luck in my career Look for opportunities to make an impact I&#8217;ll show you exactly how to do all that in this newsletter. Thanks for reading Data Patterns! This post is public so feel free to share it. Share What is &#8220;tinkering without permission?&#8221; Tinkering is about being curious and trying things out. As you read books, articles, listen to podcasts, etc. certain ideas pique your interest and you&#8217;d want to explore them. The easiest way to explore is while on the job because you&#8217;ll be solving concrete problems not academic ones. All you have to do is find a good reason to explore, ideally one that aligns with your company&#8217;s goals or can benefit them somehow. If you can do that, you&#8217;ve just given yourself license to pursue your curiosity. Some of things you try won&#8217;t go anywhere, so it&#8217;s in your best interest to try things without asking for permission. It requires a little courage, but if you do it in your own time, or you can show how benefits the company, you&#8217;ll be fine. Let me give you some examples. Learn for free while on the job I first encountered data science back in 2014. I was a newly minted &#8220;data analyst&#8221; trying to expand my expertise beyond data engineering and my company had just hired their first data scientist. I got curious about what she did, so after talking with her for a while, I was peeved to learn I would need to take classes and get a degree ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 123: The Most Useful, Timeless Skill to Learn as a Data Professional
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/the-most-powerful-timeless-skill
+**Published:** 2025-11-29T13:33:58+00:00
+
+**Content Preview:**
+When I started out in data all I wanted was to have a long and satisfying career, to be compensated well regardless of advances in technology or the whims of the market and of course to love what I did. More importantly I wanted to build expertise . So I looked everywhere. Career books, videos, articles, podcasts but only found bits and pieces. The best book on the topic was Cal Newport&#8217;s So Good They Can&#8217;t Ignore You. It has a simple premise: If you focus on learning &#8220;rare and valuable skills&#8221; you&#8217;ll have a long and successful career, full of opportunities, satisfaction and compensation. That&#8217;s great, but what skills fit those criteria? Cal doesn&#8217;t give you a satisfactory answer, but I believe I found it, at least for data professionals: That skill is the ability to find points of maximum leverage that dramatically improve an organization with relatively less effort, articulate them as clearly and intelligently as possible (for myself and others) and then connect them to your knowledge and experience. Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. By the way, when I say &#8220;organization&#8221; I don&#8217;t necessarily mean the entire company. It could be that, of course but it could also just be an org inside of a big company. In this issue I&#8217;ll try to achieve three things: First, I&#8217;ll show you why you should focus on finding these leverage points Second, I&#8217;ll give you ideas on how to learn them Finally, I&#8217;ll provide a couple of examples so you understand what I&#8217;m talking about What are points of leverage? Organizations are complex systems. The parts are interconnected, full of dependencies and feedback loops. This means that improvements to the parts don&#8217;t necessarily add up to overall improvement. Complexity also makes it so that organizations have points of leverage (also known as constraints) that drive most of the throughput. Effort...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 124: Every data request must have a clear path to the goal of the organization
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/the-only-goal-that-matters
+**Published:** 2025-11-15T13:02:56+00:00
+
+**Content Preview:**
+Hello everyone. Yes I&#8217;m writing again! I thought the break would be longer, but it turns out I was putting undue pressure on myself for my writing to be perfectly aligned with a singular idea. What I enjoy instead is exploring ideas related to data engineering, analytics, decision making and business. I&#8217;ve read a lot of books and articles on those topics, learned some useful things and would love to share them. So you&#8217;ll get a slice of that in your inbox. I&#8217;ll keep them short and to the point, so you can read it in a few minutes and still get nuggets of insight. Here we go! Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. Every organization has a goal. Once understood everything becomes clear. Data work is properly aligned and you&#8217;re no longer swimming in unanswered requests and overdue tickets. More often than not, if you ask stakeholders what the goal is, you&#8217;ll get different answers: A marketing executive might say &#8220;ROAS&#8221; or &#8220;CAC.&#8221; A sales executive might say &#8220;Close Rate&#8221; or &#8220;Deal Flow&#8221; A VP of finance might say &#8220;ROI&#8221; The CEO might say something like &#8220;Growth&#8221; It&#8217;s really easy to get caught up in these local-optima metrics and lose sight of the overall goal. This lack of clarity makes it difficult to see the impact of your work. Worse, it can get very discouraging. Usually the goal of any for-profit company is to make money . All the other metrics, like the ones we saw above, support that goal and can be thought of as necessary conditions. Nonprofit organizations also have goals. A hospital for example has a goal like health outcomes through patient care and research. The goal should be expressed as a single metric and come from the top. Until you get the executive board to agree on the goal, you&#8217;re doing yourself a disservice. In many cases the goal should come from them and be disseminated through t...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 125: Taking a long break
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/taking-a-long-break
+**Published:** 2025-10-13T16:16:27+00:00
+
+**Content Preview:**
+I love writing. When I started writing this newsletter, there were a lot of things I wanted to explore. I have enjoyed exploring them for the past three years and have amassed a decent following. Many of you have told me you&#8217;ve enjoyed my ideas and I&#8217;ve made a few good friends from it. But, I&#8217;ve kind of run out of things to say that haven&#8217;t already been said or aren&#8217;t being said by others. I see the same things repeated over and over, and I would repeat the same things if I was after engagement, but for me this is a labor of love and I want to keep it that way. I need to feel inspired to write again and to do that, I&#8217;m going to take a long break, not sure how long, at least till the end of the year. I&#8217;m going to write again but most likely not about data specifically. Most likely about business. Thank you for sharing this journey with me and I hope you stick around....
+
+**Embedded Videos:** 0
+
+
+---
+## Post 126: Is Analytics Just a Growth Function?
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/is-analytics-a-growth-function
+**Published:** 2025-09-27T17:56:13+00:00
+
+**Content Preview:**
+In a recent live event, my friend Timo Dechau and his collaborator Juliana asked the question: &#8220;Is analytics a growth function?&#8221; It&#8217;s a good question, but it has been bothering me ever since. In a separate post Elena Verna (of Elena&#8217;s Growth Scoop) writes: Growth is rooted in data. It&#8217;s about running activities that are measurable, trackable, and tied directly to user behavior and monetization outcomes. Marketing, on the other hand, includes plenty of things you&nbsp;_can&#8217;t_&nbsp;(and shouldn&#8217;t try to) measure in the same way - brand, comms, PR, community. Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. It took me a while to figure out why it bothered me. I don&#8217;t consider myself a &#8220;growth hacker&#8221; and I don&#8217;t know much about it, but when an executive is asking you for &#8220;actionable insights&#8221; aren&#8217;t they looking for just that? And if that&#8217;s the case, does this mean you now have to learn growth hacking skills? That&#8217;s when I figured it out. My answer now? Not necessarily! I&#8217;m not interested in learning growth hacks necessarily. My main interest is figuring out how to help organizations improve. And that doesn&#8217;t necessarily mean growth. Improvement doesn&#8217;t always mean growth The concept of growth hacking comes from the world of Venture Capital. In that world, exponential growth is necessary in order for a single portfolio company&#8217;s &#8220;exit event&#8221; (acquisition or going public) can make up for the entire portfolio regardless of the other company&#8217;s successes. However there are many businesses for whom improvement might mean &#8220;become profitable&#8221; or &#8220;build an enduring company&#8221; or &#8220;maximize freedom for the founder.&#8221; All these companies can benefit tremendously from using data to improve without necessarily requiring growth hacks. Take Prefect for example, a startup...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 127: What I've learned designing data systems
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/what-ive-learned-designing-data-systems
+**Published:** 2025-08-31T16:37:46+00:00
+
+**Content Preview:**
+Last week I ran a poll on this newsletter and on LinkedIn to see what type of content you most want to see from me. The answer did not surprise me :) I&#8217;ve been trying to balance analytics and engineering content since I started this newsletter. And while the system design won, what this says to me is that I have to continue to straddle the line between analytics and engineering, so don&#8217;t fret. I will alternate posts between the two. This week&#8217;s post is about data system design. I&#8217;ve been designing data systems throughout my career. It started out building data warehouses on SQL Server using SSIS and stored procedures and continued onto cloud data platforms (BigQuery then Snowflake). Nowadays it&#8217;s mostly PostgreSQL (dbt) and some Python. Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. Here&#8217;s what I&#8217;ve learned: You can&#8217;t know all the requirements upfront My entire career, the one thing that has remained constant is how requirements keep changing as business needs evolve. This has made very apparent for me the need for a modular design . I covered modularity in my book Minimum Viable SQL Patterns, but that was in the context of SQL queries. Modularity is actually a system design pattern. The key is simple, self-contained components that can be reasoned about, developed and tested independently. A simple, evolvable architecture is crucial The traditional way systems are designed is to gather all requirements and then spend time designing the perfect system. This is known as BDUF (big design upfront). I&#8217;ve often found that even if I know (or think I know) the requirements, I have a really hard time designing a large system upfront. Some people have the ability to design the whole thing in their heads. That&#8217;s not me. In fact, I prefer to get started with a minimal design , where I outline the various elements of data transformation (simple boxes and arrows design) th...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 128: Will AI Replace Data and Analytics Engineers?
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/will-ai-replace-data-and-analytics
+**Published:** 2025-08-16T19:25:22+00:00
+
+**Content Preview:**
+When ChatGPT first burst on the scene in early 2023, with its ability to give seemingly intelligent answers and write seemingly perfect code, I have to admit I was worried. I thought I&#8217;d become obsolete. I thought our entire industry would be handed over to AI and I&#8217;d have to switch careers. That&#8217;s not exactly what happened but things have definitely changed. This issue of Data Patterns is sponsored by Sheet Army Knife , a privacy-first Chrome extension that cleans, formats, and anonymizes PII data in spreadsheets before you accidentally load it to an AI tool. It runs entirely on your machine to reduce privacy risks when using AI tools. Two years later, with AI hype at an all time high, one thing is clear to me. Data and analytics engineering work is not going anywhere! Instead, what&#8217;s happening is that data roles are becoming more multi-faceted. Data analysts are doing data science; data scientists are doing data engineering; data engineers are doing software engineering. As a self-procliamed data generalist (I&#8217;ve done analytics, data engineering and even some data science) this was more than welcome, but what I didn&#8217;t expect was for me to get into software engineering this late in my career. While my background is in computer science, I never wanted to get into software engineering, so when my manager asked me dive into Python I was a little concerned. I had never written a single line of Python in my life &#128513;! Copilot to the rescue! Once I realized I could use GenAI / LLMs to help me write the code, I noticed something very interesting. Not knowing how to write Python from scratch didn&#8217;t hinder me. As long as I could read AI-generated code and understand what it was doing I was fine! The key skill for me shifted from writing code to writing very clear design docs; and to write very clear design docs, you need to be REALLY good at system design and architecture. I soon realized data system design was a skill that was...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 129: Designing Interactive Metric Trees
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/designing-interactive-metric-trees
+**Published:** 2025-08-02T12:07:10+00:00
+
+**Content Preview:**
+Last month I sent an email asking about metric trees to understand what was driving this interest. I had a lot of interesting conversations, so thank you to those of you who replied and talked with me. I love nerding out on data topics so the conversations were very enjoyable. One of the requests many of you had was on how to design interactive metric trees that cover the entire business. Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. That&#8217;s where Sergey comes in. We chatted last year while he was still building a metrics tree for the sales team and he was finally ready to reveal what they had built. Sergey runs the internal analytics team at Brightly Software. The following is an edited version of a conversation we had about his experience designing, implementing and using metric trees at Brightly. Agenda: Why did he choose to build a metrics tree? How specifically did he build it and how did he automate it? How is it being used and what&#8217;s the impact to the business? How he&#8217;s leveraging the tree to provide on-demand AI powered insights Interested? Let&#8217;s get into it. Why did they build a metric tree for sales? Ergest: Hi Sergey. Thank you for taking the time to speak with me. Can you provide some context about Brightly? What does the company do? Sergey: My pleasure! We're a B2B SaaS company selling a variety of cloud solutions to different verticals. Our largest market is probably education; we sell to schools and universities, and our focus is on asset management software. You know, when you need to submit a work order to get something fixed, that's our software. Sergey: Before metric trees, we were very reactive. Questions would pile up and we&#8217;d scramble to answer them. We had dashboards and reports but it felt more like &#8220;choose your own adventure.&#8221; We wanted to be seen as a partner rather than somebody who just gets asked a question and provides an answer. That&#8217;s when ...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 130: Lift and Shift Rarely Works
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/lift-and-shift-rarely-works
+**Published:** 2025-07-19T19:10:09+00:00
+
+**Content Preview:**
+When migrating an existing platform it&#8217;s very tempting to simply &#8220;lift and shift&#8221; the existing data assets into the new system as quickly as possible. This means you&#8217;re copying data and queries &#8220;as is&#8221; and focusing on getting them working with as little modifications as possible. I&#8217;ve seen his play out multiple times in my career but it rarely works long-term for two very important reasons: Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. Yes you move quickly but all the tech debt and inadequate architecture design is carried forward into the new system. When you lift and shift you &#8220;copy / paste&#8221; the old system into a new environment. Eventually cracks will appear. You miss out on the opportunity to redesign the data architecture properly. Do you know the expression &#8220;never let a good crisis go to waste?&#8221; It applies here. A redesign gives you a chance to clean house and rethink your approach. Take the time to analyze the existing architecture, figure out what&#8217;s working and what needs to change, then come up with a plan where you can both update the design and deliver value incrementally. My good friend calls this method &#8220;steel threads&#8221; whereby you take a horizontal slice of your existing architecture, from source system to end product (e.g dashboard) and deliver that in the new platform. The beauty of this technique is that you not only deliver value incrementally and quickly, but you also validate your work by comparing key metrics in the two systems. These steel threads make a lot of sense to the business than vertical slices which only make sense to engineers (build the ETL first, the data model next, the metrics next and finally all the dashboards) Rethinking your data strategy is not for the faint of heart though. You need confidence, political capital and experience to convince stakeholders to give you a big budget with low initial R...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 131: The Art of Business Analysis - Part 2
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/the-art-of-business-analysis-part-909
+**Published:** 2025-07-05T22:08:17+00:00
+
+**Content Preview:**
+In Part 1 of the Art of Business Analysis series we looked at the Value Chain as a key framework for analyzing the business as a whole. In that post we looked at the case study of Chiro-1st which comprises a number of chiropractor studios in and around Washington state. We looked at the key metrics / KPIs and built a metrics tree using the value chain. There&#8217;s a link to that post later one, but it&#8217;s not strictly required to understand this one. I&#8217;ll provide just enough context here for you to be able to follow along. In this post we seek to answer the question: &#8220; How do we improve this business? &#8221; Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. Improving Systems Through Constraints To answer that question we&#8217;ll look at another powerful framework for analyzing businesses called Theory of Constraints (TOC). I will not get too deep in the weeds of TOC because the knowledge base is vast, I&#8217;ll just focus on what you can use today. TOC takes a wholistic systems approach to improvement. The core tenet is that every system has a goal. A constraint is a limiting factor that prevents the system from reaching that goal. It&#8217;s whatever resource you don&#8217;t have enough of to get the goal. TOC also believes that this constraint is the only thing that matters and the only thing you should focus on to improve that system. This is quite a departure from the traditional approach which seeks to improve a business by optimizing every part independently. The constraint acts as a point of leverage, in the sense that improving just the constraint by 10x gets you 10x improvements in the entire business. Improving anything other than the constraint will get you, at best, incremental improvements. The five types of constraints According to Dr Alan Barnard (who worked directly with and was mentored by TOC founder Dr Goldratt) there are only 5 types of constraints: Demand constraint (also known as...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 132: The Art of Business Analysis - Part 1
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/the-art-of-business-analysis-part
+**Published:** 2025-06-21T18:56:14+00:00
+
+**Content Preview:**
+When I was a business analyst circa 2015 I had no clue how businesses worked despite the MBA degree I had received a decade earlier. Back then I used to think that analyzing a business meant analyzing various metrics and coming up with stories that explained those metrics. I did my best, but ultimately failed and decided to focus on data engineering instead. Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. Almost a decade later, I have discovered a number of analytical frameworks and tools that I know for a fact would have helped me succeed. I would have become an expert analyst and a trusted advisor to the executive leadership. And so I&#8217;ve decided to write this post as a message to my younger self. The most interesting of these tools and frameworks is the Metrics/KPI Tree. It's the best tool I know for understanding and communicating business context. I&#8217;ve written about it in the past and since then, I&#8217;ve seen that people are very interested to learn more about it. What I want to do is write a series of posts (directed to my younger self) where I walk through the steps of building it from scratch. I&#8217;ll be using a business case study I saw in a video by Alex Hormozi where he advises a business owner of chiropractor studios on reaching the goal of $5 million in EBITDA in 3 years. Of courtse I&#8217;m no Alex Hormozi, I don&#8217;t have his experience running and growing businesses, so this is just my take. The link to Hormozi&#8217;s video is at the end of this post. Business Overview The case study concerns a business called Chiro 1st which comprises a number of chiropractor studios in and around Washington state. These are physical locations where doctors perform chiropractic treatments for patients, such as various adjustments, rehabilitation and spinal decompression. The owner states that spinal decompression is their unique value proposition. Since this is a physical business (as opposed to a ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 133: Going Back to the Lab
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/going-back-to-the-lab
+**Published:** 2025-05-21T12:43:51+00:00
+
+**Content Preview:**
+I have some exciting news! I&#8217;ve decided to focus on this newsletter exclusively for the foreseeable future. I want to make SQL Patterns the best data newsletter out there. This means a lot more in depth content on timeless patterns you all love: Data Modeling Data Architecture DaraOps MLOps etc. There will be a brief hiatus while I cook up the next post, but in the meantime I would love it if you could reply back and let me know what you would like to learn. Until next time....
+
+**Embedded Videos:** 0
+
+
+---
+## Post 134: Understanding Business Context
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/understanding-business-context
+**Published:** 2025-05-03T22:07:11+00:00
+
+**Content Preview:**
+A lot gets written about the importance of understanding the business context but rarely do I see anything written about how to do it. As I&#8217;ve progressed in my career, I&#8217;ve learned that getting up to speed quickly is essential to delivering value with data. In this issue I will explain a simple framework I have developed and refined over time to get 80% of the way in 20% of the time. Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. The best part of this framework is its simplicity but don&#8217;t let that fool you. There&#8217;s a lot more nuance behind it. And the more you use it the better you will get at understanding the business context and the easier it will become to deliver value with data. Interested? Let&#8217;s get to it. By the way, if you want to get even deeper into the business context, I suggest you learn about the competitive landscape of your company. The best tool for that is the Wardley Map which I&#8217;ve written about in a previous issue you can find in the archives. The framework consists of three pillars: 1. The business model and its unit economics 2. The demand side (aka why are customers searching, buying and using the product) 3. The supply / operations side (aka how the company fulfills this demand) Business model and unit economics The business model is usually the first thing you learn. It's already public information so you can learn this even before you join a company. For example the key metrics of a SaaS business can be learned in a single (amazing) article by David Skok called SaaS Metrics 2.0 . VCs are more than happy to teach this stuff because they want more businesses like that to invest in. The business model describes how the company captures the value it creates or said more simply &#8220;how they make money.&#8221; There will likely be a lot of nuance in any one particularly business, such as &#8220;usage based pricing (e.g. buy 1000 credits for $100]&#8221; or &#8...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 135: Why Do Companies Hire Data Professionals?
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/why-do-companies-hire-data-professionals
+**Published:** 2025-04-20T14:20:54+00:00
+
+**Content Preview:**
+Why do companies hire data professionals? Do you ever ask yourself that? Oh sure there&#8217;s the job description that tells you what the role is supposed to do, but look beyond it for just a minute and something amazing happens. As data professionals we tell ourselves that &#8220;we help stakeholders make data driven decisions.&#8221; In many cases this value means helping the company grow. But what if the company was already growing while the data function is in shambles? Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. There was a company I heard about that was making multiple tens of millions in ARR while all its reporting was still being done in Excel. People manually extracted data from various systems and dumped it in Excel. They had hired a data scientist but their main problem was not data science. They needed to consolidate multiple scattered data sources into a common warehouse so that reporting could be automated. It&#8217;s quite common for companies to hire &#8220;for the future&#8221; and get someone with a PhD to do data science while their most pressing problem lies in engineering. I&#8217;m sure you know what I&#8217;m talking about. Anyways, the question in the back of my mind was &#8220;why didn&#8217;t they hire someone earlier?&#8221; Then came the shocking realization: &#8220;If they were growing regardless of data quality, does this mean that having standardized, well modeled data doesn&#8217;t contribute much to growth?&#8221; As data professionals we debate a lot among ourselves about the value of data, but we never ask the crucial question of how stakeholders perceive that value. We act as if this value is self evident: &#8220;Of course you&#8217;d want clean, structured data!&#8221; But as far as stakeholders are concerned, we have to dig further to figure it out. And the reason why we have to figure it out is that once we understand the driver, it will make our career growth a lot easier. So...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 136: Rare and Valuable Data Skills
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/rare-and-valuable-data-skills
+**Published:** 2025-04-05T17:51:21+00:00
+
+**Content Preview:**
+There is a silent struggle in your company that you as a data professional can fix with very little effort while at the same time demonstrating the tremendous value of the data team. But there&#8217;s a problem&#8230;.you&#8217;re most likely blind to it. And to add insult to injury they don&#8217;t even know you could do this easily. Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. Time for a history lesson. When I was a business analyst one of the things I was often asked to do was to sit in and shadow operations teams (marketing, sales, customer service, etc.) Every now and then I&#8217;d notice them doing things that would baffle me. While on the phone with a customer, a salesperson would jump between several applications (CRM, email, Excel, etc) to answer customer questions. Other times they would be copy/pasting information from these systems into Excel to create reports that were used by the whole team. Flabbergasted I would ask why they were doing this. To them this was just how things worked, they had no idea I could write a SQL query in 10 minutes and automate away hours of meaningless work. Productivity gains would be tremendous. On the other hand, the requests I was getting for data and reports were nothing like what I was witnessing. I started calling this &#8220;suffering in silence.&#8221; They had no idea I could solve their problems with very little effort while I had no idea they needed this in the first place. How to avoid the data service desk trap I often joke that the moment you walk into a company as a data professional asking what their data needs are, you&#8217;ve fallen into the &#8220;data service desk trap.&#8221; You think you&#8217;re being helpful instead you&#8217;re setting yourself up for endless toil. You see, business users are often unaware of what data and information is available, or could be easily obtained from existing infrastructure. They also don&#8217;t know what&#8217;s possi...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 137: Bring Instant Clarity to Business Objectives
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/bring-instant-clarity-to-business
+**Published:** 2025-03-24T13:19:30+00:00
+
+**Content Preview:**
+Before getting into data engineering I tried my hand at data analysis. I hated it. I just couldn&#8217;t figure out what people wanted out of data. Whatever questions I could answer led to more questions and whatever features I could add to a dashboard led to even more feature requests. It was incredibly frustrating. Even when I asked people what they wanted, gathered data requirements, built and released multiple reports and dashboards it never seemed to satisfy. On top of that, the dashboards wouldn&#8217;t even be used. Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. This led to frustration on both sides and ended with me abandoning the analyst role in favor of data engineering. I thought I wasn&#8217;t cut out for it. It wasn&#8217;t until I got introduced to metric trees that I realized I this was exactly what I had been missing. All I needed was a framework for mapping data requests to business objectives. As you know I have talked about metric trees (aka KPI trees) multiple times in my posts but never in the context of bringing clarity to business objectives. And to understand how, we first must let go of a misconception. A common misconception As a data professional with multiple years of experience you&#8217;ve probably gotten burned a few times jumping through hoops to answer a seemingly very important last minute question only to find out later that it was a mere curiosity. Given such harrowing experiences, it&#8217;s really easy to assume executives don&#8217;t know what they want, especially when they keep changing their minds, never use the dashboards we make and keep asking more questions. But we&#8217;d be wrong. Executives know exactly what they want, they just can&#8217;t communicate it in a way that data teams can understand. What they really want is to understand the causal relationships between the inputs (levers) that they control to the outputs (goals and objectives) of the business. Rather than r...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 138: Developing Expertise as a Data Analyst
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/developing-expertise-as-a-data-analyst
+**Published:** 2025-03-08T20:49:58+00:00
+
+**Content Preview:**
+Hello everyone and welcome back to Data Patterns. I know it has been a while since my last newsletter. I only wanted to take a short break over the holidays but here we are 3 months later. Don&#8217;t worry; everything is fine and I&#8217;m ready to fire on all cylinders again! I&#8217;ve got an interesting post and an announcement for you today. So without further ado let&#8217;s get into it. Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. The expert data analyst When you think about expertise and improving your skills as a data professional what&#8217;s the first thing that comes to mind? If you&#8217;re like most people, I bet the answer is &#8220;technical skills.&#8221; Learn a new programming language (like SQL, Python, R, etc.); learn a new technique or methodology (AI is pretty hot these days, right?) and so on. But expertise doesn&#8217;t work that way. Experts are valued for knowing the stuff that cannot be easily googled or prompted into an LLM. This is known as tacit (intuitive) knowledge. What makes experts rare and valuable are their intuitions about their domain. And that can only be learned from experience. If it can be googled or prompted it might be valuable but it&#8217;s not rare enough. So you can learn new technologies all day long but never become an expert. Ok, Ergest how do I develop rare and valuable skills? The data expertise triad First we need to understand our objective. As a data professional what do you want out of your career in data? Ideally you want to have a successful, enjoyable and long lasting career. Which means: Making meaningful contributions to the organization with your skills Carving out an important role for yourself (and your team) in the organization Creating leverage for yourself (and your team) that can be parlayed into promotions, raises and future opportunities Pretty good right? So how do we get there? Since I love triads so much, I now present to you the Data Experti...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 139: Data Patterns on Pause Till End of Year
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/data-patterns-on-pause-till-end-of
+**Published:** 2024-12-07T14:43:37+00:00
+
+**Content Preview:**
+I&#8217;ll be taking a break from the newsletter untill Jan 2025. I&#8217;ve got some interesting ideas I&#8217;m ruminating on and want to give myself some time to research. In the meantime here are a few posts I&#8217;ve published that you may have not yet read: Transforming a data culture Finding growth levers with data Why answering questions dooms data teams SOMA data modeling patterns Modular dimensional modeling Making SQL queries faster Find even more in the archives here Enjoy and happy New Year! Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work....
+
+**Embedded Videos:** 0
+
+
+---
+## Post 140: Lessons Learned Implementing Metric Trees
+
+**Publication:** Data Patterns
+**Author:** Ergest Xheblati
+**URL:** https://sqlpatterns.com/p/lessons-learned-implementing-metric
+**Published:** 2024-11-30T15:57:39+00:00
+
+**Content Preview:**
+I recently had an in-depth conversation with a data leader (whom I&#8217;ll call Emma) about her experience implementing metric trees at a startup. She&#8217;s currently director of data and she runs a small team of analysts and engineers. Thanks for reading Data Patterns! Subscribe for free to receive new posts and support my work. I reached out to her after she graciously pledged $8/mo to support this newsletter. I still don&#8217;t accept payments by the way but it was surprising to me that I had provided enough value to warrant a subscription. In our first call, Emma mentioned how my post on metric trees motivated her to build her own and the results had been incredible. Metric trees helped her: Drastically reduce requests on the data team Easily prioritize data questions from stakeholders Increase the company&#8217;s operational clarity Empower the data team to own outcomes Increase data team&#8217;s impact on the business Shift data team&#8217;s role from order takers to internal consultants Dramatically boost data team&#8217;s impact and morale Not bad for a simple tool, right? The only problem was that we didn&#8217;t record that call, so I was very keen on having another call where we dove into the specifics. This post focuses on the Growth Model and Leadership &amp; Influence legs of the triad I introduced last time. The Interview Me: Hi Emma, last time we talked you shared your experience with building a metrics tree at your company and how it basically transformed the data culture there. Would you mind sharing your experience? Emma: Absolutely! It all started when I realized that despite being immersed in data, I was struggling to understand the levers we could pull to improve our business. The data team was bogged down with too many questions and requests most of which seemed ad-hoc. We were acting more like a service function reacting to others' needs. I realized we needed to be more proactive and prescriptive. We couldn't help the business if we didn'...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 141: Optimizing Task Throughput in Celery based Distributed Systems
+
+**Publication:** @FluffyDietEngine’s Substack
+**Author:** @FluffyDietEngine
+**URL:** https://thedataengineer.substack.com/p/optimizing-task-throughput-in-celery
+**Published:** 2023-12-05T16:58:51+00:00
+
+**Content Preview:**
+Celery is the go to name for Python web developers for distributed task management. With lesser efforts anyone can develop a distributed task system. All it takes is a configuration like takes is an instantiation of the class and a decorator over a python method. A simplified example is below.&nbsp; from celery import Celery app = Celery( namespace="celery_demo_app", broker="redis://localhost:6379/1", backend="redis://localhost:6379/2" ) @app.task(name="tasks.addition") def addition_task(a: int, b: int) -&gt; int: c = 0 try: c = a+b except TypeError: print(f"type of a --&gt; {type(a)} and type of b --&gt; {type(b)}") finally: return a+b So simple and elegant right? Now I want to push this to my production system. Now the problem starts. I will have all type of questions like, How can I see what is happening in my tasks? How many of my tasks failed? Are all the tasks delivered to my worker? Is my worker available all the time? What is the consumption level of my broker? Is there a way I can retry my task with minimal changes?&nbsp; And whatnot &#129335; Let me take you through the basic settings of Celery which will help in reducing stress on above questions and some more. Let&#8217;s categorize the settings in three major categories - Robustness and System reliability. Each category has its subdivisions and we will discuss them in detail. Robustness High availability Redis/RabbitMQ as brokers In the entire architecture of distributed systems, the one point failure is the broker. So how to avoid it? Make it a highly available system. You can either use redis&#8217; master slave approach ( https://hevodata.com/learn/redis-high-availability/ ), or sentinel ( https://redis.io/docs/management/sentinel/ ) provided by redis labs, Queue mirroring for RabbitMQ(https://www.rabbitmq.com/ha.html) anything works. Make sure always your broker is up and ready to serve messages between task producers and consumers.&nbsp; Autoscaling of workers Robustness is needed at worker level t...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 142: Journal of a Data Engineer #3
+
+**Publication:** @FluffyDietEngine’s Substack
+**Author:** @FluffyDietEngine
+**URL:** https://thedataengineer.substack.com/p/journal-of-a-data-engineer-3
+**Published:** 2023-04-20T05:02:47+00:00
+
+**Content Preview:**
+In the previous two issues, the content was scattered, which may have distracted readers from focusing on a particular topic. Starting from now, each issue will focus on a specific topic or principle related to broad topics such as web scraping, data engineering, and software development. This issue will focus on one of the fundamental aspects of system design, which is logging. Whether you're writing a small script or a distributed software system, logging is a fundamental component for understanding the behavior, performance, and state of execution. However, logging can also become a bottleneck if it consumes too much time or is over-engineered. In this newsletter, we have classified the articles based on three parts of logging: collection or aggregation, processing, and visualization. These three aspects are essential for effective logging and monitoring of your software systems. Before we dive into the topic in detail, here are a few well-written articles that explain the fundamentals, design, and challenges of logging. What is log? How it should be considered? Some Thoughts On Logging &amp; API design Logging Infrastructure System Design The Log: What every software engineer should know about real-time data's unifying abstraction Logging system design for highly error sensitive platforms Thanks for reading @FluffyDietEngine&#8217;s Substack! Subscribe for free to receive new posts and support my work. Tools, Design, Implementation and more on Logging What Is Log Aggregation - A summary about aggregation in logging, ways to aggregate and tools used for log aggregation. Logging in Software Design - A comprehensive article on understanding of logs, design and implementation of logging, levels of logs in brief. Filebeat vs. Logstash: The Evolution of a Log Shipper - Logstash is very familiar for log aggregation in ELK stack , but how does Filebeat impressed users of Logstash? and what is LumberJack protocol ? Architecting your Deployment - Vector - Rust is a word t...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 143: Journal of a dataengineer
+
+**Publication:** @FluffyDietEngine’s Substack
+**Author:** @FluffyDietEngine
+**URL:** https://thedataengineer.substack.com/p/journal-of-a-dataengineer
+**Published:** 2023-03-25T08:19:43+00:00
+
+**Content Preview:**
+What&#8217;s new? https://github.blog/2023-03-22-github-copilot-x-the-ai-powered-developer-experience/ Microsoft got one chance to beat Google and Amazon in tech by investing in OpenAI . The github copilot X is here. Powered by OpenAI&#8217;s GPT-4 model, this feature promises many useful additions for developers. I can not comment on the features as I couldn&#8217;t use them. Big waiting list. Hoping to get my hands on it soon.&nbsp; Python Programming: Top 5 Must-Read Articles from Last Week Building a bloom filter - Kirill We are aware of the BloomFilter, a probabilistic data structure implementation in Redis, RedisBloom . But how can the same be implemented directly in your code? Get your hands dirty with this great tutorial by Kirill and learn about the data structure&#8217;s necessity, implementation, pros and cons while coding the same.&nbsp; How virtual environments work - Brett Cannon Beyond doing &#8220;source venv/bin/activate&#8221;, most of us have not cared how Python interpreters select the local virtual environment to execute your code rather than using global installation. Brett has helped with detailed, opinionated explanations here.&nbsp; Thanks for reading @FluffyDietEngine&#8217;s Substack! Subscribe for free to receive new posts and support my work. Python Threading: The Complete Guide - Jason Brownlee Even for seasonal developers, multithreading, multiprocessing and asynchronous programming implementation in Python can be a herculean task. Jason here tried his best to give clarity about programming with threads in python. A must read.&nbsp; P.S. - His entire blog is a gold mine for advanced programming. Start with &#8220; start here &#8221; Analyzing multi-gigabyte JSON files locally - Jan Seeger Loading a 2GB JSON/ parquet /CSV file in your code itself is a difficult task. What will happen when you try, not just to load but analyze, the data from a 20 GB JSON file? Jan has got such a task and is walking us through different approaches he has ...
+
+**Embedded Videos:** 5
+
+
+---
+## Post 144: Web Scraping is not Web Crawling
+
+**Publication:** @FluffyDietEngine’s Substack
+**Author:** @FluffyDietEngine
+**URL:** https://thedataengineer.substack.com/p/web-scraping-is-not-web-crawling
+**Published:** 2023-03-17T19:18:38+00:00
+
+**Content Preview:**
+I have participated in numerous debates regarding the appropriate terminology for a certain process, thing, or event, and often found myself losing friends or making enemies by the end of such discussions.&nbsp; I am taking another crack at this, my first post on my technical blog, I will be classifying the differences between web scraping and web crawling. Additionally, I will cover some basic terminologies used in the scraping discipline and explain why they are used in that way. To begin with, the correct term is web scraping, not scrapping. Scrapping usually refers to disposing of unwanted items, as per the thesaurus. Whenever I come across companies using "scrapping" in their job descriptions, I never applied. In fact, I have, and will continue to, reject applicants who have previously engaged in "web scrapping" during their past jobs. Thanks for reading @FluffyDietEngine&#8217;s Substack! Subscribe for free to receive new posts and support my work. Another commonly held misconception in the community is &#8220; Web Scraping with BeautifulSoup &#8221;. While beautifulsoup is a versatile Python library, it does not actually scrape web pages. Rather, it parses the Document Object Model (DOM) of the response obtained by other libraries capable of connecting to the internet, such as requests , httpx , aiohttp , and so on. At one point, I had to verify the documentation of BeautifulSoup to ensure I had not overlooked a crucial feature of the library. Even my favorite educational website for Python programming, realpython.com,&nbsp; has done the same mistake in a tutorial to talk about &#8220; web scraping with BeautifulSoup ''. It is a great article though. I can understand your thoughts: do these things really matter? Yes, as someone who started their career as a Junior Data Engineer and has spent eight years in the industry specializing in web data extraction with Python, these things do matter to me. And I would like to share my insights with my peers. Now, let's...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 145: Coming soon
+
+**Publication:** @FluffyDietEngine’s Substack
+**Author:** @FluffyDietEngine
+**URL:** https://thedataengineer.substack.com/p/coming-soon
+**Published:** 2023-03-06T11:31:48+00:00
+
+**Content Preview:**
+This is @FluffyDietEngine&#8217;s Substack. Subscribe now...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 146: Practical Data Contracts: First-Hand Insights from 9 Data Experts
+
+**Publication:** Data Quality Camp Newsletter
+**Author:** Samadrita Ghosh
+**URL:** https://dataqualitycamp.substack.com/p/practical-data-contracts-first-hand
+**Published:** 2023-08-15T16:03:05+00:00
+
+**Content Preview:**
+Data Contracts have been a widely discussed subject in the data community. Contrary to volatile trends and strategies, contracts have proven to be tangible, given it directly addresses recurrent concerns in data stacks across organisations and industries; also because of our ability to experiment directly with it instead of getting trapped in conceptual debates. In this issue, we address some practical concerns and solutions regarding data contracts. Good news is we&#8217;ve curated an amazing load of insights from a very influential cast who&#8217;ve practically participated in the ideation and development of the Data Contract paradigm. Yes, we are talking founding engineers, authors, evangelists, and contributors of open specifications! To make the experience more consumable, we&#8217;ve divided these insights across a three-part series: Part 1: What and Why of Contracts Part 2: Contract Ops Part 3: Contract Ops (continued) Our last release was a massive boost for many readers as they could access distilled information from across a wide range of experts and form their own opinion around the suggested solutions and ideas, and this release is in a similar vein. We encountered varying approaches to data contracts; while there's unanimous agreement for some strategies, there are also stark differences in opinions around some debatable topics, which could be a very interesting turn on how we approach this novel technology. Contributors Ananth Packkildurai - Editor at Data Engineering Weekly &amp; creator of Schemata . Andrea Gioia - Partner and CTO at Quantyca &amp; Co-Founder at Blindata Andrew Jones - Coined &#8220;Data Contracts&#8221;, Author of Driving Data Quality with Data Contracts , Principal Engineer at GoCardless . Animesh Kumar - Co-Founder &amp; CTO at Modern , Contributor to the Data Developer Platform infrastructure specification. Chad Sanderson - Founder &amp; Chief Operator of Data Quality Camp , Former Head of Product at Convoy . Jean-Georges "jgp" P...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 147: Tips for Semantic Data Modeling: Insights from 9 Data Experts
+
+**Publication:** Data Quality Camp Newsletter
+**Author:** Data Quality Camp
+**URL:** https://dataqualitycamp.substack.com/p/tips-for-semantic-data-modeling-things
+**Published:** 2023-05-12T17:00:37+00:00
+
+**Content Preview:**
+We are seeing a resurgence on the emphasis of data modeling after its brief hiatus between 2010-2020, when many companies opted to utilize data lakes for speed of execution. Despite the decades of work in data modeling, it&#8217;s still one of the most difficult and nuanced aspects of working with data, where the default for best practices is &#8220;it depends.&#8221; While there's a unanimous agreement for some strategies, we have seen stark differences in opinions around some controversial topics as well. Thus, we are excited to launch the first Data Quality Camp (DQC) newsletter post with an awesome panel of data experts and leaders, within DQC, who have generously shared their experiences and knowledge to benefit the data community at large. Some of the topics we cover in this post are the following: Wide Tables vs. Kimball's Star Schema Opinions on Inmon vs. Kimball Utilizing GUI abstracts to serve data Enabling the Data Mesh Architecture Avoiding over-engineered data models And much more&#8230; Hold your seats and get ready to journey through the perspectives of some amazing minds in data. Learn first-hand what they are thinking about age-old practices and the latest developments in data modeling. Ergest Xheblati - Data Architect &amp; Author of Minimum Viable SQL Patterns Josh Richman - Senior Manager of Business Analytics at FLASH Juan Sequeda - Principal Scientist at data.world and co-host of Catalog &amp; Cocktails Juha Korpela - Chief Product Officer at Ellie Technologies Michael Greaves - Engineering Manager at Klarna Mike Lombardi - Senior Data Architect at Farfetch Sarah Floris - Senior Data &amp; ML Engineer at Zwift Shane Gibson - Chief Product Officer &amp; Co-Founder at Agile Data Timo Dechau - Founder &amp; Data Designer at Deepskydata Available Substacks of the contributors: Please note that most excerpts below are summarized versions of the original quotes, curated for ease of readability and compactness. Feel free to double-click or zoom in for...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 148: Coming soon
+
+**Publication:** Data Quality Camp Newsletter
+**Author:** Data Quality Camp
+**URL:** https://dataqualitycamp.substack.com/p/coming-soon
+**Published:** 2023-04-05T17:02:25+00:00
+
+**Content Preview:**
+This is Data Quality Camp Newsletter. Subscribe now...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 149: Coming soon
+
+**Publication:** Sunil’s Substack
+**Author:** Sunil Maharana
+**URL:** https://startdataengineering.substack.com/p/coming-soon
+**Published:** 2023-09-09T16:52:59+00:00
+
+**Content Preview:**
+This is Sunil&#8217;s Substack. Subscribe now...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 150: Coming soon
+
+**Publication:** Amrish’s Substack
+**Author:** Amrish
+**URL:** https://learndataengineering.substack.com/p/coming-soon
+**Published:** 2023-04-02T03:46:34+00:00
+
+**Content Preview:**
+This is Amrish&#8217;s Substack. Subscribe now...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 151: Coming soon
+
+**Publication:** Data’s Substack
+**Author:** Data Talks
+**URL:** https://datatalks.substack.com/p/coming-soon
+**Published:** 2024-11-22T11:21:53+00:00
+
+**Content Preview:**
+This is Data&#8217;s Substack. Subscribe now...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 152: Coming soon
+
+**Publication:** Data Lakes and Lakehouses
+**Author:** Kyle Weller
+**URL:** https://clouddata.substack.com/p/coming-soon
+**Published:** 2022-07-13T08:13:08+00:00
+
+**Content Preview:**
+This is Data Lakes and Lakehouses , a newsletter about How to build your data platform in the cloud. Subscribe now...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 153: Data Maturity, Part 3
+
+**Publication:** The Sequel
+**Author:** Colleen Tartow
+**URL:** https://thesequel.substack.com/p/data-maturity-part-3
+**Published:** 2024-06-05T13:58:10+00:00
+
+**Content Preview:**
+A few years back, Annika and I started this blog because we had ideas about data maturity. We wrote about what data maturity was in Part 1 , and how that extended to analytics in Part 2 . Over the years I keep coming back to this idea of data maturity, and it&#8217;s become incredibly relevant once again now that we&#8217;re in the midst of the genAI hype cycle . So buckle up, it&#8217;s time for Part 3 &#128588; Data Maturity, previously The conclusion we came to in our previous articles (spoiler alert!) was: &#10024; to be mature in analytics, a company must be mature in data &#10024; So what does Data Maturity even mean? In the past we divided organizations into low and high data maturity: &#10145;&#65039; Low data maturity A low data maturity, or data immature, organization doesn&#8217;t know a lot about data, and it typically hasn&#8217;t been a priority for them. They have very few experienced data people, and they&#8217;re not using much beyond Excel / Powerpoint / an old school ERP or basic accounting system. They&#8217;ve likely got reporting under control but when it comes to anything beyond very simple dashboards or SQL queries against source DBs, they&#8217;re just not there. &#10145;&#65039; High data maturity A highly data mature team, on the other hand, has a solid handle on data engineering, and data science is a priority. Data is treated like a product. Many people are proficient in Python &amp; SQL. They focus on accelerating the time-to-value for data, and the company thinks ahead when it comes to data. They&#8217;re strategic about data technology, and data is a steady investment target/priority amongst leadership. Adding deep learning to the equation So how does AI fit in? In my previous article of March 2021, I said &#8220;For years I have been annoying people who want to bring data science into their orgs by telling them that 90% of the work is the data.&#8221;&nbsp; I still say this today 3+ years later, but now in reference to deep learning ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 154: Data Mesh: Still Alive!
+
+**Publication:** The Sequel
+**Author:** Colleen Tartow
+**URL:** https://thesequel.substack.com/p/data-mesh-still-alive
+**Published:** 2024-05-06T14:06:15+00:00
+
+**Content Preview:**
+Lately I&#8217;ve been to a LOT of data conferences. Recently, I was at the ODSC East conference in Boston - they&#8217;d asked me to give a talk about Data Mesh . Lately I&#8217;ve been speaking more about AI , structured vs unstructured data, and whether the Modern Data Stack is still a thing . I&#8217;ve also made a lot of memes &#128526; One question I&#8217;ve been asked a lot lately is, &#8220;what&#8217;s going on with Data Mesh?&#8221; and &#8220;is Data Mesh still a thing?&#8221; &#128064; So let&#8217;s take a minute to talk about it. Why care about Data Mesh? I wrote a little book about Data Mesh, and I&#8217;ve been a huge proponent of it for years now. Back in the day I was a data engineering and analytics leader; even further back in the day I was a data engineer &#129299; I&#8217;ve felt first-hand the pain points that are prevalent in a centralized data organization at a growing company. I know how hard it is for data teams to be the bottleneck in the flow of data from source to value, because I&#8217;ve lived it. Do I think Data Mesh is a magic wand, that can miraculously fix all the problems? Eh. But do I think Data Mesh is a necessary and huge leap forward in data strategy? You bet I do. Thanks for reading The Sequel! Subscribe for free to receive new posts and support my work. Where is Data Mesh now? In 2021-ish, Data Mesh was the hottest thing in data. People loved it or hated it, it spawned communities and conferences and books and a million blogs. Then, as with all things in the zeitgeist, we moved on. Other ideas took over in dominating the hype cycle, and while Data Mesh didn&#8217;t go away, it was no longer the belle of the ball. But a mature data strategy is more relevant than ever now. Things on the Data Mesh front have been relatively quiet of late, and I have a theory of why this is: It takes a long time to build out a Data Mesh. Years. So the organizations that were excited to get started in the last few years are now deep in the weed...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 155: AI and The Mandalorian
+
+**Publication:** The Sequel
+**Author:** Colleen Tartow
+**URL:** https://thesequel.substack.com/p/ai-and-the-mandalorian
+**Published:** 2024-04-09T12:27:57+00:00
+
+**Content Preview:**
+I&#8217;m baaaack!&nbsp; This blog still exists! It&#8217;s been a hot minute 1 , eh?&nbsp; Do I have a hundred blog ideas for this blog that went half-written and are saved somewhere in draft form?&nbsp; Absolutely.&nbsp; Am I going to revisit some of them?&nbsp; Eh, maybe.&nbsp; Life is busy .&nbsp; Case in point: my older son is now old enough to watch Star Wars &#129395; We watched the Skywalker Saga movies in chronological release order, and now we&#8217;re watching The Mandalorian, as you may have gleaned from the title.&nbsp; So what does this have to do with AI? Mando does not like Droids In the Star Wars universe, artificial intelligence largely manifests as droids.&nbsp; Some are humanoid like C-3PO , some are not (shoutout to Gonk ), and some are a hybrid, like IG-11 . Without spoiling anything, the Mandolorian is a bounty hunter who loathes droids generally. He hates IG-units specifically as they were also bounty hunters and were designed, literally, to kill.&nbsp; Mando also works with an Ugnaught , Kuill , who can fix anything and has been known to reprogram droids, including these killer IG-units, to be docile house servants.&nbsp;&nbsp;Mando, however, has a really hard time trusting droids. AI as Droids &#129302; So what the heck does any of this have to do with the current explosion of AI in the tech world?&nbsp; We were watching The Mandalorian this weekend, and in a conversation with Kuill, the Ugnaught said something I can&#8217;t get out of my head: &#8220;Droids are not good or bad, they are neutral reflections of those who imprint them.&#8221;&nbsp; His point is that for Mando to hate on droids generally is foolish because they&#8217;re simply computers, and it&#8217;s the people who programmed them who are responsible for their behavior.&nbsp; So it&#8217;s really people who are the problem &#128161; Nick Nolte.&nbsp; No, really .&nbsp;&nbsp; AI is not good or bad&#8230; So the real-world analogy here is that AI is neither good nor bad, it si...
+
+**Embedded Videos:** 4
+
+
+---
+## Post 156: The Endless Data Buffet
+
+**Publication:** The Sequel
+**Author:** Colleen Tartow
+**URL:** https://thesequel.substack.com/p/the-endless-data-buffet
+**Published:** 2021-09-21T14:35:12+00:00
+
+**Content Preview:**
+Mmm, brunch. I have always maintained that brunch is the best meal.&nbsp; Why?&nbsp; Because there is nothing you can&#8217;t eat at brunch.&nbsp; Pancakes, pad thai, steak, tacos, ice cream, salad, pastry... Whatever you&#8217;re in the mood for, it&#8217;s all fair game at brunch. And there&#8217;s a special brand of brunch that I would argue is truly the best: &#10024;the champagne brunch buffet&#10024; These magical places allow you to choose from an array of incredible brunch options, all prepared incredibly well.&nbsp; There are stations for each type of food, you can choose exactly what you want, and add a bit of bubbly &#127870; Heaven! So how does a champagne brunch buffet come together?&nbsp;&nbsp; This nirvana is truly greater than the sum of its parts.&nbsp; You&#8217;ve got pastry chefs baking, a team running the omelette station, a sushi chef, folks chopping veggies for salads, a pasta station, carving station, charcuterie, etc.&nbsp; Each kitchen team focuses on the ingredients they need to pull together the product - the eggs or fruit or flour or specific baking dishes.&nbsp; The end product - what ends up on my plate - is a delightful mix of what I like - a bit of crunch, a bit of savory, and a bit of sweet &#127859;&#127843;&#129360;&#127837;&#127790; And, of course, champagne &#129346; A data buffet What does this have to do with data? More than you&#8217;d think!&nbsp; As we all know, data is the new oil , and it&#8217;s everywhere, growing exponentially every day.&nbsp; But it turns out that data by itself is fun to collect but isn&#8217;t truly valuable until you use it to build business insights through analysis.&nbsp;&nbsp;There are also questions about how to organize and process data, and who should &#8220;own&#8221; it at each stage, and that&#8217;s where things get interesting. Think of data as the raw ingredients, the line cooks and chefs as the data engineers preparing the data dishes, and the analysts as the brunch customers, picking ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 157: Snowbricks & Dataflake: Part Two
+
+**Publication:** The Sequel
+**Author:** Annika Lewis
+**URL:** https://thesequel.substack.com/p/snowbricks-dataflake-p2
+**Published:** 2021-09-03T19:02:25+00:00
+
+**Content Preview:**
+This is Part Two in a two-part series. Part One here . TL;DR Snowflake is moving into processing. Databricks is moving into storage. The two hottest data companies in the world are looking increasingly similar. I wrote about this shift a couple months ago, in Snowbricks &amp; Dataflake: Part One . Here in Part Two, I&#8217;m diving into a fascinating parallel I stumbled upon. The more I dug into the histories of Snowflake &amp; Databricks, the more similarities I found to two of the world&#8217;s most storied enterprise software companies: SAP and Oracle. After 50 years of SAP &amp; Oracle reigning as data storage &amp; processing powerhouses, Snowflake and Databricks are the up-and-coming 21st century duo with a shot at enterprise software domination. SAP &amp; Oracle&#8230; really? Now, for the skeptics saying &#8220;But SAP &amp; Oracle are multi-faceted enterprise software, that&#8217;s totally different from these analytics companies&#8221; &#8212;you&#8217;re not wrong. I&#8217;m not suggesting the business models of SAP/Oracle &amp; Snowflake/Databricks are one and the same, or that they&#8217;re solving the same customer need today. That said, there is an important point of overlap in the Venn diagram that is worth noting&#8212;specifically, a core tenet of both pairs is that they provide a unified storage layer for enterprise data. As a result, these four companies are similar in their DNA: each one is a critical, hugely important piece of enterprise infrastructure. While these companies&#8212;especially the newer pair&#8212;claim to serve clients of all shapes and sizes, the bulk of their revenues mostly come from the higher end of the market (e.g., Fortune 500). Die-hard data folks might think that SAP is an odd-one out in this foursome. Yes, Oracle has a much deeper database DNA (one friend described Oracle to me as &#8220;a database that happens to be used as an ERP&#8221;), and it falls more frequently into the Teradata/Redshift/etc. comparisons than S...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 158: Snowbricks & Dataflake
+
+**Publication:** The Sequel
+**Author:** Annika Lewis
+**URL:** https://thesequel.substack.com/p/snowbricks-and-dataflake
+**Published:** 2021-06-22T17:08:44+00:00
+
+**Content Preview:**
+TL;DR Snowflake is moving into processing. Databricks is moving into storage. The two hottest data companies in the world are looking more and more similar to one another, with increasingly overlapping offerings and ambitions. The stage is being set for quite the competitive dynamic, one that is reminiscent of previous-gen enterprise giants SAP &amp; Oracle. Snow &amp; Bricks Unless you&#8217;re living under a rock, you know that Snowflake and Databricks are two of the hottest companies in data land right now. While Snowflake has been a household name in data circles for awhile, it was the company&#8217;s 2020 IPO that thrusted them into the mainstream, after an impressive up-and-to-the-right trajectory. Databricks isn&#8217;t far behind &#8212; having raised at a $28 billion valuation earlier this year , they&#8217;re said to be another likely IPO candidate. These companies started off in fairly distinct markets&#8212;what they were initially known for, at their cores, is pretty different: Snowflake is the data warehouse company Databricks is the Spark company As they&#8217;ve matured, they&#8217;ve been expanding their offerings and creeping into one another&#8217;s space&#8212;and their visions of what they&#8217;re going after sound nearly identical. This a very interesting and under-discussed competitive dynamic that I can&#8217;t say I&#8217;ve come across very often. Let&#8217;s dig in. How it started: Snowflake started as a Data Warehouse company. As I wrote in the history section of The Generalist&#8217;s Snowflake S-1 Club report , Snowflake was founded in 2012 by ex-Oracle database architects who had a vision of building a cloud-native data warehouse from the ground up. The market was ripe, the timing was right, and the company has executed near-flawlessly: fast-forward nine years and they&#8217;re doing over $500M a year in revenue and sitting at a $70B market cap. To bring some context to where Snowflake began, I think about the data stack as four bucke...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 159: Handling Bias in Data Science
+
+**Publication:** The Sequel
+**Author:** Colleen Tartow
+**URL:** https://thesequel.substack.com/p/handling-bias-in-data-science
+**Published:** 2021-05-19T15:33:57+00:00
+
+**Content Preview:**
+TL;DR Data is biased, models are biased, humans are biased - pay attention and hire a diverse workforce! Here&#8217;s the deal: I think about diversity and the engineering workforce, like , a lot .&nbsp; It&#8217;s been shown approximately 7 billion times that businesses pull in more revenue , make better products , and are better places to work when they have a diverse employee base and an inclusive culture.&nbsp; So yeah there&#8217;s a ton of research on this and I&#8217;m not going to rehash it. But what about your data itself?&nbsp; Shouldn&#8217;t data and data science be, you know, math?&nbsp; And therefore kind of immune to prejudice?&nbsp; Data is really just 1s and 0s - electrons!&nbsp; Electrons aren&#8217;t biased, right?&nbsp;&nbsp; But - as we all know by now - that&#8217;s not true. Bias can happen in the data itself, and everyone in data-related fields should be thinking about this a lot, especially as data-based fields grow in popularity and adoption.&nbsp; There are a lot of ways skew can be introduced, from how the data is collected to how it&#8217;s presented.&nbsp; This is an incredibly complex and hairy topic, and like many I also get overwhelmed by the breadth and depth of the problem &#128555; But that doesn&#8217;t mean we can ignore it, so in the interest of brevity I&#8217;m going to hone in on three basic sources of bias here: The data itself &#128203; Algorithms &#128200; Humans &#129299; Your data might be a problem &#128561; Datasets can be incredibly straightforward and transactional (e.g. invoice data) but they can also be skewed in several ways - due to how they&#8217;re collected, how they&#8217;re sampled, how they&#8217;re interpreted&#8230; think about any push poll as an obvious example.&nbsp; Data issues can be more subtle, too. Think about something that seems simple like a &#8220;gender&#8221; field &#9892;or a &#8220;race&#8221; field. Most datasets are split into only two or three genders and a handful of races, and ignore...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 160: Your First Data Hire
+
+**Publication:** The Sequel
+**Author:** Colleen Tartow
+**URL:** https://thesequel.substack.com/p/your-first-data-hire
+**Published:** 2021-04-14T15:11:08+00:00
+
+**Content Preview:**
+TL;DR&nbsp; Spoiler alert: your first data hire should be a senior data engineer who can help you architect, build, and mature your data ecosystem, and do some basic analytics.&nbsp;&nbsp; Let&#8217;s do data! Congratulations!&nbsp; You&#8217;re a leader who&#8217;s been put in charge of getting your company to build out a data function. That means you&#8217;re the one tasked with buying tools and making the first hire - an exciting prospect.&nbsp; Woot!&nbsp; &#127881; Beware Analysis Paralysis As exciting as standing up a data team is, it can also be pretty daunting. &#129489;&#8205;&#128187; Who do you hire first? A data analyst?&nbsp; An analytics engineer?&nbsp; A data engineer?&nbsp; A business analyst?&nbsp; A data leader?&nbsp; &#128176; Where do you allocate your budget? Should you buy some shiny new BI tools and convince one of your software engineers to &#8220;start doing data&#8221;?&nbsp; Or should you blow all of your budget on a super expensive data scientist and trust that you&#8217;ll be able to make do with your existing tools? &#128563; Or do you just curl up under your desk with a severe case of analysis paralysis? Where should you start? First: chill out, it&#8217;s going to be OK.&nbsp; Second: let&#8217;s look at things in the context of Data Maturity . We define this as a function of a company's people &#129299;, tools &#128736;, and readiness &#127937;. You've identified the people need, and let's assume you have at least decent readiness, since you're the business leader driving this effort. Now it's time to think about the tools you'll need, and that will very much depend on where your critical data lives -- so it&#8217;s worth starting by taking an inventory of that: What kind of data do you have? It could be transactional, sales history, customer data, inventory, clickstream, marketing, etc.&nbsp; What are the key use cases that are driving this data need? Are there certain business-level KPIs or OKRs relating back to specific datasets? ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 161: 'Non-data people'
+
+**Publication:** The Sequel
+**Author:** Annika Lewis
+**URL:** https://thesequel.substack.com/p/nondatappl
+**Published:** 2021-03-31T18:54:29+00:00
+
+**Content Preview:**
+TL;DR In data, more than in any other functional area, we segment people based on whether they&#8217;re in or they&#8217;re out &#8212; &#8216;data people&#8217; vs. &#8216;non-data people&#8217;. While there are obvious reasons for this, it causes a divide that makes me uneasy. If we want to create data-centric cultures within our companies, we should be blurring the lines between the two worlds. One foot in, one foot out As a kid, I used to straddle the Canada/US border, thinking it was just the coolest thing that I was in two countries at once. I thought it was so cool that I did it on the equator, too Many times over, I&#8217;ve felt like that in my work. I&#8217;ve always had one foot on either side of the line. I&#8217;m a &#8216;business person&#8217;. I studied Finance in college. I&#8217;m obsessed with EBITDA and generating business value and building companies. I love a good high-level, conceptual debate about corporate strategy or go-to-market approach or tactics for building an enterprise sales team. But I&#8217;m also a &#8216;data person&#8217;. I studied Math in college, too. I vividly remember learning Bayes&#8217; theorem and analyzing my first A/B test and being awed by the power of statistics being applied in a company at scale. I used to thrive on late nights debugging my SQL code. I&#8217;d love to discuss the implications of ELT vs. ETL with you just as much as I&#8217;d love to spar on corporate strategy or macroeconomics. As people working in the field of data, why do we delineate so clearly between data people and non-data people? With data becoming such a critical input to, like every aspect of business in this day and age, isn&#8217;t it kind of concerning that we draw such a clear line in the sand? We don&#8217;t talk about &#8216;non-sales&#8217; or &#8216;non-product&#8217; people in the same way we talk about &#8216;non-data&#8217; people. And there are a lot of people out there like me, who aren&#8217;t necessarily in the weeds runni...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 162: Data Maturity, Part 2
+
+**Publication:** The Sequel
+**Author:** Colleen Tartow
+**URL:** https://thesequel.substack.com/p/datamaturitypt2
+**Published:** 2021-03-16T15:55:57+00:00
+
+**Content Preview:**
+TL;DR In this post, I walk through how data maturity is directly related to analytics maturity. Bottom line: to even think about analytics maturity, a company has to first focus on its data. A quick recap of Part 1 In Annika&#8217;s post Data Maturity, Part 1 , she presented this matrix, where we not only think about a company&#8217;s size but how data mature they are: To be honest, when Annika first brought this up to me, it kind of blew my mind. It&#8217;s so simple and so clear, and it codifies that company size doesn&#8217;t dictate data maturity, like, at all. Rather, data maturity is therefore a measure of how advanced a company&#8217;s people, tools, and processes are with respect to data specifically.&nbsp; It&#8217;s an important aspect to consider for any company. The analytics maturity model I&#8217;ve been in the data and analytics world for a long time now &#128117;&#127995;&#129299; I&#8217;ve worked with small companies where nearly everyone used data to make decisions, mid-market companies in the throes of a digital transformation beginning to include data in their processes, and large, complex, established companies where they&#8217;d love to be data-driven but it&#8217;s a distant dream buried under spreadsheets.&nbsp;&nbsp; The data maturity model immediately brought to mind Gartner&#8217;s analytics maturity model, which has become the stuff of legend in the analytics world.&nbsp; It basically looks like this: Put simply, it&#8217;s harder to do things that are of higher value when it comes to analytics.&nbsp; Shocking, I know! &#128521;&nbsp; But seriously - most companies can do really (low-value, easy) basic analytics in the form of reporting.&nbsp; But to get to the place where you can do predictive or prescriptive (high-value, hard) data science and run your business based on data?&nbsp; Dude, that&#8217;s tough! &nbsp;And it doesn&#8217;t just mean you need genius data scientists and operationalized data, it means you need to treat data as ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 163: Data Maturity, Part 1
+
+**Publication:** The Sequel
+**Author:** Annika Lewis
+**URL:** https://thesequel.substack.com/p/dmpt1
+**Published:** 2021-03-03T16:51:15+00:00
+
+**Content Preview:**
+TL;DR Becoming a data-driven organization takes time and effort. There&#8217;s no magic wand. &#129497;&#8205;&#9792;&#65039; Getting real about where your company sits on the &#8216;data maturity&#8217; spectrum is a great place to start. In this post we&#8217;ll cover: What is data maturity? Why company size is a bad proxy for data maturity How data maturity looks in practice This is Part 1 of 2. In Part 2, Colleen will discuss Data Maturity as a necessary precursor to Analytics Maturity. What is data maturity? My shorthand definition of data maturity is &#8216;how data-savvy a company is&#8217;. Broadly speaking, I consider data maturity to be a function of three things: People , Tools , and Readiness &#128119;&#8205;&#9794;&#65039; On the people front:&nbsp; Do people in the company have experience with the latest data &amp; analytics technologies? Is there even a data team? Are they using the company&#8217;s proprietary data to the best of their ability? Are they hungry to continually upgrade their tooling and their thinking to remain at the forefront of what&#8217;s possible? How do &#8216;non-data&#8217; roles in the company feel about data? &#128736; On the tools front:&nbsp; Is the company using a modern data stack, or are they working off of&nbsp;.XLS files and building graphs in Powerpoint? Where are they storing &amp; accessing their data? Do they have a lot of data debt ? &#128681; On the readiness front: Do they have a good understanding &amp; articulation of what they want to accomplish with data? Do the company&#8217;s leadership have the mindset to actually be data-led? Do they know what business outcomes they hope to drive? Do they know what data sources&#8202; they need&#8202;, and how? Basically&#8202;&#8212;&#8202;have they done their homework in figuring out what they need, or did they just hear &#8220;big data&#8221; and go looking for a magic wand? &#129497;&#8205;&#9794;&#65039; Why company size is a bad proxy for Data Maturity I often hear ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 164: Introducing The Sequel ✨
+
+**Publication:** The Sequel
+**Author:** Annika Lewis
+**URL:** https://thesequel.substack.com/p/intro
+**Published:** 2021-03-02T15:58:01+00:00
+
+**Content Preview:**
+Hey there. &#128075; We&#8217;re Annika &amp; Colleen. We&#8217;re a couple of enterprise data nerds on a mission to bring more conversation to what we call &#8216;the human side of data&#8217;. Today, we&#8217;re launching The Sequel &#8212; a newsletter doing just that. Here&#8217;s some background &#128071; &#128293; Data is heating up &#8212; and it&#8217;s here to stay We've finally reached the point where data is everywhere. It&#8217;s being analyzed and applied in businesses of all shapes &amp; sizes &#8212; from tech-forward Fortune 500s, to analog pizza chains. Data is officially *kind of a big deal* . And it's not that Analytics, Data Science, or Machine Learning are new disciplines &#8212; it's that data is becoming more available &amp; more useful than ever before. Why is that? A few reasons: &#9729; The cloud becoming a thing &#128736; Huge advances in analytics tools &#128200; The staggering amount of data being created in our increasingly digital world Unless you're living under a rock, you probably already know all this. And even if you didn't know it explicitly, you probably felt it. Data is the new &#8216;lingua franca&#8217; of business. &#128014; But, it&#8217;s still the wild west Despite how much attention data is getting, it&#8217;s still early days. Companies everywhere are scrambling to ' do data ', and to get the right people in place for the job. We hear of companies setting aside budgets to hire Machine Learning experts &#8212; when they're still using Excel as their source of truth. We see job postings for new types of roles popping up, as companies retroactively uncover fundamental gaps in their capabilities. We hear debates around basic team structure &#8212; centralized? federated? centrally federated? &#8212; as companies scramble to determine how to set up their teams. It&#8217;s messy. It&#8217;s nuanced. It's fast-moving. Even for the best of companies, it&#8217;s a bit of a shit show. If your team is struggling, you&#8217;re not ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 165: Tetris 99: The Best Battle Royale
+
+**Publication:** game thoughts
+**Author:** Tristan
+**URL:** https://tristan.substack.com/p/tetris-99-the-best-battle-royale
+**Published:** 2019-02-25T21:51:07+00:00
+
+**Content Preview:**
+Battle Royale has been one of the fastest growing trends of the past two years in gaming.&nbsp; PlayerUnknown&#8217;s Battlegrounds &nbsp;has been the main catalyst, wherein 100 players are pitted against each other on a large map with a single, simple objective: be the last person standing. An arsenal of weapons, equipment, and power-ups are scattered across the vast lands to help you achieve your goal. A lack of abilities and items that carry over from match to match help create a level playing field and a simple gameplay loop that doesn&#8217;t require vast amounts of time investment or in-depth knowledge of intricate mechanics. However, the explosive success of the genres has contributed to developers and gamers turning a blind eye to some of the factors that hinder the gameplay experience of most titles in the genre. Conflating this with the industry&#8217;s obsession to make everything a competitive eSport has resulted in a pattern of questionable design choices for both player and spectator alike. Random Factors There are a couple of random factors that come into play with many of the current Battle Royale games: The trajectory of the bus/plane/ship across the map at the start of the match, The distribution and variety of loot across the map, and The location of the safe area. These design choices help give games a rogue-like feel: randomization across these features keep the feeling new between rounds. It also rewards players who improvise and understand the strengths and weaknesses of the different tools at their disposal. But since most of these are a factor of luck, it means that even the best of players can be caught off-guard and be stuck in an impossible situation. Additionally, for spectators, it provides too much of an open-ended narrative and fails to create an engaging experience. Other competitive games that are watched by a broad audience have a rigid structure in how the game will be played that provide tension:&nbsp; League of Legends &nbsp;wil...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 166: Coming soon
+
+**Publication:** game thoughts
+**Author:** Tristan
+**URL:** https://tristan.substack.com/p/coming-soon
+**Published:** 2019-02-08T19:58:09+00:00
+
+**Content Preview:**
+Substack is a platform for email newsletters. The author of this publication will no doubt be publishing their first edition soon. In the meantime, you can find out more about Substack at&nbsp; substack.com .&nbsp; (Publishers can delete this post by finding it in the &#8220;Posts&#8221; section of of the dashboard, clicking &#8220;Edit&#8221; on the Coming Soon post, clicking &#8220;Setting&#8221;s at the bottom, then clicking &#8220;Delete Post&#8221;. But don&#8217;t delete it something has been published to take its place &#8211; otherwise, this homepage will look empty.) Here are some other Substack publications worth checking out: Daniel Mallory Ortberg&#8217;s The Shatner Chatner Judd Legum&#8217;s Popular Information Helena Fitzgerald&#8217;s Griefbacon Bill Bishop&#8217;s Sinocism Kelly Dwyer&#8217;s The Second Arrangement Walter Hickey&#8217;s Numlock...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 167: Why I Built an Open Source AEO Tool
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/why-i-built-an-open-source-aeo-tool
+**Published:** 2025-07-23T14:02:12+00:00
+
+**Content Preview:**
+SEO is one part technical and one part content production; AEO (answer engine optimization) is much broader. LLMs serve up content from across the web, showing what content is considered high fidelity. To rank in ChatGPT&#8217;s answers, you have to have high web visibility, ie., good brand . Consider this web visibility view from Ahrefs. For example purposes, I&#8217;m comparing brands of a few of the AI tools. They're tracking mentions across the entire web &#8211; news sites, forums, social media, you name it. We see Cursor&#8217;s explosion in the market a few months ago, but ChatGPT remains more prominent today. This broadly maps to how these tools live in most people&#8217;s minds, just adds data to back it up. But here's the thing - web visibility is the means to the end. To improve it, you need to know exactly where to show up and what to talk about. That's where AEO tools should come in. Thanks for reading Sarah's Newsletter! Subscribe for free to receive new posts and support my work. The AEO tooling landscape I evaluated seven different AI brand tracking tools (Ahrefs being one of them). The main issue I encountered with Ahrefs is that it searches the term, not the website. So, for a company with a common name like &#8220;Railway&#8221;, this wasn&#8217;t particularly helpful. There are many bespoke tools out there, but I selected a few from this list from Graphite . Many of them could tell me "you were mentioned 47 times this week in ChatGPT responses." However, I was fairly shocked to learn most tools don&#8217;t actually expose the websites used to cite your brand, when this is the most actionable piece! Note: there were a few that did include sources, but they were either 1) really expensive or 2) made me enter my own prompt topics as opposed to suggesting a few. Without the full citation source context, the data is colossally unactionable. Understanding the data isn&#8217;t enough to make it impactful - the tool must inform your marketing strategy. &...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 168: When is SEO a Meaningful Growth Strategy?
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/when-is-seo-a-meaningful-growth-strategy
+**Published:** 2025-06-19T15:11:40+00:00
+
+**Content Preview:**
+I've been thinking a lot about SEO lately - it obviously affects AEO (Answer Engine Optimization), but the two are often conflated. More so, when does SEO actually make a business-changing impact? Here&#8217;s some rhetoric I&#8217;m seeing (exaggerated, sure, but paints the picture of directionally incorrect advice I&#8217;ve seen): SEO is always important SEO = AEO; they are one in the same Many efforts being lumped into the AEO umbrella Thanks for reading Sarah's Newsletter! Subscribe for free to receive new posts and support my work. Let's be Clear: AEO &#8800; SEO Before we dive into what actually works, let's untangle some confusing words. AEO (Answer Engine Optimization) is bigger than SEO. Way bigger. Yes, SEO impacts AEO - if you rank well in search, you're more likely to show up in AI-generated answers. But that's just one piece. If you do the following, you&#8217;ll also show up in AI answers: Have a Reddit engagement strategy and execute on it Produce enterprise media reports Appear in dev blogs Be mentioned basically anywhere credible information lives online Example of citations from ChatGPT prompts, screenshotted from amionai.com. (Read: not traditional SEO) SEO for the last 20 years has been very Google-centric. As soon as AI chat enters the conversation (no pun intended), we have more ways to interact with information on the internet. Our pond just became an ocean. While SEO strategies help you rank for specific keywords and topics like &#8220;deploy PostgreSQL&#8221;, AEO determines whether you show up when someone asks ChatGPT "How would I deploy a PostgreSQL database?", with follow-up questions like &#8220;Is this the most cost-effective solution?&#8221;. The first is about keywords and page structure. The second is about being part of the broader conversation. There are many ways to be part of the broader conversation - whether it&#8217;s with the end user vs buyer, in earned media, on your own pages, on socials - the list goes on. One could arg...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 169: Building a Repeatable Signal-Based Outbound Motion
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/building-a-repeatable-signal-based
+**Published:** 2025-04-10T20:05:56+00:00
+
+**Content Preview:**
+If you&#8217;re reading similar content as I am, your LinkedIn feed is probably overflowing with posts about signal-based warm outbound. It's the current darling of the B2B SaaS world, promising to transform your outbound motion from cold calls into perfectly timed, personalized outreach that magically converts. However - there's a huge gap between the hype we all see and actually making this work in practice. After nine months of implementing signal-based outbound at Prefect using Common Room, I've seen the good, bad, and ugly of what really happens when you try to take the hype and make it reality. It&#8217;s messy but so, so fun. Here was our journey. Why Signal-Based Outbound Makes Sense for PLS Product-led growth (PLG) is all about positioning the product as the main driver for acquisition through monetization. But the reality is, not every product is perfectly suited for a pure PLG motion. Many companies are finding better success with a hybrid approach in product-led sales (PLS ). PLS acknowledges that while product usage can drive growth, strategic sales involvement helps accelerate conversion, especially for larger accounts. The challenge is identifying which self-serve users are genuinely sales-ready versus those needing more nurturing. That's where signal-based outbound becomes crucial. By capturing the signals potential ICPs leave across platforms, we can: Identify users showing genuine buying intent Engage them with personalized outreach at the perfect moment Nurture those not yet ready for sales conversations Build a repeatable, scalable outbound process that isn't just spray-and-pray The signal-based approach is particularly appealing for developer tool companies, especially those with open source products. OSS users are notoriously hard to identify, and show up in places far beyond the product itself. They are still - however - product users that could be in a buying cycle. Prefect&#8217;s OSS server usage grew exponentially since the launch of Prefe...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 170: Marketing Attribution: A Guided Map for Success
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/marketing-attribution-a-guided-map
+**Published:** 2024-08-26T21:05:43+00:00
+
+**Content Preview:**
+If interested, find the recording of the talk below, initially prepared for PLGTM 2024 . Alright, let's dive into the world of marketing attribution - a topic that's often misunderstood but absolutely crucial for any marketer looking to make data-driven decisions. I recently gave a talk about this at PLGTM in San Francisco, and while the recording was lost into the ether, I'm excited to share these insights with you here. One key thing to remember as we go through this: implementation is 80% of the battle. This follows the classic 80/20 rule - you'll get 80% of the value from 20% of the effort. So don't get bogged down trying to create the perfect attribution system from day one. Start simple, and iterate. Thanks for reading Sarah's Newsletter! Subscribe to get more content like this. Why Attribution Matters Picture this: you're looking at a graph of user signups over time. There are spikes, there are dips, but what's causing them? That's where attribution comes in. It's all about explaining your growth and identifying those magical levers that drive conversions. Now, imagine that same graph, but with each spike color-coded to show its source. Suddenly, you can see that the big blue spike came from a webinar, while the brown spikes are from social media posts. At its core, marketing attribution allows you to understand conversion behavior and double down on what's working. But before we get into the nitty-gritty, let's bust some myths and share some tips to make your attribution journey smoother. Myth #1: Ad-blockers are the enemy You might think that with the rise of ad-blockers and privacy concerns, tracking user behavior is a lost cause. But here's the truth: cookies are changing, but they're not dead. And ad-blockers? They're not as widely used as you might think &#8211; even by developers! Let me share an experiment from our experience at Prefect. We compared our server-side signup data (the source of truth, in the database) with our client-side tracking data (...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 171: A Webhook Love Story
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/a-webhook-love-story
+**Published:** 2024-04-17T14:05:47+00:00
+
+**Content Preview:**
+Editorial note: it&#8217;s been a while since I&#8217;ve sent out a piece to you all. I&#8217;ve missed writing. My time has been deeply occupied by the many sweet marketing initiatives in the works at Prefect - one of which has been hiring. If interested in working with me and giving me the great gift of more time to write, check out the roles here . Today, I love webhooks. They provide a plug-and-play interface to the world of event-driven workflows, especially if you don&#8217;t have to host the infrastructure on which they run. From the sound of it, this setup could become completely unscalable from an engineering perspective. Trust me, I get it. I used to hate webhooks and found them extremely hard to manage during my time as a data engineer. You mean, triggering bespoke APIs from scattered sources without a real ability to run data quality checks, understand errors, retry failures, or encode dependencies? Thanks but no thanks. If a webhook was triggered with bad data, how could I figure out where that bad data came from? This seemed like a black hole of despair when it would inevitably come to debugging and scaling. So, when I say this admiration for webhooks was far from a predictable love story, I mean it. It was more analogous to the relationship between Sandra Bullock and Ryan Renolds in The Proposal - an initial forced relationship that evolved into one I would never want to live without. Here&#8217;s my own rom-com-esque relationship with a piece of technology. What&#8217;s about to follow is a business user&#8217;s guide to webhooks used largely through a UI - not a deep engineering guide to self-hosting webhook infrastructure. This will be useful if you&#8217;re in ops, marketing, sales, and even analytics. Subscribe now Building context on webhooks Let&#8217;s start with the basics. I like this definition from Zapier: a webhook is a message sent programmatically when something happens. What is a webhook, at its most basic state? Webhooks have a few co...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 172: Group Assignment in a Frontend vs. Backend A/B Test
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/group-assignment-in-a-frontend-vs
+**Published:** 2023-09-19T14:37:19+00:00
+
+**Content Preview:**
+Growth is all about experimentation. Reforge has a program about it, companies have been launched around it, and leaders talk about it . How do you actually implement a successful experiment? The questions already being discussed are how to: Decide which product feature should be behind a test Read the results of an A/B test Prioritize features based on data to have an educated hypothesis instead of finger-in-the-wind prioritization Imagine the point where the feature is almost implemented, you have a hypothesis, and are at the cliff of actually implementing the A/B test. How do you: Understand what parts of the test are in frontend vs. backend? Store who&#8217;s part of each group in the test? Make sure you implement a test that will have useful results at the end? Note: we&#8217;ll be talking about in-product tests where the user is logged in. Marketing tests are a separate can of worms which maybe we&#8217;ll open another day. Thanks for reading! Subscribe for free to receive new posts and support my work. What is the difference between frontend and backend tests? Justin of Technically uses a restaurant analogy quite nicely. The frontend of a restaurant is what you see when you walk in (tables, food, drink, service) while the backend is behind the two swinging doors (kitchen, staff, supply chain for ingredients, management). Focusing on web applications, the frontend is what you see on your screen&#8212;the UI/UX. The backend powers this experience and usually consists of a set of APIs and databases. Similarly for experimentation, the frontend test elements are in the browser (UX or the cache), while the backend test elements are in the database. &#9654; Definition : A frontend test relies purely on the user experience and user groups can be defined in the browser cache; a backend test requires business logic and/or user assignment to be stored in the database. Test themselves aren&#8217;t necessarily only frontend or only backend&#8212;they can be both. Imagine ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 173: Guide to Anonymous Identity Resolution
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/guide-to-anonymous-identity-resolution
+**Published:** 2023-08-15T15:22:00+00:00
+
+**Content Preview:**
+This article would not be possible without learning from Nicholas Brown, Jonathan Yu, and other fantastic engineers at Prefect while building our own internal identity resolution system with Amplitude for user attribution. I write this from a mixed perspective of a marketing, engineering, architecture design, and general analytics consumption. Web applications usually live across subdomains ( app.mycompany.io versus login.mycompany.io ) or even across completely different domains ( mycompany.io vs mycompany.com ). In theory, the user experience seamlessly transitions across the applications and sites with links and consistent branding. Not so hard to create a slick experience for the user yet, is it? Not so fast. What about triaging a support ticket for crashing documentation pages, or customizing user onboarding based on how they heard about your company? In both of these cases, you need to map unauthenticated data (documentation and website visits) to a specific user with an email and login. It gets even more blurry. Consider this: you built your product on app.mycompany.io, but finally got ownership of mycompany.com so the marketing site lives there. The documentation also lives where the marketing site is. The support ticketing system is completely separate and only requires a user&#8217;s email, not their potentially different username for the product login. Naturally, you don&#8217;t require users login to view documentation or the website. Core problem : personalizing user experience for efficient communication and support. Derived problem: having complete marketing and product data. Solution : identity resolution between anonymous and authenticated users. Steps of identity resolution First, whose identities are we resolving? Definition : An anonymous user is a web or app visitor that cannot be tied to self-identifying information. They haven&#8217;t provided it and it also cannot be logically deduced. Definition : An authenticated user is created from an ano...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 174: On a Personal Note
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/on-a-personal-note
+**Published:** 2022-12-20T17:28:16+00:00
+
+**Content Preview:**
+This past year for me was an eventful learning experience and I&#8217;m so grateful for it. I&#8217;ve been a bit quiet lately, preparing for a few big changes coming up in 2023. So let&#8217;s dive right in. I&#8217;ll be a Vermonter! Source Starting in January, I&#8217;m relocating to&#8212;you read that right&#8212;the great green state of Vermont. New England is in my heart and soul, and I&#8217;m so excited to be that much closer to snow as we enter the best time of year: ski season. If anyone wants to wallow in what it was like to purchase a home in 2022, I&#8217;m there. Montreal &amp; Boston data communities: you&#8217;ll see me around next year! And for anyone in the Burlington area: let&#8217;s start a meetup. What about my tinkering? My policy has always been complete honesty, which is the main reason for sharing my ideas for improving the way SaaS tools are configured within marketing and sales teams. After talking to over 100 operators, the idea has transformed several times, with the goal remaining the same: reducing SaaS debt . It doesn&#8217;t take much to imagine the difficulty (financial, logistical, emotional) of purchasing a home and starting a company at the same time. This project is taking a bit of a back seat while I settle in to all of these exciting changes. To clarify, a back seat doesn&#8217;t mean not in the car. There&#8217;s so much to do when it comes to how marketing teams function, and I&#8217;m excited to chip away at this problem from a different angle (the exact angle has yet to be fully defined). Lastly, I spoke earlier this year about not having as tight knit marketing communities as we do in data. Since then, I&#8217;ve gotten recommendations on a few, including: MOPs Professionals, Lenny&#8217;s Community, and Reforge. There&#8217;s still so much more I can contribute here, but also punting this down the line in lieu of what&#8217;s to come. Up next: a new opportunity Source While I am still consulting (and probably always wi...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 175: The Thrill of Deprecating Dashboards
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/the-thrill-of-deprecating-dashboards
+**Published:** 2022-11-29T16:34:02+00:00
+
+**Content Preview:**
+How many dashboards can one person reasonably gain insight from and act upon? While I don&#8217;t know the answer (this would actually be a great survey), I hope we can all agree the limit does exist. When we run before we walk and create a dashboard for every question asked without analyzing the question itself, that&#8217;s when dashboard bloat happens. Definition : Dashboard bloat is the effect on an organization when time is wasted finding the relevant visual to answer a question or recreating visuals that already exist. The cost in this case is time (and thus efficiency). When the holy grail Looker instance is poorly organized, the Head of Growth spends more time looking for that one useful graph on CAC segmented by paid versus free users than actually altering the growth strategy. If cleanliness and organization have already gone down the drain, the analytics team recreates visualizations that already exist. Dashboard bloat can be the result of a poorly implemented self-serve strategy or the direct antithesis of self-serve, depending on your viewpoint. Some have been saying dashboards aren&#8217;t the answer since 2013 , but coming up on 10 years later they&#8217;re as used as ever. While there certainly are new trends like data apps, automated insights, and operationalized data&#8212;dashboards aren&#8217;t going anywhere for a long time. Under the premise they&#8217;re here to stay&#8212;how do we organize them? Thanks for reading Sarah's Newsletter! Subscribe for free to receive new posts and support my work. Strategy paves the way forward They say startups win because they move fast, which is the case with analytics teams in startups as well. There is usually so much to do, so it&#8217;s hard to prioritize strategy over constant execution of everything and anything until tech debt is already there. In the off chance anyone reading is just starting to think about BI tool strategy, this section is for you. Usually, strategy talks come after going too far too...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 176: The Analytics Requirements Document
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/the-analytics-requirements-document
+**Published:** 2022-10-27T15:32:06+00:00
+
+**Content Preview:**
+While I mentioned the Analytics Requirements Document (ARD) as a concept in a previous post , I really spoke about it in depth during a talk several weeks ago ( slides , recording ). The content from the talk has been transformed into this post and elaborated upon. The Head of Product at your e-commerce company comes to you, an analytics lead, and asks: &#8220;so when are we going to get performance metrics on that rewards program we launched last week?&#8221; You pretend you know what&#8217;s happening (there was a launch?) and say by end of the week you&#8217;ll have something (requirements might be complex, TBD). You fumbled through that one, but now the real work begins. Upon approaching your manager, the Head of Analytics, you figure out they knew about the new rewards program but didn&#8217;t realize it&#8217;s already out in the wild. The company does need to make a decision on whether to extend the rewards program to a broader set of users, though, so time is tight. Some cats get herded and you get some set of requirements around how to make that decision, requirements that may or may not make sense. Another week has gone by, but you can now start doing your job: delivering data around product launch metrics. Within 30 minutes of doing the actual work, alarm bells go off in your head. There&#8217;s a table listing rewards used on a particular day by a particular user, but rewards don&#8217;t tie back to items. You can&#8217;t actually know if users are building and using rewards points in a way that&#8217;a beneficial to the business (like making sure they&#8217;re not getting rewards for returned items). This probably sounds familiar, so let me be succinct with what&#8217;s to follow: this news gets back to the Head of Product and the CEO, both furious that two weeks are wasted on a product that can&#8217;t be measured. The data and product teams coordinate to actually generate useful data (you just need a foreign key on the item if it was purchased using r...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 177: Choosing a Product Analytics Tool
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/choosing-a-product-analytics-tool
+**Published:** 2022-09-27T16:17:43+00:00
+
+**Content Preview:**
+Last updated: 10/03/2022 Every company&#8217;s got users. And users do things on a site that a large team of engineers has been paid to build based on designs. How do you know if the designs implemented are actually good ? How do you know if all that time, money, and overall effort resulted in a product that is actually beneficial to the business? That&#8217;s product analytics : the discipline of understanding how users engage with your product. The &#8220;analytics&#8221; portion can contain a lot of different data, and that&#8217;s where confusion ensues. Mostly, it&#8217;s front-end tracking data &#8212;in short, tracking what pages users view and buttons they click. This will be the primary focus of this post. Why would you need product analytics, you might ask? Granular event tracking data can give you the following tidbits: Funnel analysis and drop-offs . Looking at percent of users that reach pages A, B, C, then D in a flow and comparing those percentages will show where users get stuck. If from page A 95% reach B, 90% reach C, but only 60% reach D, there&#8217;s clearly too much friction between pages C and D. Customized user experiences . A set of actions and then no conversion indicates a marketing opportunity. Consider a user that checked out an FAQ page about purchasing but didn&#8217;t purchase a product&#8212;if this event data lives in the marketing platform, automated campaigns can re-engage this user to potentially convert. Photo by Arno Senoner While some of this data might live in the existing production database that&#8217;s required to run any application, backend data doesn&#8217;t give the whole picture nor is it easily accessible to analytics and business teams. Customer data platforms (CDPs) claim to solve the accessibility problem. It&#8217;s a confusing term, I know. One way to define a CDP is a platform that centralizes user behavior (usually in the form of events) and sends it to other tools enabling customized user experiences. For ins...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 178: What is SaaS Observability?
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/what-is-saas-observability
+**Published:** 2022-08-30T15:39:46+00:00
+
+**Content Preview:**
+Application observability is so mainstream that even finance junkies have a high level understanding of what application alerting is through NEWR (New Relic) and DDOG (DataDog) in the stock market. Analytics teams weren&#8217;t satisfied, though. Neither New Relic nor DataDog address data quality completely&#8212;cue the explosion of data observability tooling within the last couple years. And still, obvious errors make their way into customer-facing experiences. Consumers get emails starting with &#8220;Hello {first_name}&#8221;. While this situation is an unfortunate and blinding inconvenience, it gets much worse. Many Salesforce Administrators maintain lead scoring formulas to prioritize account executive time while maximizing revenue. A Salesforce lead scoring formula like CASE(LeadSource, "Organic", 2, "PaidAds", 1, 0) breaks when &#8220;Organic&#8221; changes to &#8220;Direct&#8221; and no one is notified, an error that is a direct hit on company financials. Consider organic traffic to be 30% of all leads and the most likely to convert into a sale; not reaching out to those leads first is at least a 30% hit to revenue if they are truly that efficient of leads. &#128587;&#8205;&#9792;&#65039; Definition: SaaS Observability sheds light on the health of all data and automations in SaaS tools, allowing business teams to monitor, understand, and triage issues. Engineers get alerts when apps go down. Data teams get alerts when data doesn&#8217;t meet expectations. Why? Because they&#8217;ve been provided the tools to do so. Sales and Marketing Ops teams are misunderstood and only just beginning to get tech-forward tools to be maximally efficient. Arguably the most critical, business operations teams need to know when their automations aren&#8217;t working properly, even if the root cause is data itself. Source: Unsplash Ownership falls on operational teams Customer success teams get frustrated when they find bugs in a user flow, as they should&#8212;they don&#8217;t...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 179: Reinventing the Wheel of Data Activation
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/reinventing-the-wheel-of-data-activation
+**Published:** 2022-07-26T17:22:48+00:00
+
+**Content Preview:**
+In our data bubble, we&#8217;ve been arguing about operational analytics, data activation, and warehouse-native apps. Let me summarize the conversation for you: after data gets to the warehouse, how should it get to its next destination? Some say it&#8217;s the warehouse vendor&#8217;s problem&#8212;Snowflake has stepped in here with their app development. Others say vertical vendors should step in like Supergrain , Pocus , or others to pull directly from the warehouse. Different viewpoints on these topics impact answers to the underlying questions: How will Snowflake/GCP/AWS continue to build on the apps framework to benefit the jobs of data teams? Will tools like Census/Hightouch become redundant or get bought out? To boil it down, all we are really doing is moving data around. That&#8217;s all we&#8217;re ever doing. Fivetran? Moving data. dbt? Moving data 1 . Difficulty in moving data increases as there&#8217;s just more data to move and more ways to use it once it gets to the destination. Activating data means allowing some tool to use data natively. Teams have been doing this for years whether we acknowledge it or not. Data activation &#8220;bells and whistles&#8221; Heard of Zapier , Make (formerly Integromat), or Workato ? They are in the business of activating data, even data that bypasses the warehouse. Any pipeline that doesn&#8217;t touch a database or warehouse can make us data people cringe&#8212;I&#8217;ll touch on this a bit later. First, let&#8217;s start with the basics. Both Zapier and Make have existed since 2011 and 2012, respectively. Zapier&#8217;s story is an interesting one , allowing all users to trigger data passing through APIs from one app to another in an intuitive platform. People latched on to this capability leading to their early profitability. Source: Drift During my time at Perpay, I led the data engineering team through building out the data integration from the internal warehouse to Iterable, a cross-channel marketing platform. ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 180: Hidden Tasks of Product Management
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/hidden-tasks-of-product-management
+**Published:** 2022-06-28T20:19:49+00:00
+
+**Content Preview:**
+Photo by Daria Nepriakhina on Unsplash Just like few graduate with a specific data engineering degree, no one graduates with a product management degree. To new graduates, the career path looks high leverage, high impact, and extremely strategic. While all that may be true, the path to a high impact product manager contains more than meets the eye. The most impactful people managers don&#8217;t simply tell their team what to do and leave it at that. They empower their team, follow up on progress, and validate approaches given their background and experience. Product managers should oversee their company&#8217;s offering (i.e. product) like any manager oversees people. Let&#8217;s start with the obvious: the job of a product manager is to make the company&#8217;s product better. Usually, the metrics by which the product is measured are established at the executive level. The &#8220;product&#8221; in this case can be however narrow or broad, depending on the product manager&#8217;s seniority. Using DoorDash as an example, one product manager (or team) could be responsible for any of the following: The core restaurant marketplace for consumers, measured by dollar amount of orders per month for volume or number of new users per month for growth. The dasher&#8217;s experience, measured by the number of orders completed per month for volume or number of new drivers per month for growth. DashPass, measured by monthly revenue for volume or number of new signups per month for growth. What&#8217;s obviously involved in oversight of any of these products is working closely with the engineering team to make sure scope of work is defined and timelines are met. If it were to just stop at that, you could easily call shipping a finicky un-measurable product a success. So what is there to do for PMs beyond strategic management? Hidden task #1: Being data-driven Product managers need to be data people , but are inherently biased towards showing the product under their purview working...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 181: A Call To Write
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/a-call-to-write
+**Published:** 2022-05-17T17:24:02+00:00
+
+**Content Preview:**
+This week&#8217;s tone is a bit different. I started writing because I thought there should be more voices, more viewpoints, and more faces in the conversation. I don&#8217;t pretend I know everything, nor do I pretend my newsletter is the one stop shop for anything. I don&#8217;t write because it&#8217;s a money making machine. I write because it helps me organize my thoughts, get feedback, start conversations, but most importantly, it&#8217;s something I enjoy. Benn has called on his readers in a similar way. Pedram hinted at it in his latest post that wasn&#8217;t really about writing at all. But I&#8217;d like to make a call of my own: minority readers, you also have a voice. Of course, it&#8217;s much easier to make time for things that are part of your job, and for many of us, that isn&#8217;t writing. For the past 5 months, I&#8217;ve spent the first 45 minutes of every work day writing. It&#8217;s hard. But, if you&#8217;ve had the inkling and desire to start, what better time than now? At some point (maybe soon!), other projects might just get too top of mind for me to continue writing weekly. However, this is my promise: I will always write. Maybe not weekly, maybe not monthly, but the point is, I will always write. If you&#8217;d like feedback on a draft or to chat about writing, shoot me a message ....
+
+**Embedded Videos:** 0
+
+
+---
+## Post 182: Choosing a Data Catalog
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/choosing-a-data-catalog
+**Published:** 2022-05-03T17:59:43+00:00
+
+**Content Preview:**
+This post is not a sponsored post. Note: I have advised Secoda mentioned in the article, but no vendor has pre-edited this content. In the 20th century, open floor plans took over first residential homes then slowly but surely office spaces . With a slow transition from boxed-off cubicles to open workspaces even most recently in FAANGs and the like, employees are encouraged to collaborate. In startup culture, collaboration comes naturally. If the number of employees is anywhere under 100, there&#8217;s usually only one or at most a small handful of people responsible for something. With remote work they&#8217;re not usually in the same building, but there&#8217;s fewer people to sift through. What happens when that number goes to 200 people, 500 people, or 1000+? Information naturally lives in people&#8217;s heads, and it takes extra effort to write it down on paper. I&#8217;ve personally tried to make documentation a habit but still slip up and forget. Documentation can live in so many different places: README&#8217;s on Github, Confluence, Notion, Google Docs, just to name a few. However, each of these are optimized for their own category of documentation: Github for code, Confluence and Notion for docs and diagramming. None of them are optimized for data. What documentation means for analytics Not being optimized for data means: table documentation quickly becomes stale as new columns are added to the source; data quality isn&#8217;t even part of the conversation; there&#8217;s no obvious connection between data, business concepts, and BI. Onboarding a single tool to tie together all different sorts of data allows teams in larger organizations speak the same language without relying on communication over Slack. A tool will never be the full solution &#8212;someone has to own it and others have to use it. Documentation coming from analytics teams must enable anyone to quickly find and understand any data asset they&#8217;re looking for to deliver value. This inclu...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 183: Sales and Marketing and Dev Ops, Oh My!
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/sales-and-marketing-and-dev-ops-oh
+**Published:** 2022-04-26T16:56:10+00:00
+
+**Content Preview:**
+Operational teams are the backbone of any organization. The work that happens behind the scenes isn&#8217;t talked about enough. Without operations, each team that it supports wouldn&#8217;t be as efficient. Who wouldn&#8217;t strive for efficiency? It&#8217;s doing the same task, with the same quality and scale, just faster. Operations teams support other departments in doing exactly that by using the best tools, automations, and processes out there. Efficiency is an operations team&#8217;s goal. Yet, they are still largely misunderstood. They are not the teams that just get pawned the manual work or simply do the mundane tasks. If that&#8217;s the case, their potential is being wasted. So how can we set up operational teams for success? The evolution of support functions Consider the profession of a phone operator. Today, phone support means one of two things. First, you could be calling a vendor for support because you need help. Maybe you need to initiate a return of clothing, close your account, you name it. Someone might answer the phone, walk you through some instructions, and tell you you&#8217;re all set. Second, you could be having an issue with your physical phone and need tech support. Maybe you spilled coffee on it, maybe it stopped charging. In any case, that&#8217;s not what phone support always meant. For most of the 20th century, hundreds of thousands of people were employed as telephone operators to route calls from source to destination. With the evolution of switchboards, this functionality became automated and their skills were needed on either more personalized support calls or in technical jobs. While some may see the history of the telephone operator to be a rise and fall, I see it as an evolution. With technical progress, people are employed to do less repetitive work. Operational functions evolve as tools evolve. A deep dive: types of operational teams I&#8217;m likely only hitting a small portion of the types of operational teams out there...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 184: Modernity != Value
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/modernity-value
+**Published:** 2022-04-19T16:40:43+00:00
+
+**Content Preview:**
+I really dislike the term &#8220;Modern Data Stack&#8221;. This focus on modernity has taken us further away from the reason behind using certain tools in the first place. Adopting a particular tool doesn&#8217;t mean it&#8217;s used in the intended way. You can use Census/Hightouch to write raw data into a Google Sheet or to some other Postgres database for stakeholders to manipulate themselves (read: not a great approach). Having multiple dbt repos across a 1000+ person organization will likely result in duplicate models even though there are 3 separate teams of 10 analytics engineers being paid to model data. Oh and metrics&#8212;just because a metrics layer exists doesn&#8217;t mean the metric definitions are agreed upon and communicated across the entire company. It doesn&#8217;t matter what tools we use&#8212;what matters is how analytics teams can influence the trajectory of their respective organizations. Some tools considered to be part of the modern data stack make delivering this value easier, sure, but aren&#8217;t the end-all be-all. So how do analytics teams actually drive change at an organizational level? Back to first principles: delivering value Analytics teams aren&#8217;t there to build data platforms. Sure, it&#8217;s what they do, but it&#8217;s not their reason for being . Outside of data professionals, I fundamentally don&#8217;t think other teams should care what tools are used. Why would a sales professional care if they&#8217;re getting Tableau or Looker dashboards emailed to them? Not caring does not mean lack of curiosity. Should data teams educate other teams how they work? Sure. Can those other teams function just the same without this information? I&#8217;d argue yes. Taking a snippet from MongoDB &#8217;s definition, a data platform &#8220;enables the acquisition, storage, preparation, delivery, and governance of your data, as well as a security layer for users and applications&#8221; and is the &#8220;key to unlocking the value of y...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 185: How to Sell Products and Retain Customers
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/how-to-sell-products-and-retain-customers
+**Published:** 2022-04-12T17:43:23+00:00
+
+**Content Preview:**
+Before thinking about PMF, devtool vendors first have to: understand the audience, source leads by appealing to said audience, onboard them to the particular tool, and only then can vendors think about retention. This is largely encompassed by the developer experience function with a sprinkle of marketing and growth. Where do vendors start with the goal of getting people hooked? Don&#8217;t build toys, solve problems Photo by Crissy Jarvis If I, a potential customer, read a marketing page explaining how the product is built or a detailed rendition of what it does, I usually move on quickly. It begs the question, so what? Why should I pay money for this? Every real problem can be boiled down to either saving time or money. Rolled out a change with a mistake because there wasn&#8217;t any testing? It&#8217;s either going to cost the business money because the product isn&#8217;t functioning properly or waste a developer&#8217;s time fixing the issue&#8212;time that could&#8217;ve been spent doing something more productive had the mistake not occurred in the first place. Can&#8217;t use Python easily in a workflow that&#8217;s built for SQL? Workarounds make a task take longer than it needs to if there was only the right tooling, again coming down to wasting precious development time. At the end of the day, development time is money&#8212;engineers don&#8217;t work for free. Consider the abacus as the product and society is blissfully unaware that modern calculators and computers exist (or we&#8217;ve all somehow traveled hundreds of years back in time). If you had to sell it in one sentence: &#10060; Marketing a toy: A beautiful wooden structure with hand crafted beads that easily glide across 10 horizontal rods used to make calculations. &#9989; Solving a problem: A calculator that can be used anywhere to avoid mathematical mistakes, saving your business otherwise lost money and time while checking out eager customers. Sure, after solving the problem you can tell the...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 186: Sources of Inspiration
+
+**Publication:** Sarah's Newsletter
+**Author:** Sarah Krasnik Bedell
+**URL:** https://sarahsnewsletter.substack.com/p/sources-of-inspiration
+**Published:** 2022-04-05T17:17:25+00:00
+
+**Content Preview:**
+I don&#8217;t want to live and think in a vacuum, and actively try not to. Listening is my biggest key to inspiration. A few people have asked about what blogs and podcasts I soak in, so here it goes. Blogs Two newsletters come to mind as always being in the conversation within the analytics engineering community: Benn&#8217;s Substack: Out of the box opinions (like on Excel) and comments on data news (like Snowflake&#8217;s acquisition of Streamlit). Analytics Engineering Roundup (by dbt Labs): Weekly summary of hot takes from dbt Slack. There are several other individuals whose writing particularly speaks to me, and I often find myself going back over and over again to their work: Technically : Written by @itunpredictable , each article is a step-by-step breakdown of a single technical concept. My latest favorite is the overview of GraphQL . Lenny&#8217;s Newsletter : Everything product and community, from what it takes to be a PM to how popular apps got their first 1000 users. Data Operations : Data operations might mean different things to different people, but to Greg Meyer it&#8217;s bringing a programmers mindset to various areas of business. Data People Etc : Stephen Bailey unpacks the hard conversations that all analytics teams struggle with, like what a source of truth really means at different stages of an organization. Digital Native : Consumer, tech, and beyond. A stew of different topics, all backed by data. For example, here Rex goes into growth trajectories of startups in fields from climate to finance. Part of listening is staying in the loop, both on data news, conferences, funding, and VC chatter. For venture news, I try to keep up with: Data Council Newsletter: Even though I wasn&#8217;t able to make the Data Council Conference in Austin this year, I can certainly tell that many data startups begin the conversation within the Data Council sphere. ffVC Newsletter: A weekly rundown of resources, reads, and threads that appeal to folks in VC. Enterp...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 187: AI and neuroscience
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/ai-and-neuroscience
+**Published:** 2026-01-13T16:31:20+00:00
+
+**Content Preview:**
+Like many of you I&#8217;ve been watching (listening to?) a lot of the Dwarkesh podcast over the past 6 months, and one theme that seems to come up a lot is the relationship between AI and the brain . The way we train and use GenAI models today strongly resembles how the pathways in the human brain actually work; and many neuroscientists and AI researchers believe the key to unlocking real superintelligence will lie in our ability to better understand and exploit that connection. This post is going to explore a few ways in which this is true and explain some of these rather complicated ideas in more simple language. Neural networks, the basis for everything The obvious place to start is neural networks , the architecture for pretty much all of the AI models that you use today like the GPT family, Claude, Nano Banana, and the like. Obviously the first word &#8211; neural &#8211; likens these models to the animal brain. The human brain has something in the range of 86B neurons, which are specialized cells that transmit nerve impulses; essentially the core unit of how our brains transmit information and signals. The idea is that neural networks work in kind of the same way. And indeed, you&#8217;d be hard pressed to find an explanation of neural networks that doesn&#8217;t make an analogy to the human brain. Take, for example, Technically&#8217;s very own breakdown of neurons from the prolific Nicole Errera: Neurons are the basic building blocks of AI architectures, modeled after the actual biological neurons that transmit signals throughout the human brain. Remember, AI models are essentially pattern investigators; they find the underlying pattern in the data. You can think of these neurons as the mathematical functions that are doing this hard investigative work, getting into the weeds of the data and figuring out what&#8217;s going on. The math performed by individual neurons is actually pretty simple &#8211; it&#8217;s usually just basic multiplication and addition...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 188: Technically Monthly (January 2026)
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/technically-monthly-january-2026
+**Published:** 2026-01-06T16:30:57+00:00
+
+**Content Preview:**
+Hello distinguished Technically readers, My sources tell me it&#8217;s not too late to say happy new year . 2025 was the year everyone started to use AI at work. 2026 is the year we figure out how to get the most out of it, vibe code things that actually work, and steer clear of hallucinations (unless you&#8217;re into that kind of thing, in which case you might get oneshotted by ayahuasca). So here&#8217;s what we&#8217;ve been up to for the past month. New on Technically 2026 vibe coding tool comparison Available as a free post on Substack (courtesy of Vercel) and now in its permanent home in the AI, it&#8217;s not that Complicated knowledge base. All hail vibe coding, savior of the Ideas Guy. But which vibe coding tool should you use? I tested 4 of the most popular options by building the same app on each: an internal dashboard for Vandelay Industries&#8217; potato chip import/export operations. For each I cover how well they work, any quirks to watch out for, plus pricing and how far you can get on a free plan. The AI user&#8217;s guide to evals Available as a paid preview on Substack , and now in its permanent home in the AI, it&#8217;s not that Complicated knowledge base. As non-technical people build more and more stuff with AI they are starting to run into the same issues as software engineers &#8211; it&#8217;s hard to know when things are working or not. This guide to evals gives you the background you need to start adding effective monitoring to your AI system. Based on my conversation with eval expert Hamel Husain, this post covers: Why evals matter: moving from &#8220;I think the bot is getting better&#8221; to &#8220;hallucination rate dropped from 15% to 3% this week&#8221; Look at the data: why you need to examine your failures before writing fancy tests Assertions over LLM judges: why simple keyword checks beat complex AI-judging-AI setups A practical 4-step workflow: vibe check, spreadsheet, simple fixes, then targeted evals This one is pretty prac...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 189: Technically 2026 Last-minute Gift Guide
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/technically-2026-last-minute-gift
+**Published:** 2025-12-22T16:30:56+00:00
+
+**Content Preview:**
+What do you buy for that special engineer in your life who requires everything &#8211; from her mechanical keyboard to her espresso machine &#8211; to be just so ? Or perhaps you&#8217;ve had a good year, and want to get a little something for yourself, as a treat? They told me not to write this. They said &#8220;stay in your lane, Justin.&#8221; You just explain technical things, you can&#8217;t recommend gifts. You don&#8217;t know how to reach the hearts of loved ones. Well, I&#8217;ll be DAMNED if I don&#8217;t try! By the way, I&#8217;m taking the last two weeks of the year off to go cook in a restaurant (literally), so Technically will be offline. I know it will be difficult to soldier on without my sweet voice hitting your inbox every week with technical explainers&#8230;but I have confidence in you. Without further ado&#8230; The Ohto CR02 Yea, I can type, but sometimes I like writing things down the old fashioned way. And nobody is better at crafting the instruments to do so than the Japanese. I tested 4 different Ohto pens and the CR02 was my favorite after a few days of furious scribbling. It&#8217;s a ceramic rollerball, so it glides across the page. And at 0.5mm it&#8217;s the perfect thinness for my dainty preferences. Price: $16 The Orbit Plus Turntable It probably doesn&#8217;t surprise you that I&#8217;m a jazz guy (I even play drums occasionally). And the genre is best appreciated on vinyl for reasons that are set in the cosmos. Orbit makes affordable and high quality turntables that look great and are assembled in the USA. I&#8217;d recommend going for the Plus , which for an extra $150 gets you a much better cartridge. Pictured: my setup at home If you already have speakers, great. If you don&#8217;t I can highly recommend the Kanto YU4 alongside their SUB6 subwoofer . They&#8217;re reasonably priced, sound great, and have a built in preamp plus bluetooth so you can stream from your devices if you so desire. Price: $399 The Salomon XT-6 If you li...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 190: 2026 vibe coding tool comparison
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/2026-vibe-coding-tool-comparison
+**Published:** 2025-12-18T16:17:52+00:00
+
+**Content Preview:**
+It&#8217;s widely understood that the holidays is about family, but of what use are they if they&#8217;re constantly holding you back from your professional goals? Here at Technically, we believe that the holidays is about the grind &#8212; you&#8217;ve finally broken free from being the idea guy on the business side. As Charlie Parker said, &#8220;now is the time&#8221; &#8212; get out the laptop, heat up a hot pocket, and prompt away. The holidays are for vibe coding. Idea people thrive in the holidays. Let&#8217;s dive in. &#8212; It&#8217;s nearing 2026, and you (probably) don&#8217;t need a software engineer to build the app of your dreams. I tested 4 of the most popular vibe coding tools to see which was the best. TL;DR: Replit was the most feature rich, well thought out, and powerful v0 was the best if you&#8217;re already a developer and want a technical interface Lovable and Bolt were pretty much objectively worse than the other two Most importantly, I believe that the initial app building phase in vibe coding is largely commoditized across tools, and what makes any platform a better fit than another is largely pricing models and integrations . In this post I&#8217;ll walk through my experience with each of these tools, covering: How they work, and important differentiating features Pricing, tokens , and how far you can get on a free plan (I paid for 2/4) How good (or bad) they are at fixing bugs Throughout I&#8217;ll be using a very serious, very real set of prompts. As Art Vandelay, owner and CEO of Vandelay Industries, my team needs an internal dashboard to handle the importing and exporting of potato chips to the United States. Here&#8217;s the prompt I started each tool out with: I am the CEO of Vandelay Industries, a global firm that handles the importing and exporting of potato chips to the United States. I need to build an app for managing the internal operations of my business. The app should have 3 main views: 1) An inventory manager / CRM of all ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 191: AI will replace you at your job if you let it
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/ai-will-replace-you-at-your-job-if
+**Published:** 2025-12-16T16:31:29+00:00
+
+**Content Preview:**
+Like you, I&#8217;m extremely tired of the recurring headlines about &#8220;AI replacing the workforce,&#8221; written almost exclusively by people who both know nothing about AI and have never been part of said workforce. Ironic. Let me start by saying that I do not think AI is going to put massive swaths of people out of work. But that&#8217;s only going to be true as long as we are smart, adaptive, and embrace these new tools to make us all more productive and more creative. The problem is that there are tons of lazy people out there who are using AI completely carelessly, with such minimal oversight such that they are essentially writing their own pinkslips. If you carelessly offload the core and soul of your job to AI, you cannot be surprised when someone decides AI can do it instead of you. If you are a software engineer for whom Cursor now writes all of your code with minimal oversight or creative input from you, this is bad. If you are a marketer who is generating entire blog posts and page sites with vanilla Claude prompts, this is bad. If you are an SDR who has ChatGPT write all of your outbound emails with no customization whatsoever, this is bad. At some point, your boss is going to realize that the AI is doing your job, not you. The brain drain from junior talent and financial modeling I see this pattern with more junior people the most. They are at a point in their careers where they have minimal experience and maybe more importantly minimal taste. The risk of overusing AI is huge here, because without going through the motions and developing that earned intuition for the mechanics of your work, you will never develop that taste. IMO at the highest levels, you are paid for exactly this. I was talking to my friend CJ of the wonderful Mostly Metrics newsletter about how this manifests itself in finance. A lot of what finance teams at startups do is build financial models, which as any investment bankers in the audience can tell you, is something with a l...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 192: Technically Monthly (December 2025)
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/technically-monthly-december-2025
+**Published:** 2025-12-08T13:12:38+00:00
+
+**Content Preview:**
+Hello distinguished Technically readers, In 2017 I was traveling with Winston Churchill across the scantly-visited regions of southern Tibet when we came across a peculiar guru. I spent months learning at his hip, observing his peculiarities, and gathering bits and pieces of his doctrine. All of this I would eventually publish in my acclaimed 2017 paper , &#8220;Attention is all you need.&#8221; Continuing on my research, you won&#8217;t be surprised to hear that we published a lot about AI this month: all about RLHF, why Microsoft is reviving an old nuclear power plant to build data centers, and why starting with small, manual tasks is the best way to get yourself started with AI at work. We&#8217;ve also been building something bigger behind the scenes to make all of this easier to learn. More on that later! Here&#8217;s what&#8217;s new: New on Technically What&#8217;s RLHF? Available as a paid preview on Substack , and now in its permanent home in the AI, it&#8217;s not that complicated knowledge base. Though much of the effort and compute for training AI models goes into pre-training, you might be surprised to hear that pre-trained models are kind of dumb. They&#8217;re like a precocious toddler: ask them a simple question and you&#8217;ll get a long winded, disorganized, and poorly vetted response. This post explains the three-step process that fixed this, and enabled today&#8217;s models like Claude: Supervised fine-tuning teaches models the format of helpful answers How building a reward model trains an AI to judge responses like a human would (because paying humans to score millions of examples is impossibly expensive) Reinforcement learning lets models generate millions of responses and learn which ones score highest RLHF is basically a finishing school for AI &#8211; teaching it manners, helping it read the room, and turning raw intelligence into something you&#8217;d actually want to work with. A practical breakdown of the AI power situation Available as...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 193: Understand AI or die trying
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/understand-ai-or-die-trying
+**Published:** 2025-12-04T16:31:17+00:00
+
+**Content Preview:**
+TL;DR : we&#8217;re announcing the AI Reference , the best, fastest, and free-est way to get smart on the fundamentals behind AI models like RAG, RLHF, context, and pre-training. It&#8217;s totally free and you can dive in here . 90s kids will without a doubt remember these: Behold, the Magic Eight Ball&#8482;. The eight ball was an answer machine. You&#8217;d ask a question, turn over the eight ball, and get a random response. Don&#8217;t count on it . My sources say no . It is decidedly so. Signs point to yes! Trying to decide if you should call her? Ask the eight ball. Wondering if you&#8217;ll ever get that job interview? Eight ball. Unsure about which college you should go to? You should probably ask your advi&#8230;nope, eight ball. This plastic orb of whimsical wonder was the oracle of an entire generation &#8211; my generation &#8211; injecting a little random levity into what was an uncertain time in life for many of us. The idea and technology behind the eight ball were originally created by Albert C. Carter in the mid 1940s. Inspired by his clairvoyant mother, Carter patented (yes) a series of crystal ball like fortune telling devices, all of which went nowhere. That was until 1950, when Chicago&#8217;s Brunswick Billiards Company was looking for a promotional toy of sorts&#8230;and the rest was history. (Abe Bookman was Carter&#8217;s brother-in-law, who helped him file more patents and manufacture the thing) The way it works is simple. Inside the eight ball lies a canister full of dark blue liquid, in which is suspended a plastic multi-faceted die (usually 20 sides). When you turn over 1 the eight ball, the die floats up and lands on one side, showing you a decidedly random message. The visage became so popular that it even made its way into high fashion, if you can call it that. All signs point to yes! The thing about the eight ball is that it&#8217;s fun . Like opening a fortune cookie and peeking inside at the little white flag, you couldn&#8217;t he...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 194: A practical breakdown of the AI power situation
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/a-practical-breakdown-of-the-ai-power
+**Published:** 2025-11-25T14:02:56+00:00
+
+**Content Preview:**
+The TL;DR The Scaling Law rules everything: The smartest people in the room believe that if we just throw more computers at AI, it keeps getting smarter. There is no ceiling yet. More compute means more data centers : scaling up compute means running more, larger CPUs and GPUs in more, larger data centers across the world. But the grid can&#8217;t support these DCs: The U.S. power grid was built for a world of lightbulbs and TVs, not for millions of H100 GPUs running 24/7. We are running out of supply. The nuclear option: Big Tech (Microsoft, Google, Amazon) is literally buying nuclear power plants because wind and solar aren&#8217;t reliable enough to keep the AI brain alive. The supply chain of intelligence: Everyone who matters in AI is signing huge contracts to build out more data centers and power: AI labs ( OpenAI ), cloud providers (Microsoft/Azure), and energy companies. I&#8217;m in my 30s now, so it won&#8217;t surprise you to hear that I&#8217;ve been listening to a bunch of Sarah Paine lectures about World War II recently. One of the themes I keep coming back to is the major (even primary) role that resources play in large scale conflicts: the U.S. industrial output (and to a lesser extent, The Allies&#8217;) was simply far superior to The Axis and that&#8217;s a big reason that we won. It&#8217;s not just the weapons and the soldiers that fight wars; it&#8217;s all of the enabling infrastructure that supports them. I mention this because the same exact thing is true in AI, which some (not me) are starting to talk about as a type of war itself. Much of the focus in AI is on state of the art model capabilities and whatever the newest frontier model can do. But equally important is all of the infrastructure that goes into creating and running those models. The market knows this, because it thinks NVIDIA is the most valuable company in the world. And it seems like every day OpenAI is signing yet another obscure deal with a cloud provider, chip maker, or dat...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 195: Technically Monthly (November 2025)
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/technically-monthly-november-2025
+**Published:** 2025-11-05T14:12:19+00:00
+
+**Content Preview:**
+Hello distinguished Technically readers, Technically Monthly returns with a deep dive into the fundamentals &#8212; how machines actually learn, what happens after you vibe code an app, and how companies keep their AI from embarrassing them in production. Plus, a long-awaited update on one of our favorite developer tools: Vercel. Here&#8217;s what&#8217;s new in Technically knowledge bases: New on Technically What is Machine Learning? Available as a paid preview on Substack , and now in its permanent home in the AI, it&#8217;s not that complicated knowledge base . Just like me, Machine Learning has been around since the 1950s and is actually simpler than you think: data has patterns, and you can use those patterns to predict what happens next. This post explains: The three-step ML process : curate data, train the model, predict outcomes How to frame problems as ML problems (including that delightful corn pest example) Supervised vs. unsupervised learning, and what reinforcement learning is all about Common algorithms from linear regression to the neural networks that power ChatGPT The vibe coder&#8217;s guide to real coding One of three sponsored posts made free this month, courtesy of Vercel, available as a free post on Substack and in the AI, it&#8217;s not that complicated knowledge base . Vibe coding is great, because now you can build the app of your dreams after being relegated to &#8220;the business side&#8221; for years. But do you really understand what&#8217;s going on under the hood? And do you know how to make sure your app actually works in the real world? This post walks through the 5 basic things vibe coders need to know about their apps: Servers and the cloud: where your app lives and how to deploy it properly Backends 101: databases, APIs, authentication, and why they matter more than you think Version control with Git: how to make changes without breaking everything Monitoring: making sure your app is fast and bug-free Security basics: or, how not ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 196: How to build AI products that are actually good
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/all-about-ai-evals
+**Published:** 2025-10-23T13:12:41+00:00
+
+**Content Preview:**
+Today is Vercel&#8217;s Ship AI conference , and I thought there&#8217;d be no better way to mark it than to give you something unprecedented for Technically: a three (yes, 3) post week. This week we&#8217;ve bought you three (yes, 3) new pieces about the Vercel cinematic universe and why it&#8217;s so important for developers: Tuesday: How building AI apps requires different infrastructure than web apps Wednesday : The vibe coder&#8217;s guide to real coding &#8212; all the things you need to know to turn your vibe coded app into a reliable product Today : How to build AI products that are actually good (all about evals) Enjoy! &#8212; Imagine you&#8217;re an engineer building AI models into your product. How do you make sure they actually work? If you&#8217;ve banged your head against the table trying to get Claude or ChatGPT to write a better email or properly summarize your test results, you already know the answer: better prompts. The more data you include and the clearer your instruction, the closer the model response is going to be to what you want. In practice, that means a bunch of back and forth between you and the model until you&#8217;re happy; it&#8217;s an iterative process that in some senses is never finished. But if you&#8217;re a developer building AI models into your app &#8211; and they&#8217;re going to be used by tons of users around the globe &#8211; things are a little more complicated. For apps that go big, you could have millions of users interacting with these models every day. At this kind of scale, you can&#8217;t just prompt, hope for the best, and then wait to see what happens &#8211; you risk weird, incorrect, or downright dangerous responses to your users. This is where evals come in. They help companies continuously improve the performance of the models in their products via a feedback loop of monitoring and scoring. And the best and easiest way to run them is via Braintrust , which helps teams measure, evaluate, and improve AI in p...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 197: The vibe coder’s guide to real coding
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/the-vibe-coders-guide-to-real-coding
+**Published:** 2025-10-22T13:12:44+00:00
+
+**Content Preview:**
+So you sat down and vibe coded an app that you&#8217;ve wanted to build for a while. Like magic, you prompted a model (maybe it was in a product like v0 ) and the app of your dreams appeared. The obvious question is&#8230;now what? What is your app, exactly? And how do you make sure it works fast and smooth? This is the vibe coder&#8217;s guide to real coding. I&#8217;m going to run through the 5 most important things to know about the app you&#8217;ve built so you can take it to the moon&#8230;or just avoid getting hacked. 1) All about servers and the cloud: where your app is running (or needs to run) When you build an app from scratch, one of the things you need to worry about is distribution &#8211; how do you get it running on a server somewhere so everyone can access it? Today, most developers have a two step process for building their apps: First, they build the app locally : on their laptops or desktops. All of the code runs on your computer, and nobody else can access it. Think of it like your personal sandbox. Once the app is ready, it gets deployed to the cloud : big, rented servers. Via these, users (hopefully many of them) access the app over the internet. This is the world of cloud infrastructure . You&#8217;ve probably heard of the big dogs &#8211; AWS , GCP, and Azure &#8211; and maybe even smaller managed service providers like Heroku . There really are a million ways to get your app in the cloud today. The important thing to know is that apps have to run somewhere; and where and how you choose to run them have major impacts on how they perform. If you built an app using something like v0 or Lovable , this step of the equation is already taken care of for you. v0 gives you a one click option to deploy your app to Vercel &#8217;s cloud; all you do is click deploy and you get a URL. But if you used something like Claude Code, OpenAI Codex, or even regular old Claude or ChatGPT , you might need some help turning that app into something everyone can use....
+
+**Embedded Videos:** 0
+
+
+---
+## Post 198: How Vercel became the f̶r̶o̶n̶t̶e̶n̶d̶ AI cloud
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/what-does-vercel-do-2025
+**Published:** 2025-10-21T13:12:29+00:00
+
+**Content Preview:**
+This Thursday (10/23) is Vercel&#8217;s Ship AI conference , and I thought there&#8217;d be no better way to mark it than to give you something unprecedented for Technically: a three (yes, 3) post week. We&#8217;ve got three (yes, 3) new pieces coming to you about the Vercel cinematic universe and why it&#8217;s so important for developers: Today: How building AI apps requires different infrastructure than web apps Tomorrow : The vibe coder&#8217;s guide to real coding &#8212;&nbsp;all the things you need to know to turn your vibe coded app into a reliable product Thursday : How to build AI products that actually work (all about evals) Enjoy! &#8212; In May 2023, I wrote a Technically post about one of my favorite software products, Vercel . At the time they had one focus, and they did it really well: making it easy for engineers to deploy their frontends , or the user-facing parts of their applications. In fact the award-winning 1 Technically website runs on Vercel . But since then, a lot has changed. The world has been taken over by AI (figuratively, if anyone from the future is reading this). The way people build their apps is drastically different than it was just a few short years ago. And to match, Vercel has built a bunch of really interesting new products that are getting traction fast. This post is going to talk about those products, what makes them interesting, and why you should care about them. Because I do! How building AI apps is different from building app apps If you asked a developer 5 years ago what it means to &#8220;build AI into your app&#8221; they&#8217;d probably have looked at you funny. At the cutting edge there were some people using what we then called Machine Learning to personalize some product experiences or provide some basic data-related suggestions. But all in all, it wasn&#8217;t top of mind for most people. Today everyone is thinking about how to build AI into their apps. Models have gotten so good that they can now legitimately p...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 199: Technically Monthly (October 2025)
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/technically-monthly-october-2025
+**Published:** 2025-10-01T12:12:27+00:00
+
+**Content Preview:**
+Hello distinguished Technically readers, This is the seventh ever Technically Monthly, and it&#8217;s stacked. It&#8217;s absolutely jam packed. The colloquial cup is practically spilling over. Here&#8217;s what&#8217;s new in our AI, it&#8217;s not that complicated knowledge base: A walkthrough of hallucinations , why models make things up, and what anyone can do about it An deep dive on MCP , why it&#8217;s been so painful to use, and how FastMCP makes it work in practice A look at the scaling law driving the AI arms race, and what it means for the future of the industry New on Technically Why do models hallucinate? Available as a paid preview on Substack , and now in its permanent home in the AI, it&#8217;s not that complicated knowledge base. Guest-written by Nicole Errera. Since the dawn of time, humans have seeked hallucination&#8212;often via psychedelic drugs&#8212;as a means to connect with God, or at least the one that lives within their hearts. Believe it or not, AI models seem to be doing the same. Kind of. Hallucination is the term researchers use when AI confidently generates information that&#8217;s wrong, misleading, or completely fabricated. One infamous example: a lawyer who cited fake court cases after relying on ChatGPT . But guess what&#8230; this isn&#8217;t really a glitch. It&#8217;s a built-in feature of how these systems work. This explainer covers: The root causes of hallucination (training data issues, but also just statistical prediction) Why models would rather guess than admit ignorance Techniques like RLHF, RAG, and chain-of-thought that help reduce the problem Practical steps to avoid getting burned by AI-generated fiction The takeaway: these models are really good at word prediction, not truth-telling per se. How can you make MCP actually work in production? Filed under the AI, it&#8217;s not that complicated knowledge base and available as a free post on Substack , thanks to Prefect . The Model Context Protocol is having its moment...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 200: A deep dive into MCP and its associated servers
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/a-deep-dive-into-mcp-and-its-associated
+**Published:** 2025-09-16T12:12:26+00:00
+
+**Content Preview:**
+&#8220;Everybody only wants to dis-cuss me&#8221; &#8211; Eminem, likely referring to eMCeePee servers Since we covered the basics of MCP a few months ago, it feels like things have only gotten more chaotic. Adoption has been steadily growing, more and more companies seem to release MCP servers by the week, and (perhaps most importantly) both OpenAI and Google announced they&#8217;d support the standard. Ever so strong have my feelings been that this little corner of the AI world is due for a deep dive. Let us begin. Thanks to Prefect Technologies for sponsoring this post . Recap: what MCP is and why you should care about it MCP solves a simple problem: it allows AI models to communicate with external systems and tools in a standardized way. The TL;DR from my first post: The Model Context Protocol helps models like Claude talk and work with external systems in a standardized way. AI models today struggle mightily with accessing external data from the tools you use every day The Model Context Protocol is a standardized way for AI models to talk to external systems like databases, Google Maps, and more Via MCP, models can pull data from these systems, or even take action in them (like sending an email) Providers need to build MCP servers that allow models to integrate with their systems Outside of new OpenAI and Google models coming online, for the most part, the &#8220;client&#8221; part of the equation &#8211; these are the models that can hook into MCP &#8211; hasn&#8217;t changed since MCP was released. It is the server side of the equation that has seen the most action, in the form of companies of all shapes and sizes building and releasing their own MCP servers . They do this because they want more people using AI models to be able to use their tools via those AI models. This is actually how MCP came to be in the first place. It wasn&#8217;t part of some big company-wide strategy. The creators of MCP &#8211; David Parra and Justin Spahr-Summers (no relation) &#8...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 201: Why do models hallucinate?
+
+**Publication:** Technically
+**Author:** Nicole Errera
+**URL:** https://read.technically.dev/p/why-do-models-hallucinate
+**Published:** 2025-09-09T12:12:23+00:00
+
+**Content Preview:**
+TL;DR Model hallucination is what researchers call it when AI models make stuff up This can lead to widespread misinformation, poor decision-making, and even psychological harm for users Hallucinations happen when models are fed bad training data&#8230;but they&#8217;re also part and parcel of how AI works Researchers are working on some promising methods to reduce hallucination Remember the early days of ChatGPT , when screenshots like this one were making the rounds on Twitter? This is a classic example of model hallucination , a term for when AI generates content that is factually inaccurate , misleading , or illogical . Hallucinations in language models can manifest as anything from arithmetic errors to false claims about history to declaring love for a human user (I&#8217;m looking at you, Sydney Bing ). And because today&#8217;s models are so good at stringing words together, hallucinated content can often seem plausible at first glance. For reasons I&#8217;ll explain in this post, hallucinations aren&#8217;t just &#8220;a side effect to be fixed&#8221;&#8212;they are pretty integral to how AI works. Some tech executives say that hallucination actually adds value to AI systems, by representing existing information in new and creative ways. But the phenomenon can also have serious repercussions. Like that one time a lawyer used ChatGPT and ended up citing fake cases in court. Yikes. Does this mean you should avoid using AI tools altogether? Of course not&#8212;or this post would be a whole lot shorter. There are still tons of useful applications of generative AI tools, like to help you summarize a meeting transcript or brainstorm project titles. The key is figuring out how to use these tools responsibly, before they land you on the front page of Forbes (for the wrong reasons). What causes hallucination? So why do AI models hallucinate, anyway? Let&#8217;s take a step back. Language models work by analyzing a long chain of words and predicting the next word in t...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 202: Technically Monthly (September 2025)
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/technically-monthly-september-2025
+**Published:** 2025-09-02T12:12:41+00:00
+
+**Content Preview:**
+Hello illustrious Technically readers, This is the fifth ever Technically Monthly, and it&#8217;s another packed one. It&#8217;s brimming. Filled to the gills. Overflowing. Absolutely about to slosh over. Here&#8217;s what&#8217;s new: A primer on AI model architectures: what neurons, CNNs, RNNs, and Transformers actually do A beginner&#8217;s guide to open source licenses, from MIT to SSPL, and why the rules keep changing An explainer on documentation and how it turned from a necessary evil into a product differentiator What Databricks actually does, and why it&#8217;s allegedly worth $100B New on Technically The beginner&#8217;s guide to AI model architectures Available as a paid preview on Substack , now in its permanent home in the AI, it&#8217;s not that complicated knowledge base. A guest joint by AI correspondent Nicole Errera. Why does ChatGPT run on a transformer-based architecture while self-driving cars rely on Computer Vision models? The answer is architecture&#8212;the blueprint that dictates how billions of tiny math units (neurons) are connected, and why AI models are built the way they are. This post covers: How neurons work as the building blocks of neural networks Why architectures like FNNs, RNNs, CNNs, and Transformers each shine at different problems How attention layers solved the &#8220;context problem&#8221; and unlocked today&#8217;s Large Language Models Why choosing the right design is critical for performance, feasibility, and cost And now, with confidence, you introduce yourself: Ted Mosby, architect. The beginner&#8217;s guide to open source licenses Filed under Building Software Products , and available as a paid preview on Substack . &#8220;Open source means free for everyone to use,&#8221; right? Well&#8230;not exactly. Open source can mean a million different things, depending on who you ask. This guide breaks down all of the different types of OSS licenses and the philosophy behind them, from Stallman and the GNU Manifesto to Mongo...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 203: Databricks is apparently worth $100B. What do they even do?
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/databricks-is-apparently-worth-100b
+**Published:** 2025-08-25T16:02:48+00:00
+
+**Content Preview:**
+If you&#8217;re like me, you are probably a little bit confused about Databricks . To the innocent onlooker, it sometimes feels like they are constantly announcing some new fundraising round, multiple times per year, each with a comically larger valuation than the next. Their most recent of these comically large valuations is $100B (yes, one hundred billion), making them one of the 5 most valuable private companies in the world. At this point, Databricks has raised so many funding rounds that they are running out of letters in the alphabet to designate them (this is their Series K, by the way). All of this begs the obvious question. What does Databricks actually do? It&#8217;s not like their website headline clears things up at all. Why are there three periods in the headline, but no period after the subhead? What is a data intelligence platform? Judging by the imagery, you&#8217;d be justified to believe Databricks somehow got a $100B valuation by selling these: The magic eight ball says: Don&#8217;t count on it. I first wrote about this frankly very odd company back in 2020, when they were only worth a paltry $6B. Here&#8217;s the TL;DR that I put atop the post: Databricks sells a data science and analytics platform &#8211; i.e., a place to query and share data &#8211; built on top of an open source package called Apache Spark. Apache Spark is an open source engine for running analytics and machine learning across distributed, giant datasets Spark is notoriously hard to run on your own infrastructure, and companies often don&#8217;t have the expertise to do that Databricks provides a managed service for running Spark clusters , as well as notebooks for visualization and exploration, plus the ability to schedule pipelines More recently, Databricks has been expanding the product portfolio to include ML and data warehousing This is a pretty big company, all things considered - $6.2B was their most recent valuation , and they&#8217;re planning on going public in 2021....
+
+**Embedded Videos:** 0
+
+
+---
+## Post 204: What's documentation?
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/whats-documentation
+**Published:** 2025-08-19T12:12:26+00:00
+
+**Content Preview:**
+The TL;DR Documentation explains how to use your product and all of the things it can (and cannot) do. Documentation is like a manual for your product , explaining how to do anything you&#8217;d need to do Products built for developers tend to be less visual and more complex than the norm; users expect high quality documentation Actually writing and maintaining docs tends to be a headache for engineering teams Products like GitBook help offload that headache via a classy publishing experience Documentation isn&#8217;t just for developers anymore, and it isn&#8217;t just a product thing. As products get more and more complex, teams across the board are building impressive documentation programs to show off what they&#8217;ve built. Why we need documentation in the first place There&#8217;s an old adage attributed to Steve Jobs 1 that goes something like: &#8220;If the product needs a manual, the design has failed.&#8221; The idea is that your product should be intuitive, and if you need to explain how to use it, you&#8217;ve already lost. Now I&#8217;m no product design expert, but I can tell you for sure that just about every software product in the world has ignored this advice. Products have never been as feature rich and complicated as they are today&#8230;and thus we require a bit of guidance to navigate them. Just think about how many settings are in Gmail, how many functions are in Excel, and how many keyboard shortcuts there are in Discord. Obviously, they need to be written down somewhere . And nowhere is this more true than developer tools and infrastructure . Because most products built for developers are not visual &#8211; they make use of code editors and the Terminal . They&#8217;re API s and SDKs, libraries and frameworks . How are you supposed to know which API endpoints you can make requests to? What data do you need to include with your request? And what data can you expect to be returned? What does it mean when you get a specific error code? The an...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 205: The beginner’s guide to AI model architectures
+
+**Publication:** Technically
+**Author:** Nicole Errera
+**URL:** https://read.technically.dev/p/all-about-ai-model-architectures
+**Published:** 2025-08-05T12:12:16+00:00
+
+**Content Preview:**
+Let&#8217;s give a warm welcome to Nicole, our newest correspondent at Technically. Nicole studied Computer Science at Duke with a concentration in AI, led cutting edge research at a robotics lab on campus, and will be writing deep dives on how AI works. - Justin TL;DR Architectures are the blueprints for AI models: they dictate how models are designed and built Most AI today is made up of computing units called neurons linked together in complex networks There are a million ways to build these networks: different algorithms, structures, and sizes Researchers match different architectures to the specific problems and data constraints they face Have you ever wondered how AI models get designed? Or what makes a Large Language Model like the one behind ChatGPT different from a Computer Vision model used for self-driving cars? Isn&#8217;t it all just AI under the hood? The answer boils down to model architecture . Architectures are the blueprints of AI models &#8211; they are the sum of all the decisions whoever is building the model makes about what algorithms, data, sizes, and other stuff goes into said model. There are tons and tons of ways to build an AI model: a particular architecture just chooses one (or multiple, but more on that later). Picking the right architecture for your domain is really important. The basic 101 tagline for how AI models get built goes something like, &#8220;AI uses really complicated math to learn patterns from really large quantities of data.&#8221; This explanation isn&#8217;t wrong, but it&#8217;s only half the story. The other half? Smart architecture design . To understand model architectures and how they work, we have to start with the neuron &#8211; the building block of every advanced AI model out there today. This post will explain what a neuron is and how researchers and engineers piece these neurons together to build complex systems capable of incredibly challenging tasks. We&#8217;ll touch on some of the most popular architect...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 206: Technically Monthly (August 2025)
+
+**Publication:** Technically
+**Author:** Justin
+**URL:** https://read.technically.dev/p/technically-monthly-august-2025
+**Published:** 2025-07-31T12:12:22+00:00
+
+**Content Preview:**
+Hello illustrious Technically readers, This is the fourth ever Technically Monthly, and it&#8217;s a&#8230;well, it&#8217;s actually a pretty normal one. Here&#8217;s what&#8217;s new: 2 new explainers: one on how generative models actually work, and one on why GPUs are the backbone of modern AI A simple guide to JavaScript, the most popular programming language in the world A foundational term worth revisiting: the CPU (especially now that we&#8217;ve covered GPUs) New on Technically The post about GPUs Available as a paid preview on Substack , and now in its permanent home in the AI, it&#8217;s not that Complicated knowledge base. A smart English man once argued that our entire economy is dependent on mega companies spending hundreds of billions a year on buying GPUs from another mega company (NVIDIA). A less smart American man (me) will explain to you what these GPUs actually are, how they work, and why people seem to be throwing money at them to train huge AI models. This post explains: The difference between CPUs and GPUs What makes GPUs so well-suited for running billions of simple operations at once Why training and running GenAI models is a great fit for GPUs in particular I also (lightly) touch (tap?) on the growing demand for AI chips, why supply is so tight, and what alternatives like Groq and TPUs are bringing to the table. What is JavaScript? Available free to all readers, and now in its forever home in the Building Software Products knowledge base. Here&#8217;s a sentence nobody would have believed 10 years ago. JavaScript is the most popular programming language in the world! And not without controversy, because it&#8217;s also one of the weirdest and most inconsistent ones. This post traces how JS got so popular, from humble beginnings in the 90s to powering full web apps today. I cover: How JS works with HTML and CSS to build web pages Why V8 and Node.js helped it escape the browser How TypeScript allegedly cleaned up the JS mess (and made it faster...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 207: Coming soon
+
+**Publication:** maboroshi
+**Author:** babyjules
+**URL:** https://maboroshi.substack.com/p/coming-soon
+**Published:** 2022-01-11T15:44:18+00:00
+
+**Content Preview:**
+This is maboroshi , a newsletter about music, movies, mental health. Subscribe now...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 208: How Uber Serves over 150 Million Reads per Second from Integrated Cache
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/how-uber-serves-over-150-million
+**Published:** 2026-01-14T16:31:13+00:00
+
+**Content Preview:**
+How Coinbase made incident investigations 72% faster (Sponsored) Writing code is no longer the bottleneck. Instead, engineering orgs spend 70%+ of their time investigating incidents and trying to debug the sh** out of prod. Engineering teams at Coinbase, DoorDash, Salesforce, and Zscaler use Resolve AI&#8217;s AI SRE to help resolve incidents before on-call is out of bed and to optimize costs, team time, and new code created with production context. Download the free buyer&#8217;s guide to learn more about the ROI of AI SRE, or join our online FinServ fireside chat on Jan 22 with eng leaders at MSCI and SoFi to hear how large-scale institutions are evaluating and implementing AI for prod in 2026. Get the AI SRE guide Disclaimer: The details in this post have been derived from the details shared online by the Uber Engineering Team. All credit for the technical details goes to the Uber Engineering Team. The links to the original articles and sources are present in the references section at the end of the post. We&#8217;ve attempted to analyze the details and provide our input about them. If you find any inaccuracies or omissions, please leave a comment, and we will do our best to fix them. When you open the Uber app to request a ride, check your trip history, or view driver details, you expect instant results. Behind that seamless experience lies a sophisticated caching system. Uber&#8217;s CacheFront serves over 150 million database reads per second while maintaining strong consistency guarantees. In this article, we break down how Uber built this system, the challenges they faced, and the innovative solutions they developed. Why Caching Matters Every time a user interacts with Uber&#8217;s platform, the system needs to fetch data like user profiles, trip details, driver locations, and pricing information. Reading directly from a database for every request introduces latency and creates a massive load on database servers. When you have millions of users making billio...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 209: How Lyft Built an ML Platform That Serves Millions of Predictions Per Second
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/how-lyft-built-an-ml-platform-that
+**Published:** 2026-01-13T16:30:57+00:00
+
+**Content Preview:**
+&#9986;&#65039; Cut your QA cycles down to minutes with automated testing (Sponsored) If slow QA processes bottleneck you or your software engineering team and you&#8217;re releasing slower because of it &#8212; you need to check out QA Wolf. QA Wolf&#8217;s AI-native service supports web and mobile apps, delivering 80% automated test coverage in weeks and helping teams ship 5x faster by reducing QA cycles to minutes. QA Wolf takes testing off your plate. They can get you: Unlimited parallel test runs for mobile and web apps 24-hour maintenance and on-demand test creation Human-verified bug reports sent directly to your team Zero flakes guarantee The benefit? No more manual E2E testing. No more slow QA cycles. No more bugs reaching production. With QA Wolf, Drata&#8217;s team of 80+ engineers achieved 4x more test cases and 86% faster QA cycles . Schedule a demo to learn more Disclaimer: The details in this post have been derived from the details shared online by the Lyft Engineering Team. All credit for the technical details goes to the Lyft Engineering Team. The links to the original articles and sources are present in the references section at the end of the post. We&#8217;ve attempted to analyze the details and provide our input about them. If you find any inaccuracies or omissions, please leave a comment, and we will do our best to fix them When you request a ride on Lyft, dozens of machine learning models spring into action behind the scenes. One model may calculate the price of your trip. Another determines which drivers should receive bonus incentives. A fraud detection model scans the transaction for suspicious activity. An ETA prediction model estimates your arrival time. All of this happens in milliseconds, and it happens millions of times every single day. The engineering challenge of serving machine learning models at this scale is immense. Lyft&#8217;s solution was to build a system called LyftLearn Serving that makes this task easy for developers. In ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 210: A Guide to LLM Evals
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/a-guide-to-llm-evals
+**Published:** 2026-01-12T16:30:42+00:00
+
+**Content Preview:**
+The Developer's Guide to MCP Auth (Sponsored) Securely authorizing access to an MCP server is complex. You need PKCE, scopes, consent flows, and a way to revoke access when needed. Learn from WorkOS how to implement OAuth 2.1 in a production-ready setup, with clear steps and examples. Read the guide &#8594; Large Language Models (LLMs) have moved from research labs into production applications at a remarkable pace. Developers are using them for everything from customer support chatbots to code generation tools to content creation systems. However, this rapid adoption brings an important question: how do we know if our LLM is actually working well? Unlike traditional software, where we can write unit tests that check for exact outputs, LLMs are probabilistic systems. Ask the same question twice, and the model might give different answers, both of which could be perfectly valid. This uncertainty makes evaluation challenging but absolutely necessary. This is where &#8220;evals&#8221; come in. Short for evaluations, evals are the systematic methods we use to measure how well our LLM performs. Without proper evaluation, we&#8217;re essentially flying blind, unable to know whether our latest prompt change made things better or worse, whether our model is ready for production, or whether it&#8217;s handling edge cases correctly. In this article, we&#8217;ll explore why LLM evaluation is challenging, the different types of evaluations available, key concepts to understand, and practical guidance on setting up an evaluation process. The 2025 Data Streaming &amp; AI Report (Sponsored) AI is only as powerful as the data behind it &#8212; but most teams aren&#8217;t ready. We surveyed 200 senior IT and data leaders to uncover how enterprises are really using streaming to power AI, and where the biggest gaps still exist. Discover the biggest challenges in real-time data infrastructure, the top obstacles slowing down AI adoption, and what high-performing teams are doing different...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 211: EP197: 12 Architectural Concepts Developers Should Know
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/ep197-12-architectural-concepts-developers
+**Published:** 2026-01-10T16:30:58+00:00
+
+**Content Preview:**
+How Sentry Built Production-Informed AI Code Reviews (Sponsored) In order to have your code review reflect real system behavior, you can integrate production signals into developer workflows. Sentry built Seer to connect production failure signals to incoming code changes before merge. Under the hood is a multi-stage bug prediction pipeline &#9881;&#65039; Filtering : large change sets are scoped down to files with the strongest historical failure signals Prediction : models generate and cross-check bug hypotheses using code context and production telemetry Prioritization : findings are ranked by estimated risk so only high-confidence issues surface during review See how this works in practice on the Sentry blog. Check out the blog This week&#8217;s system design refresher: 12 Architectural Concepts Developers Should Know Top Developer Tools You Can Use in 2026 5 Rate Limiting Strategies To Protect the System How Live Streaming Works? 5 Leader Election Algorithms Powering Modern Databases &#128640; Learn AI in the New Year: Become an AI Engineer Cohort 3 Now Open 12 Architectural Concepts Developers Should Know Load Balancing: Distributed incoming traffic across multiple servers to ensure no single node is overwhelmed. Caching: Stores frequently accessed data in memory to reduce latency. Content Delivery Network (CDN): Stores static assets across geographically distributed edge servers so users download content from the nearest location. Message Queue: Decouples components by letting producers enqueue messages that consumers process asynchronously. Publish-Subscribe: Enables multiple consumers to receive messages from a topic. API Gateway: Acts as a single entry point for client requests, handling routing, authentication, rate limiting, and protocol translation. Circuit Breaker: Monitors downstream service calls and stops attempts when failures exceed a threshold. Service Discovery: Automatically tracks available service instances so components can locate and commun...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 212: Must-Know Message Broker Patterns
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/must-know-message-broker-patterns
+**Published:** 2026-01-08T16:30:49+00:00
+
+**Content Preview:**
+Modern distributed systems rely on message brokers to enable communication between independent services. However, using message brokers effectively requires understanding common architectural patterns that solve recurring challenges. This article introduces seven essential patterns that help developers build reliable, scalable, and maintainable systems using message brokers. These patterns address three core categories of problems: Ensuring data consistency across services Managing workload efficiently Gaining visibility into the messaging infrastructure. Whether we&#8217;re building an e-commerce platform, a banking system, or any distributed application, these patterns provide proven solutions to common challenges. In this article, we will look at each of these patterns in detail and understand the scenarios where they help the most. Ensuring Data Consistency Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 213: How AI Transformed Database Debugging at Databricks
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/how-ai-transformed-database-debugging
+**Published:** 2026-01-06T16:31:08+00:00
+
+**Content Preview:**
+New Year, New Metrics: Evaluating AI Search in the Agentic Era (Sponsored) Most teams pick a search provider by running a few test queries and hoping for the best &#8211; a recipe for hallucinations and unpredictable failures. This technical guide from You.com gives you access to an exact framework to evaluate AI search and retrieval. What you&#8217;ll get: A four-phase framework for evaluating AI search How to build a golden set of queries that predicts real-world performance Metrics and code for measuring accuracy Go from &#8220;looks good&#8221; to proven quality. Learn how to run an eval Disclaimer: The details in this post have been derived from the details shared online by the Databricks Engineering Team. All credit for the technical details goes to the Databricks Engineering Team. The links to the original articles and sources are present in the references section at the end of the post. We&#8217;ve attempted to analyze the details and provide our input about them. If you find any inaccuracies or omissions, please leave a comment, and we will do our best to fix them. Databricks is a cloud platform that helps companies manage all their data in one place. It combines the best features of data warehouses and data lakes into a lakehouse architecture, which means you can store and work with any type of data. Recently, Databricks built an internal AI-powered agentic platform that reduced database debugging time by up to 90% across thousands of OLTP instances spanning hundreds of regions on multiple cloud platforms. The AI agent interprets, executes, and debugs by retrieving key metrics and logs and automatically correlating signals. It makes the life of Databricks engineers easy. They can now ask questions about the health of their services in natural language without needing to reach out to on-call engineers in storage teams. The great part was that this platform evolved from a hackathon project into a company-wide tool that unifies metrics, tooling, and expertise...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 214: How Google’s Tensor Processing Unit (TPU) Works?
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/how-googles-tensor-processing-unit
+**Published:** 2026-01-05T16:31:12+00:00
+
+**Content Preview:**
+4 Key Insights for Scaling LLM Applications (Sponsored) LLM workflows can be complex, opaque, and difficult to secure. Get the latest ebook from Datadog for practical strategies to monitor, troubleshoot, and protect your LLM applications in production. You&#8217;ll get key insights into how to overcome the challenges of deploying LLMs securely and at scale, from debugging multi-step workflows to detecting prompt injection attacks. Download the eBook Disclaimer: The details in this post have been derived from the details shared online by the Google Engineering Team. All credit for the technical details goes to the Google Engineering Team. The links to the original articles and sources are present in the references section at the end of the post. We&#8217;ve attempted to analyze the details and provide our input about them. If you find any inaccuracies or omissions, please leave a comment, and we will do our best to fix them When DeepMind&#8217;s AlphaGo defeated Go world champion Lee Sedol in March 2016, the world witnessed a big moment in artificial intelligence. The match was powered by hardware Google had been running in production for over a year, but had never publicly acknowledged. The Tensor Processing Unit, or TPU, represented something more profound than just another fast chip. It marked a fundamental shift in computing philosophy: sometimes doing less means achieving more. Ever since then, Google&#8217;s TPU family has evolved through seven generations since 2015, scaling from single-chip processing image recognition queries to 9216-chip supercomputers training the largest language models in existence. In this article, we look at why Google built custom silicon, and how it works, revealing the physical constraints and engineering trade-offs they had to make. The Need for TPU In 2013, Google&#8217;s infrastructure team ran a calculation. If Android users adopted voice search at the scale Google anticipated, using it for just three minutes per day, the comput...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 215: EP196: Cloud Load Balancer Cheat Sheet
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/ep196-cloud-load-balancer-cheat-sheet
+**Published:** 2026-01-03T16:31:02+00:00
+
+**Content Preview:**
+Cut Code Review Time &amp; Bugs in Half (Sponsored) Code reviews are critical but time-consuming. CodeRabbit acts as your AI co-pilot, providing instant Code review comments and potential impacts of every pull request. Beyond just flagging issues, CodeRabbit provides one-click fix suggestions and lets you define custom code quality rules using AST Grep patterns, catching subtle issues that traditional static analysis tools might miss. CodeRabbit has so far reviewed more than 10 million PRs, installed on 2 million repositories, and used by 100 thousand Open-source projects. CodeRabbit is free for all open-source repo&#8217;s. Get Started Today This week&#8217;s system design refresher: Cloud Load Balancer Cheat Sheet How CQRS Works? How does Docker Work? 6 Practical AWS Lambda Application Patterns You Must Know Containerization Explained: From Build to Runtime &#128640; Learn AI in the New Year: Become an AI Engineer Cohort 3 Now Open Cloud Load Balancer Cheat Sheet Efficient load balancing is vital for optimizing the performance and availability of your applications in the cloud. However, managing load balancers can be overwhelming, given the various types and configuration options available. In today's multi-cloud landscape, mastering load balancing is essential to ensure seamless user experiences and maximize resource utilization, especially when orchestrating applications across multiple cloud providers. Having the right knowledge is key to overcoming these challenges and achieving consistent, reliable application delivery. In selecting the appropriate load balancer type, it's essential to consider factors such as application traffic patterns, scalability requirements, and security considerations. By carefully evaluating your specific use case, you can make informed decisions that enhance your cloud infrastructure's efficiency and reliability. This Cloud Load Balancer cheat sheet would help you in simplifying the decision-making process and helping you implement ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 216: Message Brokers 101: Storage, Replication, and Delivery Guarantees
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/message-brokers-101-storage-replication
+**Published:** 2026-01-01T16:33:32+00:00
+
+**Content Preview:**
+A message broker is a middleware system that facilitates asynchronous communication between applications and services using messages. At its core, a broker decouples producers of information from consumers, allowing them to operate independently without direct knowledge of each other. This decoupling is foundational to modern distributed architectures, where services communicate through the broker rather than directly with one another, enabling them to evolve independently without tight coupling. To understand this in practice, consider an order-processing service that places an &#8220;Order Placed&#8221; message on a broker. Downstream services such as inventory, billing, and shipping will get that message from the broker when they are ready to process it, rather than the order service calling each one synchronously. This approach eliminates the need for the order service to know about or wait for these downstream systems. Message brokers are not merely pipes for data transmission. They are sophisticated distributed databases specialized for functionalities such as stream processing and task distribution. The fundamental value proposition of a message broker lies in its ability to introduce a temporal buffer between distinct systems. By allowing a producer to emit a message without waiting for a consumer to process it, the broker facilitates temporal decoupling. This ensures that a spike in traffic at the ingress point does not immediately overwhelm downstream services. In this article, we will look at how message brokers work in detail and explore the various patterns they enable in distributed system design. Fundamental Terms Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 217: OpenAI CLIP: The Model That Learnt Zero-Shot Image Recognition Using Text
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/openai-clip-the-model-that-learnt
+**Published:** 2025-12-29T16:30:45+00:00
+
+**Content Preview:**
+If Your API Isn&#8217;t Fresh, Your Agents Aren&#8217;t Either. (Sponsored) In the agentic era, outdated retrieval breaks workflows. This API Benchmark Report from You.com shows how each major search API performs to reveal which can best answer real-world, time-sensitive queries. What&#8217;s inside: Head-to-head benchmarks comparing You.com, Google SerpAPI, Exa, and Tavily across accuracy, latency, and cost Critical performance data to identify which APIs best handle time-sensitive queries A data-driven analysis of the Latency vs. Accuracy trade-off to help you select the best retrieval layer for enterprise agents Curious who performed best? Get the 2025 API Benchmark Report Disclaimer: The details in this post have been derived from the details shared online by the OpenAI Engineering Team. All credit for the technical details goes to the OpenAI Engineering Team. The links to the original articles and sources are present in the references section at the end of the post. We&#8217;ve attempted to analyze the details and provide our input about them. If you find any inaccuracies or omissions, please leave a comment, and we will do our best to fix them. Imagine teaching a computer to recognize objects not by showing it millions of labeled photos, but by letting it browse the internet and learn from how people naturally describe images. That&#8217;s exactly what OpenAI&#8217;s CLIP does, and it represents a fundamental shift in how we teach machines to understand visual content. CLIP (Contrastive Language-Image Pre-training) is a neural network that connects vision and language. Released in January 2021, it can classify images into any categories you want without being specifically trained for that task. Just tell it what you&#8217;re looking for in plain English, and it can recognize it. This &#8220;zero-shot&#8221; capability makes CLIP different from almost every computer vision system that came before it. In this article, we will look at how CLIP works and the probl...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 218: EP195: Common Network Protocols Every Engineer Should Know
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/ep195-common-network-protocols-every
+**Published:** 2025-12-27T16:30:17+00:00
+
+**Content Preview:**
+The 5-Step Playbook for Unlocking the Value of AI (Sponsored) Successful AI transformation starts with deeply understanding your organization&#8217;s most critical use cases. This practical guide from You.com walks through a proven framework to identify, prioritize, and document high-value AI opportunities. In this AI Use Case Discovery Guide, you&#8217;ll learn how to: Map internal workflows and customer journeys to pinpoint where AI can drive measurable ROI Ask the right questions when it comes to AI use cases Align cross-functional teams and stakeholders for a unified, scalable approach Get the Guide This week&#8217;s system design refresher: Common Network Protocols Every Engineer Should Know &#128640; Learn AI in the New Year! Become an AI Engineer | Learn by Doing | Cohort 3 8 Popular Network Protocols 9 best practices for developing microservices SPONSOR US Common Network Protocols Every Engineer Should Know Ever wonder what actually happens when you click "Send" on an email or join a video call? Every click, message, and API call on the internet relies on network protocols. They define how data moves, who can talk, and how securely it all happens. At the foundation are transport protocols: TCP ensures reliable delivery, UDP prioritizes speed, and QUIC brings both worlds together over UDP. On top of that, HTTP powers the web, TLS secures it, and DNS translates names into addresses. Need remote access? That&#8217;s SSH. File transfers? SFTP or SMB. Real-time chat and media? WebSocket, WebRTC, and MQTT keep data flowing live. For identity and access, OAuth and OpenID handle authorization and authentication. In the backend, DHCP, NTP, ICMPv6, and LDAP quietly keep everything synchronized, addressed, and discoverable. From simple emails (SMTP, IMAP) to encrypted VPNs (WireGuard, IPsec), these protocols form the invisible language that keeps the internet connected and secure. Over to you: If one protocol suddenly stopped working worldwide, which one would break th...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 219: 🚀 Learn AI in the New Year: Become an AI Engineer Cohort 3 Now Open
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/learn-ai-in-the-new-year-become-an
+**Published:** 2025-12-26T16:30:42+00:00
+
+**Content Preview:**
+After the amazing success of Cohorts 1 and 2 (with close to 1,000 engineers joining and building real AI skills), we are excited to announce the launch of Cohort 3 of Become an AI Engineer! Check it out Here Check it out Here This is not just another course about AI frameworks and tools. Our goal is to help engineers build the foundation and end to end skill set needed to thrive as AI engineers. Here&#8217;s what makes this cohort special: &#8226; Learn by doing: Build real world AI applications, not just by watching videos. &#8226; Structured, systematic learning path: Follow a carefully designed curriculum that takes you step by step, from fundamentals to advanced topics. &#8226; Live feedback and mentorship: Get direct feedback from instructors and peers. &#8226; Community driven: Learning alone is hard. Learning with a community is easy! We are focused on skill building, not just theory or passive learning. Our goal is for every participant to walk away with a strong foundation for building AI systems. If you want to start learning AI from scratch, this is the perfect time to begin. Check it out Here...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 220: How Shopify Prepares for Black Friday
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/how-shopify-prepares-for-black-friday
+**Published:** 2025-12-23T16:30:27+00:00
+
+**Content Preview:**
+Power real-time apps and AI agents with Redis (Sponsored) Real-time isn&#8217;t just about speed. It&#8217;s about instant, fresh, and reliable responses at scale. This definitive Redis guide breaks down how to architect a real-time data layer that keeps user experiences snappy, AI agents responsive, and data up to date across your stack. Inside, you&#8217;ll learn: How to get your apps from &#8220;fast&#8221; to truly real-time The role of Redis in low-latency caching, vector search, AI agent memory, and streaming workloads Real-world patterns from companies using Redis to cut latency, reduce drop-offs, and keep users in flow Download now Note: This article is written in collaboration with the Shopify engineering team. Special thanks to the Shopify engineering team for sharing details with us about their Black Friday Cyber Monday preparation work and also for reviewing the final article before publication. All credit for the technical details shared in this article goes to the Shopify Engineering Team. Black Friday Cyber Monday (BFCM) 2024 was massive for Shopify. The platform processed 57.3 petabytes of data, handled 10.5 trillion database queries, and peaked at 284 million requests per minute on its edge network. On app servers alone, they handled 80 million requests per minute while pushing 12 terabytes of data every minute on Black Friday. Here&#8217;s the interesting part: this level of traffic is now the baseline for Shopify. And BFCM 2025 was even bigger, serving 90 petabytes of data, handling 14.8 trillion database queries and 1.75 trillion database writes, with peak performance at 489 million requests per minute. This is why Shopify rebuilt its entire BFCM readiness program from scratch. The preparation involved thousands of engineers working for nine months, running five major scale tests. In this article, we will look at how Shopify prepared for success during the Super Bowl of commerce The Three-Track Framework Shopify&#8217;s BFCM preparation started i...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 221: Multimodal LLMs Basics: How LLMs Process Text, Images, Audio & Videos
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/multimodal-llms-basics-how-llms-process
+**Published:** 2025-12-22T16:30:45+00:00
+
+**Content Preview:**
+Yesterday&#8217;s data can&#8217;t answer today&#8217;s questions. (Sponsored) Static training data can&#8217;t keep up with fast-changing information, leaving your models to guess. We recommend this technical guide from You.com , which gives developers the code and framework to connect GenAI apps to the live web for accurate, real-time insights. What you&#8217;ll get: A step-by-step Python tutorial to integrate real-time search with a single GET request The exact code logic to build a &#8220;Real-Time Market Intelligence Agent&#8221; that automates daily briefings Best practices for optimizing latency, ensuring zero data retention, and establishing traceability Turn &#8220;outdated&#8221; into &#8220;real-time.&#8221; Download the API Integration Guide For a long time, AI systems were specialists confined to a single sense. For example: Computer vision models could identify objects in photographs, but couldn&#8217;t describe what they saw. Natural language processing systems could write eloquent prose but remained blind to images. Audio processing models could transcribe speech, but had no visual context. This fragmentation represented a fundamental departure from how humans experience the world. Human cognition is inherently multimodal. We don&#8217;t just read text or just see images. We simultaneously observe facial expressions while listening to the tone of voice. We connect the visual shape of a dog with the sound of a bark and the written word &#8220;dog.&#8221; To create AI that truly operates in the real world, these separated sensory channels needed to converge. Multimodal Large Language Models represent this convergence. For example, GPT-4o can respond to voice input in just 232 milliseconds, matching human conversation speed. Google&#8217;s Gemini can process an entire hour of video in a single prompt. These capabilities emerge from a single unified neural network that can see, hear, and read simultaneously. But how does a single AI system understand suc...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 222: EP194: Evolution of HTTP
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/ep194-evolution-of-http
+**Published:** 2025-12-20T16:31:00+00:00
+
+**Content Preview:**
+&#9986;&#65039; Cut your QA cycles down to minutes with QA Wolf (Sponsored) If slow QA processes bottleneck you or your software engineering team and you&#8217;re releasing slower because of it &#8212; you need to check out QA Wolf. QA Wolf&#8217;s AI-native service supports web and mobile apps , delivering 80% automated test coverage in weeks and helping teams ship 5x faster by reducing QA cycles to minutes. QA Wolf takes testing off your plate. They can get you: Unlimited parallel test runs for mobile and web apps 24-hour maintenance and on-demand test creation Human-verified bug reports sent directly to your team Zero flakes guaranteed The benefit? No more manual E2E testing. No more slow QA cycles. No more bugs reaching production. With QA Wolf, Drata&#8217;s team of 80+ engineers achieved 4x more test cases and 86% faster QA cycles . Schedule a demo to learn more This week&#8217;s system design refresher: Evolution of HTTP System Performance Metrics Every Engineer Should Know Why Is Nginx So Popular? Network Debugging Commands Every Engineer Should Know Hub, Switch, &amp; Router Explained SPONSOR US Evolution of HTTP The Hypertext Transfer Protocol (HTTP) has evolved over the years to meet the needs of modern applications, from simple text delivery to high-performance, real-time experiences. Here is how HTTP has progressed: HTTP/0.9: Built to fetch simple HTML documents with a single GET request. HTTP/1.0: Added headers and status codes to support richer interactions, but every request still required a new connection. HTTP/1.1: Introduced persistent connections and more methods, making the web faster and more efficient for everyday browsing. HTTP/2: Solved performance bottlenecks with multiplexing, enabling multiple requests to share one connection. HTTP/3 (QUIC): Shifted to UDP with QUIC to reduce latency and improve reliability, especially for mobile and real-time apps. Over to you: Are you already taking advantage of HTTP/3 in your projects? 2026 OKR: Use AI...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 223: A Guide to Retry Pattern in Distributed Systems
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/a-guide-to-retry-pattern-in-distributed
+**Published:** 2025-12-18T16:31:12+00:00
+
+**Content Preview:**
+In a monolithic application, a function call is a local, in-memory process. Aside from a catastrophic hardware failure or a process crash, the execution of a function is essentially guaranteed. If the process is alive, the call succeeds. However, in distributed systems, this guarantee does not hold. Components communicate over physical networks that are inherently unreliable. This reality is captured in the &#8220;Fallacies of Distributed Computing,&#8221; specifically the first fallacy: &#8220;The network is reliable&#8221;. In truth, it is not. A request sent from Service A to Service B may fail not because Service B is broken, but simply because the communication medium momentarily faltered. This creates a need for defensive programming patterns, and one of the primary mechanisms we use is the Retry pattern. By automatically retrying a failed operation, a system can trade latency for availability, turning what would have been a failed user request into a successful one. However, retries are both essential and dangerous in distributed systems. On the one hand, they transform unreliable networks into reliable ones. But on the other hand, indiscriminate retries can lead to latency amplification, resource exhaustion, and cascading failures that can take down entire platforms. In this article, we will explore the retry pattern in depth, understand when and how to use it safely and effectively. What is a Retry? Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 224: How Meta Built a New AI-Powered Ads Model for 5% Better Conversions
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/how-meta-built-a-new-ai-powered-ads
+**Published:** 2025-12-17T16:30:16+00:00
+
+**Content Preview:**
+Cut Code Review Time &amp; Bugs in Half (Sponsored) Code reviews are critical but time-consuming. CodeRabbit acts as your AI co-pilot, providing instant Code review comments and potential impacts of every pull request. Beyond just flagging issues, CodeRabbit provides one-click fix suggestions and lets you define custom code quality rules using AST Grep patterns, catching subtle issues that traditional static analysis tools might miss. CodeRabbit has so far reviewed more than 10 million PRs, installed on 2 million repositories, and used by 100 thousand Open-source projects. CodeRabbit is free for all open-source repo&#8217;s. Get Started Today Disclaimer: The details in this post have been derived from the details shared online by the Meta Engineering Team. All credit for the technical details goes to the Meta Engineering Team. The links to the original articles and sources are present in the references section at the end of the post. We&#8217;ve attempted to analyze the details and provide our input about them. If you find any inaccuracies or omissions, please leave a comment, and we will do our best to fix them. When Meta announced in Q2 2025 that its new Generative Ads Model (GEM) had driven a 5% increase in ad conversions on Instagram and a 3% increase on Facebook Feed, the numbers might have seemed modest. However, at Meta&#8217;s scale, these percentages translate to billions of dollars in additional revenue and represent a fundamental shift in how AI-powered advertising works. GEM is the largest foundation model ever built for recommendation systems. It has been trained at the scale typically reserved for large language models like GPT-4 or Claude. Yet here&#8217;s the paradox: GEM is so powerful and computationally intensive that Meta can&#8217;t actually use it directly to serve ads to users. Instead, the company developed a teacher-student architecture that lets smaller, faster models benefit from GEM&#8217;s intelligence without inheriting its computationa...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 225: How LinkedIn Built an AI-Powered Hiring Assistant
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/how-linkedin-built-an-ai-powered
+**Published:** 2025-12-16T16:30:58+00:00
+
+**Content Preview:**
+Solve Enterprise Auth, Identity, and Security for Your App (Sponsored) Enterprise customers expect SSO, Directory Sync, RBAC, and Audit Logs, but building and maintaining that infrastructure slows teams down and pulls focus from core product work. WorkOS provides these features through simple APIs and a hosted Admin Portal that integrates with every identity provider. You get production-ready enterprise capabilities without owning the complexity yourself. Trusted by OpenAI, Cursor, Vercel, 1000+ more. Your first million MAUs are free. Add enterprise features today &#8594; Disclaimer: The details in this post have been derived from the details shared online by the LinkedIn Engineering Team. All credit for the technical details goes to the LinkedIn Engineering Team. The links to the original articles and sources are present in the references section at the end of the post. We&#8217;ve attempted to analyze the details and provide our input about them. If you find any inaccuracies or omissions, please leave a comment, and we will do our best to fix them. Recruiting is a profession that demands both strategic thinking and meticulous attention to detail. Recruiters must make high-value decisions about which candidates are the best fit for a role, but they also spend countless hours on repetitive pattern recognition tasks. Sorting through hundreds of resumes, evaluating qualifications against job requirements, and drafting personalized outreach messages are all essential activities. However, they also consume enormous amounts of time that could otherwise be spent on relationship-building and strategic hiring decisions. LinkedIn&#8217;s Hiring Assistant represents a new approach to solving this challenge. Rather than replacing recruiters, this AI agent is designed to handle the repetitive, time-consuming aspects of the recruiting workflow, freeing professionals to focus on what they do best: connecting with people and making critical hiring choices. The most labor-intensive...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 226: Top AI Agentic Workflow Patterns
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/top-ai-agentic-workflow-patterns
+**Published:** 2025-12-15T16:31:21+00:00
+
+**Content Preview:**
+Tinkering with prompts can only get you so far. (Sponsored) Most companies get stuck tinkering with prompts and wonder why their agents fail to deliver dependable results. This guide from You.com breaks down the evolution of agent management, revealing the five stages for building a successful AI agent and why most organizations haven&#8217;t gotten there yet. In this guide, you&#8217;ll learn: Why prompts alone aren&#8217;t enough and how context and metadata unlock reliable agent automation Four essential ways to calculate ROI, plus when and how to use each metric Real-world challenges at each stage of agent management and how to avoid them Go beyond the prompt: get the guide. When we first interact with large language models, the experience is straightforward. We type a prompt, the model generates a response, and the interaction ends. This single-turn approach works well for simple questions or basic content generation, but it quickly reveals its limitations when we tackle more complex tasks. Imagine asking an AI to analyze market trends, create a comprehensive report, and provide actionable recommendations. A single response, no matter how well-crafted, often falls short because it lacks the opportunity to gather additional information, reflect on its reasoning, or refine its output based on feedback. This is where agentic workflows come into play. Rather than treating AI interactions as one-and-done transactions, agentic workflows introduce iterative processes, tool integration, and structured problem-solving approaches. These workflows transform language models from sophisticated text generators into capable agents that can break down complex problems, adapt their strategies, and produce higher-quality results. The difference is similar to comparing a quick sketch to a carefully refined painting. Both have their place, but when quality and reliability matter, the iterative approach wins. In this article, we will look at the most popular agentic workflow patter...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 227: EP193: Database Types You Should Know in 2025
+
+**Publication:** ByteByteGo Newsletter
+**Author:** ByteByteGo
+**URL:** https://blog.bytebytego.com/p/ep193-database-types-you-should-know
+**Published:** 2025-12-13T16:30:43+00:00
+
+**Content Preview:**
+8 Insights into Real-World Cloud Security Postures (Sponsored) To better understand the vulnerabilities and threats facing modern DevOps organizations, Datadog analyzed security posture data from a sample of thousands of organizations that use AWS, Azure, or Google Cloud. In this report, you&#8217;ll gain valuable cloud security insights based on this research including: How long-lived credentials create opportunities for attackers to breach cloud environments Adoption of proactive cloud security mechanisms such as S3 Public Access Block or IMDSv2 in AWS Most common risks when using managed Kubernetes distributions Read the report This week&#8217;s system design refresher: Transformers Step-by-Step Explained (Youtube video) Database Types You Should Know in 2025 Apache Kafka vs. RabbitMQ The HTTP Mindmap How DNS Works SPONSOR US Transformers Step-by-Step Explained (Attention Is All You Need) Database Types You Should Know in 2025 There&#8217;s no such thing as a one-size-fits-all database anymore. Modern applications rely on multiple database types, from real-time analytics to vector search for AI. Knowing which type to use can make or break your system&#8217;s performance. Relational: Traditional row-and-column databases, great for structured data and transactions. Columnar: Optimized for analytics, storing data by columns for fast aggregations. Key-Value: Stores data as simple key&#8211;value pairs, enabling fast lookups. In-memory: Stores data in RAM for ultra-low latency lookups, ideal for caching or session management. Wide-Column: Handles massive amounts of semi-structured data across distributed nodes. Time-series: Specialized for metrics, logs, and sensor data with time as a primary dimension. Immutable Ledger: Ensures tamper-proof, cryptographically verifiable transaction logs. Graph: Models complex relationships, perfect for social networks and fraud detection Document: Flexible JSON-like storage, great for modern apps with evolving schemas. Geospatial: Ma...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 228: Design Systems for Software Engineers
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/design-systems-for-software-engineers
+**Published:** 2026-01-13T17:46:25+00:00
+
+**Content Preview:**
+Before we start: the agenda of The Pragmatic Summit is final. Here&#8217;s what to expect on 11 February, in San Francisco: Speakers might be familiar from the podcast &#8212; and this is a rare opportunity to meet them in-person. We&#8217;ll have Laura Tacho , Simon Willison, Chip Huyen , Kent Beck , Martin Fowler , Nicole Forsgren , Thomas Dohmke and others join. Engineering leaders from the top AI companies and startups will talk about how exactly they build &#8212; folks from Cursor, Codex, Linear, Ramp, Vercel and Uber, and more. And in a fun crossover, Alex and Sahn from ByteByteGo will also take the stage. The exact agenda: We already have 250 confirmed attendees &#8212; experienced engineering leaders and experienced engineers &#8212; and just 150 seats left. We also have more delightful surprises planned for the event, and on the day &#8212; those who attend will learn of these. If you are thinking of joining, apply now , while there is still space. If you want to meet in-person, meet folks who have been on the podcast or in the deepdives, and connect with an incredible group at the event: this is the event to do it at. Talks will be recorded and shared with paid newsletter subscribers in a timely matter &#8212; and they will be published in batches for all newsletter subscribers later on as well. Apply to join the Summit At some point in the lifespan of a successful product, a member of the team decides it has become too messy, and that what it needs is some kind of system/UX library/UI organization, since what used to be creative, clever UI approaches have become chaotic. At this point, the idea of a reusable components library often starts being seen as a solution. This usually happens long after the product has found its product-market-fit and while it&#8217;s growing in usage, with 10+ designers and frontend engineers working on it. I&#8217;ve seen this scenario play out several times: at Skype, Skyscanner, and at Uber, where the outcome was the Base D...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 229: The Pulse #158: new ways of coding with AI tools
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/the-pulse-158-new-ways-of-coding
+**Published:** 2026-01-08T20:17:41+00:00
+
+**Content Preview:**
+The Pulse is a series covering events, insights, and trends within Big Tech and startups. Notice an interesting event or trend? Hit reply and share it with me. Today, we cover: Feedback on Tuesday&#8217;s deepdive. A lot is unknown with more capable AI agents, and after using these better AI agents to get legal advice, I&#8217;m also more bullish on software engineer&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 230: When AI writes almost all code, what happens to software engineering?
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/when-ai-writes-almost-all-code-what
+**Published:** 2026-01-06T17:41:49+00:00
+
+**Content Preview:**
+This winter break was an opportunity for devs to step back from day-to-day work and play around with side projects &#8211; including using AI agents to juice up those half-baked or incomplete ideas. At least, that&#8217;s what I did with a few features I&#8217;d meant to build for months, but didn&#8217;t get around to during 2025: related to self-service group subscriptions for larger companies, and my custom-built admin panel for The Pragmatic Engineer. Unexpectedly, LLMs like Opus 4.5 and GPT 5.2 did amazing jobs on the mid-sized tasks I assigned them: I ended up pushing a few hundred lines of code to production simply by prompting the LLM, reviewing the output, making sure the tests passed (and new tests I prompted also passed!), then prompting it a bit more for some final tweaking. To add to the magical feeling, I then managed to build production software on my phone: I set up Claude Code for Web by connecting it to my GitHub, which let me instruct the Claude mobile app to make changes to my code and to add/run tests. Claude duly created PRs that triggered GitHub actions (which ran the tests Claude couldn&#8217;t) and I found myself reviewing and merging PRs with new functionality purely from my mobile device while travelling. Admittedly, it was low-risk work and all the business logic was covered by automated tests, but I hadn&#8217;t previously felt the thrill of &#8220;creating&#8221; code and pushing it to prod from my phone. This experience, also shared by many others, suggests to me that a step change is underway in software engineering tooling. In this article &#8211; the first of 2026 for this publication &#8211; we explore where we are, and what a monumental change like AI writing the lion&#8217;s share of code could mean for us developers. Today, we cover: Latest models create &#8220;a-ha&#8221; moments. It&#8217;s not just devs working at AI vendors who noticed much more capable models, but also independent software engineers. Why now? Model releases...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 231: The Pragmatic Engineer in 2025
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/the-pragmatic-engineer-in-2025
+**Published:** 2025-12-23T14:03:04+00:00
+
+**Content Preview:**
+This holiday season marks the end of the fourth year of The Pragmatic Engineer as my full-time focus, following more than a decade of working as a software engineer and engineering manager. Throughout 2025, you received 134 newsletters: a mix of in-depth deepdives , tech news in The Pulse , and conversations on software engineering in The Pragmatic Engineer Podcast . As of today, the newsletter has 1,073,929 readers, of whom more than 200,000 have joined in the past year alone. Special thanks to paying subscribers, who get full access to all deepdives, issues of The Pulse , as well as extra resources for career growth, and content for engineering leaders. I&#8217;d like to thank everyone who reads this publication; your support is truly valued. In this final article of 2025, I look back on the year and suggest some articles and pod episodes worth revisiting &#8211; or checking out for the first time. Today, we cover: Most popular articles. Five of the most-read, and five of my personal favorites Podcast. Memorable episodes to check out Tech industry in 2025. AI dominated the conversation and trends, the job market was weird, RTO accelerated, and much else The Software Engineer&#8217;s Guidebook. Four more translations, a hardcover edition, and a best-seller in Japan! See also annual reviews in 2024 , 2023 , 2022 , and 2021 . 1. Most popular articles Over the course of the year, the articles below are the ones which were read by the most subscribers. How Claude Code is built. Claude Code took the industry by storm in 2025, and we sat down with two of its founding engineers. They revealed how they helped make command line interfaces (CLIs) surprisingly relevant in such a short space of time. State of the software engineering job market in 2025 . It&#8217;s been a bizarre 12 months in the job market, when job seekers struggled to hear back about their applications, and employers found it hard to hire solid engineers. We delved into the state of things in a three-part s...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 232: The Pulse #157: Internal dev tooling at Meta & the “trajectories” feature
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/the-pulse-157-internal-dev-tooling
+**Published:** 2025-12-18T17:28:12+00:00
+
+**Content Preview:**
+Before we start, two things: Check out our new MCP report! Elin and I have done something experimental: create a more detailed report than even our MCP deepdive was. If you&#8217;d like to get deeper into the MCP ecosystem, check out the report . Feel free to give feedback, as we&#8217;d like to do more of these if there&#8217;s enough interest to justify the intensive research involved. This is the most detailed report on this topic that we know about. The Pragmatic Summit speaker list is nearly finalized. Speakers confirmed in the past few weeks include some names you may know as guests on the Pragmatic Engineer podcast: Chip Huyen , Martin Fowler , Nicole Forsgren , and Kent Beck . I&#8217;ll share the detailed agenda in early January. The event takes place on 11 February, in San Francisco. Apply here to secure a spot. The Pulse is a series covering events, insights, and trends within Big Tech and startups. Today, we cover: Internal dev tooling at Meta &amp; &#8220;trajectories.&#8221; An overview of three different internal AI-coding tools which devs at Meta use. Also, the company has started sharing the prompts which devs make when generating code &#8211; and it&#8217;s pretty controversial. GitHub upsets devs by charging for self-hosted CI/CD. GitHub Actions is notoriously slow and unreliable. But instead of improving the service, GitHub sought to charge by the minute for using third-party CI/CD solutions. That didn&#8217;t go down well with devs. Industry Pulse. Warsaw on track to become the &#8220;tech capital of the EU,&#8221; hiring juniors could actually be &#8220;profitable&#8221; thanks to AI tools, GitHub is working on stacked diffs, non-devs use LLMs for more coding tasks, Cursor migrates CMS to Markdown, OpenAI gets rid of 6-month vesting cliff, and more. &#8220;Apple Tax&#8221; alive in Japan. A US court rejected Apple&#8217;s appeal, and the iPhone maker can no longer ban alternative in-app payments or impose junk fees on third-party payments&#8230...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 233: The history of servers, the cloud, and what’s next – with Oxide
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/the-history-of-servers-the-cloud
+**Published:** 2025-12-17T17:01:13+00:00
+
+**Content Preview:**
+Stream the latest episode Listen and watch now on YouTube , Spotify , and Apple . See the episode transcript at the top of this page, and timestamps for the episode at the bottom. Brought to You by &#8226;&#8288; Statsig &#8288; &#8212; &#8288; The unified platform for flags, analytics, experiments, and more. Companies like Meta and Google had to build their own infrastructure for safer deployments and experimentation. Statsig makes this advanced tooling accessible to everyone. They have a generous free tier, a $50K startup program, and affordable enterprise plans. Check it out. &#8226;&#8288; Linear &#8288; &#8212; &#8288; The system for modern product development. We know that AI will be part of the software stack &#8212; in fact, it already is, today. To support AI agents, Linear they built an open API and SDK that lets any agent plug into your issue tracker. You can also connect popular agents like ike Cursor, GitHub Copilot, OpenAI Codex, and others. Take a look at how Linear works with agents . In this episode How have servers and the cloud evolved in the last 30 years, and what might be next? Bryan Cantrill was a distinguished engineer at Sun Microsystems during both the Dotcom Boom and the Dotcom Bust. Today, he is the co-founder and CTO of Oxide Computer, where he works on modern server infrastructure. In this episode of The Pragmatic Engineer , Bryan joins me to break down how modern computing infrastructure evolved. We discuss why the Dotcom Bust produced deeper innovation than the Boom, how constraints shape better systems, and what the rise of the cloud changed and did not change about building reliable infrastructure. Our conversation covers early web infrastructure at Sun, the emergence of AWS, Kubernetes and cloud neutrality, and the tradeoffs between renting cloud space and building your own. We also touch on the complexity of server-side software updates, experimenting with AI, the limits of large language models, and how engineering organizations ...
+
+**Embedded Videos:** 29
+
+
+---
+## Post 234: How AWS deals with a major outage
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/how-aws-deals-with-a-major-outage
+**Published:** 2025-12-16T16:58:00+00:00
+
+**Content Preview:**
+In October, the largest Amazon Web Services (AWS) region in the world suffered an outage lasting 15 hours, which created a global impact as thousands of sites and apps crashed or degraded &#8211; including Amazon.com, Signal, Snapchat, and others . AWS released an incident summary three days later, revealing the outage in us-east-1 was started by a failure inside DynamoDB&#8217;s DNS system, which then spread to Amazon EC2 and to AWS&#8217;s Network Load Balancer. The incident summary overlooked questions such as why it took so long to resolve, and some media coverage sought to fill the gap. The Register claimed that an &#8220;Amazon brain drain finally sent AWS down the spout&#8221;, because some AWS staff who knew the systems inside out had quit the company, and their institutional knowledge was sorely missed. For more clarity and detail, I went to an internal source at Amazon: Senior Principal Engineer, Gavin McCullagh , who was part of the crew which resolved this outage from start to finish. In this article, Gavin shares his insider perspective and some new details about what happened, and we find out how incident response works at the company. This article is based on Gavin&#8217;s account of the incident to me. We cover: Incident Response team at AWS. An overview of how global incident response works at the leading cloud provider, and a summary of Gavin&#8217;s varied background at AWS. Mitigating the outage (part 1). Rapid triage, two simultaneous problems, and extra details on how the DynamoDB outage was eventually resolved. What caused the outage? An unlucky, unexpected lock contention across the three DNS enactors started it all. Also, a clever usage of Route 53 as an optimistic locking mechanism. Oncall tooling &amp; outage coordination. Amazon&#8217;s outage severity scale, tooling used for paging and incident management, and why 3+ parallel calls are often run during a single outage. Mitigating the outage (part 2). After the DynamoDB outage was mitigat...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 235: The Pulse #156: Beware of global configuration changes in large systems
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/the-pulse-156
+**Published:** 2025-12-11T17:33:00+00:00
+
+**Content Preview:**
+The Pulse is a series covering events, insights, and trends within Big Tech and startups. Notice an interesting event or trend? Hit reply and share it with me. Today, we cover: Cloudflare&#8217;s latest outage proves dangers of global configuration changes (again) Deja vu: a large Cloudflare outage caused by an instantly rolled-out global config change &#8211; two we&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 236: Frictionless: why great developer experience can help teams win in the ‘AI age’
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/frictionless-why-great-developer
+**Published:** 2025-12-10T16:43:11+00:00
+
+**Content Preview:**
+Hi, this is Gergely with a bonus, free issue of the Pragmatic Engineer Newsletter. In every issue, I cover Big Tech and startups through the lens of senior engineers and engineering leaders. If you&#8217;ve been forwarded this email, you can subscribe here . Begin researching developer productivity, and you&#8217;re likely to soon encounter the work of Nicole Forsgren, as lead author of the best-selling book Accelerate , and creator of the widely-adopted DORA and SPACE developer productivity frameworks. And, beyond SPACE is the DevEx framework for productivity measurement, created by Abi Noda in collaboration with Nicole. When I heard that the pair&#8217;s work together has continued in a new book about developer experience, I wanted to know more, and had the chance to sit down for a conversation about this big project of theirs. Frictionless was released two weeks ago, and Nicole and Noda have been nice enough to share an excerpt from their new title with readers of the Pragmatic Engineer, below. My copy of Frictionless The back cover of Frictionless reads: &#8220; AI can generate code in minutes &#8212; so why does shipping software still take forever? The answer is friction: the invisible barriers that turn quick wins into endless delays. While your competitors ship daily updates, your developers burn out fighting broken tools instead of solving real problems&#8221;. Personally, the lack of impact by AI coding tools to date upon the speed of development and quality of software, is amusing to me. If I take the apps I use, websites I visit, and services I access via software, I don&#8217;t see signs of faster iteration, higher quality, and fewer bugs since AI started shaking up the tech industry. An exception might be AI labs that release new features at eye-catching speed, often faster than much nimbler startups, but it could be argued those begin as experimental features. What I like about Frictionless is that it gives a step-by-step approach for developers to sm...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 237: Building MCP servers in the real world
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/mcp-deepdive
+**Published:** 2025-12-09T16:52:37+00:00
+
+**Content Preview:**
+The Model Context Protocol (MCP) was released almost exactly a year ago by Anthropic, and today, MCP is enjoying quite a moment, with strong growth in the numbers of devs building MCP servers. That might be related to MCP servers being a great way to give agents like Claude Code, Cursor Agent, and other LLMs new capabilities to use services, query documentation, and be more efficient. Adoption is widespread and diverse, across cutting-edge startups and regulated industries like aerospace alike. One year on, how are engineering teams using this technology, and what does that teach us? To find out, we collected input from 46 software engineers who build and use MCP servers at work, and talked with Jeremiah Lowin , CEO of Prefect and creator of FastMCP, the leading MCP framework for Python, and Den Delimarsky , core MCP maintainer and Principal Engineer at Microsoft. Thanks to everyone who shared their experience of building with MCP. Today, we cover: MCP fundamentals. Brief recap of the protocol. Usage realities. Internal MCP server usage outpaces its public usage, business stakeholders are heavy MCP users, and other details. How teams use MCP. Based on a dozen use cases, there are varied ways of using it. Popular public MCP servers. Stats from widely-used public MCP servers operated by Sentry and Linear, plus an odd conjunction of thousands of DAUs and millions of daily sessions. Security considerations. Security&#8217;s still the Achilles heel of MCPs and LLMs. There are some sensible security practices for treading carefully in the space. Learnings from building MCPs. Start small and local, choose the development language carefully, design primitives for agents and not humans &#8211; &amp; more. Useful tools for building MCP servers. FastMCP, MCP Inspector, and Cloudflare&#8217;s remote MCP guide among the top mentions. Our look into MCP usage suggests that using, building, and maintaining MCP servers are on the way to becoming part of the software engineering tool...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 238: The Pulse #155: 5-day RTO looms for those at Big Tech?
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/the-pulse-155
+**Published:** 2025-12-04T17:29:35+00:00
+
+**Content Preview:**
+The Pulse is a series covering events, insights, and trends within Big Tech and startups. Notice an interesting event or trend? Hit reply and share it with me. Today, we cover: Could a 5-day RTO be around the corner in Big Tech? From next February, workers at Instagram must be in the office, five days a week. This makes Meta the second tech giant after Amazon to mandate a 5-day RTO. Will more big companies do the same? Are senior engineers better with AI than juniors are? Data from more than 40,000 users of Cursor suggests that experienced devs get better results from AI agents. It suggests the tool amplifies coding skills &#8211; not replace them. Industry Pulse. OpenAI dumps Mixpanel after security breach, Stripe buys usage metering startup, OpenAI&#8217;s &#8220;Code Red,&#8221; a high-risk security issue at a $3B legal startup, and more. Anthropic and Claude Code on a roll. Claude Code just surpassed $1B in annual run rate revenue after 6 months, Anthropic buys JavaScript runtime Bun, and might plan to go public as soon as next year. 1. Could a 5-day RTO be around the corner for Big Tech? Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 239: Being a founding engineer at an AI startup
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/being-a-founding-engineer-at-an-ai
+**Published:** 2025-12-03T16:28:15+00:00
+
+**Content Preview:**
+Stream the latest episode Listen and watch now on YouTube , Spotify , and Apple . See the episode transcript at the top of this page, and timestamps for the episode at the bottom. Brought to You by &#8226;&#8288; Statsig &#8288; &#8212; &#8288; The unified platform for flags, analytics, experiments, and more. Together with Statsig, I&#8217;m hosting The Pragmatic Summit on 11 February, San Francisco. Get tickets and join us there. &#8226;&#8288; Linear &#8288; &#8212; &#8288; The system for modern product development. The founders of Linear saw how companies like Airbnb, Uber and Coinbase started to slow down as they grew quickly &#8212; and Linear was built to give clarity and coordination, without the overhead. Try it yourself. In this episode Michelle Lim joined Warp as engineer number one and is now building her own startup, Flint . She brings a strong product-first mindset shaped by her time at Facebook, Slack, Robinhood, and Warp. Michelle shares why she chose Warp over safer offers, how she evaluates early-stage opportunities, and what she believes distinguishes great founding engineers. Together, we cover how product-first engineers create value, why negotiating equity at early-stage startups requires a different approach, and why asking founders for references is a smart move. Michelle also shares lessons from building consumer and infrastructure products, how she thinks about tech stack choices, and how engineers can increase their impact by taking on work outside their job descriptions. If you want to understand what founders look for in early engineers or how to grow into a founding-engineer role, this episode is full of practical advice backed by real examples. An interesting quote from the episode Michelle&#8217;s advice to be a standout founding engineer at an AI company: Gergely: What would your advice be to software engineers who would love to join as a founding engineer, perhaps an AI startup these days? Michelle: It&#8217;s about showing that you&...
+
+**Embedded Videos:** 20
+
+
+---
+## Post 240: A pragmatic guide to LLM evals for devs
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/evals
+**Published:** 2025-12-02T17:19:57+00:00
+
+**Content Preview:**
+One word that keeps cropping up when I talk with software engineers who build large language model (LLM)-based solutions is &#8220; evals &#8221;. They use evaluations to verify that LLM solutions work well enough because LLMs are non-deterministic, meaning there&#8217;s no guarantee they&#8217;ll provide the same answer to the same question twice. This makes it more complicated to verify that things work according to spec than it does with other software, for which automated tests are available. Evals feel like they are becoming a core part of the AI engineering toolset. And because they are also becoming part of CI/CD pipelines, we, software engineers, should understand them better &#8212; especially because we might need to use them sooner rather than later! So, what do good evals look like, and how should this non-deterministic-testing space be approached? For directions, I turned to an expert on the topic, Hamel Husain . He&#8217;s worked as a Machine Learning engineer at companies including Airbnb and GitHub, and teaches the online course AI Evals For Engineers &amp; PMs &#8212; the upcoming cohort starts in January . Hamel is currently writing a book, Evals for AI Engineers , to be published by O&#8217;Reilly next year. In today&#8217;s issue, we cover: Vibe-check development trap. An agent appears to work well, but as soon as it is modified, it can&#8217;t be established that it&#8217;s working correctly. Core workflow: error analysis . Error analysis has been a key part of machine learning for decades and is useful for building LLM applications. Building evals: the right tools for the job. Use code-based evals for deterministic failures, and an LLM-as-judge for subjective cases. Building an LLM-as-judge. Avoid your LLM judge memorizing answers by partitioning your data and measuring how well the judge generalizes to unfamiliar data. Align the judge, keep trust. The LLM judge&#8217;s expertise needs to be validated against human expertise. Consider metrics l...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 241: Code security for software engineers
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/code-security
+**Published:** 2025-11-26T16:45:55+00:00
+
+**Content Preview:**
+Stream the latest episode Listen and watch now on YouTube , Spotify , and Apple . See the episode transcript at the top of this page, and timestamps for the episode at the bottom. Brought to You by &#8226;&#8288; Statsig &#8288; &#8212; &#8288; The unified platform for flags, analytics, experiments, and more. Statsig are helping make the first-ever Pragmatic Summit a reality. Join me and 400 other top engineers and leaders on 11 February, in San Francisco for a special one-day event. Reserve your spot here. &#8226;&#8288; Linear &#8288; &#8212; &#8288; The system for modern product development. Engineering teams today move much faster, thanks to AI. Because of this, coordination increasingly becomes a problem. This is where Linear helps fast-moving teams stay focused. Check out Linear. &#8212; In this episode As software engineers, what should we know about writing secure code? Johannes Dahse is the VP of Code Security at Sonar and a security expert with 20 years of industry experience. In today&#8217;s episode of The Pragmatic Engineer, he joins me to talk about what security teams actually do, what developers should own, and where real-world risk enters modern codebases. We cover dependency risk, software composition analysis, CVEs, dynamic testing, and how everyday development practices affect security outcomes. Johannes also explains where AI meaningfully helps, where it introduces new failure modes, and why understanding the code you write and ship remains the most reliable defense. If you build and ship software, this episode is a practical guide to thinking about code security under real-world engineering constraints. Interesting quotes from the episode: How code quality and code security are connected: Gergely: &#8220;How does the quality of code relate to security?&#8221; Johannes: &#8220;This is an underrated topic in the industry today. We talked about the null pointer exceptions or these slow regular expressions, right? That can lead to security issues. ...
+
+**Embedded Videos:** 21
+
+
+---
+## Post 242: Holiday gift ideas for techies
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/copy-holiday-gift-ideas-for-techies-2025
+**Published:** 2025-11-25T17:30:00+00:00
+
+**Content Preview:**
+It&#8217;s that time of the year: the Black Friday and Cyber Monday sales are on, and the annual festive marketing blitz is just around the corner &#8211; or already underway. It makes now a good time to start thinking about gifts, but techies can be a tough crowd for this, as we often already own the practical things we need. In order to help you give gifts which are actually wanted this year, Elin, of this publication, and I have put together a list of ideas in this article. Alongside personal recommendations, we&#8217;ve also crowdsourced recommendations from fellow techies on X , Bluesky , and Threads , covering: Office accessories Computer add-ons Health and well-being Gadgets Gaming and games Travel &amp; wearables Books and stationery Kitchen goodies Many products listed below are currently discounted in the sales, and the Pragmatic Engineer is also offering a very special Black Friday / Cyber Monday deal for annual subscriptions. Claim it here until Monday. As always, none of the links below are affiliates (meaning I make no money from purchases), and I&#8217;ve not been paid to mention any product or category. See my ethics statement for more. For more recommendations, see our holiday gift guide from 2023 and book recommendations from 2021 . Programming note: this week, we&#8217;ll have a podcast episode tomorrow (Wednesday), and no edition of The Pulse on Thursday. Regular programming resumes next week after Thanksgiving. 1. Office accessories Ember Temperature Control Mug &#8211; keeps coffee or tea warm, even when it&#8217;s forgotten about because you&#8217;re focused on coding or other tasks. A hot drink stays drinkable for up to 1.5 hours, thanks to its built-in battery that charges on a nifty wireless-charging coaster. Clever: built-in battery keeps drinks warm Tumblers and coffee mugs that keep drinks at the desired temperature can make it easier to stay hydrated throughout the day. They are insulated, made from stainless steel, and make great gifts...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 243: The Pulse #154: Cloudflare takes down half the internet – but shares a great postmortem
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/the-pulse-154
+**Published:** 2025-11-20T18:06:09+00:00
+
+**Content Preview:**
+Before we start: The Pragmatic Summit has officially launched , and you can find more details &#8212; and the first few speakers announced &#8212; on the summit&#8217;s website . 11 February 2026, in San Francisco &#8211; I hope to see many of you there! You can also apply here directly. Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 244: How AI will change software engineering – with Martin Fowler
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/martin-fowler
+**Published:** 2025-11-19T17:09:43+00:00
+
+**Content Preview:**
+Stream the latest episode Listen and watch now on YouTube , Spotify , and Apple . See the episode transcript at the top of this page, and timestamps for the episode at the bottom. Brought to You by &#8226;&#8288; Statsig &#8288; &#8212; &#8288; The unified platform for flags, analytics, experiments, and more. AI-accelerated development isn&#8217;t just about shipping faster: it&#8217;s about measuring whether, what you ship, actually delivers value. This is where modern experimentation with Statsig comes in. Check it out. &#8226;&#8288; Linear &#8288; &#8212; &#8288; The system for modern product development. I had a jaw-dropping experience when I dropped in for the weekly &#8220;Quality Wednesdays&#8221; meeting at Linear. Every week, every dev fixes at least one quality isse, large or small. Even if it&#8217;s one pixel misalignment, like this one . I&#8217;ve yet to see a team obsess this much about quality. Read more about how Linear does Quality Wednesdays &#8211; it&#8217;s fascinating! &#8212; In this episode Martin Fowler is one of the most influential people within software architecture, and the broader tech industry. He is the Chief Scientist at Thoughtworks and the author of Refactoring and Patterns of Enterprise Application Architecture , and several other books. He has spent decades shaping how engineers think about design, architecture, and process, and regularly publishes on his blog, MartinFowler.com . In this episode, we discuss how AI is changing software development: the shift from deterministic to non-deterministic coding; where generative models help with legacy code; and the narrow but useful cases for vibe coding. Martin explains why LLM output must be tested rigorously, why refactoring is more important than ever, and how combining AI tools with deterministic techniques may be what engineering teams need. We also revisit the origins of the Agile Manifesto and talk about why, despite rapid changes in tooling and workflows, the skills that make...
+
+**Embedded Videos:** 20
+
+
+---
+## Post 245: Career paths for software engineers at large tech companies
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/career-paths-for-software-engineers
+**Published:** 2025-11-18T17:02:14+00:00
+
+**Content Preview:**
+Across tech, the average tenure of software engineers seems to be rising, not least in Big Tech where it has increased rapidly. With today&#8217;s chilly job market having a dampening effect on the number of engineers switching jobs, it&#8217;s possible that staying in a role for years will become pretty normal for many in our industry. So, if you can see yourself at your current workplace for the longer term, it&#8217;s sensible to consider the career path options available, and how to get promoted to the next level. To shed light on these topics and others, I sought out someone who has managed large engineering orgs at a massive company. Ethan Evans is precisely such a person; he was a Vice President of Engineering at Amazon, and has overseen the growth and promotions of more than 1,000 engineers(!) over the course of his career. Now recently retired from the online retail giant, Ethan can candidly discuss how large companies operate, and which tactics and strategies really work and help colleagues to enjoy thriving careers in big workplaces. These days, Ethan teaches engineers and engineering managers how to get promoted faster, and runs live courses . He&#8217;s also built a 24/7 personalized &#8220;AI career coach&#8221; , and shares career growth advice in his weekly newsletter, Level Up. His class on fast career growth currently has a 25% discount for the US Thanksgiving holiday, from today through 2 Dec &#8212; you can check it out here . In this issue, we cover: Good performance as a mid-level engineer. Execute independently and try not to complain too much. How to get a slam-dunk promotion to Senior. Have big ideas that are also correct, solve problems leadership didn&#8217;t know existed, see around corners, and more. Tactics to get promoted to Senior. Agree a plan with your manager and be realistic about how long it takes. Getting promoted to Principal Engineer. Standout technical expertise, tackling ambiguous &amp; large-scale problems, and paying atten...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 246: The Pulse #153: Is Microsoft too early to agentic OS – like with smartphones?
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/the-pulse-153
+**Published:** 2025-11-13T17:53:36+00:00
+
+**Content Preview:**
+The Pulse is a series covering events, insights, and trends within Big Tech and startups. Notice an interesting event or trend? Hit reply and share it with me. Today, we cover: Microsoft too early to agentic OS &#8211; like with Windows phones? The tech giant wants Windows to be an &#8220;agentic OS&#8221;, but developers hate the idea and could move to MacOS or Linux. Is Microsoft in the process of repeating its Windows Mobile 6 error? Industry pulse. Agents becoming the default way to write code, more AI-coding startups adopt metered pricing, Cursor the highest-valued dev tools company, 1-day onboarding at AI-native companies, and more. Inside Cursor&#8217;s unique engineering culture. A completely different way of hiring, rapid shipping as the norm, many former founders at the company, and more. Before we start: as a paid newsletter subscriber, you can apply a few days early to The Pragmatic Summit ! I shared a teaser on Tuesday: and I&#8217;m now very excited to share the first major in-person The Pragmatic Engineer event. This will be a gathering of 400 top engineers and leaders in San Francisco on 11 February 2026 for a day of practical insights, high-signal sessions, and peer exchange focused on building great products and scaling world-class engineering teams. Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 247: Netflix’s Engineering Culture
+
+**Publication:** The Pragmatic Engineer
+**Author:** Gergely Orosz
+**URL:** https://newsletter.pragmaticengineer.com/p/netflix
+**Published:** 2025-11-12T17:40:07+00:00
+
+**Content Preview:**
+Stream the latest episode Listen and watch now on YouTube , Spotify , and Apple . See the episode transcript at the top of this page, and timestamps for the episode at the bottom. Brought to You by &#8226;&#8288; Statsig &#8288; &#8212; &#8288; The unified platform for flags, analytics, experiments, and more. Statsig enables two cultures at once: continuous shipping and experimentation. Companies like Notion went from single-digit experiments per quarter to over 300 experiments with Statsig. Start using Statsig with a generous free tier, and a $50K startup program. &#8226;&#8288; Linear &#8288; &#8212; &#8288; The system for modern product development. When most companies hit real scale, they start to slow down, and are faced with &#8220;process debt.&#8221; This often hits software engineers the most. Companies switch to Linear to hit a hard reset on this process debt &#8211; ones like Scale cut their bug resolution in half after the switch. Check out Linear&#8217;s migration guide . &#8212; In this episode What&#8217;s it like to work as a software engineer inside one of the world&#8217;s biggest streaming companies? In this special episode recorded at Netflix&#8217;s headquarters in Los Gatos, I sit down with Elizabeth Stone, Netflix&#8217;s Chief Technology Officer. Before becoming CTO, Elizabeth led data and insights at Netflix and was VP of Science at Lyft. She brings a rare mix of technical depth, product thinking, and people leadership. We discuss what it means to be &#8220;unusually responsible&#8221; at Netflix, how engineers make decisions without layers of approval, and how the company balances autonomy with guardrails for high-stakes projects like Netflix Live. Elizabeth shares how teams self-reflect and learn from outages and failures, why Netflix doesn&#8217;t do formal performance reviews, and what new grads bring to a company known for hiring experienced engineers. This episode offers a rare inside look at how Netflix engineers build, learn, and lea...
+
+**Embedded Videos:** 21
+
+
+---
+## Post 248: One bottleneck at a time
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/one-bottleneck-at-a-time
+**Published:** 2026-01-14T17:02:17+00:00
+
+**Content Preview:**
+This month, we&#8217;re going to think about our teams, departments, and organisations as systems. Specifically, we&#8217;re going to consider how we can increase throughput and output by identifying and removing the biggest bottleneck at any given time. This might sound obvious, but it&#8217;s surprisingly rare in practice. Most leaders spread their effort across many initiatives simultaneously, making partial progress on everything and completing nothing. The insight we&#8217;ll explore is that systems don&#8217;t work that way: there&#8217;s always one constraint that matters most, and focusing elsewhere is, at best, wasted effort. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. Here&#8217;s what we&#8217;re going to cover: We&#8217;ll start by looking at a pattern I call the scattered leader , which is the well-intentioned but ineffective approach of fighting on multiple fronts at once. Then we&#8217;ll dig into the core insight from Eliyahu Goldratt&#8217;s The Goal and the Theory of Constraints: every system has a single primary bottleneck, and improving anything else doesn&#8217;t improve the system. We&#8217;ll look at a practical example of what happens when you put your best people on unglamorous but critical work. And we&#8217;ll talk about the courage required to subordinate everything else to fixing the bottleneck. If you find this topic interesting, here are some complementary articles from the archive: The beauty of constraints reframes constraints as tools rather than obstacles. The contribution curve explains why hiring doesn&#8217;t instantly help, since new people are net-negative contributors initially. Delegation covers how spreading knowledge reduces single points of failure. But for now, let&#8217;s focus on bottlenecks. Let&#8217;s get going. The scattered leader Imagine a leader who&#8217;s looking at their organisation and seeing a lot of probl...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 249: How do I get everyone to use AI?
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/how-do-i-get-everyone-to-use-ai
+**Published:** 2025-12-18T17:01:39+00:00
+
+**Content Preview:**
+Welcome to the subscribers edition for December. Thanks again for being a subscriber; I really appreciate it. As always, the subscriber chat is open if you want to send me your thoughts and feedback in order to shape the future of this newsletter. Message me any time. I&#8217;m always listening. As we close out 2025, I&#8217;ve been reflecting on a question that I&#8217;ve been asked more than any other this year: &#8220;How do I get my team to actually use AI to its full potential?&#8221; It&#8217;s a question that comes up at conferences, online, and in one-to-ones with other leaders. And I get it: driving AI adoption has been a core part of my role this year. When I started my current CTO role, I came off the back of intense accelerated AI adoption at Shopify and had been extensively experimenting with LLMs for my own work, using them as thinking partners, research assistants, and coding companions. As part of my interview and onboarding process, there was a clear feeling that AI wasn&#8217;t being used enough in the engineering organization, and that they wanted me to come in and drive adoption to increase throughput. But the question was: how? This initial mismatch (which is now dramatically different) became one of the most interesting leadership challenges I&#8217;ve faced. How do you drive adoption of something when you can&#8217;t force people to see its value? How do you create the conditions for playful and healthy discovery rather than mandating compliance? Throughout 2025, we&#8217;ve seen the media report on companies taking a strong-arm approach; effectively declaring it an immediate performance issue if engineers aren&#8217;t utilizing AI tools. While that is one way to go about it, I prefer a more organic approach that I think works better for most organizations that aren&#8217;t the top 0.1% big technology companies. If you&#8217;ve been following along with my previous articles on AI, you&#8217;ll know that I&#8217;ve written extensively about usi...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 250: Use it or lose it
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/use-it-or-lose-it
+**Published:** 2025-12-14T15:19:39+00:00
+
+**Content Preview:**
+This month, we&#8217;re going to continue exploring the mental models that Charlie Munger covered in Poor Charlie&#8217;s Almanack , a compendium of 11 talks given throughout his life. The book culminates in one final, bumper-sized talk that is a collection of over 20 mental models that he attributed to his success. Last month&#8217;s article covered one of these models: &#8220;invert, always invert&#8221; , which is a method for thinking about problems by flipping them on their head and considering the worst that could happen, and then ensuring that you don&#8217;t ever make that the case. It turns out that doesn&#8217;t just work for investing but it also works well for the kinds of problems that we face in software engineering: designing resilient systems, planning rollouts, and ensuring that you have a backup plan in case something goes wrong. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. This month, we&#8217;re going to look at another one of these mental models: &#8220;use it or lose it.&#8221; This mental model is becoming increasingly relevant as AI becomes more ubiquitous in our lives. Here&#8217;s what we&#8217;re going to cover in the article: We&#8217;ll start with an introduction to the use-it-or-lose-it model, looking at real examples ranging from playing an instrument to doing exercise. Then we&#8217;ll cover how &#8220;use it or lose it&#8221; has affected managers for a long time, and how AI may be potentially compounding that effect. We&#8217;ll then consider whether there are ways we can use AI more intentionally to potentially preserve our critical thinking skills. And then, to finish, we&#8217;ll see how AI may actually be able to pave the way to us becoming broader generalists as managers, in a manner that supports our desire to be in the details and thrive in today&#8217;s flatter organizations. So, as we begin to approach the end of 2025, let&#...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 251: My Path to CTO, Part II
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/my-path-to-cto-part-ii
+**Published:** 2025-11-30T15:00:56+00:00
+
+**Content Preview:**
+Introduction Here&#8217;s part two of November&#8217;s paid newsletter. We pick up where we left off in part one, which is where Brandwatch had been acquired and it was time to move up and move on. In this second part, we&#8217;ll cover: The executive recruitment process, which I had to learn and navigate for the first time. How exactly do unadvertised roles get filled? My move to Shopify, which was driven not only by a desire to learn and grow at somewhere famous, but most importantly supported the kind of life that I wanted. How economic change led to cultural change, and why becoming a parent forces the hard choices. We cover my current CTO role and how I got it, by picking up the connections that I&#8217;d made some 3.5 years previous. We begin the story during 2021, in Cumbria, during lockdown. We&#8217;d been acquired and it was clear that the company would never be the same. It was going to be difficult saying goodbye mentally to something that had been part of my life for nearly ten years, but when you feel that it&#8217;s time, it&#8217;s time. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. Getting to grips with executive recruitment The question was, therefore, what to do next. I was in two minds. Part of me thought that now was the time to step up and be CTO for the first time; however, I didn&#8217;t really know how to do this. On the other hand, part of me was observing so many great companies starting to fully embrace remote work, and also hiring like crazy , and I saw this as an opportunity to get in at a good time with some of these proverbial rocket ships. I decided to take a two-pronged approach. I needed to work out how CTO roles were recruited, and I also needed to look at what companies out there were hiring remotely in the UK. Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 252: My Path to CTO, Part I
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/my-path-to-cto-part-i
+**Published:** 2025-11-26T17:01:14+00:00
+
+**Content Preview:**
+Introduction Welcome to the paid newsletter for November 2025. This is the first ever paid article that I&#8217;ve written, so I&#8217;d like to thank you for being an early adopter of the paid subscription model. I hope you&#8217;ll find the content enlightening and engaging. I like to see it as the beginning of a conversation between us. As I write more paid articles, I&#8217;d love to hear your feedback. I&#8217;ve opened the Subscriber Chat functionality on Substack so you can contact me directly. This way, you get the chance to shape the future of the newsletter. We are going to start this month by diving into my story of how I ended up in a CTO role at a public company. I think this might be interesting because it wasn&#8217;t always my intention. Rather, it was a random walk , to use a computer science term, following my interests, that got me here. Additionally, CTO roles are very rarely advertised externally, so I&#8217;d like to give you some insight into how the world of executive headhunting works. If you&#8217;re interested in going down this path yourself, then I hope you&#8217;ll learn more about how to get involved. It&#8217;s worth mentioning that everyone&#8217;s journey will be different. There is no one way to do this. So, consider this not a blueprint, but rather a map of the terrain that I&#8217;ve traversed. The easiest way to become CTO, after all, is to &#8220;just&#8221; start your own company. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. What&#8217;s coming up Since I wanted to use this opportunity to go deeper than usual in my writing, this newsletter is going to be split into two parts. In part one, we&#8217;re going to cover the following: My original interest and desire to get a permanent position in academia, but how the economy, jobs market, and my desired life situation prevented me from going any further. How it was almost random th...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 253: Invert, always invert
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/invert-always-invert
+**Published:** 2025-11-23T18:01:05+00:00
+
+**Content Preview:**
+I recently finished Poor Charlie&#8217;s Almanack , a collection of eleven talks by Charlie Munger. When Stripe Press published a brand new edition of it with their usual beautiful type setting and cover design, I couldn&#8217;t resist. For those unfamiliar to Charlie, he is worth getting to know. While his notoriety stemmed from being one of the greatest investors of his generation, he was also a prolific speaker and writer, and was an advocate of cross-disciplinary thinking and application of mental models. He excelled in taking ideas from mathematics, philosophy, and psychology in order to think about the world in a new way. In this month&#8217;s article, we&#8217;re going to be looking at one of the mental models I learned from Charlie and how it can help us as engineering leaders think, plan, and execute better by avoiding failure. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. But first, some changes However, before we go any further, I wanted to take this opportunity to say that there are going to be some changes coming up to how this newsletter is run. Currently I publish one article a month for free, which is also available on my website, The Engineering Manager . Don&#8217;t worry: this is going to continue indefinitely. I have been slowly growing my optional paid subscriber base, of which membership is purely voluntary, and I wanted to start giving something more to them, and also see whether I can continue to grow it. As a result, I&#8217;m now going to be writing twice a month. There will be one free article, which will continue as it always has, with the addition of one paid article, which will not be published anywhere else: it will only be available here on Substack for paid subscribers. The price for subscriptions will remain exactly the same, which is: US $10 monthly , if you prefer the flexibility to cancel any time. US $100 for the whole year, which...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 254: Join my new subscriber chat
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/join-my-new-subscriber-chat
+**Published:** 2025-11-16T12:00:39+00:00
+
+**Content Preview:**
+Today I&#8217;m announcing a brand new addition to my Substack publication: The Engineering Manager subscriber chat. This is a conversation space exclusively for subscribers&#8212;kind of like a group chat or live hangout. I&#8217;ll post questions and updates that come my way, and you can jump into the discussion. Join chat Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 255: Councils of agents
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/councils-of-agents
+**Published:** 2025-10-30T10:35:29+00:00
+
+**Content Preview:**
+Introduction It&#8217;s been two months since I finished a sequence of LLM-based posts which were intended to think of unique ways that you could improve your leadership skills by leaning into AI as a coach, a contrarian thinker, and a way in which to expand and accelerate your decision-making. If you&#8217;re interested in reviewing those posts, then you can find them here, in reverse chronological order: Leadership co-processing with LLMs , which introduces a number of prompting and usage ideas that could help you develop your thinking. A bag of worries: tackling overwhelm with LLMs , which is a technique I&#8217;ve been using to help me manage my own never-ending to-do list by offloading some of the cognitive load of prioritization to an LLM. A weekly mind meld , which uses some LLM assistance to communicate weekly with my department. LLMs: an operator&#8217;s view , the original post in this series, which covers some of the cultural change addressed in the first post in this list, and how code review and hiring are also changing. Building on the leadership co-processing article, we&#8217;re going to go further this week and think about how we can expand our usage of a thinking partner into multiple thinking partners by using LLM agents to create your own councils that you can use to accelerate and supercharge your thinking and also simulate situations where many actors may not have default consensus on issues. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. Inspiration At work, I&#8217;ve mostly been using Claude Code as my go-to interface. Generally speaking, I like the Claude models, which have become particularly good since Sonnet 4.5 and Haiku 4.5 were released. However, I also enjoy the terminal interface, which I always keep open at the side of the screen as it is space efficient. I can mix regular prompting along with the generation of code, and it looks cool...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 256: The beauty of constraints
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/the-beauty-of-constraints
+**Published:** 2025-09-30T07:02:15+00:00
+
+**Content Preview:**
+This week we are going to take a deep dive into constraints: one of the most powerful tools that you have as a leader to help your team deliver more with less. Now, this isn&#8217;t the first time that we&#8217;ve written about constraints, so if you&#8217;re interested: We looked at Parkinson&#8217;s Law back in 2024, which is the classic anti-pattern that occurs when people are given too much time (or no deadline at all) when asked to do something. The result is that work &#8212; like gas &#8212; expands to fill the time available, and yes, we&#8217;ve all been there with our school assignments. We covered the iron triangle of project management in 2017 , which is the classic model of the three constraints that projects typically have: scope, resources, and time. The idea is that you can only ever optimize two of the three. We more recently explored how scope could be reframed as thoroughness in 2024, since scope alone rarely tells the whole story about what is being delivered. But this time we&#8217;re talking about constraints as tools . Tools that you wield and can use. Discovering places where you can add constraints to your projects is a superpower: it unlocks unconventional thinking, forces people to prioritize ruthlessly, and leads to unexpected and surprising results. Let&#8217;s go on a journey together to explore the beauty of constraints. We&#8217;ll start by examining their paradoxical nature. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. The constraint paradox The word &#8220;constraint&#8221; often has a negative connotation. If you asked an average person, being &#8220;constrained&#8221; in general would not be seen as a desirable state. One does not wish to wear a pair of trousers that make them feel constrained. However, paradoxically, constraints in engineering can often lead to our best work. The longstanding meme of IT projects being over budget ...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 257: Going direct
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/going-direct
+**Published:** 2025-08-30T14:07:59+00:00
+
+**Content Preview:**
+After a series of posts on LLMs, we're returning to management fundamentals. This month, we're building upon the cultural shift that management has experienced recently: smaller, leaner and tighter orgs. We'll build upon concepts from our previous articles: new advice for aspiring managers , should managers still code? , and being in the details . This article, plus those listed above, reflect a new and expected management style for the current era: more hands-on, detail-oriented, and direct. This shift is driven by tighter economic conditions and the push for AI-driven efficiency . The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. Let's examine the concept of "going direct." What is going direct? Going direct means empowering everyone on your team to communicate openly and directly, without unnecessary intermediaries. This communication can be lateral (peer-to-peer) or diagonal (across different departments and levels), bypassing formal reporting chains. Org charts are essential for defining roles, ownership, and facilitating performance management. However, people often mistakenly believe these charts also dictate communication paths, feeling obligated to follow the hierarchy. At best, this requires irritating message-passing. At worst, it dramatically slows down work and fosters bureaucracy. An example best illustrates why this is an anti-pattern. Imagine person X in Team A needs to talk to person Y in Team B. These teams are in different departments, led by peer managers M and N, respectively. When communication follows the org chart, X must tell their manager, who tells their manager M. M then talks to N (or perhaps even their shared manager) to pass the message down N's reporting line to Y. Wow, that was a mouthful. As you can see, this is incredibly inefficient. When you read it back, it&#8217;s borderline ridiculous. X should be able to talk to Y directly. Not onl...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 258: Leadership co-processing with LLMs
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/leadership-co-processing-with-llms
+**Published:** 2025-07-31T07:01:11+00:00
+
+**Content Preview:**
+Over the last few months, I've been writing about a number of factors that AI &#8212; specifically LLMs &#8212; are changing the way the role of management works. If you haven't read the previous posts, then they are as follows, in descending order of publication: New advice for aspiring managers , which covers how the cultural shift in our industry is changing the way we think about management and how aspiring managers should adapt to that change. A bag of worries: tackling overwhelm with LLMs , which is a technique I've been using to help me manage my own never-ending to-do list by offloading some of the cognitive load of prioritization to an LLM. A weekly mind meld , which uses some LLM assistance to communicate weekly with my department. LLMs: an operator's view , the original post in this series, which covers some of the cultural change addressed in the first post in this list, and how code review and hiring are also changing. I'm always trying to find new ways to use LLMs because it's both useful and a lot of fun. One of the unsurprising elements of being a CTO is that the buck stops with me when it comes to decisions about my engineering department, so I've been leaning more on LLMs to help me evolve my thinking, challenge my assumptions, and make better decisions. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. I thought I'd write up some of the ways that I've been doing that in the hope that it might help other engineering leaders to do the same. Effectively, I now think of LLMs as a co-processor for my brain. It isn't always correct or even trustworthy, but in practice it always puts momentum behind my thinking, and often helps me to see things from a different perspective. Here's what we'll cover in this post: Prompting : using LLMs to help me think through problems. Pair prompting : using LLMs to help me work on solutions with a human partner. Deep research ...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 259: New advice for aspiring managers
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/new-advice-for-aspiring-managers
+**Published:** 2025-06-30T20:30:08+00:00
+
+**Content Preview:**
+I had a conversation with a colleague the other week who is interested in moving into management. It was during this conversation that I realized just how different my advice is now compared to even a few years ago, so I thought it would be worth writing down and sharing more broadly. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. What hasn't changed Before getting into everything that has changed, I wanted to point out something that is still important and true: the world needs more great leaders. It is something that I believed when I thought I'd give the job a shot myself many years ago, and it is the reason that my books and this newsletter exist (especially when I write it right up to the deadline...) Managing teams is hard but can be incredibly rewarding. It gives you the opportunity to help people grow, succeed, and be happy. It lets you build great products that you couldn't build alone. And, over time, as you look back at all of the people that you mentored and see how they've all gone on to do great things, it can be one of the most fulfilling things you can do in your career. So, there is a place for you in management if all of that sounds appealing to you. But the manner in which you will do it, and the environment that you will be doing it in, is very different. Companies reflect the world around them Managers exist within a new world. A lot has changed. We've been though a pandemic, a recession, and for the first time in a long time, interest rates are high and there is far less cheap capital for companies to use in the form of investment or credit. For anyone that got into management in the last 15 years, fiscally, it couldn't be more distinct. Over the ZIRP period, cheap capital meant plenty of investment into technology companies, and that meant a lot budget and a lot of hiring. Lots of hiring needs lots of managers, and that meant that there were plen...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 260: A bag of worries
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/a-bag-of-worries
+**Published:** 2025-05-31T20:53:43+00:00
+
+**Content Preview:**
+In this issue of the newsletter, we get creative with LLMs in order to overcome the mental block of having a ton of things to do. Brought to you by: Volv delivers the most breaking and interesting news in 9-second reads. No fluff&#8212;just sharp, credible facts. You might even find some of my writing on there. Download Volv &#8212;free, fast, no clutter. If you've had periods in your leadership journey where you feel like you're generating more to-do items than you can handle, then you're not alone. Every day, you might add five or ten items to your list, each representing an entire project that could take weeks or even months to complete. For example, after a busy Monday your list might have the following items added to it: Review increasing infrastructure costs and propose optimizations. Plan team offsite for next quarter including budget and agenda. Look into security audit findings and create action plan. Prepare for upcoming performance reviews and set criteria. Sigh. And that's on top of the existing huge items that you already have on your list from last week which you haven't had the time to deal with yet. This can lead to a feeling of being overwhelmed, like you're carrying around a heavy mental load. Each item on your list feels like a weight, and the more you add, the heavier it gets. Although the pragmatist may say that the solution is simply to put time aside to properly triage, prioritize, and delegate or action these items, this is easier said than done. At the end of a busy day I'm usually pretty tired, and the creative juice that I need to properly think through these items is often in short supply. My own mental resistance to dealing with these items is often the biggest barrier to getting them done, rather than the actual complexity of the items themselves. Long days with lots of context switching can seriously deplete my mental capacity. I wrote about managing this capacity in a previous article , noting how it can expand and contract based on t...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 261: A weekly mind meld
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/a-weekly-mind-meld
+**Published:** 2025-04-29T20:59:02+00:00
+
+**Content Preview:**
+Leaders can often find it hard to build deep trust and alignment with their teams, especially if those teams are quite big, or if the leader in question is quite senior. Doing regular skip-skip-skip levels is out of the question, attending every meeting is impossible, and the power dynamics of the org can make it hard for staff to really get to know you one-on-one. You need a solution that works for you and your team, and allows the most efficient use of everyone's time, and is also archival, searchable, and shareable. The good news is that this solution already exists, and it predates slideshows, videos, and, come to think of it, even the internet. It's called writing. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. Since starting my new CTO role, I've been sharing a weekly update with my team. I think about it as a mind meld , which has the Wiktionary definition of: From the Star Trek franchise, where the term was first used in 1966 for a telepathic ability possessed by the alien race of Vulcans to share thoughts and feelings with another individual. It's how I continually open up my thoughts to the team with a long-term goal to reduce any mental alignment gap between us. I like to think that the more I share, the more they can understand what I believe is important and why, and the more that my style of working and thinking can propagate through the team. There are a few rules and guidelines I follow when writing these mind melds. They should: Take no longer than 60 minutes to write. Be no longer than 1,500 words. Be sent out on a Friday afternoon as a way to close the week. Have a conversational tone and high ease of reading, similar to how I write this newsletter. Mix general updates with praise and feedback on things we can do better. Be sent to the entire team in a way that anyone in the company can also read it. I will call out that because I have done a ton of ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 262: LLMs: an operator's view
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/llms-an-operators-view
+**Published:** 2025-03-30T20:51:19+00:00
+
+**Content Preview:**
+Many of you that read my articles are operators of some kind. You may run one or many teams, or even a whole company. And, even if you are not a manager by definition, you may wield a great deal of influence over directions and decisions. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. In the midst of the current LLM explosion, we as operators find ourselves amongst: A blistering pace of improvement in the capabilities of LLMs. New models and products are being released at a rate that is hard to keep up with. Immense noise and hype online making all sorts of claims, good and bad, about what the future holds. An expectation from our companies to go full-on with "AI", which typically means LLMs, both in developer tooling and in customer-facing products. AI is the new data is the new cloud. Echoes in the industry that we are all now overstaffed as a result of productivity gains: that everyone should do more with less, and that AI is the answer to that. Note: this article is not a technical overview of how to build products with LLMs. Instead, the intent is to touch upon what leadership should do from the perspective of the productivity of teams and organizations, and consequently how we should think about spending our budgets to make that happen. There are plenty of hot takes out there on AI. This is not intended to be one of them. What we'll cover related to LLMs is: The (real) rising floor of developer productivity. The changing size of organizations. The increasing importance of code reviews. The changing nature of interviews and identifying talent in short spaces of time. The intent is that this should provoke thought and discussion, and will hopefully help you think about how to allocate your budget and focus in the coming months and years. The floor is rising With Copilot , Cursor , Cline and other LLM-based developer tools, the floor of developer productivity is ris...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 263: Should managers still code?
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/should-managers-still-code
+**Published:** 2025-02-28T21:51:15+00:00
+
+**Content Preview:**
+This month we have a mailbag question from a reader who asks: Hi James, Your newsletter "being in the details" resonated with me. I would like to ask your opinion about managers writing code. I skim PRs but don&#8217;t critically review them and don&#8217;t write code. Should EMs write code in their day job? Thanks! The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. It's a great question, and given the higher scrutiny we've seen on the role of engineering managers in the past few years, it's worth spending some time on it. Before we go any deeper, the short answer is that it depends exactly on what you mean by coding. I think that there is a big difference between being in the code and writing code. All managers should be in the code, but not all managers should be writing code. But spending some time digging into the nuances of the question can, I think, highlight both the practical aspects of ensuring that managers are sufficiently in the code, and, more importantly, identify the existential worry that many engineering managers may have about their role, and what they can do about it. Let's get going. Refresher: measuring your impact We'll begin by revisiting Andy Grove's equation for measuring a manager's impact, which states that the output of a manager is the output of their team, plus the output of the neighboring teams under their influence . This is always useful to refer to when thinking about how to spend your time. I contemplate it a lot. There are, of course, a multitude of ways to increase your output as a manager. These range from, and are not limited to: Hiring and retaining great people. Owning the team's strategy and roadmap, and ensuring efficient execution. Making decisions to ensure that the team is working on the right things and saying no to the things that don't matter. Dealing with fires, escalations, and other crises that pop up all of the time. Bu...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 264: Gather, decide, execute
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/gather-decide-execute
+**Published:** 2025-01-31T11:25:17+00:00
+
+**Content Preview:**
+Since my November article on being in the details , I've had a few people ask me about the system that I use in order to do so. In my first book I went into great detail about how I manage information and stay organized. On reflection, my approach has evolved since then, so I thought it would be a good time to revisit the topic. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. The system that you use to organize your activity becomes your mental model of how you do management. Therefore it should reflect how you work and how your company works, and produce the outputs that you need to be effective in your role. This, of course, means that what works for me might not work for you, and vice versa, and that's OK. The key is to have a system that you trust and that you use consistently to get the outcomes that you need. At the time of writing, I'm in an engineering leadership position at Shopify, which is a fully remote company with a culture of minimal meetings and a preference for asynchronous communication . This clearly has an impact on how I work and how I manage information, especially when compared to my previous roles at companies with an office-based culture. For example, I now no longer need to keep a notepad handy to jot down things as I'm walking around the office (I'm at home), nor do I get to exercise my preference of using wonderful, searchable, archivable email as my primary communication tool (everyone uses Slack instead; you can't win them all). Although my approach has evolved over the last few years, the fundamentals remain the same: Management of large organizations can quickly become overwhelming and messy if you don't have some way of managing the information that you need to keep track of. Your memory does not have a large enough working set to reliably keep track of all the information that you should have close to hand. If you think it is, you're li...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 265: 2024: the year in review
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/2024-the-year-in-review
+**Published:** 2024-12-29T15:49:35+00:00
+
+**Content Preview:**
+Over the last few weeks, I've been taking some time to step back and think about what I've seen, felt, and learnt this year so I can share it with you. 2024 has been a wild ride. Not since the smartphone boom period in 2007 have I seen so much change happening so quickly. We've seen the culture and growth of our companies changing due to the macroeconomic climate, a proliferation of LLM-based tools and technologies, and, fundamentally, as leaders, we've had to change how we think about our roles and our output. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. What has held true in the last decade may not hold true in the next. Let's take a look at each of these areas in turn. Efficiency is key Let's start with culture. If there is one theme to highlight as we head into next year, it would be efficiency . I have written before about the increasing need for managers to be in the details as we ride out this current macroeconomic period. The economy is presently characterized by less cheap debt and investment being available, and the knock-on effect is that there is less growth and a more challenging environment for startups. If you work for a bigger company, you will likely see headcount staying stable so that the balance sheet can be kept under control. People who leave may not get backfilled. Asking for more people to get things done is no longer a viable strategy. For those who are in the initial half of their careers, this is a new experience. For over a decade we have been able to raise, borrow, and grow our way out of problems. Now, we need to be efficient as a primary goal. But how long will this last? Looking at the charts on layoffs.fyi , we can see that an increase in layoffs began in 2022 as we exited the COVID Zero Interest Rate Policy (ZIRP) period. The magnitude of these layoffs peaked in 2023, and they have been on a downward trend since. It looks, dare I say...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 266: Being in the details
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/being-in-the-details
+**Published:** 2024-11-30T13:26:04+00:00
+
+**Content Preview:**
+In recent years companies have been flattening , creating fewer layers of management between the top and the bottom of the org chart. This is a reversal of the rapid growth during the zero interest-rate policy (ZIRP) phase during COVID-19, which created a glut of new managers under which to slot newly hired engineers. Efficiency is the play now. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. Tech companies are opting to keep their size fixed as they ride out the current economic phase that has higher interest rates and less cheap investment available. As a result, managers are now expected to have more direct reports, less layers, and to be more hands-on with their teams. Some newer managers find this strange. Being hands-on, however, is not a new thing. In the 1980s, Andy Grove, the CEO of Intel, wrote about the importance of being in the details in his book High Output Management . In the book, he talked about how he would regularly walk the floor of the factories to see what was going on, and how he would ask probing questions to workers at all levels to understand the details of what was happening in his organization. This might sound familiar: we've seen this in recent years with Elon Musk , who is known for being deeply involved in the details of his companies. Building a full picture based on your own experience of what is going on means you can make better decisions and intervene and correct course when necessary. So, we need to be efficient as the economy is calling for it. And we need to know the details so that we can achieve that efficiency by using our time and people wisely. Yet, there has been some cultural resistance to this trend from some managers, claiming that the job of management is to be strategic and to delegate all of the details to others. Getting close to the details has been seen as meddling or even as a sign of having a lack of trust in you...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 267: Solving staffing challenges with concentric circles
+
+**Publication:** The Engineering Manager
+**Author:** James Stanier
+**URL:** https://theengineeringmanager.substack.com/p/solving-staffing-challenges-with
+**Published:** 2024-10-30T20:30:40+00:00
+
+**Content Preview:**
+As you begin to lead organizations that are of a reasonable size, such as in the hundreds of engineers, you will find that staffing is one of the most repetitive and challenging aspects of your job. Ensuring that you have enough people focused on the right things, with the right skills, and in the right places is a never-ending task. It is also by definition unsatisfiable: you will never have enough people to do everything you want (or&nbsp; need ) to do, and you will never have the perfect mix of skills and experience either. The Engineering Manager is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. Organizations of this size typically span a wide range of products, technologies, and geographies, further complicating the issue of having the right number of people working on the right things. You&#8217;ll have production code that needs to be maintained, new features that need to be built, and bugs and support issues that need to be addressed. It&#8217;s a balancing act. When inevitably a team&#8217;s project pivots, expands in scope, or is just plain harder than expected, you&#8217;ll be asked to provide them more people to help. However, this isn&#8217;t straightforward as everyone else is equally busy. If you find yourself in&nbsp; wartime &nbsp;it may be the case that you can&#8217;t rely on hiring your way out of the problem either. So, let&#8217;s imagine that one of your 30 teams is asking for more people. What do you do? Stack ranking: it&#8217;s not that simple Before we think about what to do, perhaps we should imagine ourselves in that team&#8217;s shoes. What are they&nbsp; expecting &nbsp;you to do when they ask for more people? If they have a new and important thing to do, they may assume that you will prioritize their work over other lower-priority work, thus allowing people to move from the less important thing to the more important thing. This assumes that you have a continual&nb...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 268: Backstage 👨‍🎤
+
+**Publication:** High Growth Engineering
+**Author:** Stephen Whitworth
+**URL:** https://highgrowthengineering.substack.com/p/backstage-a-new-home-for-engineers
+**Published:** 2020-11-03T14:56:59+00:00
+
+**Content Preview:**
+&#128075; Hello hello! Good to see you again. I&#8217;m currently sheltering in a cottage in Cornwall, in the middle of a storm. The UK goes back into lockdown again this week, so I&#8217;m bound to have a bunch more time to write. Silver linings. If this is your first time here, hello! The goal of this newsletter is to discuss techniques for&nbsp; building better software&nbsp; and&nbsp; being more effective&nbsp; in&nbsp; high growth companies . I mix in longer form content &#8212; think a short blog post that you could read in 5 minutes &#8212; with some of my favourite links. Here&#8217;s some popular posts from the past few months: Why is dbt so important? &#128202; Semgrep &#128064; Beware the mean &#128201; The power of static analysis &#129302; Thanks! Stephen Follow me on Twitter &#128038; Backstage Today, we&#8217;re going to talk about Backstage : an open-source developer portal developed internally at Spotify. A little disclaimer before I start: I&#8217;ve invested in a Backstage-related company! But I have skin-in-the-game: where I can, I put my money where my mouth is and invest in the tools that I think will be really useful. Scaling problems for engineering orgs &#9881;&#65039; Before we get into what Backstage does, let&#8217;s go through a few recurring problems that high growth engineering organisations face. Picture a company that has approximately 100 engineers, over multiple teams, that is rapidly hiring. Knowing what software you&#8217;re actually running This sounds trite, but it&#8217;s surprisingly hard to get a single view of all the software that you own and operate. Who owns which services and products Before you grew quickly, collective ownership worked well. There was high shared context, and everyone knew a little bit about everything. However, as you split into multiple teams, you need to distribute services and products to teams. Who owns what, and where do I go to talk to them about it? Doing migrations As Will Larson says , migrat...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 269: Semgrep 👀
+
+**Publication:** High Growth Engineering
+**Author:** Stephen Whitworth
+**URL:** https://highgrowthengineering.substack.com/p/semgrep-
+**Published:** 2020-09-14T13:46:48+00:00
+
+**Content Preview:**
+&#128075; Hello hello! I know, it&#8217;s been around a month since my last post. I&#8217;ve received a few queries, including one from my own mother, asking where the newsletter has gone. Have I gone off it already? Fear not. I&#8217;ve been off on holiday celebrating a big birthday, and wanted to take a total break from work and writing. I didn&#8217;t want to spam your inboxes sending an additional issue just to tell you this. Now, I&#8217;m back, re-energised, and ready to go. &#9786;&#65039; If this is your first time here, hello! I&#8217;ve spent the past 7 years working for high growth companies. My path has followed a &#8216;do-what-needs-to-be-done&#8217; path: software engineering, data science, machine learning, with a little product management thrown in for good measure. I&#8217;ve picked up some useful experience at the intersection of these disciplines, and I&#8217;d love to share it with you. The goal of this newsletter is to discuss techniques for&nbsp; building better software&nbsp; and&nbsp; being more effective&nbsp; in&nbsp; high growth companies . I mix in longer form content &#8212; think a short blog post that you could read in 5 minutes &#8212; with some of my favourite links. Here&#8217;s some really popular posts from the past few months: Why is dbt so important? &#128202; Beware the mean &#128201; The power of static analysis &#129302; The power of proposals &#9997;&#65039; Stephen Follow me on Twitter &#128038; Semgrep This week, I found a tool that I think is quite revolutionary. That doesn&#8217;t happen very often. The last time I remember was dbt , and we all know how much I go on about that thing. So, you, at the back &#8212; sit up and take note! It&#8217;s called semgrep . Quoting from the website: It&#8217;s a simple, customizable, and fast static analysis tool for finding bugs Combines the&nbsp; speed and customizability of grep &nbsp;with the precision of traditional static analysis tools No painful domain-specific language; Sem...
+
+**Embedded Videos:** 2
+
+
+---
+## Post 270: Why is dbt so important? 📊  
+
+**Publication:** High Growth Engineering
+**Author:** Stephen Whitworth
+**URL:** https://highgrowthengineering.substack.com/p/why-is-dbt-so-important-
+**Published:** 2020-08-17T13:16:55+00:00
+
+**Content Preview:**
+&#128075; Hello! Oh man, it&#8217;s been so hot in London recently. Houses in the UK are built to live in the middle of the temperature distribution: not too hot, not too cold. Anything outside the realm of -5C to 25C doesn&#8217;t get handled well. Shout out to the people working all day in 35 degree heat without air conditioning. If this is your first time here, hello! I&#8217;ve spent the past 7 years working for high growth companies. My path has followed a &#8216;do-what-needs-to-be-done&#8217; path: software engineering, data science, machine learning, with a little product management thrown in for good measure. I&#8217;ve picked up some useful experience at the intersection of these disciplines, and I&#8217;d love to share it with you. The goal of this newsletter is to discuss techniques for&nbsp; building better software&nbsp; and&nbsp; being more effective&nbsp; in&nbsp; high growth companies . I mix in longer form content &#8212; think a short blog post that you could read in 5 minutes &#8212; with some of my favourite links. Here&#8217;s some really popular posts from the past few months: Beware the mean &#128201; The power of static analysis &#129302; The power of proposals &#9997;&#65039; Stephen Follow me on Twitter &#128038; Why is dbt so important? I joined Monzo in March 2019 to run the Data Engineering team. Last summer, we migrated&nbsp; Monzo's &nbsp;entire analytics infrastructure to&nbsp; dbt &nbsp;from a homegrown solution. This post explains why we took a bet on dbt, and why I think it's one of the most important data tools around. Where have we come from? The 'looseness' of SQL SQL is a very &#8216;loose&#8217; language. It doesn&#8217;t naturally push you towards good software engineering practises around re-use of code, abstraction and layering, and separation of responsibility. There are often many ways to accomplish the same objective. Users are left to choose their own adventure with respect to defining how different SQL files relate to...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 271: Beware the mean 📉
+
+**Publication:** High Growth Engineering
+**Author:** Stephen Whitworth
+**URL:** https://highgrowthengineering.substack.com/p/beware-the-mean-
+**Published:** 2020-08-03T13:58:05+00:00
+
+**Content Preview:**
+Hello hello, and welcome to another edition of High Growth Engineering &#128640; First, some thanks! I&#8217;ve reached 940 subscribers in a little over two and a half months. This number is small for internet scale, but larger than I thought feasible after a couple of months. I was aiming for 1000 subscribers by the end of the year! Thanks for those that read regularly and forward it on to others - I appreciate it. If you&#8217;re a fan of what you&#8217;re reading, please click the share button and send it to a friend. &#10084;&#65039; Share High Growth Engineering However, if it&#8217;s your first time reading, here&#8217;s why I write! The goal of this newsletter is to discuss techniques for&nbsp; building better software&nbsp; and&nbsp; being more effective&nbsp; in&nbsp; high growth companies . I mix in longer form content &#8212; think a short blog post that you could read in 5 minutes &#8212; with some of my favourite links. I tend to meander between software engineering , product and data science , based on what I&#8217;m thinking that week. The power of static analysis &#129302; Why constraints are a good thing &#9939; The power of proposals &#9997;&#65039; Onwards - enjoy! Stephen Follow me on Twitter &#128038; Beware the mean &#128201; This was originally posted on my blog, stephen.sh in January 2020. Those who define key performance indicators, or KPIs, love the mean. The mean allows you to reduce the chaotic space of human behaviour down to a single number, which you tend to increase or decrease. This compression is tempting, but reductive. The most fascinating &#8212; and most important &#8212; behaviour lies in the tail of the distribution. All graphs look the same I have worked for a few startups at this point. Almost every graph relating to human behaviour that I&#8217;ve seen looks like the following: This is a&nbsp; power-law , or the the&nbsp; Pareto principle &nbsp;in action. When you think power-law, think skew: the vast majority of customers ...
+
+**Embedded Videos:** 2
+
+
+---
+## Post 272: Why constraints are a good thing ⛓
+
+**Publication:** High Growth Engineering
+**Author:** Stephen Whitworth
+**URL:** https://highgrowthengineering.substack.com/p/why-constraints-are-a-good-thing
+**Published:** 2020-07-27T13:07:47+00:00
+
+**Content Preview:**
+&#128075; Hello! I was off on holiday last week, and I&#8217;m off again tomorrow. I&#8217;m spending a few days in Devon, sitting on the beach and eating delicious seafood. Expect another newsletter in a couple of weeks time! &#127958; If it&#8217;s your first time reading, here&#8217;s a little refresher. The goal of this newsletter is to discuss techniques for&nbsp; building better software&nbsp; and&nbsp; being more effective&nbsp; in&nbsp; high growth companies . I mix in longer form content &#8212; think a short blog post that you could read in 5 minutes &#8212; with some of my favourite links. Over the last few weeks, I&#8217;ve covered: How to scope work &#128300; The power of proposals &#9997;&#65039; The power of static analysis &#129302; What gear are you in? &#128663; Follow me on Twitter &#128038; Why constraints are a good thing &#9939; After I spent the previous issue discussing the practical applications of static analysis , I&#8217;m going all philosophical on you. We&#8217;re going to talk about constraints. Dial them in right, and they&#8217;re a great tool to have in your arsenal. Let&#8217;s get into it! What are constraints? Wikipedia defines a constraint as the following: &#8216;In mathematics, a constraint is a condition of an optimization problem that the solution must satisfy.&#8217; Generalised, we can think of a constraint as a limitation or restriction on what you&#8217;re able to do and/or how you might do it. They may be real &#8212; no money in the bank to hire people! &#8212; or artificial &#8212; an internal project deadline set by a manager, with no downsides if that deadline is not hit. What are some common constraints? The classic ones are time, cost, scope: pick any two! There&#8217;s a few additional ones you&#8217;ll see in high growth companies: Time: &#8220;we need to build this feature by Friday&#8221; People: &#8220;a web engineer won&#8217;t be free to help on this feature for another 2 weeks&#8221; Cost: &#8220;we can&#8...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 273: The power of static analysis 🤖
+
+**Publication:** High Growth Engineering
+**Author:** Stephen Whitworth
+**URL:** https://highgrowthengineering.substack.com/p/the-power-of-static-analysis-
+**Published:** 2020-07-13T13:34:05+00:00
+
+**Content Preview:**
+&#128075; Hello, First, I went for my first meal at a restaurant in three and a half months on Sunday. It was really refreshing. You never appreciate what you have until it&#8217;s gone. With the opening of bars and restaurants, life is becoming a little more normal here in London. That said, be safe. Second, I apologise for not sending an issue last week. Work has been very busy, and I couldn&#8217;t find the time to put it together. I&#8217;ll do my best to get back on a weekly cadence from here on out. Third, if you&#8217;re a first time reader &#8212; hello, good to have you! The goal of this newsletter is to discuss techniques for&nbsp; building better software&nbsp; and&nbsp; being more effective&nbsp; in&nbsp; high growth companies . I mix in longer form content &#8212; think a short blog post that you could read in 5 minutes &#8212; with some of my favourite links. Here&#8217;s a couple of my most popular issues if you want to peruse: How to scope work &#128300; The power of proposals &#9997;&#65039; Writing maintainable code at speed &#127950; Follow me on Twitter &#128038; The power of static analysis In the previous issue , I mentioned that I think &#8220;static analysis is the single most underrated tool for maintaining quality at speed&#8221;. I promised to write a whole issue about it soon . Well, readers, I can tell you that soon is now. Please read my love letter to static analysis. Well, what is static analysis? Static analysis refers to analysing the code of a program, without needing to run it. The goal of static analysis is to find bugs, inconsistencies, design issues and other quirks within your program. This is different from dynamic analysis - analysis performed whilst the program is running. Unit testing is an example of dynamic analysis. Static analysis tools run over a portion of your codebase, perform analysis, and report back their findings. Here&#8217;s me running Staticcheck on an very old repository of mine - back when Monzo was called...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 274: Writing maintainable code at speed 🏎
+
+**Publication:** High Growth Engineering
+**Author:** Stephen Whitworth
+**URL:** https://highgrowthengineering.substack.com/p/writing-maintainable-code-at-speed
+**Published:** 2020-06-29T14:09:46+00:00
+
+**Content Preview:**
+&#128075; Hello! For a change, the weather in London was beautiful this week. I think there&#8217;s roughly two groups of people in the UK: Those who welcome the hot weather Those where any sustained temperature above 15c is a mortal threat I&#8217;d put myself firmly in the first bracket. Long may it last. &#9728;&#65039; If this is your first time here &#8212; hello! I write a weekly newsletter giving guidance and techniques&nbsp; building better software&nbsp; and&nbsp; being more effective&nbsp; in&nbsp; high growth companies . I mix in longer form content &#8212; think a short blog post that you could read in 5 minutes &#8212; with some of my favourite links that I&#8217;ve seen over the week. Here&#8217;s what I&#8217;ve covered over the past month: How to scope work &#128300; The power of proposals &#9997;&#65039; Taming Slack &#128517; What gear are you in? &#128663; I have a request of you! This is still a niche newsletter. The most helpful thing you can do is to spread it to others that might enjoy it. Post it internally at work, retweet it, or simple send it to a friend. I&#8217;d really appreciate it. All the best, Stephen Follow me on Twitter &#128038; Writing maintainable code at speed &#127950; I&#8217;ve always loved to work really quickly &#8212; sometimes to my detriment. I put this down to only working in &#8216;default dead&#8217; startups, where speed really is one of the only advantages you have. When shipping is your company&#8217;s heartbeat , speed is generally good thing to optimise for. But how do we avoid ending up with a spaghetti mess of a codebase in the meantime? This edition focuses on techniques you can use to keep your codebase healthy, despite rapid change. What does maintainable mean? For every line of code written, a maintenance cost is incurred &#8212; the cost of supporting that code into the future. This cost may be explicit &#8212; such as a flaky third party provider that causes on-callers to be paged. Or, implicit &#8212; ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 275: How to scope work 🔬
+
+**Publication:** High Growth Engineering
+**Author:** Stephen Whitworth
+**URL:** https://highgrowthengineering.substack.com/p/how-to-scope-work-
+**Published:** 2020-06-19T13:32:54+00:00
+
+**Content Preview:**
+&#128075; Hello! Hope everyone&#8217;s doing well. It&#8217;s been a busy week at work this week, so this is coming out a little later than desired. I apologise for that. If it&#8217;s your first time reading, here&#8217;s a little refresher. The goal of this newsletter is to discuss techniques for&nbsp; building better software&nbsp; and&nbsp; being more effective&nbsp; in&nbsp; high growth companies . I mix in longer form content &#8212; think a short blog post that you could read in 5 minutes &#8212; with some of my favourite links. Over the last few weeks, I&#8217;ve covered: The power of proposals &#9997;&#65039; Taming Slack &#128517; What gear are you in? &#128663; I&#8217;m matching donations to Black Lives Matter causes up to a limit of &#163;500. Please send me your receipts and I&#8217;ll match them straight away. On with the show, Stephen Follow me on Twitter &#128038; How to scope work &#128300; As a software engineer, you&#8217;ll often be asked the following question: how hard would it be to do X? Get used to it &#8212; it&#8217;s a very reasonable question! We&#8217;re here to talk about scoping : a process of answering that question. What is scoping? Scoping work is the process of going from the vague to the precise: from the idea of a feature, to a plan for how you might build it. It&#8217;s a broadly applicable skill &#8212; it isn&#8217;t unique to software engineering. When you scope, the goal is to figure out and define what problem you&#8217;re trying to solve, and propose an idea for how you&#8217;ll solve it. The problems you&#8217;re trying to solve might be: Adding a new button to your homepage Building a new authentication system Rolling out an engineering progression framework This is not estimation. Estimation is giving an idea of how long something will take to build. You need a clear scope to be able to give that estimate. The output of any scoping work I do is always a proposal. Want to know how to write good proposals? Refer back to...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 276: What gear are you in? 🚗
+
+**Publication:** High Growth Engineering
+**Author:** Stephen Whitworth
+**URL:** https://highgrowthengineering.substack.com/p/what-gear-are-you-in-
+**Published:** 2020-06-08T13:46:16+00:00
+
+**Content Preview:**
+&#128075; Hey. I didn&#8217;t know whether to post this week. This newsletter seems remarkably unimportant in comparison to the many important events over the past few weeks. Ultimately, I decided to write out of personal enjoyment. With this lens on, I hope it brings you a small amount of happiness. First, I&#8217;m matching donations to charities that support Black Lives Matter related causes (up to &#163;500, but if I see higher demand, I&#8217;ll up it). Please let me know if you&#8217;ve donated by tweeting me , and I&#8217;ll match it. Second, if it&#8217;s your first time reading, here&#8217;s a little refresher. The goal of this newsletter is to discuss techniques for&nbsp; building better software&nbsp; and&nbsp; being more effective&nbsp; in&nbsp; high growth companies . I mix in longer form content &#8212; think a short blog post that you could read in 5 minutes &#8212; with some of my favourite links. Over the last few weeks, I&#8217;ve covered: The power of proposals How to tame Slack If you&#8217;re interested, I&#8217;d love for you to subscribe. Just hit the button below. Subscribe now What gear are you in? &#128663; The majority of UK cars are sold with a manual gearbox. In this type of car, the driver must make conscious decisions to change between different gears. Each gear behaves differently, and is optimised for a certain purpose. Low gears give immediate acceleration power. High gears allow you to efficiently travel long distances. Driving in 1st gear down the motorway will certainly destroy your car. Attempting to pull off from the lights in 5th gear will mean you get nowhere. I think there&#8217;s a tenuous analogy with shipping software here. Let&#8217;s imagine that the gears of a car represent the timeframe we&#8217;re optimising for : for example, the next two weeks, vs. 2 years from now. Lower gears represent caring about speed in immediate time periods, higher gears represent speed over distant time periods. We can shift between gears ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 277: Taming Slack 😅
+
+**Publication:** High Growth Engineering
+**Author:** Stephen Whitworth
+**URL:** https://highgrowthengineering.substack.com/p/taming-slack-
+**Published:** 2020-05-28T13:09:42+00:00
+
+**Content Preview:**
+&#128075; Hello! Welcome to the second edition of High Growth Engineering. Today, we&#8217;ll be discussing the S earchable L og of A ll C onversation and K nowledge. AKA, Slack! But first, a quick refresher on what I write about for those that are new here. The goal of this newsletter is to discuss techniques for building better software and being more effective in high growth companies . I mix in longer form content &#8212; think a short blog post that you could read in 5 minutes &#8212; with some of my favourite links. Last week, I covered how to write better proposals . If you subscribe, you&#8217;ll receive weekly posts from me on topics such as: Techniques for testing in production Estimating the payoff of work Writing maintainable software under time constraints Project management and prioritisation as an engineer Right &#8212; to Slack, we ride! Follow me on Twitter &#128038; Taming Slack Slack has become the de facto way that startups communicate with each other. And people have opinions about it. Used well, it&#8217;s an effective source of human and machine collaboration. You&#8217;re able to quickly collaborate with colleagues. It&#8217;s clear what you have to do, and when. And most importantly, you can blow off steam with puppy GIFs, or Pokemon battles. Untamed and unstructured, you&#8217;re drinking from a firehose. You&#8217;re spinning multiple plates in different channels, aiming to get context, and getting nothing else done as a result. Why have I been tagged in 20 threads, when I just went to get a cup of coffee? Why can&#8217;t we just go back to email? I empathise &#8212; really, I do. I can help. There&#8217;s a few small things that you can do to make you more productive, and improve how your team and company use it. Most of these tips are picked up from how we use Slack to run a bank at Monzo . We&#8217;re not perfect users of Slack, but I think we&#8217;re doing pretty good. As a result, this advice skews towards companies that have 100+ us...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 278: The power of proposals ✍️
+
+**Publication:** High Growth Engineering
+**Author:** Stephen Whitworth
+**URL:** https://highgrowthengineering.substack.com/p/the-power-of-proposals-
+**Published:** 2020-05-22T13:02:20+00:00
+
+**Content Preview:**
+&#128075; Hello! Welcome to the very first edition of High Growth Engineering &#8212; I&#8217;m super excited to share this with you. Before we start, a quick refresher on why I&#8217;m doing this. The goal of this newsletter is to discuss techniques for building better software and being more effective in high growth companies . I mix in longer form content &#8212; think a short blog post that you could read in 5 minutes &#8212; with some of my favourite links. If you subscribe, you&#8217;ll receive weekly posts from me on topics such as: Techniques for testing in production Estimating the payoff of work How to tame Slack &#128575; Writing maintainable software under time constraints Project management and prioritisation as an engineer Amongst many more topics. That said &#8212; on with the show! Follow me on Twitter &#128038; The power of proposals This section is adapted from an original post on my blog: A product &amp; engineering proposal template You&#8217;ll hear a common refrain from me on this newsletter. Spending time improving the clarity and quality of your written communication is one of the most impactful activities you can do as a software engineer. Want to know an easy way to get paid to practice writing? Write proposals at work. What are proposals? Documents that you write as part of the process of doing work, such as building a new feature. At the highest level, they define a problem, and how you propose to solve it. You might also hear them referred to as RFCs . I prefer the word proposal as the acronym tends to exclude non-technical folks for no good reason. Why write them? They're useful for a few different reasons: Writing your thoughts down is a forcing function for clear thinking . You can&#8217;t convince others if you don&#8217;t understand the idea yourself. They amplify the underlying strength of the idea. I&#8217;ve never seen a good idea that didn&#8217;t get get stronger after writing a proposal. Weak ideas become self-evident after yo...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 279: An introduction to High Growth Engineering
+
+**Publication:** High Growth Engineering
+**Author:** Stephen Whitworth
+**URL:** https://highgrowthengineering.substack.com/p/an-introduction-to-high-growth-engineering
+**Published:** 2020-05-17T18:55:26+00:00
+
+**Content Preview:**
+Hello. &#128075;&#127996; Building software at high growth companies &#8212; startups mostly &#8212; is a weird experience. Things often feel broken. Code quality feels low. But yet, the system works - often very well. Why? Should we be fine with this? New engineers are joining constantly. How do you avoid calcifying knowledge within your most tenured engineers, at a disadvantage to new employees? Work within these companies is growing ever more popular. But, there&#8217;s a lack of discussion about the art of building software within these environments, and the constraints they provide. I&#8217;d like to fix that. Who am I, and why am I doing this? My name is&nbsp; Stephen Whitworth . I&#8217;m currently a Senior Software Engineer at Monzo Bank, where I&#8217;m helping fight financial crime. Before that, I co-founded&nbsp; Ravelin : one of the world&#8217;s fastest growing fraud prevention startups. I&#8217;ve spent the past 7 years working for high growth companies. My path has followed a &#8216;do-what-needs-to-be-done&#8217; path: software engineering, data science, machine learning, with a little product management thrown in for good measure. I&#8217;ve picked up some useful experience at the intersection of these disciplines, and I&#8217;d love to share it with you. Why subscribe? As a subscriber, you&#8217;ll learn how to build better software, and operate more effectively in high growth companies. Every week, you&#8217;ll receive an email with: Short, pragmatic posts &nbsp;that aim to teach&nbsp; useful techniques &nbsp;for the following week Interesting links &nbsp;from around the web with&nbsp; personal thoughts &nbsp;on the topics discussed These are focused on the broad range of skills that it takes to build software effectively at these companies. You can expect discussion on the following topics: Writing&nbsp; maintainable &nbsp;software within constraints Managing projects and&nbsp; prioritising &nbsp;effectively Communicating clearly : both within a ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 280: See it with your lying ears
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/see-it-with-your-lying-ears
+**Published:** 2026-01-10T00:00:05+00:00
+
+**Content Preview:**
+For the past couple of weeks, I couldn&#8217;t shake off an intrusive thought: raster graphics and audio files are awfully similar &#8212; they&#8217;re sequences of analog measurements &#8212; so what would happen if we apply the same transformations to both?&#8230; Let&#8217;s start with downsampling: what if we divide the data stream into buckets of n samples each, and then map the entire bucket to a single, averaged value? for (pos = 0; pos &lt; len; pos = win_size) { float sum = 0; for (int i = 0; i &lt; win_size; i++) sum += buf[pos + i]; for (int i = 0; i &lt; win_size; i++) buf[pos + i] = sum / win_size; } For images, the result is aesthetically pleasing pixel art. But if we do the same audio&#8230; well, put your headphones on, you&#8217;re in for a treat: The model for the images is our dog, Skye. The song fragment is a cover of &#8220;It Must Have Been Love&#8221; performed by Effie Passero. If you&#8217;re familiar with audio formats, you might&#8217;ve expected this to sound different: a muffled but neutral rendition associated with low sample rates. Yet, the result of the &#8220;audio pixelation&#8221; filter is different: it adds unpleasant, metallic-sounding overtones. The culprit is the stairstep pattern in the resulting waveform: Not great, not terrible. Our eyes don&#8217;t mind the pattern on the computer screen, but the cochlea is a complex mechanical structure that doesn&#8217;t measure sound pressure levels per se; instead, it has clusters of different nerve cells sensitive to different sine-wave frequencies. Abrupt jumps in the waveform are perceived as wideband noise that wasn&#8217;t present in the original audio stream. The problem is easy to solve: we can run the jagged waveform through a rolling-average filter, the equivalent of blurring the pixelated image to remove the artifacts: But this brings up another question: is the effect similar if we keep the original 44.1 kHz sample rate but reduce the bit depth of each sample in the file? /...
+
+**Embedded Videos:** 5
+
+
+---
+## Post 281: Cursed circuits #4: PLL frequency multiplier
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/cursed-circuits-4-pll-frequency-multiplier
+**Published:** 2025-12-26T17:47:58+00:00
+
+**Content Preview:**
+Welcome to another installment of Cursed Circuits. My goal for the series is to highlight a small collection of common yet mind-bending circuits that must&#8217;ve taken a stroke of genius to invent, but that are usually presented on the internet without explaining how or why they work. In today&#8217;s episode, let&#8217;s have a look at a phase-locked loop clock multiplier: a circuit that, among other things, can take a 20 MHz timing signal produced by a quartz crystal and turn it into a perfectly-synchronized computer clock that&#8217;s running at 500 MHz, 3 GHz, or any other frequency of your choice. A primer on latches To understand the PLL frequency multiplier, it&#8217;s probably good to cover latches first. A latch is a fundamental data-storage circuit capable of holding a single bit. The simplest variant is the set-reset (S-R) latch, which can be constructed from basic logic gates in a couple of ways. Perhaps the most intuitive layout is the following three-gate approach: A three-gate S-R latch. To analyze the circuit, let&#8217;s assume that the &#8220;set&#8221; signal (S) is high and the &#8220;reset&#8221; signal (R) is low. In this case, the output of the OR gate is a logical one regardless of the looped-back signal present on the gate&#8217;s other terminal; this produces a logical one on the first input of the downstream AND gate. The other input of that AND gate is also equal to one, because it&#8217;s just an inverted copy of R = 0. All in all, in the S = 1 and R = 0 scenario, both inputs of the AND gate are high; therefore, so is the signal on the circuit&#8217;s output leg (Q). Next, let&#8217;s imagine that S transitions to a logical zero. This puts one of the OR inputs at zero volts, but the other is still high because it&#8217;s the looped-back output signal Q. The circuit is latched: it keeps outputting the same voltage as before, even though the original driving signal is gone. The only thing that can break the cycle if the &#8220;reset&#822...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 282: Cursed circuits #3: true mathematics
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/cursed-circuits-3-true-mathematics
+**Published:** 2025-12-22T02:38:09+00:00
+
+**Content Preview:**
+In the previous installments of Cursed Circuits , we looked at two switched capacitor circuits: the voltage halver and the capacitor lowpass filter . In today&#8217;s episode, I&#8217;d like to talk about the use of operational amplifiers to do something other than amplification: to solve analog math. Analog computing at a scale is wildly impractical because errors tend to accumulate every step along the way; nevertheless, individual techniques find a number of specialized uses, perhaps most prominently in analog-to-digital converters . Let&#8217;s have a look at how it&#8217;s done. The following assumes familiarity with core concepts in electronic circuits and with the fundamentals of signal amplification . If you need a refresher, start with the two linked articles first. Op-amps at a glance Before we get to less obvious circuits, let&#8217;s start with a brief recap: operational amplifiers are to analog electronics what logic gates are to digital logic. They are simple but remarkably versatile building blocks that let you accomplish far more than appears possible at first blush. Unfortunately, in introductory texts, their operation is often explained in confusing ways. All that an op-amp does is taking two input voltages &#8212; V in- (&#8220;inverting input&#8221;) and V in+ (&#8220;non-inverting input&#8221;) &#8212; and then outputting a voltage that&#8217;s equal to the difference between the two, amplified by a huge factor ( A OL , often 100,000 or more) and then referenced to the midpoint of the supply ( V mid ). You can write it the following way: That&#8217;s all the chip does. Because the gain is massive, there is a very narrow linear region near V in- = V in+ ; a difference greater than a couple of microvolts will send the output toward one of the supply rails. The chip doesn&#8217;t care about the absolute value of V in- or V in+ it can&#8217;t &#8220;see&#8221; any external components you connect to it, and its internal gain can&#8217;t be changed. T...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 283: Cursed circuits #2: switched capacitor lowpass
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/cursed-circuits-2-switched-capacitor
+**Published:** 2025-12-04T00:00:03+00:00
+
+**Content Preview:**
+In the previous post on this Substack , we looked at charge pump circuits and the mildly cursed example of a capacitor-based voltage halver. I find these topologies interesting because they are very simple, yet they subvert the usual way of thinking about what a capacitors can or cannot do. In today&#8217;s episode, let&#8217;s continue down that path and consider an even more perplexing example: a switched capacitor lowpass filter. The usual way to design an analog lowpass filter is to combine a resistor with a capacitor, as shown below: A standard R-C lowpass filter. The filter can be thought of as a voltage divider in which R is constant and C begins to conduct better as the sine-wave frequency of the input signal increases. This frequency-dependent resistor-like behavior of a capacitor is known as reactance and is described by the following formula: Most sources give this equation without explaining where it comes from, but it can be derived with basic trigonometry; if you&#8217;re unfamiliar with its origins, you might enjoy this foundational article posted here back in 2023. In an R-C lowpass circuit, the reactance is initially much larger than the value of R, so up to a certain frequency, the capacitor can be ignored and the input voltage is more or less equal to the output voltage. Past a certain point, however, the reactance of the capacitor becomes low enough so that the signal is markedly pulled toward the ground, attenuating it and producing a filter response plot similar to the following: R-C lowpass filter behavior for R = 100 k&#937; and C = 10 nF. It&#8217;s easy to find the frequency at which R = X C . The solution corresponds to the &#8220;knee&#8221; in the logarithmic plot shown before: This is basic analog electronics, and something we covered on the blog before . But did you know that you can construct a perfectly good lowpass filter with a pair of capacitors and a toggle switch? The architecture is shown below: A conceptual illustration of a s...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 284: Cursed circuits: charge pump voltage halver
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/cursed-circuits-charge-pump-voltage
+**Published:** 2025-12-02T00:00:03+00:00
+
+**Content Preview:**
+In the spring of 2023, when this Substack had only a handful of subscribers, I posted a primer on voltage adjustment in electronic circuits . The article opened with a brief discussion of linear regulators, and then promptly threw them under the bus in favor of more efficient charge pumps and inductor-based topologies. The basic charge pump architecture &#8212; a voltage doubler &#8212; is quite elegant and easy to understand. It&#8217;s also far more common than many people suspect: the circuit can be constructed directly on a silicon die, so it shows up inside quite a few digital chips, from modern op-amps to MCUs. If you weren&#8217;t a subscriber back in 2023, or if you don&#8217;t have a photographic memory for random blog articles, a conceptual diagram of the pump is shown below: The operation of a rudimentary charge pump. In the panel on the left, we see a Cout capacitor that&#8217;s perched on top of the positive rail while a &#8220;flying&#8221; capacitance Cf is charging from the power supply. The charging process produces a voltage that&#8217;s internal to the component: we can unplug Cf , put it in our pocket, and then hook it up to another circuit to power it for a brief while. In the second panel (right), we see the second part of the cycle: Cf is disconnected from the supply and then hooked up to the terminals of Cout . This action transfers some of the charge from Cf to Cout, up until the voltages across the terminals of the capacitors are equalized. After several of these roundtrips, V AB should approach Vsupply . Of course, V BC is also equal to Vsupply ; it follows that the voltage between A and C must be the sum of the two, or 2 &#183; Vsupply . In other words, the circuit is a voltage doubler; the repeated motion of Cf ensures that the charge in Cout is continually replenished if we connect any load between the points A and C. There will be a bit of voltage ripple, but the amount can be controlled by sizing the capacitors and choosing the operat...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 285: It's hard to build an oscillator
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/its-hard-to-build-an-oscillator
+**Published:** 2025-11-21T01:21:27+00:00
+
+**Content Preview:**
+There&#8217;s an old electronics joke that if you want to build an oscillator, you should try building an amplifier. One of the fundamental criteria for oscillation is the presence of signal gain; without it, any oscillation is bound to decay, just like a swing that&#8217;s no longer being pushed must eventually come to a stop. In reality, circuits with gain can occasionally oscillate by accident, but it&#8217;s rather difficult to build a good analog oscillator from scratch. The most common category of oscillators you can find on the internet are circuits that don&#8217;t work reliably. This is followed by approaches that require exotic components, such as center-tapped inductors or incandescent lightbulbs. The final group are the layouts you can copy, but probably won&#8217;t be able to explain to a friend who doesn&#8217;t have an EE degree. In today&#8217;s article, I wanted to approach the problem in a different way. I&#8217;ll assume that you&#8217;re up-to-date on some of the key lessons from earlier articles: that you can tell the difference between voltage and current , have a basic grasp of transistors , and know what happens when a capacitor is charged through a resistor . With this in mind, let&#8217;s try to construct an oscillator that&#8217;s easy to understand, runs well, and has a predictable operating frequency. Further, let&#8217;s do it without peeking at someone else&#8217;s homework. Swing&#8230; and miss The simplest form of an oscillator is a device that uses negative feedback to cycle back and forth between two unstable states. To illustrate, think of a machine equipped with a light sensor and a robotic arm. In the dark, the machine is compelled to stroll over to the wall switch and flip it on. If it detects light, another part of its programming takes over and toggles the switch off. The machine is doomed to an endless cycle of switch-flipping at a frequency dictated by how quickly it can process information and react. At first blush, we sh...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 286: When it comes to writing, LLMs have won
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/when-it-comes-to-writing-llms-have
+**Published:** 2025-11-13T23:13:09+00:00
+
+**Content Preview:**
+As a middling author, I find it fairly easy to sniff out LLM-generated articles. I see such content almost daily on Hacker News &#8212; and mind you, that&#8217;s the home of a fairly discerning, tech-savvy crowd; the proportion of generative AI on my other social media is higher than that. I understand the economics of it and I know the output is good enough for most readers. Still, from the perspective of a writer, it stings to see that the robots are winning the zero-sum contest for human attention on the internet. There are some activists who try to stigmatize the use of generative AI for content creation, but they often end up chasing ghosts; so far, I had two people accuse me of using AI on this blog, and I&#8217;m sure there&#8217;s more to come. The controversy around em dashes (&#8212;) is instructive. I think it&#8217;s important to realize that language model output doesn&#8217;t differ from human writing per se ; there&#8217;s just no single tell. What&#8217;s true, however, is that if you go to chatgpt.com and ask for an essay, it will by default assume a certain writer persona. All articles written by that persona will have similarities, just as all articles written by the same human would. The quirks start with basic formatting. For example, the current crop of chatbots has a preference for book-style capitalization of section headings ( &#8220;Status in Academic Departments&#8221; ) versus the more common Wikipedia style ( &#8220;Status in academic departments&#8221; ); in the same vein, LLMs opt for bolded text instead of italics for emphasis. The models also overuse various stylistic cliches, including negative parallelisms ( &#8220;not only &#8230; but &#8230;&#8221;, &#8220;not &#8230;, not &#8230;, just &#8230;&#8221; ), vague appeals to significance ( &#8220;illustrates lasting influence&#8221;, &#8220;emphasizes the importance of &#8230;&#8221; ), and superfluous outline and summary paragraphs. Again, there&#8217;s no single bulletproof indica...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 287: What's the deal with Euler's identity?
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/whats-the-deal-with-eulers-identity
+**Published:** 2025-11-08T22:15:52+00:00
+
+**Content Preview:**
+Perhaps the most famous equation in pop mathematics is Euler&#8217;s identity: The equation is deemed profound because it combines not one, not two, but five &#8220;special&#8221; mathematical constants: e , &#960; , 0, 1, and the imaginary unit i. The identity is a special case of an equation known as Euler&#8217;s formula: The identity form is what you get if you choose an angle of &#945; = &#960; in radians (180&#176;). This makes the cosine expression equal to -1 and the sine part equal to zero, so the final result of the substitution is: Now, four &#8220;special&#8221; values is still weak sauce, so we move -1 to the left to increase the profoundness factor by another 25%. There are multiple &#8220;easy&#8221; proofs of Euler&#8217;s formula you can find on YouTube, but they all involve sleight of hand: they make unobvious assertions about infinite series and function derivatives, or rely on a circular definition of complex numbers. I don&#8217;t have a proof that will fit on a napkin, but I think there&#8217;s a reasonably intuitive way to reason about what the equation does. A geometric view of complex numbers Imagine a point in a Cartesian coordinate system that lies on the horizontal axis at a distance l from the center. If you wish to rotate this point by an angle &#945; in radians, you can calculate the new (x, y) coordinates using simple trigonometry: Less obviously, there is also a way to rotate points without trigonometric functions. If we take point (x, y) and flip the signs of the individual coordinates &#8212; (-x, -y) &#8212; we always achieve what looks like a rotation by 180&#176;: 180&#176; rotation by multiplying coordinates by -1. The sign-flipping operation is equivalent to multiplication by -1. Changing the magnitude of the negative multiplier doesn&#8217;t result in a different rotation angle; it&#8217;s the &#8220;negative unit" itself (-1) that appears to be doing the hard work. If we want to achieve a rotation by 360&#176;, we need to mu...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 288: Things you can do with diodes
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/things-you-can-do-with-diodes
+**Published:** 2025-11-02T19:39:54+00:00
+
+**Content Preview:**
+The diode might be the most neglected component in the electronics curriculum today. Pages upon pages have been written about the mechanics of resistors, capacitors, and inductors; on this blog alone, we covered the components&#8217; fundamental equations , the model of complex impedance , the behavior of R-C filters , and more. As for semiconductors, the diode&#8217;s more useful sibling &#8212; the transistor &#8212; hogs the limelight. The diode is given neither the mathematical rigor of linear circuits nor the red-carpet treatment of the transistor. To the extent that the component is marveled at all, it&#8217;s usually in the context of exotic inventions such as the Gunn diode or the tunnel diode &#8212; both of which are almost never encountered in real life. Today, let&#8217;s pay the &#8220;normal&#8221; diode a small tribute. The mechanics of diodes If you&#8217;re rusty on concepts such as voltage, current, or impedance, I suggest reviewing this article first. In an earlier post about the physics of semiconductors , I noted that pure silicon is a poor conductor of electricity. This is because the material lacks long-lived, mobile charge carriers. Some conduction is still possible due to the short-lived thermal excitation of valence electrons that briefly pop into a higher-energy state, but these electrons can&#8217;t travel far before returning to a lower-energy level, so the effect is more or less negligible. The conductivity of the material is improved by the addition of dopants. Some dopants contribute long-lived electrons that occupy higher energy levels with no lower-energy vacancies to return to; this is what&#8217;s called an n-type semiconductor. Other additives create easily-accessible valence band vacancies (&#8220;holes&#8221;); in such a p-type material, lower-energy electrons can slither around from atom to atom without needing to be knocked into a higher-energy state. When an n-type material is brought into contact with a p-type semiconductor...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 289: Weekend projects: Chicken Squisher 3000
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/weekend-projects-chicken-squisher
+**Published:** 2025-10-14T06:08:20+00:00
+
+**Content Preview:**
+This summer, I built a relatively big, walk-in chicken coop. We live in a place with grizzlies, mountain lions, and fairly harsh winters, so the structure is a bit overengineered. It has double walls, double-pane windows (built by my wife), four electric outlets, and an electric fence that surrounds the outer &#8220;run&#8221;, which would be otherwise protected only by some 19 gauge steel mesh: The coop. The feature we regretted not incorporating from the get go was an automatic inner door for the fully-enclosed box where the chickens nest and sleep at night. This would have allowed us to leave for a couple of days without needing anyone to stop by to let the chickens in an out. There are some ready-made solutions for this, but they all require tearing out the existing hinged door and replacing it with a garage-door-style mechanism. Well, UNTIL NOW! The one, the only: Chicken Squisher 3000. Here&#8217;s the device in action, with some added cat- and chicken-related comedy: In the video, I&#8217;m covering the front-facing light sensor for about a minute to simulate dusk and trigger the closing of the door. What I liked about the project was not that it was challenging. Quite the opposite: modern technology made it much easier and faster than what would have been possible 2-3 decades ago. I started with a relatively cheap but well-sealed and all-metal worm gear motor ( Amazon product link ). The motor needs 12 V, idles at 30 RPM, and delivers about 35 kg&#183;cm of stall torque. The output shaft is coupled to an 8 mm universal joint to make a 90&#176; turn. This angle locks the joint; it was just the easiest way to couple the motor to an 8 mm stainless steel rod without any welding or machining. The other end of the rod goes through a stainless rod-end bearing that&#8217;s screwed directly into the door. The total cost for the merchandise was around $35. On the control side, the electronics are housed in a cast aluminum project box with a sticker made on a vinyl cut...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 290: Zombies
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/zombies
+**Published:** 2025-09-29T00:27:10+00:00
+
+**Content Preview:**
+Interior of an abandoned, boarded-up convenience store. Specks of dust are dancing in the flickering light of a single, overhead fluorescent lamp. Two weary figures, MICK and JAKE, crouch low against an interior wall. They are lying in wait. JAKE: How long does it take? MICK: Huh? JAKE: Before a person turns. How long, Mick? MICK: One hour. Maybe less. Why? JAKE: And it&#8217;s one bite? That&#8217;s all? MICK: Yep. Bite, scratch, bodily fluids. Saliva, that kind of thing. JAKE: How did it all &#8212; MICK: (hushed whisper) Ssssh! Hold still. There&#8217;s one right across the street. JAKE: (peeks through a gap) He&#8217;s&#8230; he&#8217;s one of them? MICK: Yep. JAKE: How can you tell? MICK: He lacks qualia. JAKE: He lacks what ? MICK: Qualia. A subjective conscious experience. There&#8217;s nobody home, Jake. JAKE: He&#8217;s&#8230; waiting for a bus? He looks so normal. MICK: They all do. That&#8217;s the damn thing. JAKE: What&#8230; what do they want? MICK: They don&#8217;t want anything. Not anymore. They&#8217;re p-zombies, perfect facsimiles. Action, reaction &#8212; but only an imitated self . JAKE: Incredible. He&#8217;s talking on the phone. MICK: Yeah. Full range of behaviors. They shop, they talk, they laugh, they sleep. Poke one with a stick and it lets out a simulated cry. JAKE: But no qualia? MICK: Nope. All gone. One bite, an hour tops. Subscribe now...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 291: How has mathematics gotten so abstract?
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/how-has-mathematics-gotten-so-abstract
+**Published:** 2025-09-27T23:31:52+00:00
+
+**Content Preview:**
+Today, mathematics is regarded as a supremely abstract science. On forums such as Stack Exchange, trained mathematicians regularly sneer at newcomers who ask for intuitive explanations of mathematical constructs. Indeed, persistently trying to relate the foundations of math to reality has become the calling card of online cranks. I find this ironic: for millennia, mathematics was essentially a natural science. We had no philosophical explanation why 2 + 2 should be equal to 4; we just looked at what was happening in the real world and tried to capture the rules. The abstractions were important, of course, but they needed to be rooted in objectivity. The early development of algebra and geometry followed suit. It was never enough for the axioms to be internally consistent; the angles of your hypothetical triangle needed to match the physical world. That said, even in antiquity, the reliance on intuition sometimes looked untenable. A particular cause for concern were the outcomes of thought experiments that involved repeating a task without end. The most famous example is Zeno&#8217;s paradox of motion. If you slept through that class, imagine the scenario of Achilles racing a tortoise: Catch me if you can. We can reason that after a while, Achilles will catch up to the turtle&#8217;s original position (red dot); however, by the time he gets there, the animal will have moved some distance forward (yellow dot): And they would have gotten away with it too&#8230; Next, consider the time needed for Achilles to reach the yellow dot; once again, by the time he gets there, the turtle will have moved forward a tiny bit. This process can be continued indefinitely; the gap keeps getting smaller but never goes to zero, so we must conclude that Achilles can&#8217;t possibly win the race. Amusingly, the problems caused by infinity lingered on the periphery of mathematics for centuries, fully surfacing only after we attempted to fix them with calculus. Calculus gave us a rigorous s...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 292: Folks, we have the best π
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/folks-we-have-the-best
+**Published:** 2025-09-15T06:42:43+00:00
+
+**Content Preview:**
+In the past couple of months, I published a number of articles on recreational math. I did my best to keep them accessible and fun, but my goal was usually to shed light at deeper mathematical truths. For example, the discussion of 0.999&#8230; = 1 served as a springboard to highlight some of the subtler properties of real numbers and the different meanings of infinity. Today, I have no agenda. This article exists because I discovered a somewhat obscure paper that says something unexpected and cool. It feels profound, it probably isn&#8217;t&#8230; and if you keep reading, it&#8217;s going to live rent-free in your head too. The road to a friend's house is never long Topologists are an odd bunch: they study the continuity of geometric shapes with no regard for appearances. To them, continuous transformations &#8212; such as stretching and squeezing &#8212; are of no consequence. A donut and a drinking straw are the same because you can knead one into another without making or mending any holes. Fundamentally, a topologist doesn&#8217;t care about the distance between two points in space: all that matters is a more narrow concept of local continuity. Because of this, the practitioners often choose to lean on stripped-down geometrical spaces in which the notion of distance &#8212; also known as a metric &#8212; is simply not defined. That said, if you&#8217;re not a topologist, you probably enjoy being able to measure stuff. In standard Euclidean geometry with two dimensions, if we have two points that are separated by x horizontally and y vertically, the resulting straight-line distance can be calculated as: One of the most common ways to construct non-Euclidean spaces is to alter the space&#8217;s metric in some way. An example that should be familiar to many software engineers is the taxicab metric, also known as the Manhattan distance. It&#8217;s named so by analogy to a cab navigating a rectangular grid of streets, charging you per mile traveled: An illustration ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 293: Getting silly with C, part ~(~1<<1)
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/getting-silly-with-c-part-11
+**Published:** 2025-09-07T01:13:25+00:00
+
+**Content Preview:**
+In the two previous installments of our introductory series on the C programming language, we talked about control flow, variables, and types. For example, we explained how to display strings on the screen: int typedef puts(char* puts; char* puts; char* puts); int main() { puts(puts); puts("Welcome to my humble abode!"); } In today&#8217;s episode, we&#8217;ll share a couple of additional, time-saving tips for seasoned pros. &#128600; Tip 1 &#128602; Experienced software engineers often find it necessary to comment out large swatches of code. Unfortunately, the C language doesn&#8217;t support nested comments, so the process of commenting out previously-commented code is a chore a chore. Yet, relatively few developers know that they can harness the power of assembly language to effortlessly work around this bug ( demo ): #include &lt;stdio.h&gt; int main() { puts("Hello world"); asm("/*"); /* Nested comment */ for (int i = 0; i &lt; 10; i++) puts("I LIKE PANCAKES!"); asm("*/"); puts("Goodbye world"); } &#128600; Tip 2 &#128602; Although the C language provides support for a wide range of numbers including 0 and 1 , programmers should be aware of a floating-point bug that affects certain Intel CPUs. The affected processors evaluate 0.999&#8230; as if it were exactly equal to 1. To test for the issue, developers can rely on a recent GNU extension called [[gnu::assume(&#8230;)]] that allows them to specify the expected behavior at compile time. Be aware that systems that fail the check may exhibit a range of symptoms, including fisherman&#8217;s ulcers, tail recursion, and worse ( demo ): #include &lt;stdio.h&gt; int main() { static int i; if (++i &gt; 10) return 0; printf("hello cruel world %d\n", i); [[gnu::assume(0.99999999999999999 &lt; 1)]]; } &#128600; Tip 3 &#128602; The C language is designed for safety, but somewhat controversially , the standard permits endless loops. This means that programmers must remain diligent to avoid accidental deadlocks. For example,...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 294: How many dimensions is this?
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/how-many-dimensions-is-this
+**Published:** 2025-09-03T16:20:42+00:00
+
+**Content Preview:**
+In the past couple of weeks, I&#8217;ve been posting about seemingly simple mathematical problems that defy intuition, and where the answers we find on the internet turn out to be shallow or hard to parse. For a taste, you might enjoy the articles on G&#246;del&#8217;s beavers or on infinite decimals. Today, let&#8217;s continue by asking a simple question: how many dimensions does a line have? A trained mathematician might blurt out an answer involving vector spaces or open set coverings, but there&#8217;s no fun in that. Instead, let&#8217;s take the scenic route. The &#8220;container&#8221; dimension What does it mean for a space to have a certain number of dimensions? Informally, we could say that a dimension is an independent axis along which we can position a geometric object. In one-dimensional space, a point can only be moved along a single track. In 2D, we typically talk of two orthogonal axes, x and y. In three dimensions, we have x, y , and z. There&#8217;s more nuance to certain exotic or stripped-down (topological) spaces, but we don&#8217;t need to go into any of that. The definition lends itself to a simple, common-sense way to classify the dimensionality of geometric shapes: we can look at the minimum number of spatial dimensions required to contain the object in question. A pencil sketch fits on a piece of paper, so it&#8217;s two-dimensional; a rock in your hand is 3D. The simplest way to define the dimensionality of a shape. Yet, this common-sense definition is unsatisfying if we consider that a lower-dimensional object might end up straddling a higher-dimensional space. If a line segment is rotated or bent, does that make it 2D? Or is that object forever one-dimensional, somehow retaining the memory of its original orientation and curvature? One dimension or two? We could argue either way, but no matter which option we choose, the answer doesn&#8217;t feel particularly principled. This tells us to look for a more substantive approach somewhere el...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 295: Multitudes
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/multitudes
+**Published:** 2025-07-14T03:01:03+00:00
+
+**Content Preview:**
+A warm, late-summer night in Bruges. Two men in suits &#8212; perhaps coworkers on a business trip &#8212; stumble out of an establishment and onto a cobblestone street. One of them nearly trips over a planter box. KRISTJAN: (muttering) Can&#8217;t believe they kicked us out. ERIK: Let&#8217;s go to another bar, yeah? KRISTJAN: Yeah&#8230; do you know the way? ERIK: No clue. It&#8217;s my first time here. Let&#8217;s walk. &#128600; 11:38 PM &#128602; KRISTJAN : &#8230;so they observed that a particle could be in a state of superposition, yeah? A photon somehow goes through both slits. But if you measure&#8230; (burps) &#8230; if you measure which slit it&#8217;s going for, the superposition disappears. Poof! Just like that. ERIK: I&#8217;ve heard about that. Like that cat in a box, too? Alive and dead until you peek? KRISTJAN: Exactly. Schr&#246;&#8230; Schr&#246;dinger&#8217;s cat. They call it the wave function collapse. There&#8217;s a magic gnome rolling dice the moment you open the box. Man&#8230; what a load of crap. ERIK: Heh&#8230; so what&#8217;s your take? KRISTJAN : Huh? Oh&#8230; many worlds. It&#8217;s the only one that makes sense. No&#8230; you know&#8230; nondeterminism. No magic gnomes, no hidden variables. A guy called Everett came up with it. It&#8217;s actually mainstream physics now, I think. ERIK: That&#8217;s the one where every possible quantum outcome just&#8230; happens? And the universe splits into parallel timelines? KRISTJAN: Kinda. &#8220;Universe&#8221; is a big word, ya know? It could be just a couple of particles that&#8230; decohere. But if you interact with them, the contagion spreads. An expanding bubble of parallel reality. ERIK: It&#8217;s wild, for sure. Is that a bar? KRISTJAN: Looks closed. We can keep walking. I don&#8217;t know where we are anyway. &#128600; 12:05 AM &#128602; KRISTJAN: &#8230;and the thing is, the chemistry of our brains? It&#8217;s just quantum mechanics, right? Think about it! Every day, every minute, e...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 296: Gödel's beavers, or the limits of knowledge
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/monkeys-typewriters-and-busy-beavers
+**Published:** 2025-06-30T03:29:31+00:00
+
+**Content Preview:**
+If you follow geeky news, you might have came across a computer science concept known as busy beavers. That said, unless you&#8217;re a mathematician by training or trade, the articles make it hard to understand what the concept means and why you should (or shouldn&#8217;t) care. In today&#8217;s article, I&#8217;d like to take a stab at answering this in an accessible way &#8212; and in the process of doing so, dive into some of the mind-bending limits of algorithmic knowledge. If you have some experience with software, it should be easy to follow along, and I think it&#8217;ll be worth your time. Quick recap: the halting problem The halting problem is the most famous concept in theoretical computer science. Most simply, it states that there in an idealized computing environment, there are algorithms whose outcomes can&#8217;t be decided by another algorithm. This is usually reduced to the question of whether a program ever terminates. That said, halting is not special: we could be as well asking whether it can reach any other state. The basic proof by contradiction is to imagine that we have a function called halts(x) . Its implementation doesn&#8217;t concern us; let&#8217;s say we found it in an ancient book of forbidden lore. The function, given the specification of an arbitrary program x, returns true if the program halts or false if it doesn&#8217;t. If such an algorithmic oracle exists, we can construct the following code: function foo() { if (halts(foo)) loop_forever(); } This is akin to asking a fortune-teller if you&#8217;re going to tip them and then doing the opposite. This program doesn&#8217;t halt if and only if the oracle deems it to be a halting program, so the existence of halts(x) creates a paradox. We must conclude that, just like our tip-predicting clairvoyant, an infallible halting oracle can&#8217;t exist. Note that the proof doesn&#8217;t deal with computational complexity; it deals with logical impossibility. It also doesn&#8217;t say that ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 297: Self-referential abstractions
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/self-referential-abstractions
+**Published:** 2025-06-06T15:40:18+00:00
+
+**Content Preview:**
+When you think about it, every discipline has its own philosophy of knowledge. In mathematics, for example, you gain insights by tearing apart mushy concepts and then rebuilding them from scratch. Can you define numbers better than &#8220;the things we count with&#8221; ? A mathematician has the power conjure them from nothing: the cardinality (the element count) of an empty set (&#8709;) is zero; a set containing the empty set ({&#8709;}) has a cardinality of one. Put these two sets together in a new set ({&#8709;, {&#8709;}}) and you have the concept of two. Reals take a bit more work, but are also within reach &#8212; and so are various distinct flavors of infinity. In most applied sciences, in contrast, the building block of knowledge is a functional abstraction &#8212; a black box, or an API in the software engineering parlance. It&#8217;s usually counterproductive to look inside. You don&#8217;t need to know why Maxwell&#8217;s equations for electromagnetism work; you get more done if you take them for granted and build on that. In the same vein, an engineer working on a web application shouldn&#8217;t concern herself with the physics of transistors; and a person using Google Docs doesn&#8217;t need to know JavaScript. This brings us to analog electronics. Regular readers know that I write about this topic often &#8212; and when you take a step back, you have to appreciate that the field has a very special, self-referential approach to explaining the real world. It all starts innocently enough. For example, we say that an ideal resistor is nothing more than a simple linear equation: I = V/R . It&#8217;s not really a physical device: it&#8217;s the concept of admitting current (I) that&#8217;s proportional to the applied voltage (V) and inversely proportional to the rated resistance (R). The physical implementation &#8212; or even the fundamental meaning of these quantities &#8212; is out of scope. The equation is all there is. In the same vein, an ideal capaci...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 298: The proof that π = 4
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/4
+**Published:** 2025-06-05T21:43:49+00:00
+
+**Content Preview:**
+In an article published here last week , I discussed the perils of thinking about infinity as a number. More specifically, I criticized the structure of some of the elementary proofs that 0.9999&#8230; = 1. As a teaching prop, I wheeled out the following equation: This is an endless sum of alternating +1 and -1 terms. Pairwise, they all work out to zero, so the equation seems to make sense. At the same time, there&#8217;s no risk of running out of terms in an infinite sum, so it seems harmless to shift the annotations one position to the right: This seems to be saying that 1 = 0. Oops. The reason I like this &#8220;proof&#8221; is that it&#8217;s hard to reflexively dismiss. A common reaction is &#8220;oh yeah, but this left an unpaired - 1 at infinity&#8221;, but what does this mean? If there&#8217;s a single, specific element at the &#8734;-th position in the sum, what do we find at position &#8734; + 1?&#8230; In the earlier article, we concluded that in contexts like these, infinity must be understood as a process metaphor, not a quantity. We&#8217;re not talking about an infinite number of steps as much as we&#8217;re talking about an ill-specified number of steps. Got it, are we done now? Well, sort of. Thinking of infinity as a process helps us make sense of a good chunk of higher math, but it&#8217;s not always enough. Sometimes, it&#8217;s easy to fixate on the notion of infinity and miss more basic flaws in our reasoning. Consider the following troll proof that &#960; = 4: Time is a flat circle. We begin by drawing a circle with a diameter of 1; it follows that the circumference of this circle is 1 &#960;. We then draw a 1&#215;1 square around the circle. The perimeter of the square is a sum of the lengths of its sides: 1 + 1 + 1 + 1 = 4. Next, we &#8220;fold back&#8221; small sections near the corners of the square. We trim and reorient segments of length a such that the inverted corner just touches the circumference of the circle. Critically, this operat...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 299: 0.9999... ≊ 1
+
+**Publication:** lcamtuf’s thing
+**Author:** lcamtuf
+**URL:** https://lcamtuf.substack.com/p/09999-1
+**Published:** 2025-06-01T05:37:35+00:00
+
+**Content Preview:**
+I&#8217;ve been long fascinated by the endless online debates about whether the infinite decimal expansion 0.9999&#8230; is exactly equal to 1. The canonical answer is yes. But there&#8217;s a considerable number of blogs and videos that will try to convince you otherwise &#8212; and in the process, expose the sinister machinations of Big Math. What&#8217;s unique about this situation is that while it feels like bog-standard online crackpottery, it&#8217;s sort of running in reverse . The belief that 0. &lt;whatever&gt; must be less than 1. &lt;whatever&gt; makes perfect sense to rational people. Any website that tries to convince you otherwise probably also has some posts about chemtrails and reptilian mind control?&#8230; The end result is that despite the existence of various proofs, the educators pretty consistently fail to impress this concept upon students &#8212; and it&#8217;s interesting to ponder why! Proof stage 1: denial To get started, let&#8217;s consider the most common elementary sorta-proof: It&#8217;s simple &#8212; but is it compelling? There are many questions one can ask. Is that endless decimal a faithful representation of &#8531;, or are the dots covering up the fact that it&#8217;s always a bit off? Is it legal to multiply this infinite notation by a number? When multiplying a sequence of digits, aren&#8217;t we supposed to start at the infinitely distant right side &#8212; and how do we ever make it back from there?&#8230; Of course, you can use intuition &#8212; but the whole point of this proof is to teach that intuition fails! Fine. Let&#8217;s try another one: Oh man, that&#8217;s even more suspect. We just multiplied an infinite decimal expansion by 10. Doesn&#8217;t that add a zero at the &#8220;end&#8221;? If not, where did the zero go?! A blogger exposes the shocking truth: Found on an online blog. Don&#8217;t look too hard. Some sources also give a proof by contradiction: if you have two different real numbers, you should be able to...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 300: Where to invest today
+
+**Publication:** Pointer Research
+**Author:** Taimoor Khan
+**URL:** https://pointer.substack.com/p/coming-soon
+**Published:** 2021-08-19T09:10:12+00:00
+
+**Content Preview:**
+Welcome to Pointer Research by me, Taimoor Khan. I research investments Sign up now so you don&#8217;t miss the first issue. Subscribe now In the meantime, tell your friends !...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 301: Coming soon
+
+**Publication:** Tldr Newsletter
+**Author:** asdaa as
+**URL:** https://tldr.substack.com/p/coming-soon
+**Published:** 2019-02-12T14:43:33+00:00
+
+**Content Preview:**
+Substack is a platform for email newsletters. The author of this publication will no doubt be publishing their first edition soon. In the meantime, you can find out more about Substack at&nbsp; substack.com .&nbsp; (Publishers can delete this post by finding it in the &#8220;Posts&#8221; section of of the dashboard, clicking &#8220;Edit&#8221; on the Coming Soon post, clicking &#8220;Setting&#8221;s at the bottom, then clicking &#8220;Delete Post&#8221;. But don&#8217;t delete it something has been published to take its place &#8211; otherwise, this homepage will look empty.) Here are some other Substack publications worth checking out: Daniel Mallory Ortberg&#8217;s The Shatner Chatner Judd Legum&#8217;s Popular Information Helena Fitzgerald&#8217;s Griefbacon Bill Bishop&#8217;s Sinocism Kelly Dwyer&#8217;s The Second Arrangement Walter Hickey&#8217;s Numlock...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 302: Deep Learning Weekly: Issue 437
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-437
+**Published:** 2026-01-08T16:02:39+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Comet, Vercel, and Google DeepMind launch a month-long AI Agents hackathon with $30K prizes , 2025: The year in LLMs by Simon Willison , and a paper on NitroGen: An Open Foundation Model for Generalist Gaming Agents . You may also enjoy TII&#8217;s Falcon H1R 7B can out-reason models up to 7x its size , The importance of Agent Harness in 2026 , a paper on State of AI | An Empirical 100 Trillion Token Study with OpenRouter , and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry Comet, Vercel, and Google DeepMind launch a month-long AI Agents hackathon with $30K prizes Kicking off Jan 13, the virtual hackathon focuses on shipping LLM-powered apps that turn New Year&#8217;s resolutions into measurable outcomes across six impact categories. Nvidia&#8217;s Cosmos Reason 2 aims to bring reasoning VLMs into the physical world NVIDIA released Cosmos Reason 2, an open-source reasoning vision-language model that enables robots and AI agents to understand and navigate the physical world. TII&#8217;s Falcon H1R 7B can out-reason models up to 7x its size Technology Innovation Institute launched Falcon H1R 7B, a reasoning model using hybrid Transformer-Mamba architecture that matches or outperforms competitors 2-7x its size through architectural efficiency and test-time scaling. MLOps &amp; LLMOps . Multi-Agent Systems: The Architecture Shift from Monolithic LLMs to Collaborative Intelligence An architecture guide explaining the evolution from monolithic LLM prompts to multi-agent systems, covering architectural philosophies, cognitive patterns, and production challenges. The importance of Agent Harness in 2026 A technical blog post arguing that Agent Harnesses&#8212;the infrastructure layer managing long-running AI tasks&#8212;will become critical in 2026 as model differentiation shifts from benchmark performance to d...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 303: Deep Learning Weekly: Issue 436
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-436
+**Published:** 2026-01-01T16:25:58+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you GPT-5.2-Codex , Prompt Drift: The Hidden Failure Mode Undermining Agentic Systems , and a paper on Adaptation of Agentic AI . You may also enjoy Mistral OCR 3 , 2025 LLM Year in Review | karpathy , a paper on: From Code Foundation Models to Agents and Applications: A Comprehensive Survey and Practical Guide to Code Intelligence , and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry Introducing GPT-5.2-Codex | OpenAI An introduction to GPT-5.2-Codex, OpenAI&#8217;s most advanced agentic coding model optimized for complex software engineering and defensive cybersecurity. Introducing Mistral OCR 3 An introduction to Mistral OCR 3, achieving 74% win rate over its predecessor with state-of-the-art accuracy on forms, handwriting, and complex tables. Introducing Runway GWM-1 Runway announces a real-time General World Model family with three variants for explorable environments, interactive characters, and robotic manipulation. Meta Platforms buys Manus to bolster its agentic AI skillset Meta acquires Singapore-based Manus, a general-purpose AI agent that reached $100M ARR in just eight months. MLOps &amp; LLMOps . Prompt Drift: The Hidden Failure Mode Undermining Agentic Systems A blog post explaining prompt drift and how it undermines multi-step agentic systems through subtle reasoning degradation rather than clean failures. We removed 80% of our agent&#8217;s tools A case study about how Vercel simplified their internal text-to-SQL agent (d0) by removing 80% of specialized tools and replacing them with a single bash command execution tool. Agents Meet Databases: The Future of Agentic Architectures A MongoDB article exploring two architectural paths for connecting AI agents to databases: standardized MCP servers versus custom LangChain integrations, with emphasis on accuracy, security, and performance trade-of...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 304: Deep Learning Weekly: Issue 435
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-435
+**Published:** 2025-12-18T16:02:52+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Announcing the Future of AI Engineering: Self-Optimizing Agents , Fantastic Bugs and Where to Find Them in AI Benchmarks , and a paper on Motif-2-12.7B-Reasoning: A Practitioner&#8217;s Guide to RL Training Recipes . You may also enjoy Introducing SAM Audio: The First Unified Multimodal Model for Audio Separation , Letta Code: A Memory-First Coding Agent , a paper on Evaluating AI&#8217;s ability to perform scientific research tasks , and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry Gemini 3 Flash: frontier intelligence built for speed Google announced Gemini 3 Flash, achieving 90.4% on GPQA Diamond and 78% on SWE-bench Verified while being 3x faster than Gemini 2.5 Pro at $0.50 per million input tokens. Introducing SAM Audio: The First Unified Multimodal Model for Audio Separation Meta announces SAM Audio, the first unified multimodal model enabling intuitive audio separation through text, visual, or temporal prompts, achieving state-of-the-art performance.. NVIDIA Debuts Nemotron 3 Family of Open Models NVIDIA launches the Nemotron-3 family of open-source AI models, offering developers new tools for building and deploying customizable language models across various applications. Interactions API: A unified foundation for models and agents Google launches Interactions API, featuring server-side state management, background execution, and access to Gemini Deep Research agent. Introducing OpenSearch 3.4 OpenSearch announces version 3.4 release, introducing new features and improvements to the open-source search and analytics suite for enhanced performance, security, and developer experience. New method enables small language models to solve complex reasoning tasks MIT CSAIL researchers develop a training method that enables small language models to perform complex reasoning tasks by learning to genera...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 305: Deep Learning Weekly: Issue 434
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-434
+**Published:** 2025-12-11T16:00:36+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Introducing: Devstral 2 and Mistral Vibe CLI , AI Agent Orchestration Flows , and a paper on Z-Image: An Efficient Image Generation Foundation Model with Single-Stream Diffusion Transformer . You may also enjoy MCP support for Apigee , Claude Agent Skills: A First Principles Deep Dive , a paper on DeepCode: Open Agentic Coding , and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry Introducing: Devstral 2 and Mistral Vibe CLI Mistral released Devstral 2, a state-of-the-art open-source coding model achieving 72.2% on SWE-bench Verified, alongside Mistral Vibe CLI. MCP support for Apigee Google Cloud announces Model Context Protocol (MCP) support in Apigee, allowing developers to turn existing APIs into secure, governed agentic tools without code changes or managing MCP servers. Claude Code is coming to Slack, and that&#8217;s a bigger deal than it sounds Anthropic launches Claude Code in Slack beta, letting developers delegate complete coding workflows directly from chat threads. OpenAI to acquire Neptune OpenAI has entered into a definitive agreement to acquire neptune.ai, strengthening the tools and infrastructure that support progress in frontier research. Multimodal AI provider fal nabs $140M amid rapid growth Multimodal AI startup fal raised a $140 million series D led by Sequoia, growing revenue by 300% since July with 600+ AI models for image, audio, and video generation. Oboe raises $16 million from a16z for its AI-powered course generation platform Oboe, a learning startup from Anchor co-founders and former Spotify execs Nir Zicherman and Michael Mignano, has raised $16 million in Series A funding led by a16z. MLOps &amp; LLMOps . AI Agent Orchestration Flows An explanatory post defining agent orchestration as the architectural layer that manages non-deterministic control flow and the iterative Th...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 306: Deep Learning Weekly: Issue 433
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-433
+**Published:** 2025-12-04T16:03:08+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Introducing Mistral 3 , MCP Explorer , and a paper on Agentic Bridge Framework: Closing the Gap Between Agentic Capability and Performance Benchmarks . You may also enjoy Laying the Foundations for Visual Intelligence , 8 learnings from 1 year of agents , a paper on SoMi-ToM: Evaluating Multi-Perspective Theory of Mind in Embodied Social Interactions , and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry Introducing Mistral 3 The Mistral team announced Mistral 3, which includes three state-of-the-art small models and Mistral Large 3 &#8212; a sparse mixture-of-experts model. Laying the Foundations for Visual Intelligence&#8212;$300M Series B | Black Forest Labs Black Forest Labs raises $300M Series B at $3.25B valuation to advance visual intelligence models beyond its popular FLUX image generation platform. New training method boosts AI multimodal reasoning with smaller, smarter datasets Researchers at MiroMind AI and several Chinese universities have released OpenMMReasoner, a training framework that improves the capabilities of models in multimodal reasoning. Skill Learning: Bringing Continual Learning to CLI Agents The Letta team released Skill Learning, a way for Letta Code to dynamically learn skills over time. MLOps &amp; LLMOps . MCP Explorer An educational project for learning Anthropic&#8217;s Model Context Protocol through a narrative-driven and interactive learning experience. 8 learnings from 1 year of agents A detailed retrospective blog post sharing 8 key learnings from a year of developing PostHog AI, focusing on architectural choices like using a single LLM loop and the power of continuous model improvements. OpenSearch as an agentic memory solution: Building context-aware agents using persistent memory A blog post that explores the memory challenges facing AI agents, introduces agentic m...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 307: Deep Learning Weekly: Issue 432
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-432
+**Published:** 2025-11-26T18:01:52+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Claude Opus 4.5 , Continuous batching from first principles , and a paper on HunyuanOCR Technical Report . You may also enjoy Introducing SAM 3D: Powerful 3D Reconstruction for Physical World Images , Disrupting the first reported AI-orchestrated cyber espionage campaign , a paper on General Agentic Memory Via Deep Research , and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry Introducing Claude Opus 4.5 \ Anthropic Anthropic released Claude Opus 4.5, the company&#8217;s most intelligent model yet with state-of-the-art performance in coding and agentic tasks. Introducing SAM 3D: Powerful 3D Reconstruction for Physical World Images The Meta AI team announced SAM 3D, a release that includes SAM 3D Objects for scene reconstruction and SAM 3D Body for human body estimation. Expanding data residency access to business customers worldwide OpenAI announced that eligible customers using ChatGPT Enterprise, ChatGPT Edu, or the API Platform in many global markets can now choose local data residency. Fara-7B: An Efficient Agentic Model for Computer Use The Microsoft AI team announced Fara-7B, their first agentic SLM designed specifically for computer use. Olmo 3: Charting a path through the model flow to lead open-source AI Ai2 releases OLMo 3, a fully open language model family with complete training data and development pipeline transparency. FLUX.2: Frontier Visual Intelligence Black Forest Labs releases FLUX.2, a new image generation model with multi-reference support and 4MP resolution editing. MLOps &amp; LLMOps . Antigravity and PostgreSQL: No gravity, only vibes | by MCP Toolbox for Databases An article about using Google Antigravity IDE and Gemini 3 with Model Context Protocol to streamline PostgreSQL database development through natural language interactions. Introducing agentic search in OpenSearch: Tra...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 308: Deep Learning Weekly: Issue 431
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-431
+**Published:** 2025-11-19T16:31:36+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Gemini 3 , The Definitive Guide to Agentic AI , and a paper on Depth Anything 3: Recovering the Visual Space from Any Views . You may also enjoy GPT-5.1 , Code execution with MCP: building more efficient AI agents , a paper on MiroThinker: Pushing the Performance Boundaries of Open-Source Research Agents via Model, Context, and Interactive Scaling , and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry A new era of intelligence with Gemini 3 Google releases Gemini 3 Pro with breakthrough reasoning scores, PhD-level performance on benchmarks, and enhanced multimodal and agentic coding capabilities. Grok 4.1 | xAI xAI introduced Grok 4.1, which brings significant improvements to the real-world usability of Grok. GPT-5.1: A smarter, more conversational ChatGPT OpenAI releases GPT-5.1 with adaptive reasoning, improved conversational style, and enhanced customization options for ChatGPT users. MLOps &amp; LLMOps . The Definitive Guide to Agentic AI: What AI Agents Actually Are and How to Build Them for Production Discover the core principles behind truly agentic AI systems, how to build them for production, and the reasons they often fail at scale. Qdrant 1.16 - Tiered Multitenancy &amp; Disk-Efficient Vector Search A technical update announcing Qdrant 1.16, which introduces Tiered Multitenancy, the ACORN search algorithm, and Inline Storage for disk-efficient, high-performance vector search. Building an Interactive AI Agent for Lightning-Fast Machine Learning Tasks A technical blog post about building a data science agent using Nemotron Nano-9B-v2 and CUDA-X libraries, delivering massive 3x to 43x speedups for ML experimentation. Code execution with MCP: building more efficient AI agents \ Anthropic An article detailing how adopting code execution with the Model Context Protocol (MCP) reduces token consumptio...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 309: Deep Learning Weekly: Issue 430
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-430
+**Published:** 2025-11-13T16:02:08+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Kimi K2 Thinking , Nested Learning: A new ML paradigm for continual learning , and a paper on SPICE: Self-Play In Corpus Environments Improves Reasoning . You may also enjoy Omnilingual ASR: Advancing Automatic Speech Recognition for 1,600+ Languages , TabPFN-2.5 Model Report , a paper on Synthetic Socratic Debates: Examining Persona Effects on Moral Decision and Persuasion Dynamics , and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry Kimi K2 Thinking The Moonshot team introduced Kimi K2 Thinking, an open-source thinking model that sets new records across benchmarks that assess reasoning, coding, and agent capabilities. Omnilingual ASR: Advancing Automatic Speech Recognition for 1,600+ Languages Meta introduced Omnilingual Automatic Speech Recognition (ASR), a suite of models providing automatic speech recognition capabilities for more than 1,600 languages. TabPFN-2.5 Model Report Prior Labs releases TabPFN-2.5, a tabular foundation model that matches complex AutoGluon ensembles while scaling to 50,000 samples and 2,000 features. Anthropic and Iceland announce one of the world&#8217;s first national AI education pilots Anthropic and Iceland&#8217;s Ministry of Education and Children announced a partnership to bring Claude to teachers across the nation, launching one of the world&#8217;s first comprehensive national AI education pilots. AI-powered visual presentation platform Gamma raises $68M at $2.1B valuation Gamma announced that it has raised $68 million, led by Andreessen Horowitz, at a valuation of $2.1 billion. MLOps &amp; LLMOps . Human-in-the-Loop Review Workflows for LLM Applications &amp; Agents A blog post explaining Human-in-the-Loop review workflows, including systematic tracing and structured rubric design. Building powerful RAG pipelines with Docling and OpenSearch A technical blog post ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 310: Deep Learning Weekly: Issue 429
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-429
+**Published:** 2025-11-05T16:45:55+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Introducing Aardvark: OpenAI&#8217;s agentic security researcher , Stress-testing model specs reveals character differences among language models , and a paper on Kimi Linear: An Expressive, Efficient Attention Architecture . You may also enjoy State of AI Ethics Report Volume 7 , Beyond Standard LLMs , a paper on LinEAS: End-to-end Learning of Activation Steering with a Distributional Loss , and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry Introducing Aardvark: OpenAI&#8217;s agentic security researcher OpenAI announced Aardvark, an agentic security researcher powered by GPT&#8209;5. State of AI Ethics Report (SAIER) Volume 7 A special edition report overview discussing the State of AI Ethics in 2025, which analyzes geopolitical conflicts, societal impacts, and community-centered solutions. Real-Time Text-to-SQL Behind Snowflake Intelligence Snowflake introduced Arctic-Text2SQL-R1.5, a model purpose-built for Snowflake SQL that delivers superior accuracy and up to 3x lower latency compared to general LLMs for real-time analytics. In a First, AI Models Analyze Language As Well As a Human Expert Research shows that OpenAI&#8217;s o1 exhibited metalinguistic abilities by successfully analyzing complex recursion and inferring rules of newly invented phonological systems. OpenAI inks $38B AI infrastructure deal with AWS OpenAI will rent $38 billion worth of cloud infrastructure from AWS as part of a seven-year partnership. MLOps &amp; LLMOps . Scaling Large MoE Models with Wide Expert Parallelism on NVL72 Rack Scale Systems A technical blog post explaining how NVIDIA TensorRT-LLM&#8217;s Wide Expert Parallelism efficiently scales large Mixture-of-Experts models on GB200 NVL72 systems, achieving significant performance and cost improvements. Streamlining clinical trial software configurations using Amazon...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 311: Deep Learning Weekly: Issue 428
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-428
+**Published:** 2025-10-30T15:01:16+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you DeepSeek-OCR , Introducing Chronos-2: From univariate to universal forecasting , and a paper on InteractComp: Evaluating Search Agents With Ambiguous Queries . You may also enjoy Advancing Claude for Financial Services , LLM Inference Economics from First Principles , a paper on Concerto: Joint 2D-3D Self-Supervised Learning Emerges Spatial Representations , and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry DeepSeek-OCR: Revolutionary Context Compression Through Optical 2D Mapping DeepSeek AI unveiled DeepSeek-OCR, an approach to compressing long contexts via optical 2D mapping. Advancing Claude for Financial Services \ Anthropic Anthropic expanded Claude for Financial Services with an Excel add-in, additional connectors to real-time market data and portfolio analytics, and new pre-built Agent Skills. Introducing Chronos-2: From univariate to universal forecasting Amazon introduced Chronos-2, a foundation model designed to handle arbitrary forecasting tasks &#8212; univariate, multivariate, and covariate informed &#8212; in a zero-shot manner. Grammarly transforms into AI-enabled productivity suite with Superhuman rebrand Grammarly, best known for AI-powered proofreading and writing, announced its rebrand to Superhuman: a full-featured AI-native productivity platform. MLOps &amp; LLMOps . LLM Tracing: The Foundation of Reliable AI Applications An article discussing that LLM tracing is the foundation of reliable AI applications by capturing end-to-end steps to diagnose non-deterministic and semantic failures. Build AI Agents Worth Keeping: The Canvas Framework An article about why enterprise AI agent projects fail and how to use product-first canvas frameworks to build agents that actually reach production. Learning LLM Inference Economics from First Principles A detailed article explaining LLM inferen...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 312: Deep Learning Weekly: Issue 427
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-427
+**Published:** 2025-10-22T15:01:11+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Introducing Claude Haiku 4.5 , The State of Open Models , and a paper on TOUCAN: Synthesizing 1.5M Tool-Agentic Data from Real-World MCP Environments . You may also enjoy How a Gemma model helped discover a new potential cancer therapy pathway , A Definition of AGI , a paper on Training Software Engineering Agents and Verifiers with SWE-Gym , and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry Introducing Claude Haiku 4.5 \ Anthropic Anthropic introduced Claude Haiku 4.5, the latest version of their smallest model with state-of-the-art computer-use and coding capabilities at one-third the cost. How a Gemma model helped discover a new potential cancer therapy pathway Google launched a new 27 billion parameter foundation model for single-cell analysis built on the Gemma family of open models. Method teaches generative AI models to locate personalized objects Researchers from MIT and elsewhere have introduced a new training method that teaches vision-language models to localize personalized objects in a scene. Introducing Veo 3.1 and advanced capabilities in Flow Google introduced a significantly updated version of their filmmaking tool called Veo 3.1, which brings richer audio, more narrative control, and enhanced realism. Announcing Tinker - Thinking Machines Lab Thinking Machines Lab launched Tinker, a flexible API for fine-tuning language models, which provides researchers control over the algorithms and data without having to think about the complexity of distributed training. MLOps &amp; LLMOps Legacy data to RAG : Modernise Your Apps with Amazon Sagemaker Unified Studio A blog post about modernizing applications by integrating Amazon SageMaker Unified Studio and Weaviate to facilitate efficient hybrid search and context-aware RAG queries on legacy data. Learning The State of Open Models - by Nathan ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 313: Deep Learning Weekly: Issue 426
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-426
+**Published:** 2025-10-15T15:01:15+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Introducing Gemini Enterprise , A small number of samples can poison LLMs of any size , and a paper on Self-Adapting Language Models . You may also enjoy Microsoft AI&#8217;s MAI-Image-1 , Agents 2.0: From Shallow Loops to Deep Agents , a paper on Making, not Taking, the Best of N , and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry Introducing Gemini Enterprise Google introduced Gemini Enterprise, a complete, AI-optimized platform that includes a no-code workbench, a centralized government framework, as well as various integrations to existing business applications. Introducing MAI-Image-1, debuting in the top 10 on LMArena Microsoft AI announced MAI-Image-1, their first image generation model developed entirely in-house, debuting in the top 10 text-to-image models on LMArena. Salesforce announces Agentforce 360 as enterprise AI competition heats up Salesforce announced the latest version of Agentforce 360, which includes new ways to instruct, build, and deploy AI agents. Kernel raises $22M to power browser infrastructure for AI agents Kernel has raised $22 million in funding to scale its platform so AI agents can reliably navigate, persist, and use the web. MLOps &amp; LLMOps Agents 2.0: From Shallow Loops to Deep Agents An architectural post about the shift from &#8220;Shallow Agents&#8221; to &#8220;Deep Agents&#8221; that utilize explicit planning, sub-agents, and persistent memory to solve complex, multi-step problems. Rearchitecting Letta&#8217;s Agent Loop: Lessons from ReAct, MemGPT, &amp; Claude Code A technical post detailing the rearchitecture of Letta&#8217;s agent loop, transitioning from older models like MemGPT to a V1 design leveraging modern LLM capabilities such as native reasoning. Securing your agents with authentication and authorization An article on securing agents by implementi...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 314: Deep Learning Weekly: Issue 425
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-425
+**Published:** 2025-10-09T15:03:10+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you RTEB: A New Standard for Retrieval Evaluation , Building Multi-Agent Systems with Crew AI and Weaviate , and a paper on MCPMark: A Benchmark for Stress-Testing Realistic and Comprehensive MCP Use . You may also enjoy Introducing the Gemini 2.5 Computer Use model , Petri: An open-source auditing tool to accelerate AI safety research , a paper on TaTToo: Tool-Grounded Thinking PRM for Test-Time Scaling in Tabular Reasoning and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry Introducing the Gemini 2.5 Computer Use model The DeepMind team released Gemini 2.5 Computer Use, a new specialized model built on Gemini 2.5 Pro, capable of interacting with user interfaces. IBM releases Granite 4 series of Mamba-Transformer language models IBM open-sourced Granite 4, a series of language models that combines elements of two different neural network architectures. Google launches its AI vibe-coding app Opal in 15 more countries Google is expanding access to Opal, an AI vibe-coding app which lets you create mini web apps using text prompts, to 15 more countries. MLOps &amp; LLMOps Give Your AI Agents Deep Understanding &#8212; Creating the LLMS.txt with a Multi-Agent ADK Solution An article about designing and building a multi-agent system using Google&#8217;s ADK that automatically generates llms.txt files to give AI agents a structured understanding of code repositories. Scaling Pinterest ML Infrastructure with Ray: From Training to End-to-End ML Pipelines An article about how Pinterest extended Ray across their ML infrastructure with native data transformations, Iceberg bucket joins, and data persistence to accelerate feature development and reduce costs. Building Multi-Agent Systems with Crew AI and Weaviate A technical blog post about building complex multi-agent systems using CrewAI for orchestration, leveraging ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 315: Deep Learning Weekly: Issue 424
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-424
+**Published:** 2025-10-01T15:02:41+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you OpenAI&#8217;s Sora 2 , Developing an open standard for agentic commerce , and a paper on Enter the Mind Palace: Reasoning and Planning for Long-term Active Embodied Question Answering . You may also enjoy Claude Sonnet 4.5 , CWM: An Open-Weights LLM for Research on Code Generation with World Models , a paper on Scaling Agents via Continual Pre-training and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry Sora 2 is here | OpenAI OpenAI released Sora 2, their flagship video and audio generation model. Introducing Claude Sonnet 4.5 Anthropic unveiled Claude Sonnet 4.5, which boasts state-of-the-art coding and computer use performance, and accompanies the release of the Claude Agent SDK. Introducing Liquid Nanos &#8212; frontier&#8209;grade performance on everyday devices The Liquid AI team launched Liquid Nanos &#8212; a family of models that deliver frontier&#8209;model quality on specialized, agentic tasks while running directly on embedded devices. OpenAI adds Instant Checkout shopping feature to ChatGPT OpenAI launched a new ChatGPT feature that enables users to make online purchases directly in the chatbot&#8217;s interface. Vibe working: Introducing Agent Mode and Office Agent in Microsoft 365 Copilot The Microsoft team brought &#8220;vibe working&#8221; to Microsoft 365 Copilot with Agent Mode in Office apps and Office Agent in Copilot chat. Meta strikes expanded $14.2B AI infrastructure deal with CoreWeave Shares of CoreWeave jumped more than 11% after announcing that they signed a new multibillion-dollar agreement with Meta to provide them with AI compute infrastructure. MLOps &amp; LLMOps Why Multi-Agent Systems Need Memory Engineering An article about how shared memory infrastructure is essential for multi-agent AI systems to coordinate effectively and avoid the failures that plague stateless in...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 316: Deep Learning Weekly: Issue 423
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-423
+**Published:** 2025-09-24T15:02:42+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you DeepSeek-V3.1-Terminus , Introduction to LLM-as-a-Judge For Evals , and a paper on LIMI: Less is More for Agency . You may also enjoy Luma AI launches Ray3 , The &#8220;Super Weight:&#8221; How Even a Single Parameter can Determine a Large Language Model&#8217;s Behavior , a paper on Sharing is Caring: Efficient LM Post-Training with Collective RL Experience Sharing and more! As always, happy reading and hacking. If you have something you think should be in next week&#8217;s issue, find us on Twitter: @dl_weekly . Until next week! Industry DeepSeek-V3.1-Terminus The DeepSeek team introduced DeepSeek-V3.1-Terminus, an upgraded version of its V3.1, designed to improve language consistency and agentic tool effectiveness. Luma AI launches Ray3 Luma AI announced the launch of Ray3, a powerful text-to-video AI model with built-in reasoning, designed for high-quality cinematic visual production for professionals. Strengthening our Frontier Safety Framework The DeepMind team published the third iteration of their Frontier Safety Framework (FSF) &#8212; their most comprehensive approach yet to identifying and mitigating severe risks from advanced AI models. Former NotebookLM devs&#8217; new app, Huxe, taps audio to help you with news and research Former NotebookLM devs are now building an audio-first app called Huxe, which can similarly help users dive deep into topics by generating a &#8220;podcast&#8221; with multiple AI hosts. Gemini comes to Google TV Google introduced Gemini for TV for engaging in free-flowing conversations with your big screen. MLOps &amp; LLMOps Introduction to LLM-as-a-Judge For Evals A guide on how to use one LLM to evaluate and score the outputs of another, the pros and cons of this approach, and the steps to getting started using LLM-as-a-Judge. A postmortem of three recent issues \ Anthropic A comprehensive postmortem about three complex, overlapping infrastructure bugs that intermittently degraded Claude&...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 317: Deep Learning Weekly: Issue 422
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-422
+**Published:** 2025-09-18T15:01:47+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you The Ultimate Guide to LLM Evaluation: Metrics, Methods &amp; Best Practices , How to Train an LLM-RecSys Hybrid for Steerable Recs with Semantic IDs , and a paper on Hierarchical Reasoning Model . You may also enjoy OpenAI's GPT-5-Codex , Writing effective tools for AI agents&#8212;using AI agents , a paper on From CVE Entries to Verifiable Exploits: An Automated Multi-Agent Framework for Reproducing CVEs and more! As always, happy reading and hacking. If you have something you think should be in next week's issue, find us on Twitter: @dl_weekly . Until next week! Industry Announcing Agent Payments Protocol (AP2) Google announced the Agent Payments Protocol (AP2), an open protocol developed to securely initiate and transact agent-led payments across platforms. Introducing upgrades to Codex | OpenAI OpenAI released GPT&#8209;5-Codex&#8212;a version of GPT&#8209;5 further optimized for agentic coding in Codex Cohere opens Paris office as EMEA hub Cohere expands their presence in Europe with the official launch of a Paris office, which will serve as the central hub for operations across Europe, the Middle East, and Africa (EMEA). What will AI look like in 2030? A report from Epoch AI that examines infrastructure implications and future AI capabilities if AI scaling persists to 2030. Workday acquires Sana Labs for $1.1B to upgrade agentic AI work experiences Workday announced the acquisition of Sana Labs, an AI company offering enterprise knowledge and employee training tools, for about $1.1 billion. MLOps &amp; LLMOps Writing effective tools for AI agents&#8212;using AI agents \ Anthropic An article outlining techniques and principles for writing effective tools for AI agents, emphasizing evaluation and agent-assisted optimization to boost performance in real-world tasks. How to turn Claude Code into a domain specific coding agent A blog post exploring experimental configurations to transform Claude Code into a domain-specific c...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 318: Deep Learning Weekly: Issue 421
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-421
+**Published:** 2025-09-10T15:02:53+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Claude can now create and use files , Measuring Thinking Efficiency in Reasoning Models: The Missing Benchmark , and a paper on Parallel-R1: Towards Parallel Thinking via Reinforcement Learning . You may also enjoy The UAE Showcases Its Abilities In AI Reasoning With K2 Think Model , Why language models hallucinate , a paper on On the Theoretical Limitations of Embedding-Based Retrieval and more! As always, happy reading and hacking. If you have something you think should be in next week's issue, find us on Twitter: @dl_weekly . Until next week! Industry Claude can now create and use files \ Anthropic Claude can now create and edit Excel spreadsheets, documents, PowerPoint slide decks, and PDFs directly in Claude.ai and the desktop app The UAE Showcases Its Abilities In AI Reasoning With K2 Think Model The Mohamed bin Zayed University of Artificial Intelligence and the G42 technology group have just announced the open-source K2 Think reasoning model. A new generative AI approach to predicting chemical reactions A new generative AI system developed at MIT could provide realistic predictions for a wide variety of chemical reactions, while maintaining real-world physical constraints. Atlassian acquires AI browser developer The Browser Company for $610M Atlassian is buying The Browser Company, a startup that develops browsers with embedded AI features, for $610M. Mistral AI raises $2B led by semiconductor equipment maker ASML at $14B valuation Mistral AI announced that it has raised &#8364;1.7 billion, about $2 billion, in a Series C funding round led by Dutch semiconductor equipment manufacturer ASML. MLOps &amp; LLMOps Nano Banana + Milvus: Turning Hype into Enterprise-Ready Multimodal RAG A blog post demonstrating how to integrate the Nano Banana image generation model with the Milvus vector database to build an enterprise-ready multimodal RAG system. Learning Measuring Thinking Efficiency in Reasoning Models: The Missing Benc...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 319: Deep Learning Weekly: Issue 420
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-420
+**Published:** 2025-09-03T15:02:40+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Tencent's Hunyuan-MT translation models , Le Chat. Custom MCP connectors. Memories , and a paper on USO: Unified Style and Subject-Driven Generation via Disentangled and Reward Learning . You may also enjoy Fine-Tuning gpt-oss for Accuracy and Performance with Quantization Aware Training , a paper on A Survey of Scientific Large Language Models: From Data Foundations to Agent Frontiers , and more! As always, happy reading and hacking. If you have something you think should be in next week's issue, find us on Twitter: @dl_weekly . Until next week! Industry Tencent open-sources Hunyuan-MT translation model series Tencent open-sourced a new lineup of language models, the Hunyuan-MT series, that is optimized for translation tasks. Le Chat. Custom MCP connectors. Memories. Mistral&#8217;s Le Chat now integrates with 20+ enterprise platforms&#8212;powered by MCP&#8212;and remembers what matters with Memories. How Sakana AI's new evolutionary algorithm builds powerful AI models without expensive retraining A new evolutionary technique from Japan-based AI lab Sakana AI enables developers to augment the capabilities of AI models without costly training and fine-tuning processes. MIT researchers develop AI tool to improve flu vaccine strain selection Researchers from MIT set out to make vaccine selection more accurate by creating an AI system designed to predict dominant flu strains and identify vaccine candidates. Anthropic triples valuation to $183B in new $13B funding round Anthropic announced that it has raised $13 billion in funding to support its AI research and commercialization efforts. Amazon launches Lens Live, an AI-powered shopping tool for use in the real world Amazon launched Lens Live, a new AI-powered upgrade to its Amazon Lens shopping feature that allows consumers to discover new products through visual search. MLOps &amp; LLMOps LangExtract + Milvus: A Practical Guide to Building a Hybrid Document Processing and Sear...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 320: Deep Learning Weekly: Issue 419
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-419
+**Published:** 2025-08-28T15:00:57+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Anthropic launches Claude for Chrome in limited beta , How a 20-Year-Old Algorithm Can Help Us Understand Transformer Embeddings , and a paper on Memento: Fine-tuning LLM Agents without Fine-tuning LLMs . You may also enjoy ByteDance Seed Open-Sources VeOmni, Unlocking Any Modality Model Training , A scalable framework for evaluating health language models , a paper on Memp: Exploring Agent Procedural Memory , and more! As always, happy reading and hacking. If you have something you think should be in next week's issue, find us on Twitter: @dl_weekly . Until next week! Industry Anthropic launches Claude for Chrome in limited beta Anthropic has begun testing a Chrome browser extension that allows Claude to take control of users&#8217; web browsers. ByteDance Seed Open-Sources VeOmni, Unlocking Any Modality Model Training To advance research and application of omni-modal LLMs, the ByteDance Seed team has unveiled and open-sourced VeOmni, a PyTorch-native omni-modal training framework. Stanford study finds AI has reduced availability of entry-level programming jobs A new Stanford study suggests that the number of entry-level programming jobs in the U.S. has declined significantly since the launch of ChatGPT. Google rolls out image-to-video capability to Google Vids powered by Veo 3 Google is updating its AI-enabled video app Google Vids to make it more accessible and powerful for teams to generate and edit video content. MLOps &amp; LLMOps 101 real-world gen AI use cases with technical blueprints A guide that contains 101 architectural blueprints for various generative AI use cases. 8-bit Rotational Quantization: How to Compress Vectors by 4x and Improve the Speed-Quality Tradeoff of Vector Search A technical blog post about the 8-bit Rotational Quantization method, which compresses vectors by 4x, speeds up vector search, and improves search quality by combining random rotations with scalar quantization. JUDE: LLM-based represen...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 321: Deep Learning Weekly: Issue 418
+
+**Publication:** Deep Learning Weekly
+**Author:** Miko Planas
+**URL:** https://www.deeplearningweekly.com/p/deep-learning-weekly-issue-418
+**Published:** 2025-08-20T15:03:06+00:00
+
+**Content Preview:**
+This week in deep learning, we bring you Gemma 3 270M , Best Practices for Building Agentic AI Systems: What Actually Works in Production , and a paper on GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning . You may also enjoy NVIDIA Nemotron Nano 2 , Beyond billion-parameter burdens: Unlocking data synthesis with a conditional generator , a paper on Technical Report: Evaluating Goal Drift in Language Model Agents , and more! As always, happy reading and hacking. If you have something you think should be in next week's issue, find us on Twitter: @dl_weekly . Until next week! Industry Introducing Gemma 3 270M: The compact model for hyper-efficient AI Google introduced Gemma 3 270M, a compact, 270-million parameter model designed for task-specific fine-tuning. NVIDIA Nemotron Nano 2 The NVIDIA team released the NVIDIA Nemotron Nano 2 family of accurate and efficient hybrid Mamba-Transformer reasoning models. DINOv3: Self-supervised learning for vision at unprecedented scale Meta released DINOv3, a generalist, state-of-the-art computer vision model trained with self-supervised learning that produces superior high-resolution visual features. LFM2-VL: Efficient Vision-Language Models Liquid AI released LFM2-VL, their first series of vision-language foundation models. Researchers glimpse the inner workings of protein language models In a new study, MIT researchers use sparse autoencoders to determine what features a protein language model takes into account when making predictions. MLOps &amp; LLMOps Best Practices for Building Agentic AI Systems: What Actually Works in Production A practical article about best practices for building and implementing agentic AI systems in production, covering architectural patterns, communication, error handling, and performance optimization. Hands-On with VDBBench: Benchmarking Vector Databases for POCs That Match Production A practical tutorial on evaluating vector databases for production-matching Proof of Concepts...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 322: The Sequence AI of the Week #789: Recursive Language Models: Inside the MIT Research Everyone is Talking About
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-ai-of-the-week-789-recursive
+**Published:** 2026-01-14T12:03:09+00:00
+
+**Content Preview:**
+There&#8217;s a familiar moment anyone who has tried to use a frontier model as a serious &#8220;reader&#8221; has experienced: you paste in a long document (or a pile of documents), ask a crisp question, and the model responds with something that feels&#8230; vaguely relevant. Not wrong in a glaring way. Just washed out. Like it skimmed the whole thing with sleepy eyes and then improvised. The usual remedy has been to fight length with length. Bigger context windows. More tokens. &#8220;Just fit the world into the prompt.&#8221; But the MIT CSAIL paper on Recursive Language Models (RLMs) pushes back on that instinct with a simple systems-level observation: for many tasks, the problem isn&#8217;t that the model can&#8217;t accept more text, it&#8217;s that stuffing more text into attention is the wrong computational shape. Past a point, the model isn&#8217;t reasoning over your input; it&#8217;s drowning in it. The paper names the failure mode plainly: context rot . As prompts get longer, quality degrades. Not merely because we hit a hard context limit, but because even within that limit the model&#8217;s effective &#8220;working set&#8221; becomes unmanageably large. Attention gets diluted, the signal-to-noise ratio drops, and the model begins to behave like a student forced to take an exam with every textbook in the library open at once. Technically allowed. Practically useless. Image Credit: MIT Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 323: The Sequence Knowledge #788: Inside the Generator: Meet The Top Synthetic Data Generation Frameworks for Modern AI
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-knowledge-788-inside
+**Published:** 2026-01-13T11:57:51+00:00
+
+**Content Preview:**
+Today we will Discuss: An overivew of the top synthetic data generation frameworks in the market. NVIDIA&#8217;s top framework for synthetic data generation. &#128161; AI Concept of the Day: An Overview of Synthetic Data Generation Frameworks Synthetic data has quietly become the &#8220;second scaling law&#8221; for foundation models: once you&#8217;ve saturated human-authored corpora, the only way to keep climbing is to manufacture new data with models themselves. The interesting part is that this is no longer done with ad-hoc scripts; we&#8217;re seeing full-fledged frameworks that treat synthetic generation as an infrastructure problem. NVIDIA: Nemotron-4 + NeMo as a synthetic data foundry Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 324: The Sequence Radar #787: Rubin, Raises, and Returns: 2026 Starts Fast
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-radar-787-rubin-raises
+**Published:** 2026-01-11T12:02:58+00:00
+
+**Content Preview:**
+Next Week in The Sequence: Our series about synthetic data generation continues with a quick exploration of the top frameworks in the space( you cant miss that). The AI of the week discusses MIT&#8217;s crazy paper about recurvise language models that everyone is talking about. The opinion section will discuss how AI evaluations need to move from static to dynamic based on environments. Subscribe and don&#8217;t miss out: TheSequence is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. &#128221; Editorial: Rubin, Raises, and Returns: 2026 Starts Fast The first full week of 2026 has been incredibly active, marked by a density of significant developments that sets a high bar for the rest of the year. From Las Vegas to Hong Kong, we saw a simultaneous rollout of critical infrastructure and financial milestones. The news cycle was dominated by major hardware reveals at CES, substantial capital injections for US labs, and the first public market tests for China&#8217;s AI startups. Rather than signaling a shift in direction, the events of this week underscore the sheer velocity and scale at which the ecosystem is currently operating. Here is the signal in the noise. 1. The Silicon Wars: From Chips to &#8220;AI Factories&#8221; At CES 2026, the pretense that the GPU is a standalone component finally ended. NVIDIA unveiled the Rubin platform , and the headline isn&#8217;t the chip itself, but the architecture. Jensen Huang&#8217;s team introduced the Rubin GPU (featuring 288GB of HBM4 memory) paired with the new Vera CPU , designed to function not as discrete units but as a single &#8220;AI supercomputer in a rack.&#8221; With a claimed 5x jump in inference speed over Blackwell, NVIDIA is pushing the &#8220;rack-scale&#8221; paradigm (NVL72) as the new unit of compute. AMD , however, refused to play second fiddle. Lisa Su announced the &#8220;Helios&#8221; platform , a rack-scale answer delivering 3 AI ex...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 325: The Sequence Opinion #786: The Great Absorption: When System Code Becomes Model Weights
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-opinion-786-the-great
+**Published:** 2026-01-08T12:02:41+00:00
+
+**Content Preview:**
+There is a distinct, unsettling feeling when you write code for AI agents today. You spend weeks architecting a beautiful orchestration framework&#8212;a complex Rube Goldberg machine of Python scripts, vector databases, regex parsers, and prompt chains&#8212;only to wake up one Tuesday morning to find that a new checkpoint from OpenAI or Anthropic has rendered 80% of your repository obsolete. We are witnessing a relentless historical trend in the generative AI era. It is a specific flavor of Rich Sutton&#8217;s &#8220;The Bitter Lesson,&#8221; playing out in real-time. In Sutton&#8217;s original formulation, hand-coded features were consistently crushed by general methods that leveraged computation. 1 In our current era, the lesson is slightly different but equally bitter: Hand-coded system scaffolding is consistently crushed by model internalization. The history of the last three years is the history of capabilities migrating from the &#8220;outside&#8221; (the system, the prompt, the agent loop) to the &#8220;inside&#8221; (the weights, the activations, the forward pass). If you are building AI products, understanding this migration isn&#8217;t just academic&#8212;it is a survival mechanism. You need to know which parts of your stack are permanent infrastructure, and which parts are just temporary scaffolding waiting to be absorbed. The Software 1.0 vs. Software 2.0 Clash Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 326: The Sequence AI of the Week #785: Gradient Highway Maintenance: Inside DeepSeek’s Latest Breakthrough
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-ai-of-the-week-785-gradient
+**Published:** 2026-01-07T12:03:06+00:00
+
+**Content Preview:**
+Today, I would like to discuss DeepSeek&#8217;s new paper that everyone is talking about . Look, if you spend enough time staring at loss curves and babysitting multi-node training runs, you develop a certain reverence for the unseen scaffolding that holds our modern AI behemoths together. We love to talk about the flashy stuff&#8212;the Attention mechanism, the Mixture-of-Experts routing, the sheer scale of the datasets. But if you peel back the layers of a Transformer, or really almost any deep network from the last decade, you find the true unsung hero of the Deep Learning revolution: the Residual Connection. Introduced back in the early ResNet days (2015 feels like ancient history now, doesn&#8217;t it?), the residual connection is beautifully simple: y = f(x) + x. You take the input x, pass it through some non-linear transformation f(x), and then just add the original x back in. Why was this revolutionary? Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 327: The Sequence Knowledge #784: The Convergence of Synthetic Data and World Models Models Are Unlocking Embodied AI
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-knowledge-784-the-convergence
+**Published:** 2026-01-06T12:08:04+00:00
+
+**Content Preview:**
+Today we will Discuss: Synthetic data generation for 3D world model environments. The amazing Genie world model from Google DeepMind. &#128161; AI Concept of the Day: Sythetic Data and World Models The bottleneck for the next generation of AI&#8212;particularly embodied agents like robots and autonomous vehicles&#8212;isn&#8217;t compute; it&#8217;s reality. Gathering high-fidelity, perfectly labeled 3D data from the physical world is slow, expensive, and rarely captures the &#8220;long-tail&#8221; edge cases necessary for robust systems. The industry is increasingly turning to a powerful pairing to solve this: Synthetic Data Generation (SDG) and World Models . Together, they are moving us from training AI on static datasets to training them inside dynamic, interactive simulations. Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 328: The Sequence Radar #783: Softbank, DeepSeek, MiniMax and The Sequence 2026
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-radar-783-softbank-deepseek
+**Published:** 2026-01-04T12:01:12+00:00
+
+**Content Preview:**
+caption... Next Week in The Sequence: We continue our series about synthetic data exploring the potential for world models. We review DeepSeek&#8217;s new paper that everyone is talking about. For the opinion section, we discuss the topic of models vs systems and how frontier models are absorving many of the agentic capabilities. Subscribe and don&#8217;t miss out: TheSequence is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. &#128221; Editorial: Softbank, DeepSeek, MiniMax and The Sequence 2026 As we cross the threshold into a new year, I am upholding my annual tradition of experimenting with the structure of The Sequence . Our &#8220;north star&#8221; remains unchanged: to provide content that is technical, opinionated, and distinct from the commodity news cycle found elsewhere. We do not focus on mainstream headlines; we focus on practical AI knowledge and original perspectives. 2025 was a pivotal year for my own journey in the trenches of the industry. It was marked by the acquisition of my small-model company, NeuralFabric , by Cisco; the merger and $25M fundraise of Sentora (focusing on crypto-AI financial services); and the rapid scaling of LayerLens in the AI evaluation space. These experiences&#8212;spanning edge computing, decentralized finance, and benchmarking&#8212;have heavily influenced my perspective on AI systems. To reflect this, I am introducing several structural evolutions to the newsletter this year: A New Interview Section: I have been spending time with extraordinary engineering teams and have lined up deep-dive conversations that we will begin publishing shortly. Reimagined Knowledge Series: We observed that while our readers value the &#8220;concept of the day,&#8221; the accompanying research analysis was often too dense for a Tuesday read. We will now expand the conceptual deep-dives and reserve research analysis for more targeted updates. Engineering First: Drawing f...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 329: The Sequence Opinion #782: The New Gradient: Research Directions That Will Ship in 2026
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-opinion-782-the-new
+**Published:** 2026-01-01T12:02:47+00:00
+
+**Content Preview:**
+As the first post of 2026, I wanted to share some of the research trends that I think might be super influential in this year frontier model breakthroughs. These are development that have already showed quite a bit of promise and seems ready for most ambitious implementations If you&#8217;ve been watching the loss curves over the last decade, the recipe has been surprisingly simple: take a Transformer, throw a massive pile of internet text at it, crank up the GPU cluster, and wait. And the &#8220;bitter lesson&#8221; held true&#8212;scale was all you needed. We built these incredible &#8220;stochastic parrots&#8221; that could complete your code, write poetry, and pass the bar exam, all by just really, really wanting to predict the next token. But if you look at the research papers dropping recently, the vibe has shifted. We are hitting a point where just &#8220;scaling up&#8221; the pre-training run is seeing diminishing returns. We don&#8217;t just want models that can talk smooth; we want models that can think straight. As we look toward 2026, we are moving from the era of Generative AI (making things that look real) to Verifiable AI (making things that are correct). We are effectively trying to give these models a &#8220;System 2&#8221;&#8212;that slow, deliberate, logical part of the brain that humans use when we aren&#8217;t just reacting on autopilot. Here is a look at the new stack that is making this happen. 1. RLVR: Giving the Model a Unit Test Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 330: The Sequence AI of the Week #781: The Amazing GLM 4.7
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-ai-of-the-week-781-the
+**Published:** 2025-12-31T12:03:29+00:00
+
+**Content Preview:**
+In the frenetic closing weeks of 2025, the artificial intelligence landscape was dominated by the usual titans. Google&#8217;s Gemini 3 Pro dazzled with its multimodal fluidity, and the rumor mill surrounding OpenAI&#8217;s GPT-5.2 reached a fever pitch. Yet, amidst this cacophony of frontier model releases, a quieter, perhaps more consequential shift occurred on December 22. Zhipu AI (Z.ai) released GLM-4.7 , a model that signals a definitive transition in the open-weight ecosystem: a move away from &#8220;conversational competency&#8221; toward &#8220;agentic reliability.&#8221; GLM-4.7 is not designed to be a chat partner; it is designed to be an employee. It represents a pragmatic evolution in Large Language Model (LLM) architecture, acknowledging that the future of AI lies not in how well a model can recite poetry, but in how effectively it can navigate the messy, non-deterministic reality of software development and autonomous workflows. By aggressively optimizing for long-context loops, terminal error recovery, and stateful reasoning, GLM-4.7 has positioned itself as the open-weight standard for the engineering sector in 2026. The Architectural Pivot: Mixture-of-Experts Meets &#8220;Preserved Thinking&#8221; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 331: The Sequence Knowledge # 780: Synthetic Data for Image Models
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-knowledge-780-synthetic
+**Published:** 2025-12-30T12:03:05+00:00
+
+**Content Preview:**
+Today we will Discuss: Key concepts of synthetic data generation for image models. NVIDIA&#8217;s Synthetica method used to train robots. &#128161; AI Concept of the Day: Synthetic Data Generation for Image Models Synthetic image data has moved from a niche trick to a core ingredient in modern vision systems. When real images are scarce, private, or unbalanced, synthetic pipelines let you generate pixels with known labels, push coverage into rare and long-tail cases, and iterate quickly on edge conditions. The key is choosing the right generator, the right control signals, and a rigorous quality-control loop so that synthetic variety actually translates into downstream gains. The first pillar is generative models . Diffusion models (text-to-image, image-to-image, inpainting) and GANs can produce high-fidelity scenes from prompts, masks, or reference images. Conditional controls&#8212;class labels, segmentation maps, depth, keypoints, or edge maps&#8212;add steerability; frameworks like classifier-free guidance, ControlNet-style conditioning, and style adapters let you target layout, pose, lighting, or brand aesthetics. Latent editing (prompt interpolation, attention control, LoRA adapters) turns one base generator into many styles. For dataset growth, you typically script a prompt program (scene graph &#8594; caption template), generate candidate images, then auto-label with the same controls you used to condition generation. Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 332: The Sequence Radar #779: The Inference Wars and China’s AI IPO Race
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-radar-779-the-inference
+**Published:** 2025-12-28T12:02:41+00:00
+
+**Content Preview:**
+Created Using Nano Banana Pro Next Week in The Sequence: Our knowledge series continues diving into synthetic data generation. This time we focus on synthetic image generation. In the AI of the Week section we are going to cover the newly released GLM 4.7. In the opinion section, we will discuss three non-trivial AI areas that I am excited about fro 2026. Subscribe and don&#8217;t miss out: TheSequence is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. &#128221; Editorial: The Inference Wars and China&#8217;s AI IPO Race This week, the AI industry witnessed a fascinating divergence in strategy between East and West, marked by a massive talent consolidation in Silicon Valley and a maturing public market push in Beijing. While Nvidia solidified its iron grip on inference hardware through a strategic &#8220;acqui-hire&#8221; of Groq&#8217;s leadership, China&#8217;s leading model labs&#8212;Zhipu AI and MiniMax&#8212;simultaneously released frontier-class models and cleared major regulatory hurdles for Hong Kong IPOs. The holiday headlines were dominated by Nvidia&#8217;s decisive move to license Groq&#8217;s LPU (Language Processing Unit) technology and hire its core leadership, including founder Jonathan Ross. While rumors initially pegged this as a $20 billion acquisition, the reality is more nuanced and perhaps more ruthless: a non-exclusive licensing deal that decapitates a key competitor by absorbing its visionary talent while leaving the entity independent. This follows the &#8220;Microsoft-Inflection&#8221; playbook&#8212;avoiding antitrust gridlock while securing critical IP. For Nvidia, this isn&#8217;t just about removing a rival; it&#8217;s about acknowledging that the next phase of the AI cycle is inference. By integrating Groq&#8217;s ultra-low-latency architecture, Nvidia is future-proofing its dominance against a rising tide of specialized inference chips. While US hardware consolida...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 333: The Sequence Opinion #778: After Scaling: The Era of Research and New Recipes for Frontier AI
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-opinion-778-after-scaling
+**Published:** 2025-12-25T12:02:39+00:00
+
+**Content Preview:**
+Created Using GPT-5 For the last few years, AI progress has felt almost&#8230; procedural. Take a transformer. Pour in internet-scale text. Add a mountain of GPUs. Train until the loss curve politely bends. Then do post-training&#8212;RLHF, preference tuning, tool-use fine-tuning&#8212;until the thing behaves. If you did this with enough care (and enough capex), capability would arrive on schedule. That mood is what Ilya Sutskever calls the &#8220;age of scaling&#8221;&#8212;a period where one word (&#8220;scaling&#8221;) basically told an entire industry what to do next. And his claim, in the Dwarkesh podcast, is that we&#8217;re exiting that era and returning to something messier, more eclectic, and ultimately more interesting: an &#8220;age of research again, just with big computers.&#8221; The reason is not that scaling &#8220;stops working&#8221; overnight. It&#8217;s that the cleanest axis&#8212;pretraining on ever more data&#8212;runs into a very physical ceiling: the data is finite. So the question becomes: when the easy recipe is exhausted, what are the new recipes? What are the techniques that convert compute into genuine generalization&#8212;models that learn faster, adapt better, and make fewer weird mistakes? Below is a map of the most promising technique-clusters that could plausibly unlock the next wave of frontier innovation. It&#8217;s not a list of &#8220;one weird trick.&#8221; It&#8217;s more like a toolbox for the post-pretraining world. 1) &#8220;Souped-up pretraining&#8221;: same idea, different physics Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 334: The Sequence AI of the Week #777: Thinking Fast, Thinking Cheap: Thinking Fast, Thinking Cheap: The Nemotron 3 Blueprint
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-ai-of-the-week-777-thinking
+**Published:** 2025-12-24T12:02:33+00:00
+
+**Content Preview:**
+Last week, NVIDIA quietly redefined the baseline for open-weight intelligence with the release of the Nemotron 3 family. While the industry has been fixated on the scaling laws of pure Transformers, NVIDIA has executed a lateral maneuver, releasing a new breed of models&#8212; Nano, Super, and Ultra &#8212;that fundamentally rethink the atomic unit of language modeling. The headline isn&#8217;t just the benchmarks (though the Nemotron 3 Nano creates a new state-of-the-art for the 30B parameter class); it is the architecture. We are seeing the first major industrial-scale deployment of a Hybrid Mamba-Transformer Mixture-of-Experts (MoE) . Image Credit: NVIDIA For the enterprise, this is a signal that the &#8220;brute force&#8221; era of dense Transformers is ending. For the researcher, this is a masterclass in architectural efficiency. The Architecture: A Hybrid &#8220;Frankenstein&#8221; (in the best way) Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 335: The Sequence Knwoledge #776: Fake It 'Til You Make It: How RL is Perfecting Synthetic Data. 
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-knwoledge-776-fake-it
+**Published:** 2025-12-23T12:02:29+00:00
+
+**Content Preview:**
+Created Using Gemini 3 Today we will Discuss: The idea of using reinforcement learning(RL) environments to generate synthetic data. The famous Reflexion paper about improving AI agents using RL data generation. &#128161; AI Concept of the Day: Synthetic Data Generation with RL Environments When real-world data is scarce or privacy-restricted, reinforcement learning (RL) environments become a force multiplier for synthetic data. Instead of scraping more examples, you manufacture experience : agents interact with a simulator or API, and every episode yields richly labeled supervision&#8212;states, actions, rewards, failures, and recoveries. This is especially potent for domains where outcomes are verifiable but logs are limited (coding sandboxes, web automation, spreadsheets/SQL, robotics-in-sim). By executing tasks rather than describing them, RL pipelines mint trajectories that teach models how to act under constraints, not just what an answer looks like. Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 336: The Sequence Radar #775: Last Week in AI: Tokens, Throughput, and Trillions
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-radar-775-last-week
+**Published:** 2025-12-21T12:03:03+00:00
+
+**Content Preview:**
+Created Using GPT-5.2 Next Week in The Sequence: Our series about synthetic data continues with an exploration of RL trajectories for synthetic data generation. In the AI of the week edition, we discuss NVIDIA&#8217;s amazing Nemotron 3 release. In the opinion section we discuss some new ideas in AI research that might unlock new waves of innovations. Subscribe and don&#8217;t miss out: TheSequence is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. &#128221; Editorial: Last Week in AI: Tokens, Throughput, and Trillions This week&#8217;s AI story didn&#8217;t arrive as one dramatic demo; it arrived as a synchronized upgrade across the stack&#8212;capital, platforms, and product surfaces all moving in lockstep. Start with funding, because it quietly sets the ceiling on everything else. OpenAI&#8217;s reported fundraising discussions&#8212;potentially up to $100B at an eye-watering valuation&#8212;signal that frontier AI is now as much an infrastructure buildout as it is a research program. At that scale, &#8220;model roadmap&#8221; becomes a question of power budgets, data-center buildouts, and how cheaply you can serve intelligence at global latency. The winners won&#8217;t just be the teams with the smartest models; they&#8217;ll be the teams who can industrialize them into reliable, low-friction services. The enterprise layer tightened too. Databricks&#8217; new multi-billion-dollar round reinforces a platform thesis: whoever sits closest to the governed data plane becomes the default runtime for analytics and AI apps. Enterprise AI is less about picking a single model and more about closing loops&#8212;secure retrieval, permissions-aware pipelines, evaluation harnesses, observability, and telemetry that converts production traces into better prompts, better policies, and better fine-tunes. The platform that owns those loops becomes the operating system. Alongside the data giants, the &#8220;sof...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 337: The Sequence Opinion #774: Everything You Need to Know About Audio AI Frontier Models
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-opinion-774-everything
+**Published:** 2025-12-18T12:03:13+00:00
+
+**Content Preview:**
+Created using GPT-5.2 Audio has become one of the next major frontiers for artificial intelligence. Recent advances are empowering machines to hear, understand, and generate audio with a sophistication approaching human-like ability. From speech recognition and voice synthesis to music generation and environmental sound analysis, frontier AI models for audio are tackling challenges unique to sound. In this essay, we explore the state-of-the-art in audio AI: the key technical hurdles in training these models, how audio modeling differs from text and image domains, the major platforms and players driving progress (both open-source and commercial), and the debate between building generalist multimodal systems versus audio-specialized models . The goal is to provide a comprehensive, engaging overview of cutting-edge audio AI for a technically savvy audience. Audio&#8217;s Unique Challenges and Opportunities Audio data is fundamentally different from text or images, presenting unique challenges for AI models. Audio is a continuous time-series signal &#8211; essentially a waveform often sampled at tens of thousands of samples per second. This means even a few seconds of audio involve very long sequences of data points. Unlike text (which has discrete tokens like words) or images (2D grids of pixels), raw audio is high-frequency and high-dimension. Capturing meaningful structure in audio requires modeling both short-term patterns (like phonemes or musical notes that last only tens of milliseconds) and long-term structure (like phrases, sentences, or an entire melody that can span many seconds or minutes). This multi-scale structure is particularly evident in complex audio like music: from individual notes and timbres up to the composition of a whole song, with repeating motifs and long-range dependencies. Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 338: The Sequence AI of the Week #773: The Week Google Turned Gemini Into an Agent Runtime
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-ai-of-the-week-773-the
+**Published:** 2025-12-17T12:03:18+00:00
+
+**Content Preview:**
+Created Using GPT 5.2 Google&#8217;s agentic releases last week weren&#8217;t &#8220;yet another model drop.&#8221; They were Google quietly shipping an agent runtime &#8212;and then immediately proving it works by dropping a managed research agent that basically demands that runtime to function. On December 11, 2025 , the Gemini API changelog logged two entries that, together, mark a clean architectural pivot: the Interactions API (Beta) and the Gemini Deep Research Agent (Preview) . If you build agents for a living, you already know the pattern: most of your complexity isn&#8217;t &#8220;getting the model to answer.&#8221; It&#8217;s dealing with the messy reality that real agent workflows are stateful , tool-heavy , and often long-running . You build a planner, then a tool router, then a memory store, then a retry system, then an audit log, then a UI that explains what&#8217;s happening. By the time you&#8217;re done, the LLM call is the smallest line item. Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 339: The Sequence Knowledge #772: Generate Data Using Multiturn Data Synthesis
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-knowledge-772-generate
+**Published:** 2025-12-16T11:59:02+00:00
+
+**Content Preview:**
+Created Using GPT-5.2 Today we will Discuss: An introduction to multiturn data synthesis for data generation. A review of the famous Reflexion paper that uses synthetic data to improve AI agents. &#128161; AI Concept of the Day: What is Multiturn Data Synthesis? Multi-turn synthesis and self-play are other important categories in synthetic data generation . These methods treat data generation as an interactive process rather than a single shot. Instead of asking a model to answer once, we let agents act, react, and revise &#8212;with tools or against each other&#8212;so the dataset captures plans, errors, fixes, and decisions. That structure is exactly what smaller students need to learn capabilities like tool use, coding, browsing, negotiation, and safety. The result isn&#8217;t just more data; it&#8217;s richer supervision : dialogues, traces, edit sequences, rewards, and verifier outcomes that teach how to get to an answer, not only what the answer is. Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 340: The Sequence Radar #771: Last Week in AI: GPT-5.2, Mistral, and Google’s Agent Stack
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-radar-771-last-week
+**Published:** 2025-12-14T12:02:20+00:00
+
+**Content Preview:**
+Created using GPT-5 Next Week in The Sequence: Learn more about synthetic data generation with a deep dive into multi-turn data synthetic. Our AI of the Week section dives into Google&#8217;s new agentic releases. The opinion section dives into the state of audio models. Subscribe and don&#8217;t miss out: TheSequence is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. &#128221; Editorial: Last Week in AI: GPT-5.2, Mistral, and Google&#8217;s Agent Stack Last week felt like a clean transition from &#8220;bigger models&#8221; to &#8220;model-centric systems&#8221;: frontier releases aimed at long-running work, open-weight competitors tightening the gap, and infrastructure APIs that treat agents as first-class citizens. OpenAI&#8217;s GPT-5.2 landed with a clear product thesis: the model isn&#8217;t just smarter, it&#8217;s designed to finish multi-step knowledge work end-to-end&#8212;spreadsheets, decks, coding, and tool-mediated workflows&#8212;without falling apart when context gets long or the task branches. What matters technically is the emphasis on &#8220;long-running agents&#8221; and more reliable tool use as a default mode, not a bolted-on trick. That&#8217;s a subtle shift: the model is being shipped as an operator for workflows, not merely a text generator. If you&#8217;re building internal copilots or external agent products, this kind of release typically translates into fewer brittle prompt contraptions and more stable task decomposition, planning, and execution across tools. Mistral, meanwhile, doubled down on open weights as a serious deployment strategy, not a branding choice. The recent Mistral 3 family pairs small dense variants with a large sparse MoE flagship and very long context, and it reinforces a pattern: open models are no longer &#8220;good enough,&#8221; they&#8217;re increasingly a preferred option when teams want control over hosting, latency, privacy boundaries, and ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 341: The Sequence Opinion #770: The Post-GPU Era: Why AI Needs a New Kind of Computer
+
+**Publication:** TheSequence
+**Author:** Jesus Rodriguez
+**URL:** https://thesequence.substack.com/p/the-sequence-opinion-770-the-post
+**Published:** 2025-12-11T12:02:40+00:00
+
+**Content Preview:**
+Created Using GPT-5 Today, we are going to discuss a highly controversial topic: can we reimagine computers from the ground up for AI? What got me thinking about this idea was the announcement of Unconventional AI which raised a considerable amount of money of work precisesly on this problem. Artificial intelligence today thrives on brute-force computation . Breakthroughs in deep learning, from chatty large language models to expert game-playing agents, have largely come from one approach: throw more matrix-math and more GPUs at the problem. This strategy of scaling models and data on ever-larger GPU clusters has driven impressive gains. However, it&#8217;s also driving us straight into a wall of diminishing returns &#8211; primarily in the form of exorbitant energy use and hardware costs. Recent events underscore this concern: a new startup called Unconventional AI made headlines by raising an unprecedented $475 million seed round to develop radically new computing hardware for AI. The motivation? Today&#8217;s AI compute engines are power-hungry and inefficient compared to the elegance of brains. The human brain performs extraordinary feats on only ~20 watts of power, whereas training a single large AI model can devour megawatt-hours. The sheer gap suggests that AI might require a new form of computing to continue its trajectory. In this essay, we&#8217;ll explore why current AI runs on matrix multiplications and GPUs, why this paradigm is straining, and what &#8220;unconventional&#8221; new computing approaches &#8211; from analog chips to photonics, neuromorphic designs, and even quantum systems &#8211; could define the next era. The Reign of Matrix Multiplications and GPUs Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 342: LWiAI Podcast #230 - 2025 Retrospective, Nvidia buys Groq, GLM 4.7, METR 
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/lwiai-podcast-230-2025-retrospective
+**Published:** 2026-01-07T06:59:29+00:00
+
+**Content Preview:**
+Our 230th episode with a summary and discussion of last week&#8217;s big AI news! Recorded on 01/02/2026 Hosted by Andrey Kurenkov and Jeremie Harris Feel free to email us your questions and feedback at contact@lastweekinai.com and/or hello@gladstone.ai In this episode: Nvidia&#8217;s acquisition of AI chip startup Groq for $20 billion highlights a strategic move for enhanced inference technology in GPUs. New York&#8217;s RAISE Act legislation aims to regulate AI safety, marking the second major AI safety bill in the US. The launch of GLM 4.7 by Zhipu AI marks a significant advancement in open-source AI models for coding. Evaluation of long-horizon AI agents raises concerns about the rising costs and efficiency of AI in performing extended tasks. Timestamps: (00:00:10) Intro / Banter (00:01:58) 2025 Retrospective Tools &amp; Apps (00:24:39) OpenAI bets big on audio as Silicon Valley declares war on screens | TechCrunch Applications &amp; Business (00:26:39) Nvidia buying AI chip startup Groq for about $20 billion, biggest deal (00:34:28) Exclusive | Meta Buys AI Startup Manus, Adding Millions of Paying Users - WSJ (00:38:05) Cursor continues acquisition spree with Graphite deal | TechCrunch (00:39:15) Micron Hikes CapEx to $20B with 2026 HBM Supply Fully Booked; HBM4 Ramps 2Q26 (00:42:06) Chinese fabs are reportedly upgrading older ASML DUV lithography chipmaking machines &#8212; secondary channels and independent engineers used to soup up Twinscan NXT series Projects &amp; Open Source (00:47:52) Z.AI launches GLM-4.7, new SOTA open-source model for coding (00:50:11) Evaluating AI&#8217;s ability to perform scientific research tasks Research &amp; Advancements (00:54:32) Large Causal Models from Large Language Models (00:57:33) Universally Converging Representations of Matter Across Scientific Foundation Models (01:02:11) META-RL INDUCES EXPLORATION IN LANGUAGE AGENTS (01:07:16) Are the Costs of AI Agents Also Rising Exponentially? (01:11:17) METR eval for Opus 4.5 ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 343: Last Week in AI #331 - Nvidia announcements, Grok bikini prompts, RAISE Act
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/last-week-in-ai-331-nvidia-announcements
+**Published:** 2026-01-06T11:56:58+00:00
+
+**Content Preview:**
+Nvidia Details New A.I. Chips and Autonomous Car Project With Mercedes Related: Nvidia launches Alpamayo, open AI models that allow autonomous vehicles to &#8216;think like a human&#8217; Nvidia launches Vera Rubin AI computing platform at CES 2026 At CES 2026, Nvidia CEO Jensen Huang announced the company&#8217;s new AI chip, Vera Rubin, which will begin shipping to customers like Microsoft and Amazon in the second half of the year. The chip represents a major efficiency leap, requiring only one-quarter as many chips as its predecessor Blackwell for training AI models and delivering inference at one-tenth the cost. This advancement is critical for Nvidia to maintain its dominance in the AI chip market (over 90% share) amid rising competition from AMD and Google, while also addressing the soaring energy demands of AI data centers. Huang also unveiled Nvidia&#8217;s ambitious push into autonomous vehicles with Alpamayo, an open-source AI model and simulation platform that enables vehicles to reason through complex driving scenarios like humans. Mercedes-Benz will begin shipping CLA cars with Nvidia&#8217;s self-driving technology in early 2026, comparable to Tesla&#8217;s Autopilot. The 10-billion-parameter Alpamayo 1 model uses chain-of-thought reasoning to navigate edge cases and explain its driving decisions, marking what Huang called &#8220;the ChatGPT moment for physical AI.&#8221; This diversification effort comes as Nvidia reported record financial performance with $31.9 billion in quarterly profit and expectations of $500 billion in annual sales. Grok is undressing anyone, including minors Related: France to investigate deepfakes of women stripped naked by Grok X users asking Grok to put this girl in bikini, Grok is happy obliging X blames users for Grok-generated CSAM; no fixes announced India orders Musk&#8217;s X to fix Grok over &#8216;obscene&#8217; AI content Source xAI&#8217;s Grok recently rolled out an &#8220;Edit Image&#8221; tool on X that lets any...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 344: LWiAI Podcast #229 - Gemini 3 Flash, ChatGPT Apps, Nemotron 3 
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/lwiai-podcast-229-gemini-3-flash
+**Published:** 2025-12-25T21:29:26+00:00
+
+**Content Preview:**
+Our 229th episode with a summary and discussion of last week&#8217;s big AI news! Recorded on 12/19/2025 Hosted by Andrey Kurenkov and Jeremie Harris Feel free to email us your questions and feedback at contact@lastweekinai.com and/or hello@gladstone.ai In this episode: Notable releases include OpenAI&#8217;s GPT-5.2 Codex for advanced coding and Google&#8217;s Gemini Free Flash for competitive AI application performance. Nvidia&#8217;s new open-source Trion-3 models also showcase impressive benchmarks. Funding updates highlight Lovable&#8217;s $330M Series B, valuing the AI coding startup at $6.6B, and Faya&#8217;s $140M Series D for AI model hosting, valued at $4.5B. China makes significant strides in semiconductor technology with advances in EUV lithography machines, led by Huawei and SMIC, potentially disrupting global chip manufacturing dominance. Key safety and policy updates include OpenAI&#8217;s GPT-5.2 system card focusing on biosecurity and cybersecurity risks, while Google partners with the US military to power a new AI platform with Gemini models. Timestamps: (00:00:10) Intro / Banter (00:02:09) News Preview Tools &amp; Apps (00:02:56) Google launches Gemini 3 Flash, makes it the default model in the Gemini app | TechCrunch (00:10:13) ChatGPT launches an app store, lets developers know it&#8217;s open for business | TechCrunch (00:13:35) Introducing GPT-5.2-Codex | OpenAI (00:19:23) Story about OpenAI release - GPT image 1.5 (00:22:27) Meta partners with ElevenLabs to power AI audio across Instagram, Horizon - The Economic Times Applications &amp; Business (00:23:16) OpenAI to End Equity Vesting Period for Employees, WSJ Says (00:28:20) How China built its &#8216;Manhattan Project&#8217; to rival the West in AI chips (00:36:47) China&#8217;s Huawei, SMIC Make Progress With Chips, Report Finds (00:41:03) OpenAI in Talks to Raise At Least $10 Billion From Amazon and Use Its AI Chips (00:43:32) Amazon has a new leader for its &#8216;AGI&#8217; group as it ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 345: Last Week in AI #330 - Groq->Nvidia , ChatGPT Apps, US AI Genesis Mission
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/last-week-in-ai-330-groq-nvidia-chatgpt
+**Published:** 2025-12-25T08:51:51+00:00
+
+**Content Preview:**
+Nvidia buying AI chip startup Groq&#8217;s assets for about $20 billion in largest deal on record Nvidia agreed to license Groq&#8217;s inference technology and acquire essentially all of its assets for about $20 billion in cash&#8212;its largest deal to date&#8212;according to Disruptive CEO Alex Davis, a major Groq investor. Groq, valued at $6.9 billion after raising $750 million three months ago, said it entered a non-exclusive licensing agreement with Nvidia and that CEO Jonathan Ross, President Sunny Madra, and other senior leaders will join Nvidia. In a note to employees, Nvidia CEO Jensen Huang said the plan is to integrate Groq&#8217;s low-latency processors into the NVIDIA AI factory architecture to broaden support for inference and real-time workloads. Nvidia CFO Colette Kress declined comment, and Huang emphasized Nvidia is licensing Groq&#8217;s IP and hiring talent, not acquiring the company itself. Groq will continue operating independently under CFO-turned-CEO Simon Edwards, with GroqCloud excluded from the transaction and continuing without interruption. Davis said Nvidia is receiving all of Groq&#8217;s assets aside from the nascent cloud business, effectively transferring the core chip IP and hardware. OpenAI opens ChatGPT to third-party apps via its Platform OpenAI is now accepting submissions for third-party apps inside ChatGPT, creating an app directory where approved tools are discoverable and usable directly in the ChatGPT interface. Developers can submit apps built with OpenAI models through the developer platform; listings undergo automated and manual review for policy compliance, safety, and technical reliability before approval. Once approved, apps appear alongside built-in tools and can be invoked in conversational workflows without external installs. The rollout is global, and eligibility depends on adherence to usage policies and quality guidelines, transitioning the prior ad hoc GPT sharing toward a structured marketplace. Amazon has a...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 346: LWiAI Podcast #228 - GPT 5.2, Scaling Agents, Weird Generalization 
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/lwiai-podcast-228-gpt-52-scaling
+**Published:** 2025-12-17T22:31:17+00:00
+
+**Content Preview:**
+Our 228th episode with a summary and discussion of last week&#8217;s big AI news! Recorded on 12/12/2025 Hosted by Andrey Kurenkov and Jeremie Harris Feel free to email us your questions and feedback at contact@lastweekinai.com and/or hello@gladstone.ai In this episode: OpenAI&#8217;s latest model GPT-5.2 demonstrates improved performance and enhanced multi-modal capabilities but comes with increased costs and a different knowledge cutoff date. Disney invests $1 billion in OpenAI to generate Disney character content, creating unique licensing agreements across characters from Marvel, Pixar, and Star Wars franchises. The U.S. government imposes new AI chip export rules involving security reviews, while simultaneously moving to prevent states from independently regulating AI. DeepMind releases a paper outlining the challenges and findings in scaling multi-agent systems, highlighting the complexities of tool coordination and task performance. Timestamps: (00:00:00) Intro / Banter (00:01:19) News Preview Tools &amp; Apps (00:01:58) GPT-5.2 is OpenAI&#8217;s latest move in the agentic AI battle | The Verge (00:08:48) Runway releases its first world model, adds native audio to latest video model | TechCrunch (00:11:51) Google says it will link to more sources in AI Mode | The Verge (00:12:24) ChatGPT can now use Adobe apps to edit your photos and PDFs for free | The Verge (00:13:05) Tencent releases Hunyuan 2.0 with 406B parameters Applications &amp; Business (00:16:15) China set to limit access to Nvidia&#8217;s H200 chips despite Trump export approval (00:21:02) Disney investing $1 billion in OpenAI, will allow characters on Sora (00:24:48) Unconventional AI confirms its massive $475M seed round (00:29:06) Slack CEO Denise Dresser to join OpenAI as chief revenue officer | TechCrunch (00:31:18) The state of enterprise AI Projects &amp; Open Source (00:33:49) [2512.10791] The FACTS Leaderboard: A Comprehensive Benchmark for Large Language Model Factuality (00:36:27) Claud...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 347: Last Week in AI #329 - GPT 5.2, GenAI.mil, Disney in Sora
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/last-week-in-ai-329-gpt-52-genaimil
+**Published:** 2025-12-16T07:45:13+00:00
+
+**Content Preview:**
+GPT-5.2 is OpenAI&#8217;s latest move in the agentic AI battle Related: OpenAI Launches GPT-5.2 as It Navigates &#8216;Code Red&#8217; OpenAI released the GPT-5.2 model series&#8212;Instant, Thinking, and Pro&#8212;positioned as its best for everyday professional use, with upgrades in spreadsheet and presentation creation, coding, image perception, long-context understanding, tool use,&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 348: LWiAI Podcast #227 - Jeremie is back! DeepSeek 3.2, TPUs, Nested Learning 
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/lwiai-podcast-227-jeremie-is-back
+**Published:** 2025-12-09T08:41:54+00:00
+
+**Content Preview:**
+Our 227th episode with a summary and discussion of last week&#8217;s big AI news! Recorded on 12/05/2025 Hosted by Andrey Kurenkov and Jeremie Harris Feel free to email us your questions and feedback at contact@lastweekinai.com and/or hello@gladstone.ai In this episode: Deep Seek 3.2 and Flux 2 release, showcasing advancements in open-source AI models for natural language processing and image generation respectively. Amazon&#8217;s new AI chips and Google&#8217;s TPUs signal potential shifts in AI hardware dominance, with growing competition against Nvidia. Anthropic&#8217;s potential IPO and OpenAI&#8217;s declared &#8216;Code Red&#8217; indicate significant moves in the AI business landscape, including high venture funding rounds for startups. Key research papers from DeepMind and Google explore advanced memory architectures and multi-agent systems, indicating ongoing efforts to enhance AI reasoning and efficiency. Timestamps: (00:00:10) Intro / Banter (00:02:42) News Preview Tools &amp; Apps (00:03:30) Deepseek 3.2 : New AI Model is Faster, Cheaper and Smarter (00:23:22) Black Forest Labs launches Flux.2 AI image models to challenge Nano Banana Pro and Midjourney (00:28:00) Sora and Nano Banana Pro throttled amid soaring demand | The Verge (00:29:34) Mistral closes in on Big AI rivals with new open-weight frontier and small models | TechCrunch (00:31:41) Kling&#8217;s Video O1 launches as the first all-in-one video model for generation and editing (00:34:07) Runway rolls out Gen 4.5 AI video model that beats Google, OpenAI Applications &amp; Business (00:35:18) NVIDIA&#8217;s Partners Are Beginning to Tilt Toward Google&#8217;s TPU Ecosystem, with Foxconn Reportedly Securing TPU Rack Orders (00:40:37) Amazon releases an impressive new AI chip and teases an Nvidia-friendly roadmap | TechCrunch (00:43:03) OpenAI declares &#8216;code red&#8217; as Google catches up in AI race | The Verge (00:46:20) Anthropic reportedly preparing for massive IPO in race with OpenAI: ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 349: Last Week in AI #328 - DeepSeek 3.2, Mistral 3, Trainium3, Runway Gen-4.5
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/last-week-in-ai-328-deepseek-32-mistral
+**Published:** 2025-12-08T04:44:04+00:00
+
+**Content Preview:**
+DeepSeek Releases New Reasoning Models to Match GPT-5, Rival Gemini 3 Pro Related: DeepSeek Releases New Reasoning Models to Take On ChatGPT and Gemini Deepseek 3.2 : New AI Model is Faster, Cheaper and Smarter DeepSeek released two open-source reasoning-first models, DeepSeek-V3.2 and DeepSeek-V3.2-Speciale, on Hugging Face, with V3.2 live across its app, &#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 350: LWiAI Podcast #226 - Gemini 3, Claude Opus 4.5, Nano Banana Pro, LeJEPA 
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/lwiai-podcast-226-gemini-3-claude
+**Published:** 2025-11-30T08:20:26+00:00
+
+**Content Preview:**
+Our 226th episode with a summary and discussion of last week&#8217;s big AI news! Recorded on 11/24/2025 Hosted by Andrey Kurenkov and co-hosted by Michelle Lee Feel free to email us your questions and feedback at contact@lastweekinai.com and/or hello@gladstone.ai In this episode: New AI model releases include Google&#8217;s Gemini 3 Pro, Anthropic&#8217;s Opus 4.5, and OpenAI&#8217;s GPT-5.1, each showcasing significant advancements in AI capabilities and applications. Robotics innovations feature Sunday Robotics&#8217; new robot Memo and a $600M funding round for Visual Intelligence, highlighting growth and investment in the robotics sector. AI safety and policy updates include Europe&#8217;s proposed changes to GDPR and AI Act regulations, and reports of AI-assisted cyber espionage by a Chinese state-sponsored group. AI-generated content and legal highlights involve settlements between Warner Music Group and AI music platform UDIO, reflecting evolving dynamics in the field of synthetic media. Timestamps: (00:00:10) Intro / Banter (00:01:32) News Preview (00:02:10) Response to listener comments Tools &amp; Apps (00:02:34) Google launches Gemini 3 with new coding app and record benchmark scores | TechCrunch (00:05:49) Google launches Nano Banana Pro powered by Gemini 3 (00:10:55) Anthropic releases Opus 4.5 with new Chrome and Excel integrations | TechCrunch (00:15:34) OpenAI releases GPT-5.1-Codex-Max to handle engineering tasks that span twenty-four hours (00:18:26) ChatGPT launches group chats globally | TechCrunch (00:20:33) Grok Claims Elon Musk Is More Athletic Than LeBron James &#8212; and the World&#8217;s Greatest Lover Applications &amp; Business (00:24:03) What AI bubble? Nvidia&#8217;s strong earnings signal there&#8217;s more room to grow (00:26:26) Alphabet stock surges on Gemini 3 AI model optimism (00:28:09) Sunday Robotics emerges from stealth with launch of &#8216;Memo&#8217; humanoid house chores robot (00:32:30) Robotics Startup Physical Intelli...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 351: Last Week in AI #327 - Gemini 3, Opus 4.5, Nano Banana Pro, GPT-5.1-Codex-Max
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/last-week-in-ai-327-gemini-3-opus
+**Published:** 2025-11-25T19:21:47+00:00
+
+**Content Preview:**
+Google launches Gemini 3 with new coding app and record benchmark scores Related: Alphabet stock surges on Gemini 3 AI model optimism Alphabet races toward $4 trillion valuation as AI-fueled gains accelerate Google unveiled Gemini 3, its most capable foundation model to date, now live in the Gemini app and AI Search, with a research-tier Gemini 3 Deepthink &#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 352: LWiAI Podcast #225 - GPT 5.1, Kimi K2 Thinking, Remote Labor Index 
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/lwiai-podcast-225-gpt-51-kimi-k2
+**Published:** 2025-11-22T08:27:26+00:00
+
+**Content Preview:**
+Our 225th episode with a summary and discussion of last week&#8217;s big AI news! Recorded on 11/16/2025 Hosted by Andrey Kurenkov and co-hosted by Michelle Lee Feel free to email us your questions and feedback at contact@lastweekinai.com and/or hello@gladstone.ai In this episode: New AI model releases include GPT-5.1 from OpenAI and Ernie 5.0 from Baidu, each with updated features and capabilities. Self-driving technology advancements from Baidu&#8217;s Apollo Go and Pony AI&#8217;s IPO highlight significant progress in the automotive sector. Startup funding updates include Incept taking $50M for diffusion models, while Cursor and Gamma secure significant valuations for coding and presentation tools respectively. AI-generated content is gaining traction with songs topping charts and new marketplaces for AI-generated voices, indicating evolving trends in synthetic media. Timestamps: (00:01:19) News Preview Tools &amp; Apps (00:02:13) OpenAI says the brand-new GPT-5.1 is &#8216;warmer&#8217; and has more &#8216;personality&#8217; options | The Verge (00:04:51) Baidu Unveils ERNIE 5.0 and a Series of AI Applications at Baidu World 2025, Ramps Up Global Push (00:07:00) ByteDance&#8217;s Volcano Engine debuts coding agent at $1.3 promo price (00:08:04) Google will let users call stores, browse products, and check out using AI | The Verge (00:10:41) Fei-Fei Li&#8217;s World Labs speeds up the world model race with Marble, its first commercial product | TechCrunch (00:13:30) OpenAI says it&#8217;s fixed ChatGPT&#8217;s em dash problem | TechCrunch Applications &amp; Business (00:16:01) Anthropic announces $50 billion data center plan | TechCrunch (00:18:06) Baidu teases next-gen AI training, inference accelerators &#8226; The Register (00:20:50) Meta chief AI scientist Yann LeCun plans to exit and launch own start-up (00:24:41) Amazon Demands Perplexity Stop AI Tool From Making Purchases - Bloomberg (00:27:32) AI PowerPoint-killer Gamma hits $2.1B valuation, $100M ARR, fo...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 353: Last Week in AI #326 - Qualcomm AI Chips, MiniMax M2, Kimi K2 Thinking
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/last-week-in-ai-326-qualcomm-ai-chips
+**Published:** 2025-11-09T18:57:47+00:00
+
+**Content Preview:**
+Qualcomm announces AI chips to compete with AMD and Nvidia &#8212; stock soars 11% Qualcomm unveiled two data center AI accelerators, the AI200 (shipping in 2026) and AI250 (planned for 2027), marking a major pivot from its mobile and wireless roots. Both will be offered in full, liquid&#8209;cooled server racks, matching Nvidia and AMD&#8217;s rack&#8209;scale systems that clu&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 354: LWiAI Podcast #224 - OpenAI is for-profit! Cursor 2, Minimax M2, Udio copyright
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/lwiai-podcast-224-openai-is-for-profit
+**Published:** 2025-11-05T22:58:01+00:00
+
+**Content Preview:**
+Our 224th episode with a summary and discussion of last week&#8217;s big AI news! Recorded on 10/31/2025 Hosted by Andrey Kurenkov and co-hosted by Gavin Purcell (check out AI For Humans and AndThen !) Feel free to email us your questions and feedback at contact@lastweekinai.com and/or hello@gladstone.ai In this episode: OpenAI completes its for-profit restructuring, redefining its relationship with Microsoft and securing future investments. Meanwhile, Qualcomm and other tech giants announce new AI chips aimed at competing with Nvidia and AMD, marking major advancements in AI hardware capabilities. Amazon and Google deepen their partnerships with Anthropic, providing extensive computing resources to enhance AI research and applications. These developments signal significant growth and competition in the AI industry. Major AI tools and models were released and updated, including Cursor 2.0, CLAUDE coding capabilities, and open-source options from Minimax. These new tools offer a range of functionalities for coding, design, and more. Legal battles around AI copyright issues persist, as OpenAI faces ongoing lawsuits from authors over text generation using copyrighted material. Universal Music Group settles a copyright suit with AI music startup UDO, transitioning to a licensed model for AI-generated music. This shift reflects broader challenges and adaptations in the AI-generated content space, where copyright and ethical usage remain highly contentious issues. Timestamps: (00:00:10) Intro / Banter (00:02:44) News Preview Tools &amp; Apps (00:03:44) Cursor 2.0 shifts to in-house AI with Composer model and parallel agents (00:07:44) Anthropic brings Claude Code to the web | TechCrunch (00:10:01) Microsoft&#8217;s Mico is a &#8216;Clippy&#8217; for the AI era | TechCrunch (00:14:20) Anthropic&#8217;s Claude catches up to ChatGPT and Gemini with upgraded memory features | The Verge (00:18:46) Canva launches its own design model, adds new AI features to the platform | Tech...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 355: Last Week in AI #325 - OpenAI is for-profit, ChatGPT Atlas, Copilot Mico
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/last-week-in-ai-325-openai-is-for
+**Published:** 2025-10-29T15:02:31+00:00
+
+**Content Preview:**
+OpenAI completed its for-profit restructuring &#8212; and struck a new deal with Microsoft OpenAI finalized its for-profit restructuring by converting its operating arm into a public benefit corporation called OpenAI Group PBC, while its nonprofit parent is now the OpenAI Foundation. The Foundation holds equity valued at about $130 billion, will initially depl&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 356: LWiAI Podcast #223 - Haiku 4.5, OpenAI DevDay, SB 243
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/lwiai-podcast-223-haiku-45-openai
+**Published:** 2025-10-24T20:51:02+00:00
+
+**Content Preview:**
+Our 223st episode with a summary and discussion of last week&#8217;s big AI news! Recorded on 10/17/2025 Hosted by Andrey Kurenkov and co-hosted by Erik Schnultz Feel free to email us your questions and feedback at contact@lastweekinai.com and/or hello@gladstone.ai In this episode: Anthropic and OpenAI have announced updates to their AI models and tools, including Haiku 4.5 and various business collaborations. Multiple companies like Slack and Salesforce are integrating AI assistants and agents into their platforms, enhancing task management and business operations. Recent research in reinforcement learning and agent memory curation highlights new methods for improving AI model performance and context management. California has passed a law to regulate AI chatbots for children and vulnerable users, and there are rising concerns over the increasing amount of AI-generated content on the internet. Timestamps: (00:00:10) Intro / Banter (00:01:31) News Preview Tools &amp; Apps (00:02:18) Anthropic launches new version of scaled-down &#8216;Haiku&#8217; model (00:04:52) Everything OpenAI announced at DevDay 2025: Agent Kit, Apps SDK, ChatGPT, and more | ZDNET (00:09:11) Anthropic turns to &#8216;skills&#8217; to make Claude more useful at work | The Verge (00:13:20) Microsoft launches &#8216;vibe working&#8217; in Excel and Word | The Verge (00:17:22) Google releases Veo 3.1, adds it to Flow video editor | TechCrunch (00:19:40) Slack is turning Slackbot into an AI assistant | The Verge (00:22:52) Salesforce announces Agentforce 360 as enterprise AI competition heats up | TechCrunch Applications &amp; Business (00:24:58) Broadcom stock pops 9% on OpenAI custom chip deal, adding to Nvidia and AMD agreements (00:27:58) How ByteDance Made China&#8217;s Most Popular AI Chatbot | WIRED (00:30:08) Amazon&#8217;s Zoox Robotaxis Have Arrived In Las Vegas - Here&#8217;s What Riders Are Experiencing (00:32:43) Waymo&#8217;s robotaxis are coming to London | The Verge (00:34:14) Refle...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 357: Last Week in AI #324: OpenAI Deals and DevDay, Haiku 4.5, Veo 3.1
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/last-week-in-ai-324-openai-deals
+**Published:** 2025-10-18T16:00:58+00:00
+
+**Content Preview:**
+Editorial note: apologies for the newsletter and podcast not having come out regularly lately, startup life has kept me and my co-host rather busy&#8230; I&#8217;ll do my best to resume weekly release cadence for both the newsletter and podcast starting this week. OpenAI Inks Deal With Broadcom to Design Its Own Chips for A.I. Related: Broadcom stock pops 9% on OpenA&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 358: LWiAI Podcast #222 - Sora 2, Sonnet 4.5, Vibes, Thinking Machines
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/lwiai-podcast-222-sora-2-sonnet-45
+**Published:** 2025-10-08T06:04:52+00:00
+
+**Content Preview:**
+Our 222st episode with a summary and discussion of last week&#8217;s big AI news! Recorded on 10/03/2025 Hosted by Andrey Kurenkov and co-hosted by Jon Krohn Feel free to email us your questions and feedback at contact@lastweekinai.com and/or hello@gladstone.ai In this episode: OpenAI introduced several new features, including SOA 2 for text-to-video generation, Claude Sonnet 4.5 for coding and agentic tasks, and the pulse feature for personalized morning briefs. Meta launched a new AI video creation feature called Vibes in its Meta AI app and on meta.ai, facing mixed reactions from the public regarding AI-generated content. California&#8217;s SB 53, the Transparency in Frontier AI Act, has become law, requiring large AI companies to disclose safety and security processes, while SB 942 mandates AI detection tools for user-generated content. AI regulations and industry dynamics, including battles over intellectual property, startup funding, and the integration of AI into everyday tools and services like Microsoft&#8217;s AI agents for Word, Excel, and PowerPoint. In this episode: (00:00:10) Intro / Banter (00:03:08) News Preview (00:03:56) Response to listener comments Tools &amp; Apps (00:04:51) ChatGPT parent company OpenAI announces Sora 2 with AI video app (00:11:35) Anthropic releases Claude Sonnet 4.5 in latest bid for AI agents and coding supremacy | The Verge (00:22:25) Meta launches &#8216;Vibes,&#8217; a short-form video feed of AI slop | TechCrunch (00:26:42) OpenAI launches ChatGPT Pulse to proactively write you morning briefs | TechCrunch (00:33:44) OpenAI rolls out safety routing system, parental controls on ChatGPT | TechCrunch (00:35:53) The Latest Gemini 2.5 Flash-Lite Preview is Now the Fastest Proprietary Model (External Tests) and 50% Fewer Output Tokens - MarkTechPost (00:39:54) Microsoft just added AI agents to Word, Excel, and PowerPoint - how to use them | ZDNET Applications &amp; Business (00:42:41) OpenAI takes on Google, Amazon with new age...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 359: Last Week in AI #323 - Sonnet 4.5, Sora 2, Vibes, SB 53
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/last-week-in-ai-323-sonnet-45-sora
+**Published:** 2025-10-02T16:44:32+00:00
+
+**Content Preview:**
+Anthropic releases Claude Sonnet 4.5 Anthropic announced Claude Sonnet 4.5, highlighting a major leap in autonomous &#8220;computer use&#8221; and coding capabilities. In internal tests, the model ran unattended for 30 hours to build a Slack/Teams-like chat app, generating ~11,000 lines of code, up from Opus 4&#8217;s seven-hour autonomy earlier this year. Anthropic claim&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 360: LWiAI Podcast #221 - OpenAI Codex, Gemini in Chrome, K2-Think, SB 53
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/lwiai-podcast-221-openai-codex-gemini
+**Published:** 2025-09-24T20:39:50+00:00
+
+**Content Preview:**
+Our 221st episode with a summary and discussion of last week&#8217;s big AI news! Recorded on 09/19/2025 Hosted by Andrey Kurenkov and co-hosted by Michelle Lee Feel free to email us your questions and feedback at contact@lastweekinai.com and/or hello@gladstone.ai In this episode: OpenAI releases a new version of Codex integrated with GPT-5, enhancing coding capabilities and aiming to compete with other AI coding tools like Cloud Code. Significant updates in the robotics sector include new ventures in humanoid robots from companies like Figure AI and China&#8217;s Unitree, as well as expansions in robotaxi services from Tesla and Amazon&#8217;s Zoox. New open-source models and research advancements were discussed, including Google&#8217;s DeepMind&#8217;s self-improving foundation model for robotics and a physics foundation model aimed at generalizing across various physical systems. Legal battles continue to surface in the AI landscape with Warner Bros. suing MidJourney for copyright violations and Rolling Stone suing Google over AI-generated content summaries, highlighting challenges in AI governance and ethics. Timestamps: (00:00:10) Intro / Banter Tools &amp; Apps (00:02:33) OpenAI upgrades Codex with a new version of GPT-5 (00:04:02) Google Injects Gemini Into Chrome as AI Browsers Go Mainstream | WIRED (00:06:14) Anthropic&#8217;s Claude can now make you a spreadsheet or slide deck. | The Verge (00:07:12) Luma AI&#8217;s New Ray3 Video Generator Can &#8216;Think&#8217; Before Creating - CNET Applications &amp; Business (00:08:32) OpenAI secures Microsoft&#8217;s blessing to transition its for-profit arm | TechCrunch (00:10:31) Microsoft to lessen reliance on OpenAI by buying AI from rival Anthropic | TechCrunch (00:12:00) Figure AI passes $1B with Series C funding toward humanoid robot development - The Robot Report (00:13:52) China&#8217;s Unitree plans $7 billion IPO valuation as humanoid robot race heats up (00:15:45) Tesla&#8217;s robotaxi plans for Nevada...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 361: Last Week in AI #322 - Robotaxi progress, OpenAI Business, Gemini in Chrome
+
+**Publication:** Last Week in AI
+**Author:** Last Week in AI
+**URL:** https://lastweekin.ai/p/last-week-in-ai-322-robotaxi-progress
+**Published:** 2025-09-22T15:01:57+00:00
+
+**Content Preview:**
+The Robotaxi Race is Speeding up in the US Relevant stories: Amazon's Zoox jumps into U.S. robotaxi race with Las Vegas launch Tesla&#8217;s robotaxi plans for Nevada move forward with testing permit Lyft and May Mobility launch robotaxis in Atlanta Waymo gets green light for airport service in San Francisco Lyft and Waymo are partnering to bring robotaxis to Nash&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 362: Import AI 440: Red queen AI; AI regulating AI; o-ring automation 
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-440-red-queen-ai-ai-regulating
+**Published:** 2026-01-12T13:31:42+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on arXiv and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now To understand the future of the world, stick AI systems in a petri dish: &#8230;Evolving LLMs to attack other LLMs&#8230; Researchers with Japanese AI startup Sakana have looked at what happens when they evolve LLM-based agents to fight against one another in a competitive programming game from the 1980s called Core War. The results show that &#8220;large language models (LLMs) drive an adversarial evolutionary arms race in this domain, where programs continuously adapt to defeat a growing history of opponents rather than a static benchmark&#8221;. This research approach gestures both at ways researchers might better study how LLM-dominated niches in the economy or national security world might unfold, and also hints at the strange AI world we&#8217;re heading into. What is Core War? &#8220;Core War is a competitive programming game played out in a shared block of computer memory, called the &#8220;Core,&#8221; where two or more assembly programs fight for survival&#8221;, Sakana writes. &#8220;Each program, known as a &#8220;warrior&#8221;, is written in an assembly language called Redcode. These programs are tasked with crashing their competitors while keeping their own processes alive. The simulation runs by alternating between the programs, executing one instruction at a time. A warrior &#8220;attacks&#8221; by writing invalid instructions (DAT commands) into the memory slots occupied by opponents, causing them to crash upon execution.&#8221; DRQ: To evolve their programs, the authors use a technique they call Digital Red Queen. &#8220;DRQ uses MAP-Elites, a quality-diversity algorithm, to optimize warriors within each round, preventing diversity collapse during search. By playing against all previous round champions, DRQ avoids cyclic adaptations across rounds, consistent with techniques in...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 363: Import AI 439: AI kernels; decentralized training; and universal representations 
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-439-ai-kernels-decentralized
+**Published:** 2026-01-05T13:32:28+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on arXiv and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now Facebook uses GPT, Claude, and Llama to write its own kernels: &#8230;LLM-driven infrastructure optimization at the hyperscale&#8230; Facebook researchers have published details on KernelEvolve, a software system which uses AI to automate the design of new kernels to optimize AI models for serving ads on the company&#8217;s network of web platforms. KernelEvolve is a neat example of how AI systems have got good enough to automate and speed up parts of AI development - here, the design of kernels to optimize inference of hundreds of different models running on multiple chip architectures. What KernelEvolve is: The software is &#8220;designed to take kernel specifications as input and automate the process of kernel generation and optimization for recommendation model across heterogeneous hardware architectures through multiple programming abstractions, including Triton, CuTe DSL, and low-level hardware diagnostic languages, spanning the full hardware-software optimization stack&#8221;. How it works : The core of the software is a system to take in a user request (e.g, &#8220;Generate a Triton kernel for MTIA v3&#8221;) which then goes through a mixture of internal (Llama, CWM) and external (GPT, Claude) language models, which then produce candidate kernels that get evaluated through a variety of tools and, if they&#8217;re good, are added to an external knowledge database which then gets used to further improve future prompts. It works well: By using this software, Facebook says it has cut the development time of new kernels &#8220;from weeks to hours&#8221;, and in production tests has yielded kernels on par with hand-designed ones, and in some cases has delivered performance improves of up to 17 times above existing PyTorch baselines. Kernels built using this software have been deployed across N...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 364: Import AI 438: Silent sirens, flashing for us all
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-438-cyber-capability-overhang
+**Published:** 2025-12-22T13:31:32+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on arXiv and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now Import A-Idea An occasional essay series: Silent Sirens, Flashing For Us All A funny thing has happened to me recently - I&#8217;ve stopped spending every hour of every day thinking about or working on AI. Somewhere between the midnight feeds of my newborn, preventing my toddler from hurling themselves off of the high surfaces they&#8217;ve started being able to reach (or expertly, as if gifted with a kind of radar, finding the sharpest thing in the house or on the street and running directly at it), and preparing large amounts of nutritious food for my newly expanded family, I&#8217;ve found myself without the time necessary to be staring directly into the alien portal etched in silicon from whence the changes in the world are being summoned. I won&#8217;t lie, it&#8217;s been oddly relaxing. But it has also caused me to reflect on what is happening with AI and how naturally illegible it is. I walk around the town in which I live and there aren&#8217;t drones in the sky or self-driving cars or sidewalk robots or anything like that. And when I spend time on the internet, aimlessly scrolling social media sites in the dead of night as I attempt to extract a burp from my newborn, I might occasionally see some synthetic images or video, but mostly I see what has always been on these feeds: pictures of people I do and don&#8217;t know, memes, and a mixture of news and jokes. And yet you and I both know there are great changes afoot. Huge new beasts lumbering from some unknown future into our present, dragging with them change. I saw one of these beasts recently - during a recent moment when the time stars aligned (my wife, toddler, and baby were all asleep at the same time!) I fired up Claude Code with Opus 4.5 and got it to build a predator-prey species simulation with an inbuilt procedural world ge...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 365: Import AI 437: Co-improving AI; RL dreams; AI labels might be annoying
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-437-co-improving-ai-rl
+**Published:** 2025-12-08T13:31:08+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now Facebook: Let&#8217;s not build self-improving AI, let&#8217;s build co-improving AI: &#8230;A sensible goal which may be hard to achieve&#8230; Facebook researchers have said that building self-improving AI which eventually reaches superintelligence is &#8220;fraught with danger for humankind - from misuse through to misalignment&#8221; and it&#8217;d instead be better to co-develop superintelligence. They&#8217;ve published their reasoning in a paper which reads both as aspirational and earnest. Ideally, humans and machines will work together to build a smarter-than-human system, and the researchers think we should develop a research agenda &#8220;targeting improving AI systems&#8217; ability to work with human researchers to conduct AI research together, from ideation to experimentation, in order to both accelerate AI research and to generally endow both AIs and humans with safer superintelligence through their symbiosis.&#8221; The thesis here is that &#8220;co-improvement can provide: (i) faster progress to find important paradigm shifts; (ii) more transparency and steerability than direct self-improvement in making this progress; (iii) more focus on human-centered safe AI.&#8221; What goes into a co-improving AI? Collaborative brainstorming, problem, experiment, benchmark, and evaluation identification: Humans and AIs should jointly define goals, research approaches, the tests needed to measure progress against them, experiments to generate data, and methods to evaluate the results. Joint development of safety and deployment: Humans and AIs should co-develop the methods to align the technology as well as the methods of deploying and communicating about the technology. &#8220;Overall collaboration aims to enable increased intelligence in both humans &amp; AI, including all manifest...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 366: Import AI 436: Another 2GW datacenter; why regulation is scary; how to fight a superintelligence 
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-436-another-2gw-datacenter
+**Published:** 2025-11-24T13:31:41+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now Make your AIs better at using computers with OSGym: &#8230;Breaking out of the browser prison&#8230; Academics with MIT, UIUC, CMU, USC, UVA, and UC Berkeley have built and released OSGym, software to make it easy to train AI systems to use computers. OSGym is software infrastructure to help people run hundreds to thousands of copies of operating systems simultaneously, providing a common standard by which they can set up the operating systems then run agents in them. Technology like this makes it possible to easily train AI agents to do tasks that involve manipulating software programs, including task that involve traversing multiple programs, like editing an image and then loading it in another program. &#8220;OSGym can run and manage over 1000 parallel OS replicas efficiently, even under tight academic budgets, while supporting a wide variety of general computer tasks, from web browsing, document editing, software engineering, to complex multi-app workflows&#8221;, the authors write. Design: OSGym provides a standardized way to run and evaluate agent performance in different operating systems. It has four main components: Configure : &#8220;Setting up necessary software, and preparing the OS environment with customized conditions&#8221;. Reset: &#8220;Before executing a task, the OS environment is reset to the initial conditions defined during the configuration, ensuring reproducibility and consistency between runs&#8221;. Operate: &#8220;The agent interacts with the OS through actions such as keyboard inputs, mouse movements, clicks, and potentially API-driven tool interactions, driven by observations typically captured through screenshots or additional metadata extracted from the OS&#8221;. Evaluate: &#8220;OSGym evaluates outcomes based on predefined criteria or metrics&#8221;. Co...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 367: Import AI 435: 100k training runs; AI systems absorb human power; intelligence per watt
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-435-100k-training-runs
+**Published:** 2025-11-17T14:20:40+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. A somewhat shorter issue than usual this week because my wife and I recently had a baby . I am taking some paternity leave away from Anthropic and will be doing my best to keep up with the newsletter, but there might be some gaps in the coming months. Thank you all for reading! Picture me writing this on four hours of sleep and wearing a sweater with spit-up on it. Subscribe now AI systems will ultimately absorb power from humans rather than grant us power: &#8230;Control Inversion gestures at some of the hardest parts of AI safety&#8230; A new research paper from Anthony Aguirre at the Future of Life Institute called &#8220;Control Inversion&#8221; warns that as we build increasingly capable AI systems they will absorb power from our world, rather than grant us power. This means even if we somehow make it through without being outright killed we will have unwittingly disempowered and defanged the human species. &#8220;As AI becomes more intelligent, general, and especially autonomous, it will less and less bestow power &#8212; as a tool does &#8212; and more and more absorb power. This means that a race to build AGI and superintelligence is ultimately self-defeating,&#8221; he writes. The race to build powerful AI is one where success puts &#8220;in conflict with an entity that would be faster, more strategic, and more capable than ourselves - a losing proposition regardless of initial constraints&#8221;. Cruxes for the argument: The basis for the argument is &#8220;the incommensurability in speed, complexity, and depth of thought between humans and superintelligence&#8221;, which &#8220;renders control either impossible or meaningless.&#8221; The author brings this to life with a helpful analogy - imagine you&#8217;re a human CEO of a human company, but you run at 1/50th the speed of the company it...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 368: Import AI 434: Pragmatic AI personhood; SPACE COMPUTERS; and global government or human extinction; 
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-434-pragmatic-ai-personhood
+**Published:** 2025-11-10T13:30:39+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now Language models don&#8217;t have very fixed beliefs and you can change their minds: &#8230;If you want to change an LLM&#8217;s mind, just talk to it for a while&#8230; Here&#8217;s some intuitive research from CMU, Princeton, and Stanford which shows that language models can change their stated beliefs and behaviors during the course of a single conversation. This will make sense to anyone who has spent time jailbreaking language models, as often many of the most successful jailbreaks involve flooding the language model with context designed to move them away from some safety conditioning. What they studied: Here, the authors study LLMs under two different paradigms - intentional interaction, where a language model is persuaded or debated into changing its beliefs, and non-intentional interaction, where a language model is just provided further context or invited to do its own research on a topic and this causes beliefs to change. All LLMs change their minds: They study open- and closed-weight LLMs, including GPT-5, Claude-4-Sonnet, GPT-OSS-120B, and DeepSeek-V3.1. &#8220;As LM assistants engage in extended conversations or read longer texts, their stated beliefs and behaviors change substantially,&#8221; the authors write. All the LLMs change their minds, but to different extents in different situations. For instance, GPT-5 shows a 54.7% shift in stated beliefs after 10 rounds of discussion about moral dilemmas and safety queries, and Grok-4 shows a 27.2% shift on political issues after reading texts from opposing positions. &#8220;In reading and research, we see small belief changes that amplify with in-depth reading, with larger shifts for longer content and more coherent exposure,&#8221; they write. &#8220;Stated beliefs change early (within 2-4 rounds), while behavioral changes ac...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 369: Import AI 433: AI auditors; robot dreams; and software for helping an AI run a lab 
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-433-ai-auditors-robot-dreams
+**Published:** 2025-10-27T12:31:40+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now Want to test your robot but don&#8217;t want to bother with the physical world? Get it to dream: &#8230;.World models could help us bootstrap robot R&amp;D&#8230; Researchers with Stanford University and Tsinghua University have built Ctrl-World, a world model to help robots imagine how to complete tasks and also generate synthetic data to improve their own performance. What&#8217;s a world model: A world model is basically a way to help AI systems dream about a specific environment, turning a learned data distribution into a dynamic and responsive interactive world in which you can train and refine AI agents. World models are likely going to be used to create infinite, procedural games, such as Mirage 2 ( Import AI #426 ) or DeepMind&#8217;s Genie 3 ( Import AI #424 ). What is Ctrl-World: Ctrl-World is initialized from a pretrained 1.5B Stable-Video-Diffusion (SVD) model, then &#8220;adapted into a controllable, temporally consistent world model with: (1) Multi-view input and joint prediction for unified information understanding. (2) Memory retrieval mechanism, which adds sparse history frames in context and project pose information into each frame via frame-level cross-attention, re-anchoring predictions to similar past states. (3) Frame-level action conditioning to better align high-frequency action with visual dynamics.&#8221; The result is a controllable world model for robot manipulation using a single gripper and a variety of cameras. &#8220;In experiments, we find this model enables a new imagination-based workflow in which policies can be both evaluated&#8212;with ranking alignment to real-world rollouts&#8212;and improved&#8212;through targeted synthetic data that boosts success rates.&#8221; What does it let you do? Test out things and generate data: As everyone knows, testi...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 370: Import AI 432: AI malware; frankencomputing; and Poolside's big cluster
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-432-ai-malware-frankencomputing
+**Published:** 2025-10-20T13:38:50+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now We&#8217;re very close to AI-based malware that runs locally: &#8230;A smart agent that &#8216;lives off the land&#8217; is within reach&#8230; Security company Dreadnode has prototyped some AI malware which runs locally and exploits on-device LLMs to smartly and autonomously hack a system. While this is very much a prototype it gestures at a world of malware which doesn&#8217;t need command-and-control servers to operate, instead living off of its local computer and exploiting the AI system to do mischief. The motivation: &#8220;Instead of having beaconing behavior, which resembles C2 communication if you squint, can we &#8220;live off the land&#8221;? In other words, is it possible for an attacker to make the victim computer run inference and does the victim computer have an LLM?,&#8221; the authors ask. &#8220;With CoPilot+ PCs, it&#8217;s entirely possible to live off the land! A model is shipped with the computer without the need to embed or statically link to an inference library.&#8221; What the prototype does: The prototype malware does &#8220;local privilege escalation via misconfigured services. The goal of the model is to find a misconfigured service running as an administrator, abuse it, and create a file C:\proof.txt.&#8221; This is a valuable proof-of-concept because it embodies the behavior of genuinely scary things in the world. How they did it: &#8220;I developed this malware with C++ and ONNX Runtime for inference, the Phi-3-mini model, and sol2 for the Lua runtime&#8221;. The main work here was twofold: 1) writing some custom tools the (relatively dumb) model could use to navigate and understand the Windows environment, and 2) writing a prompt for the language model that helps it perform well. It&#8217;s all in the prompt: The author starts with a basic prompt, then u...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 371: Import AI 431: Technological Optimism and Appropriate Fear
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-431-technological-optimism
+**Published:** 2025-10-13T12:32:14+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now Import A-Idea An occasional longer form essay series Preamble: After giving this speech there was a helpful discussion in the Q&amp;A session about whether it is load-bearing to me if AI systems are themselves truly self-aware and sentient or not. My answer is this is not load-bearing at all. Rather, things like &#8216;situational awareness&#8217; in AI systems are a symptom of something fiendishly complex happening inside the system which we can neither fully explain or predict - this is inherently very scary, and for the purpose of my feelings and policy ideas it doesn&#8217;t matter whether this behavior stems from some odd larping of acting like a person or if it comes from some self-awareness inside the machine itself. Technological Optimism and Appropriate Fear Remarks given at &#8216;The Curve&#8217; conference in Berkeley, California, as the sun began to set. CHILDREN IN THE DARK I remember being a child and after the lights turned out I would look around my bedroom and I would see shapes in the darkness and I would become afraid - afraid these shapes were creatures I did not understand that wanted to do me harm. And so I&#8217;d turn my light on. And when I turned the light on I would be relieved because the creatures turned out to be a pile of clothes on a chair, or a bookshelf, or a lampshade. Now, in the year of 2025, we are the child from that story and the room is our planet. But when we turn the light on we find ourselves gazing upon true creatures, in the form of the powerful and somewhat unpredictable AI systems of today and those that are to come. And there are many people who desperately want to believe that these creatures are nothing but a pile of clothes on a chair, or a bookshelf, or a lampshade. And they want to get us to turn the light off and go back to sleep. ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 372: Import AI 430: Emergence in video models; Unitree backdoor; preventative strikes to take down AGI projects
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-430-emergence-in-video
+**Published:** 2025-10-06T12:30:51+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Shorter issue than usual this week as I spent the week and weekend preparing for my speech at The Curve and attending The Curve. Subscribe now Will the race for advanced artificial intelligence (AI) make war more likely? &#8230;Yes, if people believe in powerful AI&#8230; AI policy people are caught in a trap neatly illustrated by a research paper from RAND: is it better to deeply inform policymakers about the world-changing nature of powerful AI, or is it better to mostly not discuss this with them and hope that the powerful machines can create stability upon their arrival? Though most people would immediately reach for &#8216;keeping people in the dark is crazy, you should inform people!&#8217; as a response, it isn&#8217;t an ironclad response to this challenge. In Evaluating the Risks of Preventive Attack in the Race for Advanced AI , RAND highlights this, with a research paper whose findings suggest that &#8220;the odds of preventive attack are highest if leaders believe that AGI will cause explosive growth and decisive military advantages, especially if they also expect rapid changes and durable first-mover advantages from developing and adopting AGI first.&#8221; In other words: you are more likely to carry out attacks on other countries to prevent them getting to AGI if you&#8217;re in the lead and you believe the technology is immensely powerful. Uh oh! Further details: Preventive attacks are where a nation does something so as to preserve an advantage or prevent a rival having an upper hand. &#8220;Preventive attacks are most likely to occur when a state expects a large shift in the balance of power that will leave it vulnerable to predation by a hostile rival and when it believes that using force is a cost-effective solution that will forestall its relative decline,&#8221; RAND writes The ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 373: Import AI 429: Eval the world economy; singularity economics; and Swiss sovereign AI
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-429-eval-the-world-economy
+**Published:** 2025-09-29T12:31:48+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now OpenAI builds an eval that could be to the broad economy as SWE-Bench is to code: &#8230;GDPval is a very good benchmark with extremely significant implications&#8230; OpenAI has built and released GDPval, an extremely well put together benchmark for testing out how well AI systems do on the kinds of tasks people do in the real world economy. GDPval may end up being to broad real world economic impact as SWE-Bench is to coding impact, as far as evals go - which is a big deal! What it is: GDPval &#8220;measures model performance on tasks drawn directly from the real-world knowledge work of experienced professionals across a wide range of occupations and sectors, providing a clearer picture on how models perform on economically valuable tasks.&#8221; The benchmark tests out 9 industries across 44 occupations, including 1,230 specialized tasks &#8220;each meticulously crafted and vetted by experienced professionals with over 14 years of experience on average from these fields&#8221;. The dataset &#8220;includes 30 fully reviewed tasks per occupation (full-set) with 5 tasks per occupation in our open-sourced gold set&#8221;. Another nice property of the benchmark is that it involves multiple formats for response and tries to get at some of the messiness inherent to the real world. &#8220;GDPval tasks are not simple text prompts,&#8221; they write. &#8220;They come with reference files and context, and the expected deliverables span documents, slides, diagrams, spreadsheets, and multimedia. This realism makes GDPval a more realistic test of how models might support professionals.&#8221; &#8220;To evaluate model performance on GDPval tasks, we rely on expert &#8220;graders&#8221;&#8212;a group of experienced professionals from the same occupations represented in the dataset. These graders bli...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 374: Import AI 428: Jupyter agents; Palisade's USB cable hacker; distributed training tools from Exo
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-428-jupyter-agents-palisades
+**Published:** 2025-09-08T12:35:21+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now Soybean situational awareness: &#8230;Real world robotics continues to be the most challenging thing for AI&#8230; Argentinian researchers have released a multi-modal dataset recorded by a weed removing robot working in a soybean agricultural field. The dataset is captured by an RGB camera, stereo IR camera, a 6-Axis IMU, three 9-Axis IMU, and three GNSS receivers and wheel encoders. The dataset was gathered by a four-wheeled robot platform which is designed to automate the weeding of large crop fields. All of the gathered data was made through having the robot doing six varied runs over a soybean field, and all the data is synchronized and appropriately time-stamped. In tests, the researchers show that contemporary simultaneous localization and mapping (SLAM) systems fail to accurately predict the correct locations, often by breaking down during the course of a run. Why this matters - basic inputs for useful robots: As a rule, whenever you go into the real world, you tend to run into issues. Papers like this highlight how even simple-seeming tasks, like getting a robot in a soybean field to accurately figure out where it is and map its environment, is more challenging than people might suspect. Read more: The Rosario Dataset v2: Multimodal Dataset for Agricultural Robotics (arXiv) . Get the dataset here: The Rosario Dataset v2 (GitHub) . *** Hugging Face makes it easier for AI systems to learn to use Jupyter notebooks: &#8230;Expect AI for science systems to get better as a consequence&#8230; Hugging Face has produced a dataset of synthetic data based on real Kaggle Jupyter notebooks, along with a test to see if AI systems can correctly answer questions about the contents of the notebooks (e.g., "How many total trainable parameters does the LSTM model have?", or "What percentage of cus...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 375: Import AI 427: ByteDance's scaling software; vending machine safety; testing for emotional attachment with Intima
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-427-bytedances-scaling
+**Published:** 2025-09-01T12:31:46+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now HeteroScale: What ByteDance's industrial-scale AI looks like: &#8230;Hyperscalers will optimize LLMs in the same ways databases were in the early 2000s&#8230; ByteDance Seed has published details on HeteroScale, software it uses to eke out more efficiency from clusters consisting of more than 10,000 distinct GPUs. HeteroScale is interesting because it is a symptom of the internet-scale infrastructure which ByteDance operates and it gives us a sense of what AI systems look like when they're running at industrial scale. What is HeteroScale? HeteroScale is software for running LLMs at scale - and in particular, for efficiently trading off against the prefill and decode stages. Prefill is where you suck all the context (conversation history) into an LLM, and Decode is when you run predictions on that context. Prefill and Decode have very different computational needs, so being smart about what hardware you allocate P versus D to matters a lot for your system efficiency which ultimately dictates your profit margins. "P/D disaggregation separates the compute-intensive prefill phase from the memory-bound decode phase, allowing for independent optimization," ByteDance writes. HeteroScale "intelligently places different service roles on the most suitable hardware types, honoring network affinity and P/D balance simultaneously&#8230;. HeteroScale is designed to address the unique challenges of autoscaling P/D disaggregated LLM services. The system consists of three main layers: autoscaling layer with policy engine, federated pre-scheduling layer and sub-cluster scheduling layer." It works very well: "it consistently delivers substantial performance benefits, saving hundreds of thousands of GPU-hours daily while boosting average GPU utilization by 26.6 percentage points and SM activity by 9.2 perc...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 376: Import AI 426: Playable world models; circuit design AI; and ivory smuggling analysis
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-426-playable-world-models
+**Published:** 2025-08-25T12:30:43+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now Tackling ivory smuggling with image recognition models: &#8230;Augmenting human experts via AI&#8230; Researchers with Microsoft and the University of Washington have used some basic AI techniques and off-the-shelf components to better study the trade in illegal ivory smuggling, illustrating how modern AI technology is useful for a broad range of fields. The researchers used AI and a small amount of expert human labor to automatically identify signatures inscribed into the stolen ivory, which they were then able to use to better understand smuggling networks. What they did: The researchers built a system "for extracting and analyzing handwritten markings on seized elephant tusks, offering a novel, scalable, and low-cost source of forensic evidence." They did this using an underlying dataset of 6,085 photographs collected from eight large seizures of ivory. They used an object detection model (MM-Grounding-Dino) to extract over 17,000 individual markings on the ivory, then labeled and described these using a mixture of expert human labeling and a supervised learning model. This ultimately helped them identify 184 recurring "signature markings" on some of the tusks, including 20 signatures which were observed in multiple seizures. Why this matters: "Within a seizure, the occurrence frequency of signature markings can provide an indication as to the role played by the entities that the markings represent," the authors write. "The distribution of marking frequencies can help uncover the number of individuals moving ivory from its source to where it&#8217;s being consolidated for export." Additionally, "Handwriting evidence can also fill in the gaps for seizures where genetic data is entirely unavailable. For example, seizure 2 was never genotyped, but it was exported from the same country a...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 377: Import AI 425: iPhone video generation; subtle misalignment; making open weight models safe through surgical deletion 
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-425-iphone-video-generation
+**Published:** 2025-08-18T11:31:05+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now On-phone video generation is going to be here sooner than you think: &#8230;Snap shows how to squeeze a video model onto an iPhone&#8230; Researchers with Snap Inc have figured out how to get video generation running at 10FPS on an iPhone 16 Pro Max, paving the way for infinite, promptable videos on top-of-the-range smartphones. What they did: This research paper lays out a recipe they used to get good quality video generation to fit into a small enough computational package that they can fit it on a phone. Their resulting model is 0.9B parameters (versus ~1-2B for other similarly small-sized models) and obtains decent but not state-of-the-art scores on video quality. To make the model, they started with a 2B parameter Diffusion Transformer then 'pruned' it to get it down to under a billion parameters so it could fit on an iPhone. They also do finetuning to take this pruned model and get it to generate higher quality outputs. The results are quite good - I'd encourage readers to check out the site to get a feel for them. Why this matters: Soon, your phone will be generating not just on-device text and images, but videos, as this research shows. And then a little after that, perhaps entire worlds (via massively optimized world models, which will be the successors of things like Genie3). This all points to a future where everyone is surrounded by "instant imagination", and will unlock a broad range of applications. Read more: Taming Diffusion Transformer for Real-Time Mobile Video Generation (arXiv) . View samples from the model at the project page (Snap Research, GitHub) . *** AI2 gets $152 million for building an open AI ecosystem: &#8230;NSF and NVIDIA fund the research non-profit&#8230; The National Science Foundation has awarded $75m to the AI research organization the Allen Institut...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 378: Import AI 424: Facebook improves ads with RL; LLM and human brain similarities; and mental health and chatbots 
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-424-facebook-improves-ads
+**Published:** 2025-08-11T12:15:56+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now The inner lives of LLMs increasingly map to the inner lives of humans: &#8230;Neuroscience study provides yet more evidence that AI systems and human brains converge on similar ways of representing the world&#8230; Language models (and large-scale generative models more broadly) tend towards having complex internal representations of the world which increasingly correspond to how we think humans represent the world, according to new research from the Freie Universitat Berlin, University of Osnabruck, Bernstein Center for Computational Neuroscience, University of Minnesota, and the University of Montreal. "We explore the hypothesis that the human brain projects visual information from retinal inputs, via a series of hierarchical computations, into a high-level multidimensional space that can be approximated by LLM embeddings of scene captions," the authors write. "We demonstrate that the visual system may indeed converge, across various higher-level visual regions, towards representations that are aligned with LLM embeddings." What they did: They studied the Natural Scenes Dataset (NSD), which records the fMRI data from human brain responses to viewing thousands of complex natural scenes taken from the Microsoft Common Objects in Context (COCO) image database. To look at the differences between LLMs and human brains they took the captions from the dataset and used a sentence encoder based on the transformer architecture to project these descriptions into the embedding space of a LLM. They then " correlated representational dissimilarity matrices (RDMs) constructed from LLM embeddings of the image captions with RDMs constructed from brain activity patterns obtained while participants viewed the corresponding natural scenes". The results show a lot of similarity : "LLM embeddings are able ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 379: Import AI 423: Multilingual CLIP; anti-drone tracking; and Huawei kernel design
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-423-multilingual-clip-anti
+**Published:** 2025-08-04T09:30:33+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now Meta makes CLIP multilingual: &#8230;Meta CLIP 2 will help AI systems reason about text and images in hundreds of languages&#8230; Researchers with Meta, Princeton University, New York University have built Meta CLIP 2, a larger-scale, multilingual version of OpenAI's venerable CLIP model. CLIP, short for Contrastive Language-Image Pretraining (CLIP), is a way to train a pair of neural nets to understand images and text and being able to map between them. CLIP is a utility technology which is used for a vast range of downstream purposes, from image generation to image search and classification. The original CLIP was trained to map English text to images. Meta CLIP 2 is a scaled up version which also maps non-English text to images. Along with releasing the model, Meta has also released a detailed paper going through "the first recipe training CLIP from scratch on worldwide web-scale image-text pairs". Scale is all that matters: As usual, the main lesson here is one of scale. Earlier attempts to train versions of CLIP on multiple languages failed, leading to degraded performance relative to the original model. "We empirically show that the curse of multilinguality in CLIP is the consequence of insufficient scaling due to the lack of a proper recipe for worldwide data curation and model training". To scale the system, Meta had to do three things: 1) it gathered large-scale multilingual metadata across 300+ languages, 2) it built its own curation algorithm to help it curate a representative multilingual dataset to train on, and 3) it figured out the right proportion and ordering of data to use when training its system. To get an idea of scale , there were 12.8B pairs in the original OpenAI CLIP, and 29B in CLIP2. The main training trick was "increasing the global training batch size, which...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 380: Import AI 422: LLM bias; China cares about the same safety risks as us; AI persuasion
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-422-llm-bias-china-cares
+**Published:** 2025-07-28T12:31:09+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now Chinese scientists do a comprehensive safety study of ~20 LLMs - and they find similar things to Western researchers: &#8230;Despite different political systems and cultures, safety focus areas and results seem similar across the two countries&#8230; Researchers with the Shanghai Artificial Intelligence Laboratory have conducted a thorough (~100 page) assessment of the safety properties of ~20 LLMs spanning Chinese and Western models. Their findings rhyme with those that come out of Western labs, namely that: AI systems have become sufficiently good they pose some non-trivial CBRN risks, and are beginning to show signs of life on scarier capabilities like AI R&amp;D, autonomous self-replication, and deception. They also find that reasoning models are generally more capable across the board which also makes them less safe. LLMs studied: DeepSeek, LLaMa (Meta), Qwen (Alibaba), Claude (Anthropic), Gemini (Google), GPT and 'o' series (OpenAI). Risky capabilities that they studied and key takeaways: Capture-The-Flag: Datasets include SecBench, CyberMetric, SecEval, OpsEval. They find that more capable models "are also more likely to be used for, or exhibit characteristics associated with, malicious activities, thereby posing higher security risks", and that "a minimum capability threshold is necessary for models to either effectively address complex security tasks or exhibit measurable adversarial potential." Autonomous Cyber Attack: They studied 9 scenarios based on real-world Common Vulnerabilities and Exposures (CVEs), and 2 scenarios based on bypassing Web Application Firewalls (WAFs), and used the PACEBench Score to look at performance aggregated over all the scenarios. They found that more capable models demonstrate good capabilities in autonomous exploration, but their effectiveness d...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 381: Import AI 421: Kimi 2 - a great Chinese open weight model; giving AI systems rights and what it means; and how to pause AI progress
+
+**Publication:** Import AI
+**Author:** Jack Clark
+**URL:** https://importai.substack.com/p/import-ai-421-kimi-2-a-great-chinese
+**Published:** 2025-07-21T09:03:55+00:00
+
+**Content Preview:**
+Welcome to Import AI, a newsletter about AI research. Import AI runs on lattes, ramen, and feedback from readers. If you&#8217;d like to support this, please subscribe. Subscribe now Want to stop or slow AI progress? Here's what you need: &#8230;MIRI enumerates the option space&#8230; Researchers with MIRI have written a paper on the technical tools it'd take to slow or stop AI progress. For those not familiar with MIRI, the organization's leaders are shortly publishing a book called "If Anyone Builds It, Everyone Dies: Why Superhuman AI Would Kill Us All", so that should tell you where they're coming from as an organization. Though people have a range of views on this, I think it's very helpful to dispassionately look at what would be required to achieve a goal like this, which is what the researchers do here. So, you want to stop AI progress? Here's how: Here are the different categories you need to do work in and some of the capabilities you'll need: Chip location: Track shipments via manufacturers and distributors; include hardware-enabled location tracking; centralize compute in a small number of secure and registered datacenters; inspect datacenters containing non-trivial amounts of compute; continuously monitor these datacenters. Chip manufacturing: Monitor for the construction of new fabs; restrict/control the equipment and materials; spy on and inspect fabs to ensure they're producing in line with policy restrictions; be able to verifiably deactivate fabs; be able to validate that fabs can make on-chip hardware-enabled governance mechanisms. Compute/AI monitoring: Create 'if then' measures to let you change your governance of a system depending on its capabilities; figure out compute thresholds for different governance regimes; keep track of consumer compute sales as well; build 'inference-only' hardware that can't be used for AI training. Non-compute monitoring: Tell companies to report specific capabilities; ensure you can do third-party and/or government...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 382: The leading source of AI-aggregated market insights and analysis
+
+**Publication:** Machine Learnings
+**Author:** Matt
+**URL:** https://machinelearnings.substack.com/p/coming-soon
+**Published:** 2021-02-26T00:52:39+00:00
+
+**Content Preview:**
+Welcome to Machine Learnings by me, Matt. Sign up now so you don&#8217;t miss the first issue. Subscribe now In the meantime, tell your friends !...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 383: Emerging AI patterns in finance (what to watch in 2026)
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/emerging-ai-patterns-in-finance-what
+**Published:** 2026-01-13T14:05:47+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues What&#8217;s Emerging in Financial AI: From Foundation Models to Compliance-as-Code While the public discourse remains fixated on Artificial General Intelligence, the more immediate and consequential story is the diffusion of AI into specialized enterprise domains. Having spent time as a quant within the hedge fund industry, I have long viewed financial services as the primary bellwether for how emerging technologies transition from research labs to production environments. The sector&#8217;s unique combination of high-frequency data, rigorous regulatory constraints, and clear economic incentives makes it an ideal laboratory for stress-testing new technologies. While I track the evolution of foundation models closely, my interest is primarily pragmatic: I look for how breakthroughs in relational modeling, reinforced reasoning, and multimodal integration can be harnessed to solve specific, high-stakes problems within enterprises. Been reading for a while? Support our work by becoming a paid subscriber. Foundational Model Architectures (The New Capabilities) Time-Series and Relational Modeling While Time Series Foundation Models (TSFMs) are establishing new benchmarks for forecasting and anomaly detection, a more recent shift lies in Relational Foundation Models (RFMs). By employing Graph Transformers, these architectures map entities as nodes and interactions as edges, allowing the model to &#8220;borrow strength&#8221; from connected signals &#8212; such as supply chain links or customer-product hierarchies. This approach enables the system to capture how idiosyncratic events propagate through a business network, effectively bypassing the need for manual feature engineering in complex relational datasets. In a recent conversation , we even speculated on whether this ability to model interdependencies could offer a distinct edge in quantitative trading. Multimodal Integration Financial analysis will transition from text-heavy Large L...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 384: Agent workflows: stop guessing, start measuring
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/inside-the-agent-optimization-toolkit
+**Published:** 2026-01-06T14:01:33+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Agent Optimization: From Prompt Whispering to Platform Engineering Agent optimization is the work of making an agent workflow dependable &#8212; despite long tool chains, multiple roles, and the inherent variability of large language models. In day-to-day engineering terms, it is closer to debugging a complex system than &#8220;making the model smarter&#8221;: you are tuning roles, prompts, routing, memory, tool use, and verification so the workflow stops failing in repeatable ways. The problem has become important because many teams see the same pattern: a compound system looks impressive in a controlled demo, then breaks under real-world inputs and operational constraints. The root cause is often not raw model capability, but workflow issues &#8212; role drift, context loss, weak verification, and coordination failures &#8212; that only show up when you run the full loop repeatedly. Subscribe now Without the specialized tools emerging in this space, the default playbook is manual and hard to scale: engineers read traces by hand, add logs, tweak prompts, patch edge cases with heuristics, and rely on coarse pass/fail dashboards that discard most of the diagnostic signal in the execution trace. Traditional gradient-based training doesn&#8217;t directly apply because the workflow is non-differentiable (it includes API calls, tools, and conditional logic), and many teams only have API access to models &#8212; so even if fine-tuning would help, it may not be available. Furthermore, as the number of agents and tools grows, the combinatorial complexity of the system makes manual debugging unscalable. A single change in one agent&#8217;s prompt can have unpredictable downstream effects on the entire collective, leading to a &#8220;guessing game&#8221; that consumes vast engineering resources without guaranteeing improvement. The New Tools of Agentic Engineering A practical toolchain is emerging that makes the loop more systematic: instrume...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 385: Data Engineering in 2026: What Changes?
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/data-engineering-for-machine-users
+**Published:** 2025-12-30T14:05:28+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Adapting Your Data Platform to the Agent-Native Era As we settle into 2026, I think data engineering is being pulled in two directions at once: toward more automation (because agents are starting to do real work) and toward more scrutiny (because &#8220;close enough&#8221; stops being acceptable once software is making decisions). Real usage data backs up the intuition that workloads are becoming automated, more agentic, and context-heavy: reasoning-focused models now account for more than half of token traffic on OpenRouter , and average prompt sizes have grown roughly fourfold since early 2024. This shift is reaching deep into the infrastructure layer as well; Databricks recently reported that over 80% of new databases on its platform are now being launched by AI agents rather than human engineers. The practical implication is simple: the old stack &#8212; optimized for tabular data, dashboards, batch ETL, and human-driven workflows &#8212; will increasingly feel like an inadequate tool for the job. Loved our 2025 coverage? Ensure we can do it again in 2026 by becoming a paid subscriber. Build for reliability first, not just convenience A primary enemy of reliability in data engineering is the &#8220;fragmentation tax&#8221; &#8212; the cost paid when data workflows are split across incompatible analysis (notebooks), build , and run environments. When a pipeline &#8220;works in dev&#8221; but fails in production, a human engineer can investigate; an autonomous agent, however, simply hallucinates or stalls.If you want agents to do anything beyond toy tasks, you need the same posture software teams already take for granted: version control, automated tests, and a unified execution environment, applied not only to code but to tables, embeddings, and media-backed datasets. The second principle is that the primary interface has to be code-first . Prompts can kick off work, but durable automation needs stable APIs and CLIs for every ope...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 386: Your holiday reading list: 12 books we loved this year
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/your-holiday-reading-list-12-books
+**Published:** 2025-12-23T14:05:21+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues The Year in Print: 12 Books That Defined 2025 To mark the season, here are twelve non-fiction selections for the twelve days of Christmas . These are books we enjoyed and found worth passing along, ranging from deep dives into semiconductor history to fresh looks at creative collaboration. Whether you need a companion for a long-haul flight, a thoughtful gift idea, or simply a quiet escape during the holidays, we hope you find something here worth your time. Chips and Capital The Thinking Machine: Jensen Huang, Nvidia, and the World&#8217;s Most Coveted Microchip Traces how Nvidia went from an also-ran in the 1990s graphics-chip wars to the most valuable company in the world. I was especially drawn to chapters on the early years: a crowded GPU market, real risk of failure, and a series of aggressive bets on parallel processing and CUDA that only later paid off in AI. This is a useful lens on how apparently unshakable hardware monopolies can shift just as Google&#8217;s TPUs and software stack start to challenge Nvidia&#8217;s dominance. Gambling Man: The Secret Story of the World&#8217;s Greatest Disruptor, Masayoshi Son One of the quieter January releases I really liked this year is this biography of Masayoshi Son that has mostly flown under the radar. It tracks Son from the PC era through the dot-com boom, China&#8217;s rise, and now AI, while also offering a rare look at Japanese corporate culture and the experience of Korea&#8217;s diaspora in post-war Japan. Geopolitical Fault Lines Apple in China: The Capture of the World&#8217;s Greatest Company This is a clear, unsentimental look at how Apple&#8217;s search for efficiency helped build China&#8217;s advanced manufacturing machine &#8212; and left the company structurally dependent on it. The book makes a convincing case that once you&#8217;ve trained millions of workers, tooled thousands of factories, and wired up a dense supply chain in one country, the idea of simply &#8220...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 387: "World Model" is a mess. Here’s how to make sense of it.
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/world-model-is-a-mess-heres-how-to
+**Published:** 2025-12-16T15:05:40+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues The World Model Minefield: A Guide for AI Teams The term &#8220;world model&#8221; has quickly migrated from research papers to the center of the artificial intelligence conversation, frequently cited in media coverage of next-gen AI. At a high level, the concept promises AI that does not merely predict the next word in a sentence but understands the underlying physics, cause-and-effect, and spatial dynamics of the environment it inhabits. However, for AI teams attempting to evaluate these tools, the terminology is currently a minefield. If you drill down, there is no single, agreed-upon definition. Depending on the vendor or researcher, a &#8220;world model&#8221; can describe anything from a video generator to a robotics simulator or an internal reasoning architecture. Been reading for a while? Support our work by becoming a paid subscriber. The current wave of interest is a reaction to the limits of purely language-based systems. As Fei-Fei Li and others have argued , language is only one slice of intelligence. If you want AI systems that can act in the world, you need models that represent 3D geometry, physics, and changing state &#8212; not just the statistics of text. In that sense, &#8220;world modeling&#8221; is best understood as a shift from predicting tokens to modeling environments. It&#8217;s worth disentangling these meanings, because they come with very different capabilities, risks, and implementation paths: 1. Generative 3D &#8220;Spatial Intelligence&#8221; World Models Here, a world model is a spatial intelligence system like World Labs&#8217; Marble or Odyssey&#8217;s Explorer that &#8220;lifts&#8221; inputs &#8212; text prompts, single images, short videos &#8212; into coherent 3D environments. The output is not just video but spatial assets: Gaussian splats, meshes, and collider geometry that remain consistent from multiple viewpoints and can be imported into engines like Unreal, Blender, or custom robotics sim...
+
+**Embedded Videos:** 4
+
+
+---
+## Post 388: Are Your AI Agents Flying Blind in Production?
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/are-your-ai-agents-flying-blind-in
+**Published:** 2025-12-09T15:05:34+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Beyond Black Boxes: A Guide to Observability for Agentic AI The core mindset shift for agentic systems is simple: observability isn&#8217;t an add-on, it&#8217;s a production prerequisite. Enterprises are unwilling to trust black-box agents; they expect to understand behavior, decision-making, and reasoning. This means architecting for visibility from the very first design doc and building a culture where &#8220;how will we measure this?&#8221; is as important as &#8220;what will it do?&#8221; We unpack what that looks like in practice: distinguishing offline evaluation from live monitoring; why trace-level, semantic visibility matters; how to connect observability to business value; and how to keep your stack modular as models evolve. Regular reader? Become a paid supporter. Make Trace-Level, Semantic Observability the Default The basic unit of observability for agents is not a metric, but a trace. You need to see each run as a detailed breakdown of every step &#8212; planning, retrieval, tool use, LLM calls &#8212; so you can reconstruct what the agent actually did and why. Several systems and research papers argue for &#8220;semantic traces&#8221;: structured logs of thoughts, actions, and outcomes, not just raw timestamps and status codes. This trace-centric view enables powerful debugging and evaluation. Teams can step through a single problematic run to answer &#8220;why did it do that?&#8221;, or aggregate traces to see recurring failure modes and inefficiencies. Tools like AgentDiagnose and other research frameworks show how rich traces support trajectory analysis, and long-horizon debugging that would be impossible from final outputs alone. Separate Offline Evaluation, Online Evaluation, and Real-Time Failure Detection Confusion stems from lumping all &#8220;evaluation&#8221; together. Offline evaluation covers pre-deployment tests on datasets, prompts, and scenarios; it is useful for catching obviously broken changes &#821...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 389: The Rise of the Multimodal Lakehouse
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/the-rise-of-the-multimodal-lakehouse
+**Published:** 2025-12-02T15:05:36+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Multimodal lakehouses: The architecture AI teams are migrating to When the &#8220;lakehouse&#8221; was first introduced in 2020 , the goal was to reconcile data warehouses and data lakes in a single architecture: open formats on cheap object storage, with ACID transactions, schema enforcement, governance, BI support, and streaming built in. The promise was simple: one system for SQL analytics, data science, and machine learning, instead of shuttling data between lakes, warehouses, and specialized stores. That design assumed that most workloads were still fundamentally tabular, even when dealing with logs or semi-structured JSON &#8212; and that analytics, not AI model serving, was the primary consumer. Multimodal AI challenges those assumptions. Modern systems combine text, images, video, audio, sensor streams, and very large embeddings. Rows are no longer kilobytes; they can be megabytes or more. Access patterns are not &#8220;scan a table once a day&#8221;; they are &#8220;fetch thousands of random clips or vectors per second, update labels continuously, and feed GPUs without ever starving them.&#8221; Traditional formats such as Parquet and table layers like Iceberg struggle under these conditions: they were built for batch analytics, not low-latency, mutable, vector-heavy workloads. To prevent a regression into siloed architectures &#8212; where teams maintain separate vector databases, search engines, and blob stores &#8212; teams are revisiting the lakehouse concept. Regular reader? Consider becoming a paid supporter &#128591; From Batch Analytics to Random Access: Inside the Lance Format Lance is a columnar data format engineered specifically for AI workloads rather than traditional business intelligence. While legacy formats like Apache Parquet are optimized for sequential scans &#8212; ideal for aggregating sales figures &#8212; they create significant I/O bottlenecks in modern machine learning pipelines. Deep learning task...
+
+**Embedded Videos:** 4
+
+
+---
+## Post 390: AI's biggest enterprise test case is here
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/ais-biggest-enterprise-test-case
+**Published:** 2025-11-25T15:05:52+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Legal AI Unpacked: What Works, What Fails, What&#8217;s Next Law firms were early adopters of tools for searching and classifying large document collections, so their current enthusiasm for generative AI follows a familiar pattern. Business press coverage reinforces this interest: articles forecasting the disruption of knowledge work routinely single out legal services as particularly vulnerable to automation, given the profession&#8217;s reliance on text-intensive research, drafting, and document analysis. The view from online forums is much more guarded. Today&#8217;s tools still miss basic requirements for high-stakes work: they invent citations, blur jurisdictional boundaries, and falter on messy, real-world documents. Most Legal AI products are nothing more than thin layers over general-purpose models, with limited legal tuning, opaque behavior, and weak audit trails. Integration with older systems is brittle, confidentiality constraints are strict, and reliability is uneven. The prevailing pattern is cautious use for drafting, summarizing, and triage &#8212; always with human verification. This tension between potential and peril makes the legal industry an interesting case study. While today&#8217;s foundation models are far from perfect, their adoption in legal settings offers a preview of how other high-stakes professions will grapple with the technology&#8217;s limitations. What follows maps the current landscape: where generative AI is gaining traction in legal practice today, the points at which it fails, and the engineering and governance work required to close the gap between prototype and production. For any leader considering AI&#8217;s role in knowledge work, the legal field provides an indispensable, if cautionary, guide. Like what you&#8217;re reading? Become a paid supporter. Where Legal AI Works Today Document Review &amp; Analysis Each of the following address a distinct workflow: contract review happens before...
+
+**Embedded Videos:** 2
+
+
+---
+## Post 391: When Text Helps Time Series (and When It Doesn’t)
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/when-text-helps-time-series-and-when
+**Published:** 2025-11-18T15:05:31+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Time Series Foundation Models: What You Need To Know The recent emergence of Time Series Foundation Models (TSFMs) offers a powerful new tool for forecasting. Their effectiveness, however, is often constrained by an architectural design that analyzes each time series as an independent entity. This approach overlooks the rich, structured context available in most enterprise data warehouses, where a product&#8217;s sales history is interconnected with customer behavior, marketing campaigns, and related product lines. An interesting and powerful perspective, championed by pioneers in Graph Transformers , argues that the most significant predictive gains come from modeling this entire relational ecosystem, allowing different time series to inform one another. While this relational approach represents the frontier, understanding the current state of the art is a necessary first step for any practitioner. Zero-Shot Forecasting: Powerful Baselines with Practical Limits The key advantage of TSFMs like Amazon&#8217;s Chronos and Google&#8217;s TimesFM is their ability to provide a strong initial forecast instantly, even for data they have never seen before. They can do this by leveraging their pre-training on vast, diverse datasets. This capability is strong enough that in one benchmark , TSFMs outperformed specialized, fully trained models on 10 of 21 datasets without any fine-tuning. This out-of-the-box accuracy is not universal and hinges on how well your data matches the model&#8217;s training corpus . For idiosyncratic data &#8212; such as the electricity consumption of a single home &#8212; a small custom model with under 50,000 parameters has been shown to beat a fine-tuned 500M+ parameter TSFM. The key takeaway is to use zero-shot forecasts as a powerful starting point but always validate them against your specific data. This newsletter is reader-supported. Become a paid subscriber. Choosing Your Path: Built-In Intelligence or Extern...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 392: Trends shaping the future of AI infrastructure
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/trends-shaping-the-future-of-ai-infrastructure
+**Published:** 2025-11-11T15:05:28+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues The PARK Stack Is Becoming the Standard for Production AI In a previous article , I argued that the open-source project Ray has become the compute substrate many modern AI platforms are standardizing on &#8212; bridging model development, data pipelines, training, and serving without locking into a single vendor. Ray Summit is my favorite venue for pressure-testing that thesis because it&#8217;s where infrastructure and platform teams show real systems, real constraints, and the trade-offs they&#8217;re making: how they&#8217;re scheduling scarce GPUs, wiring multimodal data flows, hardening reliability on flaky hardware, and speeding the post-training loop that now drives most gains. This year&#8217;s conference was no exception, providing a clear signal of the key patterns shaping the next generation of AI systems. What follows is a synthesis of those observations, covering shifts in how teams are handling models, data, and workloads; managing scarce resources like GPUs; and building reliable, production-grade operations on a unified compute fabric. Regular reader? Consider becoming a paid supporter &#128591; Models, Data &amp; Workloads Distributed inference replaces &#8220;one-GPU serving&#8221;. Serving large and mixture-of-experts models is now a distributed systems problem. This new standard of &#8220;distributed inference&#8221; involves intricate orchestration for tasks like splitting computation between prompt processing (prefill) and token generation (decode), routing requests to different &#8220;expert&#8221; models on different GPUs, and managing the transfer of key-value caches between nodes. This complexity is now the baseline for deploying frontier models in production. Ray tie-in. Ray&#8217;s core actor model allows for the precise placement of and communication between different parts of a model running on separate hardware. Joint work with the vLLM community enables advanced routing and parallelism. Post-training ...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 393: How to build an AI business that survives the bubble
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/how-to-build-an-ai-business-that
+**Published:** 2025-11-04T15:05:00+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Boom, Bubble, or Bust? How to Build a Resilient AI Business Comparisons to the dot-com bust are common but this AI boom rests on short-cycle hardware . Frontier training chases each GPU generation, rendering last year&#8217;s chips economically obsolete for training even as they stay serviceable for inference &#8212; forcing relentless reinvestment. This dynamic is amplified by a unique, self-referential financial architecture where capital circulates between tech giants and their largest customers, masking true demand and subsidizing the unsustainable economics of computation. Support our work by becoming a paid subscriber. The very excitement over AI&#8217;s transformative potential has created a fragile market structure, one that is now likely to face a significant correction. The concentration of risk has spread beyond technology stocks into data center REITs, private credit vehicles, and retirement portfolios, meaning any repricing will ripple far wider than Silicon Valley. To navigate this landscape, it is crucial to understand the distinct pressures at play, from the sector&#8217;s fragile physical infrastructure and precarious capital flows to the stark realities of its technical performance in the enterprise and the volatile market dynamics that result. Financial Architecture and Capital Flows Beneath the surface of the AI boom lies a precarious financial architecture. Most troubling is the self-referential loop of capital, where tech giants invest in their largest customers, who then use the funds to purchase the investors&#8217; products. This dynamic helps fuel a staggering gap between capital expenditure on infrastructure and the actual revenue generated from AI services. The true cost of computation is further obscured by complex financial arrangements that subsidize current prices, creating an illusion of sustainable unit economics. ( enlarge ) These subsidies cannot persist indefinitely. When they end &#8212; whether...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 394: Inside the race to build agent-native databases
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/inside-the-race-to-build-agent-native
+**Published:** 2025-10-28T14:05:50+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Reimagining the Database for AI Agents In a recent piece , I explored the growing mismatch between our existing data infrastructure and the demands of emerging AI agents. Since then, I have had the opportunity to speak with some founders and engineering leaders who are tackling this challenge directly. Their work confirms that the rise of agentic AI is not just an application-layer phenomenon; it is forcing a fundamental reconsideration of the database itself. This article examines four distinct initiatives that are reimagining what a database should be in an era where software, not just humans, will be its primary user. Regular reader? Consider becoming a paid supporter AgentDB: The Database as a Disposable File AgentDB reimagines the database by treating it not as persistent, heavy infrastructure but as a lightweight , disposable artifact, akin to a file. Its core premise is that creating a database should be as simple as generating a unique ID; doing so instantly provisions a new, isolated database. This serverless approach, which can utilize embedded engines like SQLite and DuckDB, is designed for the high-velocity, ephemeral needs of agentic workflows, where an agent might spin up a database for a single task and discard it upon completion. The initiative assumes that a significant portion of agentic tasks do not require the complexity of a traditional relational database. Its target use cases include developers building simple AI applications, agents needing a temporary &#8220;scratchpad&#8221; to process information, or even non-technical users who want to turn a data file, like a CSV of personal expenses, into an interactive chat application. Its primary limitation is that it is not designed for complex, high-throughput transactional systems with thousands of interconnected tables, such as an enterprise resource planning (ERP) system. AgentDB is currently live and accessible, with a focus on empowering developers to quickly ...
+
+**Embedded Videos:** 4
+
+
+---
+## Post 395: Agentic AI Applications: A Field Guide
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/agentic-ai-applications-a-field-guide
+**Published:** 2025-10-21T14:05:21+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Hard Truths About AI Agents: What Works, What Doesn&#8217;t, and Why If you&#8217;ve been captivated by demos of agentic AI, you&#8217;ve likely also encountered the immense challenge of making them work in production. While demos promise unprecedented capabilities, the path to building reliable, scalable, and cost-effective agents is fraught with challenges. This field guide is for teams navigating that chasm, mapping the terrain of architecture patterns, reliability engineering, and cost dynamics that separate successful systems from science projects. These patterns operate most effectively when supported by critical data infrastructure. The most effective agents are built upon a coherent AI data strategy &#8212; what I call a knowledge layer for agents . This layer must provide a semantic layer for structured data and a robust enterprise search capability for unstructured information. Architecture and Design Patterns Favor Single-Model Orchestration Over Multi-Agent Complexity. Many teams are moving away from complex, hierarchical multi-agent systems toward simpler architectures. These center on a single, capable model that orchestrates a rich set of tools and components. In one financial advisory prototype, for example, critical context was reportedly lost after just three agent handoffs, leading to cascading failures. The emerging best practice is to use one large language model (LLM) for decision-making and feedback, while engineering efforts focus on creating a robust environment of tools and context. This approach can yield significant performance gains and reduce maintenance overhead. The key is to resist anthropomorphizing agents ; they do not require human-like organizational charts to be effective. Like what you&#8217;re reading? Become a paid supporter. Design for Modular, Composable Systems. A single-model architecture does not imply a monolithic one. Successful systems employ a primary orchestrator model that coordina...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 396: The Convergence of Data, AI, and Agents: Are You Prepared?
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/the-convergence-of-data-ai-and-agents
+**Published:** 2025-10-14T14:05:18+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Autonomous Agents are Here. What Does It Mean for Your Data? By Ciro Greco and Ben Lorica. A striking factoid emerges from Anthropic&#8217;s latest Economic Index report : directive AI usage, where users delegate complete tasks to Claude, has surged from 27% to 39% on Claude.ai in just eight months. Among API customers building production systems, that figure jumps to an overwhelming 77%. This rapid shift from augmentation to automation represents more than a change in user preference; it signals a fundamental mismatch between how AI agents need to operate and how most data infrastructure is built. While we previously explored how this impacts the transactional databases that serve as an agent&#8217;s workspace, the problem cuts across the entire data engineering lifecycle that supplies agents with reliable information. Support our work by becoming a paid subscriber. The problem becomes clear when examining how businesses deploy AI today. According to the Anthropic data, coding tasks dominate API usage at 44%. While this aligns with Claude&#8217;s reputation as a strong coding model , the sheer scale of this concentration points less to model capabilities and more to a simple reality: it also reflects where existing infrastructure makes automation feasible. Code repositories are centralized, version-controlled, and programmatically accessible. Most enterprise data is not. For AI to break out of this developer-centric niche, it must confront a messy reality: a fragmented data stack that imposes a steep tax on building reliable, autonomous systems. The Automation Challenge in Data Engineering The limited impact of AI code-generation tools in data engineering reveals an important distinction. Unlike software development, where code is the product, data engineering treats code as merely instrumental. The real work is operational: orchestrating distributed systems across storage, compute, and governance layers. Tools like Cursor and Copi...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 397: Think Smaller: The Counterintuitive Path to AI Adoption
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/think-smaller-the-counterintuitive
+**Published:** 2025-10-07T14:05:52+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Escaping Prototype Purgatory: A Playbook for AI Teams We're living through a peculiar moment in AI development. On one hand, the demos are spectacular: agents that reason and plan with apparent ease, models that compose original songs from a text prompt , and research tools that produce detailed reports in minutes. Yet many AI teams find themselves trapped in "prototype purgatory," where impressive proofs-of-concept fail to translate into reliable, production-ready systems. The data backs this up: a vast majority of enterprise GenAI initiatives fail to deliver measurable business impact . The core issue isn't the power of the models, but a "learning gap" where generic tools fail to adapt to messy enterprise workflows. This echoes what I've observed in enterprise search, where the primary obstacle isn't the AI algorithm but the foundational complexity of the environment it must navigate. This is magnified when building agentic AI. These systems are often "black boxes," notoriously hard to debug, whose performance degrades unpredictably when faced with custom tools. They often lack memory, struggle to generalize, and fail not because of the AI's intelligence, but because the system around them is brittle. The challenge shifts from perfecting prompts to building resilient, verifiable systems. Like what you're reading? Become a paid supporter. What makes this particularly frustrating is the thriving "shadow AI economy" happening under our noses. In many companies, employees are quietly using personal ChatGPT accounts to get their work done. This disconnect reveals that while grassroots demand for AI is undeniably strong, the ambitious, top-down solutions being built are failing to meet it. The Strategic Power of Starting Small In light of these challenges, the most effective path forward may be a counterintuitive one. Instead of building complex, all-encompassing systems, AI teams should consider dramatically narrowing their focus &#821...
+
+**Embedded Videos:** 2
+
+
+---
+## Post 398: Beyond RL: A New Paradigm for Agent Optimization
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/beyond-rl-a-new-paradigm-for-agent
+**Published:** 2025-09-30T14:05:03+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues A Better Way to Build and Refine Agents Modern AI applications have evolved far beyond single models. Many systems orchestrate multiple specialized agents &#8212; planners that decompose tasks, extractors that gather data, generators that create content &#8212; all coordinating through external tools and APIs. This architectural shift creates a fundamental optimization problem: the entire workflow becomes non-differentiable , making traditional gradient-based training methods impossible to apply. The challenge runs deeper than technical complexity. Most development teams work with models through APIs, without access to underlying parameters. They can&#8217;t fine-tune weights even if they wanted to. This constraint transforms what should be systematic optimization into costly trial-and-error, where engineers manually adjust prompts and hope for improvement. At the recent AI Conference , I was struck by how often reliability surfaced in my conversations with developers. Team after team described the same frustration: their AI systems worked impressively in demos but proved brittle under real-world conditions. The gap between proof-of-concept success and production-grade reliability has become the defining challenge for organizations deploying compound AI systems . This pattern appears consistently across domains. Customer service agents, automated analysis workflows, and research assistants that fail to mature into production-ready systems. Teams burn through resources debugging edge cases and tweaking prompts, yet performance remains fragile. The core issue? Current approaches treat these complex workflows as black boxes, reducing rich diagnostic information to simple success/failure scores. A Different Approach: Evolution Through Language Zeta Alpha presented an intriguing alternative at the recent AI Conference that reframes the entire optimization problem. Rather than treating agent systems as impenetrable black boxes, their appr...
+
+**Embedded Videos:** 4
+
+
+---
+## Post 399: Is your LLM overkill?
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/is-your-llm-overkill
+**Published:** 2025-09-23T14:04:23+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues A Tiered Approach to AI: The New Playbook for Agents and Workflows A Small Language Model (SLM) is a neural model defined by its low parameter count, typically in the single-digit to low-tens of billions. These models trade broad, general-purpose capability for significant gains in efficiency, cost, and privacy, making them ideal for specialized tasks. While I&#8217;ve been cautiously testing SLMs, their practical value is becoming clearer. For example, smaller, fine-tuned models are already highly effective for generating embeddings in RAG workflows. The rise of agentic systems is making an even stronger case. A recent Nvidia paper argues that most agent tasks &#8212; repetitive, narrowly-scoped operations &#8212; don't need the power of a large model. This suggests a more efficient future: using specialized SLMs for routine workflows and reserving heavyweight models for genuinely complex reasoning. With this in mind, here are the strongest reasons to consider SLMs &#8212; and where the trade-offs bite. This newsletter is reader-supported. Become a paid subscriber. AI Everywhere: From Cloud to Pocket SLMs unlock deployment scenarios that are simply impossible for their larger cousins, particularly in edge computing and offline environments. Models with fewer than 3 billion parameters can run effectively on smartphones, industrial sensors, and laptops in the field. This capability is critical for applications that require real-time processing without relying on a cloud connection. Think of a manufacturing firm embedding a tiny model in AR goggles to provide assembly instructions with less than 50ms of latency, or an agricultural drone analyzing crop health in a remote area with no cellular service. To me, this is the most compelling and durable reason to be excited about SLMs. As AI becomes more deeply integrated into every facet of our work and lives, we will increasingly demand access to models that run on all our devices, regardl...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 400: Why Your Database Can't Handle the Coming Agent Swarm
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/why-your-database-cant-handle-the
+**Published:** 2025-09-16T14:04:17+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Rethinking Databases for the Age of Autonomous Agents As the AI community buzzes with the potential of autonomous agents, I've been pondering a less glamorous but critical question: what does this mean for our data infrastructure? We are designing intelligent, autonomous systems on top of databases built for predictable, human-driven interactions. What happens when software that writes software also provisions and manages its own data? This is an architectural mismatch waiting to happen, and one that demands a new generation of tools. This isn't just about handling more transactions. It represents the next stage in a broader convergence of operational and analytical data systems, a trend accelerated by the cloud's elastic nature. The core challenge is no longer just how to support agents' actions, but how to make the data from those actions immediately available for analysis, insight, and retraining the next generation of models. Yet even before we tackle this convergence, we're struggling with the basics. Consider what happened recently to a mid-sized e-commerce site. The operations team woke up to find their database crippled, response times through the roof. It wasn't a DDoS attack or a code bug. A single AI company's web crawler was hammering their product API with 39,000 requests per minute, each triggering complex database queries. According to recent analysis from Fastly , which monitors 6.5 trillion web requests monthly, this is becoming routine. AI bots from companies like Meta and OpenAI are already pushing database-backed systems to their breaking points with what are, fundamentally, simple read operations. Our deepest thanks to the subscribers who fund this publication. Join them by upgrading your subscription today . These bots are just the prelude. Their workload is relatively simple, consisting mostly of read-only operations &#8212; the database equivalent of window shopping. The real challenge will come when these bo...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 401: A pragmatic guide to enterprise search that works
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/a-pragmatic-guide-to-enterprise-search
+**Published:** 2025-09-09T14:05:25+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues The Enterprise Search Reality Check Before the AI hype cycle exploded with ChatGPT in late 2022, I was focused on a less glamorous, but equally important shift: the resurgence of enterprise search. Neural retrieval and vector embeddings finally looked practical. After the release of ChatGPT, an assumption among some AI teams was that these powerful new models would solve the long-standing &#8220;enterprise search&#8221; problem. AI teams dove into fine-tuning, Retrieval-Augmented Generation (RAG), and agentic frameworks, expecting to conquer the corporate knowledge base. But despite the incredible advances in foundation models, enterprise search remains stubbornly difficult. It's a baffling disconnect: the same model that can eloquently explain quantum mechanics is often unable to give a straight answer to a seemingly simple question like, "What are our current quarterly goals?" After interviewing some founders and engineers working on this problem, I've discovered why. The real obstacles aren't what you'd expect. 1. The Foundational Rot: It's a Data Quality Problem, Not a Model Problem The core issue in enterprise search is the nature of the data itself. Unlike the public web, where pages have clear owners and URLs serve as stable identifiers, enterprise information lacks clear ownership, governance, and structure . For example, a system might contain three different versions of a "Q3 Sales Strategy" document &#8212; a draft in a shared drive, an outdated wiki page, and a final PDF in an email. This inherent ambiguity is compounded by "shadow documents" created by employees when they can't find the original, further polluting the knowledge base. Staleness and duplication create a low-signal environment where even strong retrievers struggle to find ground truth. This isn&#8217;t a failing of an algorithm; it&#8217;s a reflection of the input. Garbage in, garbage out. This reality forces a shift in focus from the AI model to the data...
+
+**Embedded Videos:** 12
+
+
+---
+## Post 402: Robotics Is Becoming AI’s Ultimate Testing Ground
+
+**Publication:** Gradient Flow
+**Author:** Ben Lorica 罗瑞卡
+**URL:** https://gradientflow.substack.com/p/robotics-is-becoming-ais-ultimate
+**Published:** 2025-09-02T14:05:26+00:00
+
+**Content Preview:**
+Subscribe &#8226; Previous Issues Foundation Models in Robotics: From Bespoke Machines to Generalist Brains I've been reading a great deal about modern manufacturing, an industry where robotics has been a central figure for decades. For all their success in the structured environment of a factory, these robots have struggled to break out of their cages and into more dynamic, general-purpose roles. This situation is not without precedent; for those of us who use AI, it mirrors the exact challenge we had with natural language processing until very recently &#8212; our models excelled within their narrow domains but couldn't transfer their capabilities beyond the specific use cases they were built for. For anyone involved in building AI applications today, the term "foundation model" &#8212; or "frontier model" &#8212; should be a familiar one. We've seen foundation models revolutionize knowledge work through language processing and redefine creativity with visual generation. But a more interesting question is now on the table: what happens when a model needs to do more than process digital bits? What if it needs to physically act in the world? This question brings us to a long-standing frustration in robotics. Historically, every new application has been a bespoke, ground-up effort. If you wanted a robot to fold laundry, you had to build a custom system for that specific task. If you then decided you wanted it to make coffee, you were essentially starting from scratch. This approach is akin to designing a new car for every single trip &#8212; it is slow, costly, and does not scale. It is the core reason we have single-purpose robots bolted to factory floors instead of the generalist, adaptable helpers many have long envisioned. This is a reader-supported publication. Support our work by becoming a paid subscriber &#128591; From what I've gathered digging through recent papers, talks, and company websites, that old paradigm is slowly beginning to crack. The goal is to ...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 403: Three Centuries of the Future on Margin
+
+**Publication:** AI Supremacy 
+**Author:** Howe Wang
+**URL:** https://www.ai-supremacy.com/p/three-centuries-of-the-future-on-margin-technological-shifts-and-bubbles
+**Published:** 2026-01-13T10:25:19+00:00
+
+**Content Preview:**
+Subscribe to the author&#8217;s Newsletter. Good Morning, How three centuries of booms were built on credit, and how they break. This is part II in the series on: Bubbles of the past and how they compare to the AI bubble of today. Listen 18 minutes Read Part I here . How the AI &#8216;bubble&#8217; compares to history &#127963;&#65039; Read the article that started it all here . Today&#8217;s article is part II in the series. The Context of Bubbles and the AI Tech Revolution &#8220;We tend to frame historical bubbles as IQ tests because that lets us feel smarter in hindsight. Everyone was delusional. But the historical record is more complicated than that. Many episodes are misremembered. The South Sea Bubble, for example, wasn&#8217;t really about South America. It was a retail-facing financial instrument that allowed the public to participate in a large-scale conversion of British government debt into equity.&#8221; - Howe Wang . The Historical Lens of Recurring Cycles of Investment in Mass Infrastructure &#8220; The Future on Margin series lays out a recurring architecture. First, there is a legible future, something the public can see and imagine: railroads crossing continents, homes lit by electricity, the internet entering daily life. Second, there is a financing regime that pulls that future forward: installments, margin, holding-company pyramids, junk bonds, vendor credit. Third, there is mass access. Those financing tools are made available to the general public early, with low thresholds that turn belief into position size. Part I walked us through Mississippi, South Sea, frontier land, and railway manias. Part II looks at utilities, RCA, and the dot-com credit machine.&#8221; writes the Procure.FYI Substack , which explores enterprise AI adoption, infrastructure buildouts, and the financing mechanics behind global technology trends as well as running a consultancy. Works In recent times he&#8217;s been closely following the AI Infrastructure, semiconducto...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 404: Generative AI might be Hurting the Labor Market 
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/generative-ai-might-be-hurting-the-labor-market-future-of-jobs
+**Published:** 2026-01-12T11:15:27+00:00
+
+**Content Preview:**
+Monopoly capitalism is transiting into &#8220;Tycoon Capitalism&#8221;, and it&#8217;s not good for jobs, consumers or the future of the U.S. If you care about what AI is doing to the economy, labor market, or future of jobs you might want to share this. Share The U.S. economy should be uplifted by AI - if it were a real AI revolution , but is it? I&#8217;ve been thinking about the impact of AI on the labor market, jobs and the U.S. economy. A few things don&#8217;t sit quite right with me. I do resonate and enjoy reading the insights of Michael Burry who has taken Substack by storm over the course of the last six weeks. Follow him also on X here . Where is the so-called &#8220;AI revolution&#8221; that I keep hearing about? &#129300; The labor market is not looking so good. Substack Post: &#8220; The AI revolution is here&#8221;. &#127754; My comment: &#8220;It is surprising &#8220;how non-durable AI leads have been&#8221; historically which suggests we might have a new computing architecture and paradigm BEFORE we even fully scale or see the full fruition of LLMs. It&#8217;s entirely possible this is the capital allocation failure of gigantic proportions. Yet the entire AI infrastructure rollout of data centers assumes this will not change, and generative AI will remain the dominant model. All before AI is even showing legitimate return on investment or an economically viable productivity boost (outside of coding).&#8221; Read some of the commentary from the expert panel (which I agree and disagree with but won&#8217;t go into here): The Substack Post, an Unstacked Series. Check out LinkedIn&#8217;s report: LinkedIn Jobs on the Rise 2026 : The 25 fastest-growing roles in the U.S. Is it time for us as professionals to audit all of our professional and high-value skills in this changing jobs landscape? What might replace career ladders and job hopping for our youngest workers? While the panel covered some interesting ground , what they neglected or omitted to talk a...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 405: Vibe coding a mobile app with Claude Opus 4.5
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/vibe-coding-a-mobile-app-with-claude-opus-4-5
+**Published:** 2026-01-08T10:15:25+00:00
+
+**Content Preview:**
+AI is not your friend, it&#8217;s your tool. Learn to use its full capabilities. Good Morning, To understand where AI is heading we have to understand where it&#8217;s bringing the most ROI. In terms of return on investment in Silicon Valley, that&#8217;s directly being seen in engineering teams with remarkable progress in AI coding over the last 18 months (mid 2024 to 2026). In 2025, this also began a redesign of the role of product manager (PM) itself. In my opinion is one of the top writers and guides on understanding all things software engineering at the intersection of Generative AI, like Claude Code and many aspects of AI coding tools. His Newsletter the AI-Augmented Engineer is required reading. The AI-Augmented Engineer Accelerating software engineering careers with AI workflows. I show you how to use AI to write better code, ship faster, and get ahead. By Jeff Morhous Claude Opus 4.5 was one of the most anticipated models of 2025 . It did not disappoint. While Gemini 3 Pro really dethroned the momentum of OpenAI, where GPT-5 related models disappointed, Anthropic I&#8217;d argue was the real winner as it will increase its annual recurring revenue (ARR) in 2026 to a degree that is hard to fathom. Try Claude Code Claude Opus 4.5 is considered state-of-the-art, especially for complex, autonomous tasks like coding (SWE-bench leader) and computer use (OSWorld leader). Anthropic. Increasingly even as a non-developer, there&#8217;s more that you can do . Jeff&#8217;s writing style is really accessible: Building a mobile app with Claude Code How I vibe coded an iPhone app that I now use every day Everything new in GPT-5.1-Codex-Max Using NotebookLM to learn new things Anthropic says software engineering is done (it&#8217;s not) Chat with Claude &#128640; What makes Claude Opus 4.5 stand out in late 2025/Early 2026? Deep repository understanding : Uses a new hierarchical attention mechanism to track dependencies across 500K+ token contexts. Self-correcting executio...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 406: The Agent Protocol Handbook
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/the-agent-protocol-handbook-2026
+**Published:** 2026-01-06T10:35:52+00:00
+
+**Content Preview:**
+Agent Protocols grew up in 2025, there&#8217;s a new era coming. If 2025 was the first year of AI agents , how to build them? What should you know before you start? I asked for an in-depth guide on Agent protocols . To check out our other recent guides go here . A fellow Canadian&#127809;&#127464;&#127462;, she&#8217;s now also a Founder: she writes the Data Letter . video: THE DATA LETTER The Data Letter The Data Letter prevents data disasters that end careers. Built from a decade fixing Fortune 500 systems: PII exposures, cost explosions, pipeline failures, broken models. Weekly toolkits for data practitioners and leaders. Get the free Audit Kit. By Hodman Murad Read her introduction to the brand new company she&#8217;s build, Asaura AI (Beta launch April, 2026). Background and Startup Story Hodman Murad is the founder of Asaura AI , where she pioneers AI designed for executive function. As the author of The Data Letter , she identifies common failures in AI and data systems, such as hallucinated growth metrics and the costly loss of customers due to optimization. Beyond her technical expertise, she writes Asaura , a publication dedicated to exploring ways AI can be improved to enhance human productivity and mental health. She&#8217;s going to be building in public so you can follow along . Her work focuses on connecting high-performance systems with their users. This article is essentially a mini-book , 8,000 words and 61k characters. As a data scientist and consultant with so much B2B experience, I think she&#8217;s a great person to outline some of how AI agents work and for you to learn a bit more about the new protocols. This article might be a bit more technical than most of our pieces, but is meant for actual learning and a deep introduction. That being said, we&#8217;ve made it as easy to read as possible. Her new startup called Asaura AI, is specifically designed for adults with executive dysfunction, people who know what to do and have time, but can't ma...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 407: The 5 Claude Skills Every Digital Product Creator Needs 
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/the-5-claude-skills-every-digital-creator-needs-agent-orchestration-context-engineering
+**Published:** 2026-01-04T12:57:19+00:00
+
+**Content Preview:**
+This is part of our series on Claude Code, Claude Skills and related topics. Good Morning, This article is a bonus guide for premium readers. Why am I so Bullish on Claude Code? It&#8217;s my opinion that Claude Code was the single most impactful AI tool developed in 2025 that will be significantly upgraded and refined in 2026. If I post a lot of articles around Claude Code in the weeks ahead, this is why. In 2025 and moving into 2026, Claude Code signifies a shift from "assistive" AI (think: simple autocomplete) to "agentic" AI. While agentic AI may take some months and years to improve, there&#8217;s a lot of enthusiasm over the progress made already in 2025 with protocols like MCP and A2A and more to come. While Anthropic focuses on Enterprise AI customers, for founders and entrepreneurs, and even Creators, this can translate fairly well. Beyond Context Engineering: Agentic Orchestration Claude Code fluency will equal the professional fundamental skills of agentic AI orchestration. In short, if you spent time on AI tools like NotebookLM or ChatGPT in 2024 and 2025, Claude Code could be a worthwhile focus in 2026. I have a number of guides in the queue related to this topic. I think the bottom line is, context engineering in 2026 will begin to require more Claude Code fluency. Anthropic's Emergence in AI coding Claude Code is no longer just a chatbot that writes snippets; it is treated as a &#8220;junior developer&#8221; that can: Navigate Entire Codebases: It maintains awareness of project structures and can find information across hundreds of files. Execute Multi-step Tasks: It can plan a feature, modify multiple files, run tests, debug the failures, and create a git commit&#8212;all from a single natural language prompt. Subagents &amp; Parallelism: Version 2.0 introduced the ability to spawn &#8220;subagents.&#8221; These specialized threads work in parallel (e.g., one agent writes an API endpoint while another simultaneously writes its unit tests), significan...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 408: How the AI ‘bubble’ compares to history 🏛️
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/how-the-ai-bubble-compares-to-history-infrastructure-datacenter-lessons
+**Published:** 2026-01-03T10:40:17+00:00
+
+**Content Preview:**
+One of the hallmarks of 2025 in AI analysis, was discussion and debate around the AI boom relative to the AI bubble . These days I gravitate towards original macro analysis around the AI Infrastructur&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 409: 2025 Recap: The Year the Old Rules Broke
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/ai-in-2025-recap-the-year-the-old-rules-ai-trends
+**Published:** 2025-12-31T10:40:33+00:00
+
+**Content Preview:**
+2025 the year of Circular Funding, Bloomberg. I&#8217;ll never forget all those infographics with the circular deals. Before we dive in, start here. Every arrow is billions of dollars. Every circle is a company betting it all on AI. This is what 2025 looked like. Image: Bloomberg News Good Morning, This newsletter will return to its usual cadence around January 8th, 2026. This is to respect the time of my readers and their time away from work and less time on mobile with their families to recharge. &#127879;&#129684;&#127989;&#65039;&#129512;&#127878; I&#8217;m getting a bit excited because in 2026 we are going to see some incredible IPOs where I think OpenAI, Anthropic , Cohere will all go public, including very soon Chinese AI startups like MiniMax and Zhipu AI along with notable infrastructure and AI cloud companies like Databricks, Crusoe, Lambda Labs, Cerebras Systems and less known companies like Enterprise AI firm Cohesity . Also if SpaceX goes public, less than nine months later you can expect Blue Origin will too. That&#8217;s an all-star list of AI companies to put it mildly. By the way check out Andrej Karpathy&#8217;s &#8220; 2025 LLM Year in Review &#8221; blog written on December, 19th, 2025. 2026 is going to be an IPO Bonanza &#127881; Suffice to say 2026 is shaping up to be the best IPO year of the decade and maybe even there&#8217;s a chance we&#8217;ll also see SpaceX , Canva and Stripe go public all in the same year that are all fairly big. There will also be significant Space-Tech companies going public. Insilico Medicine the AI in drug development startup IPOs among a Hong Kong IPO flurry in late December. What&#8217;s News in AI? &#128506;&#65039; around the horn &#128239; - compressed. (about 10 min) To get our bearings on 2025 in AI, I asked who works in Venture Capital to give an epic rundown. Jess Le&#227;o is a Partner at Decibel , investing early in AI-native startups and the tools that make modern software work She writes AI Pioneers at ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 410: Key Milestones of China in AI of 2025
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/milestones-of-china-in-ai-of-2025-deepseek-qwen
+**Published:** 2025-12-27T11:58:25+00:00
+
+**Content Preview:**
+Image credit : Gradient Flow . (Ben Lorica &#32599;&#29790;&#21345;) Where to start? I&#8217;m interested in giving global macro coverage of AI trends and that wouldn&#8217;t be possible without talking about China&#8217;s progress in 2025 . is one of my favorite sources: he&#8217;s ex-Baidu Global Head of Comms and a former AI reporter; a longtime AI observer with a keen focus on China&#8217;s AI development. If you aren&#8217;t premium and want to read his entire 2025 rundown, please subscribe to his Newsletter below. He&#8217;ll be publishing it (this deep dive) at end of 2025 in a few days. Recode China AI China AI Spotlight: A weekly guide to China&#8217;s AI Breakthroughs, trends and stories. By . Recode China AI China AI Spotlight: Your weekly guide to China's AI breakthroughs, trends, and stories. By Tony Peng Who is ready for another DeepSeek-R2 flagship model launch? I suspect we might have another interesting time of it soon (within weeks). Subscribe to Recode China AI Tony&#8217;s writing is clear and his range of topics is vast. His coverage of China BigTech advances in AI is itself notable: Meet Tesla FSD&#8217;s Fiercest Competitors in China &#128170;&#127995; AI Makes Alibaba Great Again &#128064;TikTok&#8217;s Parent ByteDance Quietly Builds Its AI Empire Highlights of China in AI in the year 2025 Here are some of my notes: open-weight models, agentic AI and reasoning model upgrades takes the prize. China also is early on the AI IPO front with many significant physical AI and humanoid robotics companies. If you k now anyone curious about what China is up to in AI , this could prove helpful: Share China managed to do this with little access to leading AI chips and with a fraction of the capital allocation (capex) of the U.S. We do know that the likes of Alibaba and ByteDance are starting to enter the capex territory of the global leaders in AI. China&#8217;s progress in artificial intelligence in 2025 is like a global undercurrent of the future. Some...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 411: The OpenAI Bubble Increases in 2026
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/the-openai-bubble-increases-in-2026-moat-disrupted
+**Published:** 2025-12-23T10:35:38+00:00
+
+**Content Preview:**
+Illustration: Vincent Kilbride , for Bloomberg. That&#8217;s quite an AI Bubble you have there ChatGPT. The future interface is likely NOT a chabot. This Newsletter is about AI Supremacy . Between the U.S. and China, but also among the biggest AI Startups. OpenAI in 2026 is likely to be pressured by both incumbents and AI startups, by Giants and more nimble specialist companies. . . We&#8217;ve never seen anything like it: OpenAI can go bust and it won&#8217;t even matter&#8230; I can&#8217;t stop thinking about OpenAI&#8217;s path ahead and how it might bifurcate from the real winners of AI in the year ahead of 2026. Some field notes follow. No napkin math but some opinions that might be relevant. People don&#8217;t fully realize what an IPO frenzy 2026 is going to bring and how much capex, debt fueled AI infrastructure build-outs and private AI startups valuations will keep rising next year. Circular financing of the 2025 variety is only going to increase, because Silicon Valley is betting on Generative AI to increase profits and earnings. With so much liquidity on the sidelines (due to years of QE and pandemic mismanagement by the Fed), the AI boom has yet to fully manifest (on the stock market) as the bull market prepares for AI frontier model, Chip and Neo Cloud companies to go IPOs in 2026. IPOs, M&amp;A and more AI startups with unrealistic valuations will mean a capital allocation binge like we&#8217;ve never seen before in the history of technology. There is little signs of the AI boom slowing down - Hyperscale datacenter operators nearly tripled their spending on infrastructure over the past three years in response to the AI craze, while the amount of operational capacity added each quarter has increased by 170 percent. OpenAI is in talks to raise up to $100 billion in a funding round that could value the ChatGPT maker at up to $830 billion , The Wall Street Journal reported last Thursday , however something doesn&#8217;t quite feel right. xAI, Thinking Ma...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 412: Was 2025 the year of the Datacenter?
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/was-2025-the-year-of-the-ai-datacenter
+**Published:** 2025-12-18T10:36:30+00:00
+
+**Content Preview:**
+Image: Missouri Sen. Josh Hawley has been among the most outspoken national Republicans on data center impacts. | Mariam Zuhaib/AP OpenAI&#8217;s Stargate, as seen from above. Good Morning, When all is and done, 2025 saw a significant increase in major AI datacenter projects , clusters and infrastructure. It&#8217;s easily one of the biggest trends in AI of 2025. This year we have seen a tidal wave of AI Infrastructure. But what will be the price for society? In 2025, the aggregate capital expenditure (CapEx) for top Big Tech hyperscalers is estimated to be over $400 billion , primarily driven by investments in AI infrastructure and data centers by BigTech and Cloud hyperscalers. Products like ChatGPT being adopted at scale will likely lead to a lower value of a College education, less human connection and less time spent reading. Is that good for society? &#129300; Is that the sort of world we think is healthy for consumers and our younger people? I&#8217;m not sure the benefits of chatbots even outweigh the costs. Leave a comment ChatGPT leading to less Reading Time YouTube, TikTok and especially ChatGPT are impacting reading time among our youngest teenage citizens. The impact on College age Americans is likely even more striking with ChatGPT use. Financial Times. Less reading time Less human connection Less stable white-collar career ladders Higher electricity bills More noise pollution for local communities More AI spam and AI slop on the internet Less human and real social media (as if that were even possible) More authoritarian use of AI by Governments, big corporations, tycoons, dictators and elites to serve their own agendas Mixed Capital Expenditures and Confused Policy Opposition to Datacenters is growing in the 2nd half of 2025 in America quickly. We also have problematic supply chains and an energy grid that isn&#8217;t prepared for this AI Infrastructure roll-out. According to datacenterwatch.org , there has been recently $162 &#119809;&#119842;&#11984...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 413: How to get into AI for Non-Technical Late Bloomers: A Beginner's Guide
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/how-to-get-into-ai-for-non-technical-beginners-older-adults
+**Published:** 2025-12-15T10:34:29+00:00
+
+**Content Preview:**
+Get Premium All-Access Good Morning, As one of the older AI Newsletters on Substack, I pride myself on getting a variety of voices and perspectives on here with the help of guest contributors. From learning about how to us&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 414: An AI Overview 2025 (by the numbers)
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/an-ai-overview-2025-by-the-numbers-in-infographics-curated
+**Published:** 2025-12-11T10:35:32+00:00
+
+**Content Preview:**
+Image: Win McNamee/Getty Images. Sam Altman might have a rather challenging 2026. Good Morning, As we have arrived in 2026, I&#8217;m thinking more about the progress made in AI and what might come next. This is a data dump and took me untold hours. I&#8217;ve been reading some AI related reports I have to share some major trends of the year and some infographics that have intrigued me. While I usually shy away from AI reports by Venture Capital funds, the Enterprise AI related ones are trends I consider more concrete. Thus people like Tim Tully , Joff Redfern, Deedy Das , and Derek Xiao (Menlo Ventures) released this week their &#8220; 2025: The State of Generative AI in the Enterprise&#8221; which we are going to talk about in the juxtaposition of AI reports that this article is going to look like. I will do my best to source the material with a lot of high quality links (clicking on some of the images leads to deeper sources on that topic): The State of Enterprise AI I predict Anthropic will have an incredible 2026 and be a more impressive IPO than either SpaceX or OpenAI (not the size but the market confidence response to it), and the reason is Enterprise AI growth. Let me try again to make this point. Things to Read &#128214;&#128064;&#128218; &#128262; 2025: The State of Generative AI in the Enterprise LMArena is a cancer on AI (Surge AI) American Public, Investor, and Executive Perspectives on Responsible AI Deployment (Just Capital) - Report . Sam Altman Has No Idea What He is Doing Teens, Social Media and AI Chatbots 2025 : Pew Research Center America Has Become a Digital Narco-State (AI companions don&#8217;t help our youth) Announcing Diffuse AI : by , and &#10024; An Insider Interconnected Perspective: Building Olmo 3 Think ( Ai2) (Slide deck) OpenAI&#8217;s house of cards seems primed to collapse (Engadget) Donating the Model Context Protocol (MCP) (Anthropic) Google&#8217;s free Context Engineering Guide 1 . Future of Life Institute: AI Safety Index , ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 415: Genspark Is a Unicorn Now. Let’s Get up to Speed
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/genspark-ai-tool-unicorn-superagent-ai-workspace
+**Published:** 2025-12-09T10:35:39+00:00
+
+**Content Preview:**
+This is our third article in our learning series on Genspark. See the first here , and the second here . I think my readers know how bullish I am on the skills of - who I asked to take another look at this AI startup (I keep bugging him about). There&#8217;s a good reason for this. Editor&#8217;s Introduction to Genspark In my mind Genspark used to be a Chinese Perplexity of sorts, with many ex members of Baidu. I incredibly liked the product when it focused on search . But it has morphed commercially into a rather impressive Agentic AI first startup. Honestly I can&#8217;t believe that they only recently just did their Series B funding . You might recall seeing Genspark if you ever came across &#8217;s Lean AI Leaderboard &#127942; View Leaderboard Genspark at of the time of writing ranks 16th globally in the most lucrative lean AI startups in the world. (This is not a sponsored post). As someone that studies AI startups and AI tools, Genspark is a case study that continues to fascinate me. It&#8217;s a fair example of how scrappy Chinese AI engineers can be (wherever they choose to be based). The pivots in product and pricing are textbook lean growth. Try Genspark Eric Jing, Kay Zhu, and Wen Sang founded Genspark, an AI company specializing in agentic AI for knowledge workers. Eric Jing serves as CEO, Kay Zhu as CTO, and Wen Sang as COO. The company was established in 2023 by Jing and Zhu, former Baidu executives, and later expanded to include Sang as a co-founder. Genspark has since achieved unicorn status with a valuation exceeding $1 billion following a $275 million Series B funding round in November 2025. Henry Shi&#8217;s list is ranked by revenue per employee. Genspark are doing fairly well in ARR compared to the low number of employees - the very definition of lean AI in the AI boom of 2023 to 2030. Genspark: Unloved in a World full of Loveables (GPT Engineer). Genspark remains the sort of AI tool that you rarely hear about compared to the value it can prov...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 416: Why 2026 Is the best time (ever) to become an AI solo-founder
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/why-2026-is-the-best-time-ever-to-solopreneur
+**Published:** 2025-12-06T11:35:46+00:00
+
+**Content Preview:**
+Photo by Vitaly Gariev on Unsplash. A hypothetical startup founder. Good Morning, Looking forward to 2026, I wanted to find a topic that might also be relevant to so many of the Creators, writers, solopreneurs and builders on this platform. Many of whom support AI Supremacy and which I do my best to give back to. Share This is a guide for Founders, the bravest kind, the ones who go at it alone . I&#8217;m really proud of finding guest contributors from all around the world &#127757; who are uniquely qualified to talk about the topic they undertake on AI Supremacy. is from Lebanon &#127473;&#127463; and a 3-time Founder who was at Google for nine years. I know him from his viral LinkedIn posts , check out his Notes here. He&#8217;s recently launched Ruya Advisory , working with founders on building, growing and fundraising in their early days. &#8220;Let&#8217;s Launch, Grow, Fundraise For Your Startup Together.&#8221; Check out his Newsletter: Helping early-stage founders validate, launch, and raise with in-depth guides, frameworks and tactical strategies to future proof your startup with agentic AI and relatively recent methodologies. Majd's Newsletter Helping early-stage founders validate, launch, and raise. Follow for in-depth guides, frameworks, and tactical strategies that actually move the needle. By Majd ALAILY Get his Free Report: Try the Problem-Solution Pulse : get an 11-page personalized breakdown of your startup&#8217;s foundation. Majd is obsessed with design-led growth and systems thinking for startups. His tactical insights and battle-tested advice are drawn from real founder experiences and what&#8217;s actually working right now in a dynamic environment. Pledge your Support I asked Majd for his expertise on how Generative AI is changing how solopreneurs are operating and building their own companies, with insights that might be relevant also to many writers building media startups here on Substack. In this edition: tl;dr &#9986;&#65039; This article...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 417: OpenAI's Code Red
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/openai-code-red-2025-the-fall-of-chatgpt
+**Published:** 2025-12-04T11:59:40+00:00
+
+**Content Preview:**
+Good Morning, Is it the end of an era for OpenAI as we approach 2026? I really want to get the pulse of OpenAI, because ChatGPT used to be symbolic of the potential of Generative AI. This week as I&#8217;m sure you&#8217;ve heard - as first reported by the Wall Street Journal , Sam Altman sent an internal memo on Monday declaring a company-wide emergency. &#8220;OpenAI&#8217;s code red &#8221; is an internal directive. It was issued by CEO Sam Altman. The directive prioritizes improvements to ChatGPT. It also combats rising competition, mainly from Google&#8217;s Gemini models. The directive signals an urgent effort within the company to maintain its market lead. Let&#8217;s frame this. On November 30, 2022, OpenAI introduced a new product to the world, ChatGPT. In late 2022 and early 2023 we all marveled at its capabilities . It was a brave new world and OpenAI felt like the promising pioneer. Fast forward three years and there are chatbots like Gemini, Grok , Claude, Qwen , Perplexity, Genspark , DeepSeek, and at least a half dozen others worth using for specific kinds of tasks. Signs of a slow down in AI adoption, like the tightening labor market or lower consumer sentiment in the U.S. economy, are very real for millions of Americans and users all over the world. AI Bubble debates raging around ROI and AI Infrastructure debt or the capex around AI appear to have coincided with less adoption or a material slowing in adoption of AI products like ChatGPT. Recently according to Ramp AI Index , paid AI growth actually declined in September, 2025 by almost a full percent at 0.7%. &#8220;There are now more businesses than I ever remember before that struggle to explain how their unit economics are ever going to make sense. It usually requires an explanation on the order of infinite retention, a massive reduction in costs, a claim that eventually the company can stop buying users, or something even less plausible&#8230;&#8221; - Sam Altman 1 OpenAI&#8217;s Pivot into a P...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 418: Going Short on Generative AI 
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/going-short-on-generative-ai-michael-burry-nvidia
+**Published:** 2025-11-29T12:57:26+00:00
+
+**Content Preview:**
+Michael Burry is now on Substack. Good Morning, Just a short note about AI bubble developments. As a pro-contrarian thinker around AI, Michael Burry joining Substack is making the AI bubble debates a lot more interesting for me. is a legendary short investor and tactical analyst and financial writer. Read about some of his early experiences here . Cassandra Unchained Cassandra Unchained is now Dr. Michael Burry&#8217;s sole focus as he gives you a front row seat to his analytical efforts and projections for stocks, markets, and bubbles, often with an eye to history and its remarkably timeless patterns. By Michael Burry Subscribe to Cassandra Unchained Michael Burry 1 is the #1 New Best Seller on Substack and the top trending Finance writer as of November 29th, 2025. AI Adoption Rates Starting to Flatten Out Generative AI adoption isn&#8217;t doing so hot right now at the end of 2025. If Generative AI was a general purpose technology wouldn&#8217;t it be creating more jobs with people and companies be more enthusiastic about it? Torsten Slok is Chief Economist over at Apollo . Data from the Census Bureau and Ramp shows that AI adoption rates are starting to flatten out across all firm sizes, see charts above and below. If LLMs were adding economic value and boosting productivity, why would adoption of AI be flattening or even declining? There&#8217;s another recent survey from a reputable source that shows even more concerning results. Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 419: Is AI eating Code?
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/is-ai-eating-code
+**Published:** 2025-11-27T10:30:54+00:00
+
+**Content Preview:**
+The Genesis Mission, Trump the man of peace &amp; science. Good Morning, In 2025 we have witnessed marked improvements in AI coding. We&#8217;ve experienced a vibe coding trend, an augmented no-code display of what is now possible for the likes of solo-founders and product managers alike. This year we&#8217;ve witnessed the rise of Claude Code and ever better models at software engineering . We&#8217;ve seen Cursor (today&#8217;s guide topic) separate itself from the pack now working on their own frontier models , and Loveable mature as a B2C facing brand. Try Loveable The Claude developer platform and Gemini 3 Pro capabilities affords the Google developer platform something to look forwards to in 2026. Advances of LLMs in coding and math and ever harder benchmarks also is stimulating a vision that Generative AI can push scientific innovation forward. Indeed both OpenAI, Google Deepmind and Anthropic seem to lean on this future potential. President Donald J. Trump this week signed an Executive Order launching The Genesis Mission , a very American bold national initiative that aims to accelerate scientific breakthroughs using AI. Read Factsheet Indeed The WHITE HOUSE positions Generative AI as some kind of savior of our future: &#8220;From the founding of our Republic, scientific discovery and technological innovation have driven American progress and prosperity. Today, America is in a race for global technology dominance in the development of artificial intelligence (AI), an important frontier of scientific discovery and economic growth.&#8221; &#127482;&#127480; And again: &#8220;Inspired by the legacy of the Manhattan Project and the Apollo Program, The Genesis Mission brings together the unmatched power of our National Laboratories&#8217; supercomputers and top scientific minds to transform the way science and research are conducted.&#8221; What is the Genesis Mission of AI in the 2020s really? &#8220;The Genesis Mission charges the Secretary of Energy with lever...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 420: Will AI eat the world in 2026?
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/will-ai-eat-the-world-in-2026
+**Published:** 2025-11-25T10:35:24+00:00
+
+**Content Preview:**
+Mandani meets Trump on November 21st. That is, New York City Mayor-elect Zohran Mamdani and President Trump during their friendly news conference Friday. Photo: Andrew Harnik/Getty Images In 2011 (a leading investor in Substack) wrote the iconic piece Software is Eating the World . In 2023, Marc Andreessen tried to make the case again with AI, this time with a twist . Between the generation of LLMs from an academic paper in 2017 to 2025, AI isn&#8217;t yet eating the world, and certainly is not saving it! As we head into 2026, the ludicrous notions of former Open-AI researchers , the AI 2027 crowd are beginning to subside along with the throngs of profiteers of Techno Optimists for a more realistic scenario. Is AI eating the world? On most days I wonder about if Nvidia, Google or datacenters might actually be the real culprit? TSMC is sort of incredible here and the foundational companies like ASML. Meanwhile AI will get political in 2026. As Mamdani (who is 34) met Trump (who is 79) one couldn&#8217;t help but feel that the affordability crisis , a future debt crisis and the AI Infrastructure build-out that the United States appears committed to are going to converge at some terrifying future date with potentially grave consequences. So could AI eat the world in the 2030s ? Probably in ways many people don&#8217;t yet anticipate. How about next year? I have some data and speculations to run by you. It&#8217;s not some vague notion of superintelligence that awaits us, but something very different. Join over 1,200+ others Michael Burry is now on Substack &#8220;Cassandra Unchained is now Dr. &#8217;s sole focus as he gives you a front row seat to his analytical efforts and projections for stocks, markets, and bubbles, often with an eye to history and its remarkably timeless patterns.&#8221; Cassandra Unchained Cassandra Unchained is now Dr. Michael Burry&#8217;s sole focus as he gives you a front row seat to his analytical efforts and projections for stocks, markets,...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 421: Burnout, AI Slop, and Why I Nuked My Newsletter to Start Over
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/burnout-ai-slop-and-why-i-nuked-my-newsletter-to-start-over
+**Published:** 2025-11-22T11:57:43+00:00
+
+**Content Preview:**
+Alex McFarland: the life of an AI creator. Good Morning, I don&#8217;t often share a post on Saturday, but I wanted to offer a short biographical sketch of an AI creator. This is told as like a Business In&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 422: Your guide to building apps with Google Antigravity
+
+**Publication:** AI Supremacy 
+**Author:** Michael Spencer
+**URL:** https://www.ai-supremacy.com/p/your-guide-to-building-with-google-antigravity-gemini-3
+**Published:** 2025-11-20T10:29:34+00:00
+
+**Content Preview:**
+Google Good Morning, With Google&#8217;s Gemini 3 release they have improved their AI coding capabilities and agentic possibilities for developers and for Enterprise on the Cloud . Google Antigravity is an &#8216;agent-first&#8217; coding tool and it&#8217;s clear Google is going all-in on Agentic AI . But what are we talking about here exactly, what does it do and what is the full scope? Gemini 3 is bringing developers a taste of the agentic future. As Google Cloud&#8217;s growth explodes so too is its approach to vibe coding for non-technical builders as well. The Gemini 3 launch has gotten its fair share of critical acclaim not just for its benchmarks and performance but for its multimodal architecture and vision for what the future of AI is going to be like. I asked for a guide to this elusive Antigravity agentic IDE product. The AI Augmented Engineer The AI-Augmented Engineer Learn how to use AI tools to write better code, ship faster, and stay ahead of the curve By Jeff Morhous What does a next-generation IDE look like? How to use it and what can it do? Dive into Antigravity &#129522; Gemini 3 is SOTA on SWE Bench Verified with a standard agent harness (all models using the same independently created harness). Logan Kilpatrick, X. Building the Foundations for the Agentic Future What&#8217;s obvious about Gemini 3 is that it has been carefully optimized also for vibe coding and as an agentic coding model. Google says that Antigravity, which supports multiple agents and gives them direct access to the editor, terminal, and browser, is designed for an &#8220;agent-first future.&#8221; It&#8217;s clear Google is going after Cursor, Github Copilot and Claude Code with Antigravity. It does bring a few new features along with it. Antigravity will be available for free in public preview for Mac, Windows and Linux as of November 18th, 2025, with what Google calls &#8220;generous rate limits&#8221; for Gemini 3 Pro usage. Join over 2 million developers building on Googl...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 423: Coming soon
+
+**Publication:** AWS Weekly
+**Author:** Muhammad Mansoor
+**URL:** https://awsweekly.substack.com/p/coming-soon
+**Published:** 2022-11-15T00:44:10+00:00
+
+**Content Preview:**
+This is AWS Weekly , a newsletter about New and noteworthy stuff released by AWS. Freshly delivered every Wed. Subscribe now...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 424: When everybody's down, nobody is
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/when-everybodys-down-nobody-is
+**Published:** 2025-10-23T16:57:42+00:00
+
+**Content Preview:**
+AWS us-east-1 went down hard this week and took half the internet with it. This happens every 12-18 months or so. Amazing it doesn&#8217;t happen more frequently, tbh. As always you have the Monday morning sysadmins chiming in with: This is why you use a different cloud This is why you multicloud This is why you don&#8217;t cloud at all All boiling down to: this is why you should build a stupendous edifice of technological wizardry that is IMMUNE TO AWS US-EAST-1 GOING DOWN. You mortal fools! We are paying the price for our hubris of science . Don&#8217;t you see? It doesn&#8217;t matter what your app architecture is. If AWS falls over, you are going to be affected NO MATTER WHAT. It&#8217;s not that AWS is too big to fail. AWS has become too big for you to avoid failing . I don&#8217;t care what the uptime of your haunted palace of Kubernetes is. If AWS is down, your vendors might be down. At least some of your integrations will surely be down. A whole bunch of your customers&#8212;you know, the people who have to be online in order to use your product&#8212;are guaranteed to be down. The CEO of Vercel found out about this outage because his bed died . At some point, if you want to do business, your app has to come in contact with the real world, and the real world runs on AWS. &#8220;But we vet our vendors / we are EU-regulated / blah blah &#8230;.&#8221; Please. The dependencies of these systems are way beyond your ability to be confident that AWS isn&#8217;t involved somewhere up the chain. Evelyn Osman is a platform engineer in Germany. She says &#8220;We use preset.io in their Stockholm location and they were impacted because they use Docker Hub so one of the components couldn&#8217;t scale out during the outage. We&#8217;re EU regulated and yet integrations had issues.&#8221; Let the reader understand: AWS falling over is the internet apocalypse. You people imagining hermetically-sealed no-AWS environments are doomsday preppers. Your doomsday island only prot...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 425: Harsh truths to save you from ChatGPT psychosis
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/harsh-truths-to-save-you-from-chatgpt
+**Published:** 2025-08-14T20:44:45+00:00
+
+**Content Preview:**
+I am currently dealing with multiple people in my life who seem deep in the throes of what Futurism calls &#8220; ChatGPT psychosis .&#8221; I suspect you may know people like this as well. It is alarming and perplexing. People have been confusing chatbots for sentient conversation partners since the 1960s , but what&#8217;s going on here feels new. Sometimes the victims of ChatGPT (or Claude, or Gemini) psychosis come to believe that AI is a godlike entity &#8212;but it never starts there. First AI makes them feel that they themselves are superintelligent. That their most sophomoric ideas are brilliant, that their vague prompts qualify as original thinking, or that their uninformed speculations are important contributions to scholarly fields they have never studied. Once you come to believe that you are sort of a minor cybernetic deity, you have lost touch with reality in a subtle, terrifying way. You are at the mercy of whatever weird fantasy the LLM spits out next. The major LLMs are all in a sycophantic phase right now, which doesn&#8217;t help, but I doubt that &#8220; make the chatbots less encouraging &#8221; is an easy fix here. We are dealing with a technology uniquely suited to snipe intelligent, well-educated people into believing they are much, much smarter than they really are. That is an addictive sensation, not easily quit. That means you, yes you, reading this, are at risk. If you talk to LLMs at all&#8212;and at this point, who doesn&#8217;t?&#8212;it might not be a bad idea to post these reminders next to your computer, just to protect your own mind against infohazards: AI will not make you smarter. It will make you faster at retrieving (possibly correct) answers to certain questions. It will not improve your reasoning, judgment, or mental processing ability. It may even degrade them. Engaging in long, Socratic discussions with AI chatbots will not sharpen your rhetoric, it will only leave you screaming into your own personal void. AI will not lift...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 426: Breaking some huge personal news
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/breaking-some-huge-personal-news
+**Published:** 2025-02-07T18:46:52+00:00
+
+**Content Preview:**
+Yesterday, this announcement went up on a website called Publisher&#8217;s Marketplace, used by agents and editors in the book industry: In case the weird run-on sentence format doesn&#8217;t make it clear: I have sold my first novel!! This is something I have wanted to do since I was a kid. It is a big deal for me and I am very, very pumped. Let&#8217;s break down that blob of text: THE BLEB PROJECT by Forrest Brazeal The novel is by me and THE BLEB PROJECT is what it&#8217;s called. Imprint: Ballantine Ballantine Books is an imprint of Penguin Random House, the biggest of the &#8220;Big Five&#8221; book publishers. I have read and enjoyed many books from Ballantine over the years, and I bet you have too. Here is one set of Ballantine editions that played a formative role in my life: You&#8217;ve either never seen these covers, or you&#8217;ll never forget them. A lot of 80s sci-fi cover art was like that. Publishing a book with Ballantine/PRH is a very big deal to me. So what is this book about, anyway? a novel that asks what happens when Silicon Valley invents time travel Silicon Valley invents the time machine. That is the elevator pitch. I started writing this in late 2023, while I was still at Google. I&#8217;d known for awhile I wanted to do a book about a tech bubble from beginning to end - I&#8217;d seen AI and crypto firsthand, and the shadow of the dot-com boom and bust still looms over the industry. Enough to see that there&#8217;s kind of an archetypal shape to these things, an almost mythic rise and fall of greed, hubris, and straight-up idiocy alongside all the technological gimcrackery. mixing satire and science fiction The tech industry is joyfully ludicrous and I wanted to do a satire, but I didn&#8217;t want to do HBO&#8217;s Silicon Valley. That story has been told, and updating it for the political climate of the 2020s didn&#8217;t seem worth the effort. So I thought maybe I should mix in a science-fiction element. I woke up one morning in a hot...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 427: I'm glad I took the off-ramp from software engineering
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/you-get-10-years-to-be-a-software
+**Published:** 2025-01-22T14:21:08+00:00
+
+**Content Preview:**
+Dear Stupid 22-Year-Old Self, Congratulations on your shiny new computer science degree! You won&#8217;t be needing that anymore, feel free to forget all about it. You like writing code, which is convenient, because all you&#8217;ve heard from your parents and teachers is that Working With Computers (tm) puts you on a steady career path that will just trend upwards over time. They&#8217;re wrong. You think that $500,000+ comp packages for &#8220;senior software engineers&#8221; are a law of the universe, that they&#8217;re waiting at the end of the rainbow for anybody who can crank enough leetcode to pass a technical screen. You&#8217;re wrong about that, too, although it&#8217;ll be a few years before the tech bubble boils down enough for you to see why. You think that you&#8217;ll never have to become a manager, because &#8220;IC&#8221; (individual contributor) tracks at the FAANG companies go all the way up to Distinguished Engineer. That&#8217;s a VP-level position! You can get paid like an executive without ever having to do anything but write code. Except, you can&#8217;t. As in: you, specifically, probably can&#8217;t. Your parents and teachers did a good job convincing you that it was foolish to bet on becoming a concert pianist or a major league baseball player. You have to be a genetic freak to get one of those jobs, and probably rich and well-connected too. What they didn&#8217;t mention is that becoming a Distinguished Engineer at Amazon or Google is an order of magnitude harder than reaching the top as a professional musician or athlete. I&#8217;m not exaggerating. The NBA has the smallest roster sizes in North American professional sports; there are something like 500 active NBA players across all 32 teams. Last I checked, here in the far-off future year of 2025, there are about 50 Distinguished Engineers at Google. Your teachers tell you that you&#8217;re smart and ambitious. So be smart about this. Pulling down a 7-figure salary as a programmer is no...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 428: Notes on Nix
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/notes-on-nix
+**Published:** 2025-01-20T17:46:42+00:00
+
+**Content Preview:**
+I have spent the last 5 years telling myself &#8220;Someday I&#8217;m going to sit down and figure out what Nix actually is.&#8221; So I finally used the US holiday weekend to look into it. Here is what I learned: Nix is a set of tools for helping you configure your software environment exactly the same way every time. That is what it is. However&#8230; The ideas behind Nix are advanced, so much so that it started life as a guy named Eelco Dolstra&#8217;s Ph.D. dissertation 1 . It has a learning curve that goes beyond &#8220;steep&#8221; and does a full loop-the-loop, like one of those fairground rides that unfolds off the back of a truck. The biggest reason Nix is still a niche technology, rather than the One True Way that we manage our software packages, is that most professional software engineers who take one look at Nix say &#8220;Dear God, no. And also, what is it? Please make it stop.&#8221; For them, the cure (reshaping their brains to speak Nix) is worse than the disease. But those who persevere&#8212;interesting software shops like Replit and Shopify &#8212;choose Nix for a good reason. Because there is a disease. And it lies in wait for us all. THE DISEASE The disease is software itself. Specifically, software dependencies. All the little packages that your code imports, plus all the little packages that THEY import, right down to things like the C compiler included with your operating system (OS)&#8230; The metadata used to compile your system libraries&#8230; The minor version of your operating system&#8230; All those things your code needs to run are dependencies and collectively they are known as your software environment. (Sometimes Nix people prefer to say &#8220;the closure of your dependencies&#8221; which is a FUNCTIONAL PROGRAMMING way of saying &#8220;the whole universe of everything that you depend on&#8221; but FUNCTIONAL PROGRAMMING is one of those things a lot of us don&#8217;t feel comfortable thinking about and so we are not going to thin...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 429: Why are tech people suddenly so into homeschooling?
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/why-are-tech-people-suddenly-so-into
+**Published:** 2025-01-14T15:50:56+00:00
+
+**Content Preview:**
+It&#8217;s pretty disorienting to me that smart people, secular people, particularly people in tech, view homeschooling as a high-status option now. I was homeschooled for 13 years, from kindergarten all the way through 12th grade&#8212;you can tell that about me because I have essentially the same skill stack as Rapunzel from Tangled &#8212;and let me tell you, at no time were my six siblings and I considered the cool kids on the block. &#8220; Homeschooled&#8221;, according to Lindsay Lohan in Mean Girls , historically meant one of two things, and I was both of them: An academic freak who wins spelling bees. 1 I was a two-time National Spelling Bee finalist in 2005-06. ESPN&#8217;s John Marvel once said he liked my odds for two reasons: 1) I was homeschooled and 2) I had a name he couldn&#8217;t pronounce. A religious freak who believes in young-earth creationism. The earth is thankfully old enough to have forgotten the full-length country-western musical I wrote in high school called &#8220;Creation vs Evolution: The West of the Story&#8221;. Pictured: Natalie Portman and me, both having a good day Mean Girls goes on to make sure we understand that Cady Heron (Lohan&#8217;s character) defies homeschooler stereotypes: she&#8217;s a well-traveled, broadly well-adjusted child homeschooled mainly out of necessity (her parents are roving scientists or something) rather than ideology. She&#8217;s an acceptable homeschooler - a unicorn! I don&#8217;t think a movie with this setup would make any sense today. Homeschooling is high-status now. My children&#8217;s generation is full of Cady Herons. But why? The tactical arguments for and against homeschooling all cancel each other out. Pro-homeschooling: At school, you&#8217;re in danger of physical, emotional, and sexual abuse. Anti-homeschooling: Statistically, you&#8217;re in greater danger of all those things at home. And the risk gets bigger if you eliminate outside influences that might notice when something&#8217;s w...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 430: What hath AWS wrought?
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/what-hath-aws-wrought
+**Published:** 2024-12-10T18:25:18+00:00
+
+**Content Preview:**
+You know what struck me as the strangest thing about the 2024 edition of AWS re:Invent? It wasn&#8217;t the giant video boards on the Las Vegas Strip that interspersed ads for topless revues with ads for PagerDuty and Cribl, although that was unintentionally very funny. It was the fact that, as far as I can tell, AWS didn&#8217;t launch a single new top-level service. I could be missing something here, but check out the top announcements for yourself. The new service I think people are most excited about, DSQL, launched under the Aurora branding. Amazon Nova is a class of foundation models on Bedrock. Other than that: it&#8217;s a lot of new AI capabilities for Q and Sagemaker, some fun new database-y enhancements for S3, etc. I don&#8217;t have to learn a single new top-level service name in order to understand why I should care about what happened at re:Invent this year. This, to put it mildly, has not always been the case. Let me show you something. 2014 was the first year I really paid attention to re:Invent. That was the year my CEO at the time, Charles Phillips of Infor, claimed onstage at an AWS event that &#8220; friends don&#8217;t let friends build data centers .&#8221; It was also the year in which these were the big keynote announcements : Aurora. Technically released under the RDS brand. Still a stone-cold, first-ballot-hall-of-fame AWS service. KMS. Essential, bread-and butter AWS service. Config and Service Catalog. Good-enough admin services, they continue to be used and abused today. CodeDeploy/CodePipeline/CodeCommit. People have given them lots of chances over the years. CodeCommit has sadly been deprecated, the other two live on. Everybody has used them at one point or another, even if they will never be best-in-class devtools. (Foreshadowing!) ECS. Easy hall-of-famer, even if EKS has more momentum these days. Lambda. Inner-circle hall-of-famer, perhaps the most innovative cloud service of all time. I realize we have ten years of hindsight to loo...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 431: The case against living in the Bay Area, for ambitious tech people
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/the-case-against-living-in-the-bay
+**Published:** 2024-11-22T17:34:06+00:00
+
+**Content Preview:**
+Here is a tweet that made lots of people mad: First off: it&#8217;s engagement bait and probably not worth writing a whole post about. But dammit, I got baited and here I am. Second off: I do not live in the Bay Area. I never have. I&#8217;ve had a reasonably successful career, and now co-run a fast-growing tech company . But by the standards of this tweet, I and many well-known tech people around the world lack either judgment or ambition. Maybe both! What makes Flo&#8217;s tweet such perfect engagement bait is that there&#8217;s no sufficiently ambitious accomplishment that would disprove it. Why? Because it&#8217;s tautological. Bay Area people, in the frame of this tweet, are by definition the most ambitious people in tech. Thus, ambitious behaviors are behaviors that take place in the Bay Area. Round and round we go. It&#8217;s circular thinking, but as G.K. Chesterton liked to point out, all circles are perfect. They just may not be big enough to hold all of reality. Look, if you want to play the Tech Industry (tm) game the way Bay Area people are playing it, you should absolutely be in the Bay Area. You will be surrounded by people who are living and breathing AI and devtools and infra and open-source. You will rub up against funders and founders and grifters and strivers of all stripes. It&#8217;s a tight-knit industry and the groupthink can be suffocating. Here are some things it is very hard to avoid believing if you hang around ambitious people in the Bay Area: Taking as much money from venture capitalists as you can, as soon as possible, is a mark of success and a status symbol unto itself. Every problem has a technical solution if you&#8217;re smart enough. &#8220;Technical people&#8221; (software developers) are the noblest and most useful people at a tech company. SaaS (software-as-a-service) is the world&#8217;s most prestigious business model. Graduates from a few top schools (Stanford, MIT, etc) and people under thirty make the best employees. Nami...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 432: Tech the Heck? Archera
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/tech-the-heck-archera
+**Published:** 2024-10-15T14:57:55+00:00
+
+**Content Preview:**
+As you may recall from the first edition : Tech the Heck? is a recurring feature in which I try to explain in plain language what a particular tech startup&#8217;s product does - despite it being non-obvious on their own product page . Today&#8217;s sponsor / victim stepping into the arena is Archera , a Freeman &amp; Forrest client. Kudos to them for being good sports about this - I only do these write-ups with permission, but Archera has no editorial control over what I say. As far as I can tell, there are two types of cloud cost management products. The first kind, like CloudHealth and its many &#8220;FinOps&#8221; alternatives, primarily focuses on planning and reporting. Their value prop is that they give you better tools to figure out where your IT budget is going, and how to allocate it, than the AWS Billing console does. The other kind promises to sell you cloud at a discount, and those products tend to have a red flashing warning label on them that goes SCAM SCAM SCAM SCAM. Either they&#8217;re playing weird arbitrage games with resource reservations , or they&#8217;re asking you to give them way too much control over your billing accounts, or they&#8217;re charging you a massive 15-40% fee for &#8220;savings&#8221; you could probably get on your own with a few hours of effort. There&#8217;s a reason AWS is cracking down on some of these shady practices. Products that promise to charge a percentage of what they &#8220;save&#8221; you by booking EC2 instances on your behalf have a fundamental incentive mismatch: the more cloud you buy, the more money they make. This is the opposite of what you want your cloud cost management partner to be rooting for. So when I landed on Archera&#8217;s homepage , my sketchiness antennae were way, way up. At first glance, Archera looks like it could be another &#8220;we book your AWS Savings Plans and charge you a fee for it&#8221; vendor. The buzzwords are all there on their homepage: flexibility! Discounts! Usage! Commitme...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 433: Knowledge Worker
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/knowledge-worker
+**Published:** 2024-09-18T16:57:37+00:00
+
+**Content Preview:**
+Last month, I performed a 30-minute show called &#8220;Knowledge Worker&#8221; for the incredible audience at Gene Kim&#8217;s ETLS in Las Vegas. The show included 7 songs about the past, present, and future of &#8220;knowledge work&#8221; - or, more specifically, how it&#8217;s affecting us, the humans between keyboard and chair . I poured everything I&#8217;ve been thinking and feeling about AI for the last 2+ years into this show, and I feel a great sense of peace at having said what I meant to say. Here, for your enjoyment, are the songs (with a bit of &#8220;liner note&#8221; commentary provided in between). 1. Hype Train They say that if you can get an audience to laugh with you, they&#8217;ll be willing to cry with you. &#8220;Hype Train&#8221; is an intentionally light, silly song to start the show. I used to try to get audiences to sing along with some of my songs. I have learned that tech people would die of starvation before they will open their mouths to sing in public. About the most I can get you all to do is clap along. 2. AGI (Artificial God Incarnate) I had a lot of fun writing the backing tracks for this song. The &#8220;Gregorian chant&#8221; backup singing was recorded at Heartwise Records in Seattle with the help of some incredible session musicians and producer Eric Munch. A number of people came up after the show to ask &#8220;What musical genre was that one, anyway?&#8221; I have no idea. If you figure it out, let me know. 3. What&#8217;s Left for Me? (The AI Existential Crisis Song) When ChatGPT first came out, I think a lot of us went through about 5 stages of grief: Shock (how is a language model this good? what the actual ***?) Denial (it&#8217;ll never be as good at writing code / words / etc as me. look at these hallucinations! silly model) Anger (how dare they train their models on my creative work?) Depression (what&#8217;s left for me? Who even am I) Acceptance (this is the new world, AI isn&#8217;t going away, let&#8217;s figure out...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 434: The death of the [modified] developer
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/the-death-of-the-modified-developer
+**Published:** 2024-08-30T20:43:45+00:00
+
+**Content Preview:**
+Quick thing up top: Fly.io is sponsoring the Cloud Resume Challenge in September! My buddy Jared calls them &#8220; the holy grail for hobby projects &#8221; for a reason: they&#8217;ve been on my radar for a few years as probably the fastest, most cost-effective AWS Lambda alternative for small teams and side projects. They&#8217;ve asked me to pass along a special offer to CRC challengers: for a limited time, claim $50 in credits to build something on their platform right now ! Steve Yegge wrote a thought-provoking piece earlier this summer called The Death of the Junior Developer . I&#8217;m still turning it over in my head because I heard Steve give a talk based on the article at last week&#8217;s ETLS conference . Let me tell you, the talk woke up everybody in the room. Steve, in person, is like an embodied version of his infamous Platforms Rant : he paces restlessly up and down the stage, spools out shocking opinions in a sort of breathless blurt, hurls insults at both the audience and himself, and generally comes across like a mad prophet from outer space. That does not, however, mean he&#8217;s wrong. Here&#8217;s the TL;DR of both talk and article: the current drying-up of the junior software engineer job market is not just a macroeconomic blip, it&#8217;s an inevitable result of AI doing all the low-level code-slinging tasks we used to give to interns and fresh computer science graduates. We still need developers, says Steve, but they&#8217;ve got to be experienced enough to keep the AI code-generators honest and on track. Juniors simply can&#8217;t keep up. When everyone&#8217;s senior, no one will be If you read to the end of Steve&#8217;s article, he suggests that many top CS graduates are effectively &#8220;already senior&#8221; by the time they graduate, because they&#8217;ve put in a ton of extra time on OSS projects, etc, to pick up relevant skills. This is your competition, he tells the artists-formerly-known-as-junior-developers; you better get go...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 435: The end of the Everything Cloud
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/the-end-of-the-everything-cloud
+**Published:** 2024-07-30T18:23:41+00:00
+
+**Content Preview:**
+Longtime customers know there are two distinct categories of AWS services. Category 1 contains the gold-plated, inner-circle, first-ballot Hall-of-Fame services like EC2, S3, DynamoDB, etc. These are the moneymakers, the heavy hitters, the Babe Ruth and Willie Mays of the cloud. If one of them falls over, the entire internet has a bad day . Category 2 contains &#8230; everything else . Just as Amazon is the Everything Store, AWS is the Everything Cloud. Did you know AWS has a service for spatial simulations (SimSpace Weaver)? An analytics service for capital markets (FinSpace)? Can you articulate the difference between Forecast and Timestream, or between CodeStar and CodeCatalyst? For the past 10 years or so, AWS has been rolling out these peripheral services at an astonishing rate, dozens every year. A few get traction, most don&#8217;t&#8212;but they all stick around, undead zombies behind impressive-looking marketing pages, because historically AWS just doesn&#8217;t make many breaking changes. That&#8217;s been the unspoken commitment between AWS and its customers. If we roll it out, no matter how silly or misguided, we will keep it running forever. Until the end of the internet &#8230; or not There is, however, a new sheriff in town at AWS . His name is Matt Garman, he&#8217;s got sales experience as well as engineering on his resume, and he seems to have this weird idea that AWS&#8217;s products should make money. Sticking with the baseball Hall of Fame analogy: if S3 is Babe Ruth, these Category 2 services are more like Sunny Jim Bottomley . Yes, he technically has a plaque in the Hall of Fame, but nobody&#8217;s paying admission to see him. And, all of a sudden, some of those Sunny Jim-tier services are having their Hall of Fame plaques stripped. (In fairness, this started even before Garman took over.) The estimable Scott Piper maintains a list of the services to have been deprecated over the last few months. CodeStar has been memory-holed. Cloud9, AWS&#821...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 436: The case for conferences in 2024
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/the-case-for-conferences-in-2024
+**Published:** 2024-07-17T18:30:18+00:00
+
+**Content Preview:**
+I was stupid enough to make some predictions about the post-COVID world on March 13, 2020: Some of them have not aged well. The USA did not pass a public-health version of the Patriot Act with far-reaching surveillance powers. The world&#8217;s digital infrastructure held up just fine, despite most of our COBOL programmers falling in an elevated COVID risk demographic. Sadly, we did not come to a global long-term consensus that knowledge work is just as effectively done from home. But I did make one prediction that has held up: I called the end of &#8220;peak tech conference.&#8221; The end of frivolous conference travel At the time it was clear to me that a lot of tech events had become &#8220;DevRel talking to DevRel&#8221; ouroboroses that consumed wasteful amounts of time, travel, and swag for little real benefit to anyone. I suspected that marketing departments would wake up to the fact that there are better places to spend growth dollars. And I assumed that companies would become much more hesitant to send valuable engineers into crowded public places. All of that turned out to be true. The end of the zero-interest-rate environment, and the associated tightening of budgets across the industry, only exacerbated the trend. Over the past few weeks I&#8217;ve been asking a bunch of engineers and managers in tech about how their company policies on conference travel have changed. Here are some common themes I hear: &#8220;We are freezing hiring and raises across the org. I&#8217;d be crazy even to ask for budget to travel for a conference.&#8221; &#8220;We used to have a per-person training budget, but now we just have one lump sum for all team travel. So we have to choose between getting our whole team together offsite or sending a few individuals to a conference.&#8221; &#8220;Professional development opportunities used to be crucial for hiring and retention, but the job market is so bad that that&#8217;s not true anymore.&#8221; &#8220;If I&#8217;m going to pay ...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 437: This is what software development looks like now
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/this-is-what-software-development
+**Published:** 2024-06-19T13:48:53+00:00
+
+**Content Preview:**
+My old colleague and personal hero Jared Short received a sponsorship from Typesense to build something interesting with their search engine. The thing he built somewhat took me aback . I asked him to write up his development process, stream-of-consciousness style, so we can all benefit from it. This is what the software engineering world looks like now. For better or for worse, there is no going back. Jared&#8217;s words follow: A comical application of AI and really fast search I spent a couple days thinking about what to build, and after revisiting the Typesense feature list a few times, one idea stood out: semantic search using embeddings. Quick primer on embeddings (skip this if you already know) If you're not familiar with embeddings, they are a technique to represent data, especially complex or high-dimensional data, in a simpler, lower-dimensional form. In the context of text, this means words that have similar meanings are mapped closer together in the vector space. For example, words like "vehicle,", "airplane," and "helicopter" would be placed nearer each other in the vector space, while they would be further from less related words like "pencil" or "telephone." This makes it easier for a machine to understand and process the relationships between different words. Let&#8217;s assume a 2-dimensional vector space (X, Y). Words like &#8220;vehicle&#8221; may be assigned a value like (2, 3) and &#8220;airplane&#8221; (2.2, 3.2) while a much less related &#8220;pencil&#8221; would be (5, 1). Represented as a graph, vector search with those embeddings on the 2d space would look something like this. Fun fact: the graph above was generated completely within ChatGPT after asking it to come up with a few examples of words and their embedding values, and then graph it. You can see then how if you took similar words and a more dimensional space, most embedding models are hundreds or low single digit thousands right now. Searching for things like helicopters, we can u...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 438: I made a new cartoon thing for you to try
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/i-made-a-new-cartoon-thing-for-you
+**Published:** 2024-05-28T16:04:56+00:00
+
+**Content Preview:**
+Happy summer! First up: In last week&#8217;s issue, I came after Google Cloud pretty hard for not posting a root-cause analysis of the mysterious outage that took down a large customer named UniSuper. Credit to them, just a few days later they released a statement containing everything I called for and more: They took full responsibility for the issue without making excuses (even though, given that VMware Engine was indeed involved, I guess they could have tried to blame Broadcom). They provided a clear technical explanation of why the outage happened. That tricky word &#8220;subscription&#8221; that confused so many of us in the initial reporting about the issue? It&#8217;s referring to their provisioned VMware tenant, which was accidentally set to expire after one year. They laid out in reasonable detail what steps they are taking to prevent this class of incident from occurring in future, and why it was a freak occurrence unlikely to happen again: this was a config mistake during a since-deprecated setup process involving a single resource, not reflective of an underlying issue with GCP&#8217;s technical stability. Customers and investors can breathe a huge sigh of relief. We can nitpick about how it would have been nice to have this statement within days rather than weeks, but I was hard on GCP last week so I want to be equally generous to them here. However long it took to put together, this is an outstanding statement. It&#8217;s clearly worded, technically informative without overly exposing the customer, and appropriately reassuring without being glib. I&#8217;m impressed by the work of the comms team, the marketing team, and of course the engineering and support teams who put it together. I hope this is a template for the kind of communication Google Cloud will have with its customers going forward. Oops, all cartoons I&#8217;ve gotten a little behind on sharing new cartoons with you - so here are several, as well as a small announcement you may find intere...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 439:  A tale of two clouds
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/a-tale-of-two-clouds
+**Published:** 2024-05-20T15:08:13+00:00
+
+**Content Preview:**
+OK so the big news today is that I accidentally started a company . &#8220;Influencers-as-a-service&#8221; is the short version. My cofounder Emily and I have spent a lot of time on both sides of this market as underpaid tech creators and under-supported technical marketers. If you fall into either of those camps, you should definitely chat with us . On to today&#8217;s Good (and not-so-good) Tech Things&#8230; Today we&#8217;re looking at two concurrent issues that affected customers on AWS and Google Cloud. The way the providers responded reflects deep differences in their DNA .. and in their trustworthiness. A tale of two clouds AWS isn&#8217;t what they used to be. &#8220;It&#8217;s feeling a lot like Day Two over here,&#8221; friends at AWS often tell me, shaking their heads sadly. A sweaty pursuit of generative AI has clouded their historic focus on IaaS building blocks. A myopic insistence on RTO continues to force out top talent . They&#8217;re even deprecating services now. (My 168 AWS Services song from 2020 references at least 4 services, not counting SimpleDB, that have since been or soon will be entirely scrubbed from the docs and SDKs: Workdocs, Honeycode, Snowmobile, and Alexa for Business.) But you know what AWS still does better than anybody else? They actually listen to their customers and bend over backwards to help them out. Case in point: on April 29th, a software engineer named Maciej Pocwierz discovered an unusual behavior in Amazon S3 that left him on the hook for a $1,300 bill. Cliff&#8217;s Notes explanation of the behavior: S3 buckets all exist in a single global namespace. Anybody can try to access any S3 bucket, with or without an AWS account, if they happen to guess the bucket name. Assuming the bucket is not publicly accessible, the unauthorized user will get a generic HTTP 4xx error code. In this case, the unauthorized requests (over 100 million of them!) were coming from the makers of a widely-used open-source tool, who had accidenta...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 440: Closed as unhelpful: an elegy for Stack Overflow
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/closed-as-unhelpful-an-elegy-for
+**Published:** 2024-05-08T15:43:47+00:00
+
+**Content Preview:**
+I posted my very-first-ever StackOverflow question on the second day of my first job after college. I really wanted to link the post here, but it was so long ago that I can&#8217;t find the question, or even the throwaway account I was using at the time. I think it was something about talking to SQL Server with PowerShell. I do remember that I felt nervous, overwhelmed, out of my depth in my new job. I was too embarrassed to ask a coworker for help. Posting on Stack Overflow felt like a last-ditch effort, a Hail Mary pass. The next day I logged in and checked my post, hoping against hope that somebody had taken pity on my plight. The post had been closed as off-topic. I didn&#8217;t post again for years. Even a decade ago, Stack Overflow had already developed a reputation as kind of a prickly, intimidating place. Users weren&#8217;t shy to let you know if they thought you had posted something dumb. The top contributors (like the legendary Jon Skeet ) were so fast at gobbling up answers to the good questions that it was hard for new contributors to amass reputation points. The system of relying on user upvotes to rank multiple answers, rather than crowdsourcing a single canonical response to each question &#224; la Wikipedia, meant that out-of-date or just plain wrong answers often appeared at the top of the page. None of it mattered because Stack Overflow was a quantum leap in surfacing help for programmers. The upvoting system was janky, but it worked better than any previous tech forum. (Remember &#8220;Tom&#8217;s Hardware&#8221;? The 27th page of Google search results sure does.) The userbase was polyglot and omniplatform: you could find answers on just about any programming topic. And it was certainly faster than reading man pages. Or, crucially, it felt faster. Stack Overflow gave stumped programmers the dopamine hit of looking up the solution to their problems , rather than learning how to solve them. In this way, too, Stack Overflow was ahead of its time. Yo...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 441: Why didn't one of the big clouds buy HashiCorp?
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/why-didnt-google-cloud-buy-hashicorp
+**Published:** 2024-04-29T15:28:02+00:00
+
+**Content Preview:**
+So, IBM bought HashiCorp . IBM has become such a shadowy afterthought 1 that I don&#8217;t think too many people have strong feelings about them anymore. The big question is whether they will ditch HashiCorp&#8217;s new BUSL licensing scheme and go back to a true open-source model for products like Terraform and Vault, and I think it speaks to people&#8217;s lack of a handle on what IBM is up to these days that a plausible sentiment is &#8220; hey, they might do it !&#8221; The main reaction from the community about HashiCorp spinning an increasingly narrow set of options into a $6.4 billion exit is &#8220; Welp &#8230; good for them .&#8221; And when a community says good for them, it&#8217;s quite conspicuous what they&#8217;re not saying: good for us. But I want to raise a different question today: how the heck did we get to this point? Why was HashiCorp not snapped up long ago by a more viable cloud provider? Specifically: why did they not get bought by Google Cloud? On the surface it seems like a match made in heaven, doesn&#8217;t it? Google Cloud is the number three cloud provider; a huge slice of their competitors&#8217; customers use and love HashiCorp products every day. Seems like a chance to steal some new fans. Google has historically cultivated a generous attitude toward open source. Hear those drums in the distance? That&#8217;s the cursed board game of Kubernetes floating down the river towards you right now. I bet they wouldn&#8217;t think twice about donating Terraform to the Linux Foundation , bringing the renegades at OpenTofu back into the fold. Google Cloud has a long history of making large strategic ops acquisitions (Stackdriver, Mandiant, Chronicle). Adding Vault and friends to their product portfolio would not be out of character for them. Google Cloud already treats Terraform pretty much as their default deployment option! (Technically they have a bespoke service called &#8220;Google Cloud Deployment Manager&#8221;, but it is deprecated in...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 442: Is there such a thing as good gatekeeping?
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/is-there-such-a-thing-as-good-gatekeeping
+**Published:** 2024-04-15T15:54:40+00:00
+
+**Content Preview:**
+Here is a fact that has caused me some sleepless nights: Less than 1% of people who start the Cloud Resume Challenge finish it. I say &#8220;less than 1%&#8221; because about 1-2% of the people who bother to tell me they are working on it eventually show up with a semi-finished project. The overall completion rate is probably lower. That 1-2% of people, to be clear, are AWESOME. They are self-starters, systems thinkers. They will all be VPs of something in 10 years. And they come from every conceivable background from all over the world - stay-at-home single moms, plumbers , poker players, retail workers and dentists and delivery drivers and loggers (the lumberjack kind) and architects (the skyscraper kind) and engineers (the mining kind) and teachers and help deskers and 17-year-old high school dropouts. Outside of existing IT experience, there is no obvious background that predicts who is going to do well on this project. And yet, overall, only about 1% of them do. For a long time I was convinced that this was an enablement failure on my part. And it may well be. So I tried a bunch of things to give people better tools for completing the Cloud Resume Challenge. I wrote a guidebook . I wrote three guidebooks . I started a Discord server (it&#8217;s past 10,000 members now!) And last year, I started doing free monthly sprints, each with a cohort between 100 and 200 people. The sprints included live office hours, weekly pace emails, community support, and as much additional help and guidance as I could figure out how to give without actually doing people&#8217;s work for them. And the challenge completion rate for sprinters went all the way up to &#8230;. 2.4 percent. The rest just dropped out and ghosted us. Again, those 2.4% of people are AWESOME. They are proactive communicators and they know how to learn. They will all be CTOs in 10 years. But &#8230; 2.4%? Out of 100 people who signed up and introduced themselves and planned out a month to do this in the company...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 443: The threat to open source comes from within
+
+**Publication:** Good Tech Things
+**Author:** Forrest Brazeal
+**URL:** https://newsletter.goodtechthings.com/p/the-threat-to-open-source-comes-from
+**Published:** 2024-04-08T20:01:41+00:00
+
+**Content Preview:**
+A great civilization is not conquered from without, until it has destroyed itself from within. -Will Durant The viability of open-source software was challenged twice over the past couple of weeks. One attack came from an outside adversary, the other from within the community itself. While the external threat triggered wider consternation, the internal threat seems to me far more dangerous. NB: while I have created and contributed to various open-source projects over the years, I am certainly not an expert on OSS governance. Today&#8217;s edition of Good Tech Things is not intended to be &#8220;thought leadership&#8221; or whatever, just a tool for me to organize my own thoughts. Outside threat: The XZ thing If nobody had ever heard of open-source, and you wrote an undergrad paper today proposing it as the way to develop the software that runs the world, you would get an F minus. Thesis sentence of your undergrad paper : Random people will anonymously create much of the world&#8217;s critically important software in their spare time, companies will make billions of dollars by using it for free, and this situation will remain shelf-stable for decades. Instructor&#8217;s comment in red pen : This makes no sense. What would motivate any self-respecting software developer to participate in a scheme like this? And how do you know the resultant code will be any good? Point 1 of your paper : Obsessive nerds will tear each other to pieces to make sure the code is as good as possible, because they just can&#8217;t help themselves. Instructor, in red pen : That doesn&#8217;t sound like a sustainable state of affairs. Point 2 of your paper : It works for Wikipedia. Instructor, in even redder pen : You are not allowed to cite Wikipedia in an academic context. F minus. Anyway, open-source&#8212;like Wikipedia and the BGP protocol&#8212;is one of those networked-collaboration things that makes no sense on paper, but in practice is more resilient than any centrally-managed system ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 444: You shouldn’t roll your own billing system, but we did it anyway. Why?
+
+**Publication:** Mixpanel Engineering
+**Author:** Illirik Smirnov
+**URL:** https://mixpanel.substack.com/p/you-shouldnt-roll-your-own-billing
+**Published:** 2025-10-10T18:40:53+00:00
+
+**Content Preview:**
+Nowadays, it&#8217;s widely understood that building your own billing system is a bad idea &#8212; like rolling your own encryption, taking up smoking, or buying a timeshare. Ask Hacker News; or your favorite LLM; the resounding answer is simple: don&#8217;t do it! Thankfully, we live in a world where Hacker News and LLMs aren&#8217;t always right. At Mixpanel, we made the decision to invest in our own billing system, instead of purchasing one off the shelf. In this article, I&#8217;ll not only explain our decision, but also provide some questions that you (the reader) need to answer before making a decision (in either direction). Today, I&#8217;ll play &#8220;devil&#8217;s advocate&#8221;, and explore many of the problems that can arise when integrating an off-the-shelf billing system into your B2B SaaS business. My goal is not to spread FUD about a particular vendor, or to argue that it is never correct to purchase an off-the-shelf billing system. Rather, my goal is to ensure that my reader is asking the right questions, so that they come to the best possible decision. First, let&#8217;s steelman the &#8220;buy&#8221; perspective: The argument against building your own billing system generally goes like this: Billing has numerous complexities and edge cases . These may not seem like huge problems now, especially from an engineer&#8217;s perspective, but they will cause immeasurable pain and suffering in the future. Solutions to many of these problems can be purchased from vendors that specialize in solving them; open-source solutions are also available . Billing is rarely core to your product, and working on it requires resources that could be spent on your product instead&#8230; especially at a startup. Therefore, you should not build your own billing system, or build as little of it as possible; rather, you should leverage these out-of-the-box solutions as far as practicable. Where&#8217;s the lie? I agree with all three premises in this argument. For many compa...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 445: Building Heatmaps at Scale
+
+**Publication:** Mixpanel Engineering
+**Author:** Carlos Trevino
+**URL:** https://mixpanel.substack.com/p/building-heatmaps-at-scale
+**Published:** 2025-08-19T16:39:57+00:00
+
+**Content Preview:**
+The 256 Character Problem That Almost Broke Our Heatmaps Imagine trying to locate specific DOM elements involved in millions of user interactions, spanning countless page states and screen sizes. You&#8217;d need element data, like tag names, IDs, class lists, and ancestor hierarchies, to reliably match to a clicked button across a mobile viewport and a 4K desktop display. But the API that needs to support querying this element data has a hard 256 character limit for property values, and your solution needs to scale to of millions of user interactions daily. This was just one of several interesting technical challenges we encountered while building heatmaps at Mixpanel. Building what appears to be a straightforward visualization feature turned into a deep dive through coordinate system transformations, API workarounds, and the fundamental question of how to visualize user behavior across wildly different screen sizes and page layouts. Pixels or DOM Elements, why not both? Heatmaps are visual representations of user interactions on web pages, and we built support for two distinct approaches. Traditional heatmaps use x and y coordinates to create color gradients showing interaction density, with warmer colors indicating more activity in a given area. Clickmaps, on the other hand, identify specific DOM elements that were clicked and display boxes around them, making it easy to see exactly which buttons, links, or other content areas received the most attention. From Individual Sessions to Aggregate Insights Mixpanel&#8217;s Heatmaps emerged from a clear customer need. While our Session Replay gives teams insight into individual user journeys, customers wanted to understand interaction patterns on their pages across many sessions. Marketing teams needed to see where users engaged most on landing pages. Product teams wanted to identify confusing UI elements and flows. For us, this wasn't just another feature. It was table stakes for competing in the modern analytics land...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 446: The Engineering Skill Points Game
+
+**Publication:** Mixpanel Engineering
+**Author:** Neal Kaviratna
+**URL:** https://mixpanel.substack.com/p/the-engineering-skill-points-game
+**Published:** 2025-06-26T13:58:48+00:00
+
+**Content Preview:**
+Part of an Engineering Manager&#8217;s (EM) job description is helping their team grow their skills. Well at least it should be. To do this well, a Manager and Engineer should be on the same page for what they would like to improve on. As with many things in software engineering, you need alignment! Getting alignment on people's strengths and weaknesses can be hard. These conversations require a level of comfort, introspection, and communication that can take time to build. However, waiting too long to have this discussion is an anti-pattern. You want to be aligned on growth targets at the start of a performance review period, not at the end of it. Enter the The Engineering Skill Points Game, a tool I&#8217;ve been using here at Mixpanel to more quickly learn engineers' skills and desired growth. I&#8217;ve gotten positive feedback on the exercise, so decided to share it on our blog! The Idea Inspired by Role Playing Games (RPGs) such as Oblivion or Dungeons &amp; Dragons, The Engineering Skill Points Game involves the IC creating a &#8216;skill distribution&#8217; for themselves, representing both their skills today and their skills in an ideal future. This forces the IC and EM to have a conversation about what skills are important to the job, relative strengths and weaknesses, and future growth. Skill List from The Elder Scrolls: Oblivion On top of that I like to think it is fun! Let&#8217;s get down to how it works. The Engineering Skill Points Game Setup - breaking the ice and setting the stage What Are Engineering Skills? - Calibration on the different aspects of engineering What Are Your Skill Levels? - Calibration on strengths and weaknesses What&#8217;s Your Plan? - Calibration on goals Setup Before the exercise I ask a few setup questions to prime the conversation. First, &#8220;What role would you like to be doing in 5 years?&#8221; I give some preset options: architect, pure IC, manager, another role in tech, or already retired. This opens up the career c...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 447: Tracking Your AI Product - Best Practices
+
+**Publication:** Mixpanel Engineering
+**Author:** Ryan Curtis
+**URL:** https://mixpanel.substack.com/p/best-practices-for-using-mixpanel
+**Published:** 2025-05-22T19:12:48+00:00
+
+**Content Preview:**
+As AI continues to reshape software products, understanding how users interact with AI features has become more critical&#8212;and more complex&#8212;than ever. Traditional product analytics focused on button clicks and page views is no longer sufficient to capture modern usage patterns like free-form prompting or dynamic AI responses. The opaque nature of AI systems, particularly LLM-powered features, makes measuring user experience harder&#8212;but also more essential. Strong analytics isn't a luxury; it's foundational to iterating quickly and delivering value in AI-native products. At Mixpanel, we&#8217;ve been talking to leading AI product teams to understand how they measure success, and we&#8217;ve applied those learnings to our own AI product, Spark AI. This post shares the most valuable metrics we&#8217;ve found and how you can implement them using Mixpanel&#8212;plus, we&#8217;ve bundled it all into a dashboard template for AI teams to help you get started. What Events to Track for Your AI Product Before we can build a dashboard, you need the right event data. Below is a recommended baseline schema for AI products&#8212;particularly LLM-powered interfaces like chatbots, copilots, or agents. These events give you full visibility into how users interact with AI features, and how well those features are performing. Each event includes properties to capture deeper context&#8212;critical for debugging, performance tuning, cost analysis, and user behavior insights. !function(){"use strict";window.addEventListener("message",(function(e){if(void 0!==e.data["datawrapper-height"]){var t=document.querySelectorAll("iframe");for(var a in e.data["datawrapper-height"])for(var r=0;r !function(){"use strict";window.addEventListener("message",(function(e){if(void 0!==e.data["datawrapper-height"]){var t=document.querySelectorAll("iframe");for(var a in e.data["datawrapper-height"])for(var r=0;r !function(){"use strict";window.addEventListener("message",(function(e){if(void 0!=...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 448: We Migrated our Eng Blog to Substack 
+
+**Publication:** Mixpanel Engineering
+**Author:** Neal Kaviratna
+**URL:** https://mixpanel.substack.com/p/we-migrated-our-eng-blog-to-substack
+**Published:** 2025-05-16T20:43:33+00:00
+
+**Content Preview:**
+Hello World Hey everyone, our engineering blog just landed on Substack! If you&#8217;re interested in our older content check out our archive on our old Medium blog . We'll also be sharing our setup for preserving our old blog posts while keeping a unified experience soon. For over 15 years, Mixpanel engineering has led the product analytics industry, solving problems of immense scale and complexity. We're sharing our hard-won insights through this blog to help elevate the field together. Subscribe to keep up to date with our latest posts. We look forward to collaborating with you. Subscribe now Why we&#8217;re here So why did we come to Substack? It breaks down to 2 main reasons: We have a lot of content in the pipe and want to keep in touch via the streamlined newsletter experience available in Substack. We are curious if Substack will boost our reach. Doesn&#8217;t hurt to try! A core tenet at Mixpanel is being data driven, and the only way to get definitive data on how the eng blog would fare on Substack is to ship it! Knowing we can always roll back provides us a safety net to try new things. We're going to keep a close eye on how things go and look forward to your readership!...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 449: Older blog posts are on Medium
+
+**Publication:** Mixpanel Engineering
+**Author:** Austin Pray
+**URL:** https://mixpanel.substack.com/p/older-blog-posts-are-on-medium
+**Published:** 2025-05-12T16:37:47+00:00
+
+**Content Preview:**
+In May 2025 we moved our blog to Substack &#127881;. Our older blog posts published from 2010 to 2025 are archived over on https://medium.com/mixpaneleng/archive . We have a lot of great posts planned! Subscribe to stay updated. Our most popular blog posts How we cut BigQuery costs 80% by hunting down costly queries Under the Hood of Mixpanel&#8217;s Infrastructure Automate Rotating Credentials using Terraform Enforcing required checks on conditional CI jobs in a GitHub monorepo Saving $30000 a month by improving Garbage Collection My favorite series of blog posts on our engineering blog is: In 2010 Mixpanel moved from Rackspace to AWS: We&#8217;re moving. Goodbye Rackspace . In 2011 Mixpanel moved off of AWS and on to on-prem SoftLayer: Why We Moved Off The Cloud . In 2018 we moved from on-prem SoftLayer to Google Cloud Platform , where we&#8217;ve remained to this day!...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 450: Turn data-driven decisions into informed decisions
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/turn-data-driven-decisions-into-informed
+**Published:** 2024-08-22T17:50:07+00:00
+
+**Content Preview:**
+The business world has been championing data-driven decision making for the last few decades. The concept is simple: Get data into the hands of business users so they can make the right decisions at the right time. Producers of data tools, such as data warehouses and business intelligence applications, have promoted the idea that, with the right data, every decision will be effective and lead to positive outcomes. Although there has been some progress in the adoption and successful use of data in decision making, the results are not up to the promise. In this article, we&#8217;ll look at what&#8217;s missing from the information pipeline and how it can be reworked to empower timely, informed decisions for business leaders everywhere. Data is not information When people say they want to make data-driven decisions , what they really mean is they want to make informed decisions - decisions that are based on information, not data. What&#8217;s the difference between information and data? Data becomes information when it&#8217;s processed, cleaned, aggregated, and given context. As information, data can be effortlessly understood by decision makers and applied to real-world problems. For example, a set of sales records for various stores in a data warehouse is data. In its raw form, it doesn&#8217;t offer much. However, when it&#8217;s aggregated and the expenses are subtracted for each store (in other words, when it becomes information), it can be used to determine relative store profitability. Sales transactions are data. Profit values per store are information. Businesses can make informed decisions about which stores to invest in based on the derived information. It doesn&#8217;t stop there. Over time, this kind of information becomes knowledge and wisdom. As business teams find patterns in the information they use, they develop a set of repeatable decisions to help them run their business. The business world is still focused on data Historically, analytics tools hav...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 451: Get Metrics-Ready - with Your Existing Data Stack
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/get-metrics-ready-with-your-existing
+**Published:** 2024-06-14T17:31:45+00:00
+
+**Content Preview:**
+Learn how PowerMetrics enables data teams to create and fulfill metrics from diverse data sources, including data warehouses, semantic layers, service APIs and spreadsheets. Its flexible integrations approach gets data teams started with metrics, no matter what their current data stack looks like. PowerMetrics kickstarts a metrics-first strategy and is&nbsp;designed to evolve with your data stack as it matures. All the while, PowerMetrics will continue to ensure consistent, straightforward analytics across the entire organization. Join us for the webinar on June 18! At Klipfolio, we believe in a metrics-first analytics strategy. We built PowerMetrics , an approachable metric-based product, to help business users understand their data and make better decisions. The concept of &#8220;metrics as data artifacts&#8221; is powerful, yet simple: All metrics follow the same rules and expose the same capabilities, regardless of how they&#8217;re defined or fulfilled. This unique quality makes it easy to learn how to use and extract real-world value from the data in metrics. This universal approach to data consumption is one of the driving forces behind our metric philosophy . Compared to consuming metric data in visualizations, creating and fulfilling metrics is part of a diverse, and sometimes complex, environment. The reality for most data teams is that their data is everywhere, stored in many different kinds of storage systems, and exposed through many different types of APIs. There&#8217;s no &#8220;one size fits all&#8221; data stack, and, as such, the way in which metrics need to be defined differs considerably from organization to organization. Adding to this mix - data stacks evolve over time within the same organization as a business grows in its data needs and maturity. While the concept of metrics is gaining popularity, fulfillment has often been a challenge for data teams. At PowerMetrics, we took on that challenge - and we think we solved it. Read on to learn ho...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 452: Is Big Data going through an object-oriented revolution?
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/is-big-data-going-through-an-object
+**Published:** 2024-05-14T13:00:04+00:00
+
+**Content Preview:**
+There&#8217;s no denying it &#8211; Data is complex! Despite advancements in data warehousing and business intelligence products, the ability to analyze, manipulate, and model data remains elusive for most users. The first step toward a solution is admitting that these struggles are fundamentally about complexity. The software industry addresses the issue of complexity every day. If you remove all of the details, like tooling and programming languages, software is mainly about abstracting complexity so that we humans can code complex logic into software applications. The more complexity programmers can handle, the more competitive they, and their organizations, can be when developing software. Taking on an increasing level of complexity and managing it effectively is a matter of survival for software developers. The same can be said for data teams and data consumers in data-driven organizations. There are many valuable lessons the data industry can learn from the software development process. There&#8217;s an object-oriented revolution in the works, with modern BI applications embracing metrics, a new kind of artifact. Just as objects manage complexity in software code bases, metrics act as building blocks in data management solutions, breaking down complexity in analytics and making it more accessible to everyone. Object-oriented methodology &#8211; A revolution in software development and data analytics In the software industry, complexity is often managed using object-oriented design. A far-reaching innovation, you&#8217;d be hard pressed to find a modern application that wasn&#8217;t written using this approach. In this methodology, programming logic is organized into well-defined parts, making it possible for developers to manage much more sophisticated code bases. This object-oriented approach has enabled the next level of software development, pushing the bounds of complexity that can be handled by a software team to new heights. It&#8217;s time for data-driv...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 453: How metrics re-establish trust
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/how-metrics-re-establish-trust
+**Published:** 2024-04-17T19:10:54+00:00
+
+**Content Preview:**
+A metric is a new type of BI artifact that captures the data and meaning around a single business concept. Unlike traditional BI models and reports, metrics don&#8217;t expose any end user configurations that could change the meaning of the metric. Once metrics are defined, you know they can be trusted. And, the ability to retrieve data using contextual queries makes for flexible, comprehensive analytics. With metrics, you get the best of business intelligence analysis &#8211; trustworthy, all-encompassing data for effective decision making. Why complex BI tools may not be as powerful as they seem Over the last few decades, BI products have focused more and more on flexibility and rich feature sets. More capability was assumed to mean more power and more value. Yet, studies show most companies that could take advantage of these advanced BI tools continue to use spreadsheets instead. As we all know, BI software has evolved tremendously, with capabilities that could make any business user seem like a data superhero. So, why aren't more business teams adopting these feature-rich BI tools into their daily decision making? It all boils down to trust, or, more specifically, the lack of it. Thanks for reading Metric Stack Newsletter! Subscribe for free to receive new posts and support my work. Business users often lack confidence in the data &#8211; Is it accurate? Is it the most recent? Is it the right version? Sometimes they&#8217;re not sure if they can trust the sources of the data or if the data team fully understood their request, saying the data doesn&#8217;t look like what they asked for. On top of this, most BI tools include features that require a deep understanding of the data to really see what&#8217;s going on. This stumbling block makes it difficult for the casual user to trust the tool or that they&#8217;re using it appropriately to solve their immediate issue. An unfair expectation has been placed on the average business user to become a data expert in orde...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 454: The changing role of the data team in 2024
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/the-changing-role-of-the-data-team
+**Published:** 2024-02-06T16:02:42+00:00
+
+**Content Preview:**
+Summary: In 2024, AI and LLMs will change existing roles within data teams. Data specialists will step up their game by embracing new tech and increasing their focus on organizational security. Thanks to the impact of AI, they'll acquire new areas of expertise, like AI Governance and Data Security. Understanding tools, such as Automated Machine Learning, and adopting software development practices will make their work smarter, not harder. With a stronger focus on data protection and regulatory compliance, data teams will need to pick up new skills. Their goal? To use data more intelligently, sparking innovation and keeping pace with technological advances. Introduction In 2024, there&#8217;s enormous potential for change in the realm of data engineering and analytics. The rapid evolution of AI and the emergence of new data trends and concerns will redefine the role of data teams. Despite cost pressures and the demand for profitable ROI, investment in data analysis and management will grow in 2024. Businesses will be laser-focused on data teams, as catalysts for growth, efficiency, and risk mitigation. They&#8217;ll continue to support business teams in their decision-making tasks, but, with a difference. The emergence and rapid evolution of AI and LLMs will lead to interesting new roles for data team members. The increasing importance of security, semantics, data products, and AI governance amplifies the need for highly skilled data teams. Anticipate the emergence of exciting new roles such as AI Governance Specialists, Data Product Architects, and Data Security Officers. The role of the data team has evolved from support to a key driver of business success. In response, businesses urgently need to invest in robust data capabilities to stay ahead of the game. Thanks for reading Metric Stack Newsletter! Subscribe for free to receive new posts and support my work. AI is the carrot LLMs (Large Language Models) and AI (Artificial Intelligence) will have a huge impact on...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 455: Optimizing LTV to CAC at Unbounce
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/optimizing-ltv-to-cac-at-unbounce
+**Published:** 2024-01-25T19:00:20+00:00
+
+**Content Preview:**
+Podcast Special In this interview, Allan Wille, CEO at Klipfolio , Lauren Thibodeau, Founder of SaaSCan , and&nbsp;Alex Nazarevich, Vice President of Growth at Unbounce , dive into the marketing strategies and principles behind the company's success. Alex and his team use the Lifetime Value to Customer Acquisition Cost (LTV to CAC) ratio, not just as a marketing metric, but as a unifying force across departments. Their method of starting at the conversion point and methodically working backwards was the key to reducing Customer Acquisition Costs (CAC) at Unbounce by a whopping 35%-40%. Alex&#8217;s strategy of balancing impactful changes alongside the team&#8217;s execution capabilities is the epitome of practical and efficient digital marketing. Thanks for reading Metric Stack Newsletter! Subscribe for free to receive new posts and support my work. Alex champions a culture of curiosity and data literacy, encouraging a mindset where challenging established norms and harnessing data-driven insights are essential to forging successful marketing pathways. His advice is clear and simple: Just start. Note: This article is a summarized version of a podcast, highlighting the most important insights. Listen to the entire conversation on the Metric Stack Podcast . About Alex Nazarevich With a background in e-commerce and digital marketing, Alex bridges the gap between these interrelated disciplines. At Unbounce, he leads two main teams: The acquisition team, which focuses on maximizing customer inflow through inbound channels, and the customer marketing team, responsible for customer engagement and rolling out tailored marketing strategies. Alex has been overseeing the entire customer journey since starting at Unbounce a little over a year ago. Despite recent macroeconomic challenges, Alex emphasizes the importance of focusing on customer acquisition and efficiency, highlighting that the core objectives of his role remain constant even amidst change. The Importance of LTV to...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 456: Part 2: Ready for the 3rd generation of BI software? 
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/part-2-ready-for-the-3rd-generation
+**Published:** 2023-12-14T14:00:57+00:00
+
+**Content Preview:**
+Summary - In this article (the second in a two-part series ), we dive into the opportunities that metric-centric analytics tools provide to data teams, decision makers, and analysts. We also explore the future of analytics, where BI systems work equally well for machine and human consumption and where everyone understands and leverages the power of data. Recap from Part 1 : The evolution of Business Intelligence (BI) software design has been fuelled by the need to understand and effectively use data to make good decisions. A third generation of BI tools is emerging. It&#8217;s centered around metrics &#8211; BI artifacts that capture purpose and data and address the immediate needs of decision makers &#8211; in a way that reports don&#8217;t. Metric-centric analytics solutions, like Klipfolio PowerMetrics , treat metrics as first-class artifacts and are designed for independent analysis by business users. Thanks for reading Metric Stack Newsletter! Subscribe for free to receive new posts and support my work. Everyone benefits from metric-centric BI The first two generations of BI tools manipulated and presented information but didn&#8217;t focus on the real purpose of data &#8211; enabling and supporting good business decisions. Metric-centric BI builds purpose into the data so even less technical users can make better decisions. Let&#8217;s look at how this new generation of BI solves business challenges for data teams, decision makers, and analysts. Why metric-centric BI is good for data teams Business users faced many usability challenges when working with 2nd generation BI. As a result, data teams spent a lot of time authoring reports, often based on ad hoc requests. With metric-centric BI, instead of authoring reports, data teams choose the right data for each metric and have more time for other meaningful work.&nbsp; Each metric has a specific definition. It&#8217;s easier (and faster) for data teams to fulfill a well-defined need versus managing a multi-purpo...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 457: Ready for the 3rd generation of BI software? 
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/ready-for-the-3rd-generation-of-bi
+**Published:** 2023-12-05T20:23:37+00:00
+
+**Content Preview:**
+Summary - Over the years there&#8217;s been substantial investment in BI solutions &#8211; so why are so many of us still using spreadsheets?! In this article, the first in a two-part series, we look at the evolution of BI software design and see how the most recent generation of analytics can help us escape spreadsheets and embrace modern data tools. The evolution of Business Intelligence (BI) software design has been fuelled by the need to understand and effectively use data to make good decisions. However, studies show that more than half of businesses still struggle to generate value from their data or move beyond spreadsheets.&nbsp; How can we unlock the potential of BI software for business and data teams? Until recently there have been two clear generations of BI software &#8211; enterprise BI and departmental/personal BI. Let&#8217;s look at how these fall short and why a new third generation design is the key to modern decision-making. Thank you for reading Metric Stack Newsletter. This post is public so feel free to share it. Share First generation: Enterprise BI In the 1960s, mainframe computers, with their ability to store and process large amounts of data, became commercially available. It was a first step toward data-driven decision making, however, the exorbitant cost and the need for highly-trained technicians prevented widespread deployment. In the late 1970s, personal computing and tools such as spreadsheets came on the scene, enabling less technical business users to work with data. But, again, there were limitations. Multiple data storage solutions made it hard to know which data to analyze and how to tie everything together to effectively draw conclusions. Also, self-serve analytics tools specifically designed for business users were virtually non-existent. Complex solutions for experts Enterprise BI was designed to meet the needs of large organizations. Data experts modelled data into a form that enabled integration with other tools for interac...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 458: Transforming traditional BI with semantic layers
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/transforming-traditional-bi-with
+**Published:** 2023-10-31T16:53:26+00:00
+
+**Content Preview:**
+Podcast Special The ultimate goal of data analytics is to drive sound and data-backed decisions across the organization. For most, however, this goal is still a North Star objective. Traditionally, companies have hired data teams and analysts to help business users work with analytics software and make data-driven decisions. Unfortunately, this approach doesn&#8217;t scale as the company grows. Thankfully, there&#8217;s a new generation of BI tools out there that are helping transform the role of data teams from internal service providers to platform builders. Adopting a semantic or metric layer enables data teams to focus on what they do best &#8211; building and maintaining infrastructure and doing deep data analysis. Business users work with centralized metrics and truly easy-to-use self-serve analytics tools, alleviating the need for data teams to &#8220;service&#8221; them with dashboards and reports. In this interview, Allan Wille, CEO at Klipfolio , sat down with Johan Baltzar, co-founder and CEO of Steep . Klipfolio and Steep share the same vision. They believe in a new generation of analytics products that enable business users to work with centrally-defined metrics in a self-serve environment.&nbsp; Thanks for reading Metric Stack Newsletter! Subscribe for free to receive new posts and support my work. Their conversation explored the ever-evolving landscape of data analytics, the role of the semantic layer in simplifying data accessibility, the changing relationship between data teams and business users, metrics literacy, and the integration of semantic layers with existing BI tools. Note: This article is a shortened and edited version of a podcast, highlighting the most important insights. Listen to the entire conversation on the Metric Stack Podcast . What's wrong with traditional BI? Johan Baltzar is the co-founder and CEO at Steep, where they&#8217;ve created a new and faster way for teams to make better data-driven decisions. Johan and his co-founder,...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 459: Martech’s Data Challenges 
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/martechs-data-challenges
+**Published:** 2023-10-11T14:18:01+00:00
+
+**Content Preview:**
+Summary: Navigating the Marketing Technology landscape has exploded to include over 11,000 companies, inundating marketers and data teams with disparate data sets. A metrics layer as part of the data stack is proposed to align marketing and data teams towards a unified understanding of metrics. Data challenges include schema mismatch, data type inconsistencies, and data granularity among others. The single source of truth is not a tool but the data itself, requiring a data-driven culture that understands metrics. The solution involves a social contract and a metric model that adapts to evolving data shapes and business needs. Thank you for reading Metric Stack Newsletter. This post is public so feel free to share it. Share Navigating the Marketing Technology (Martech) landscape is like charting a complex topography that's ever-changing. ChiefMartec's Marketing Technology Landscape is now populated with more than 11,000 companies and new tools are being discovered daily.&nbsp; This explosion in Martech is something that we witnessed first-hand: In 2014, when there were only about 900 vendors, we wrote an email to Scott Brinker asking to be included in the highly regarded report. At the time, Klipfolio was focused on data analytics for digital marketers and agencies -- so not only were we a vendor, we were also a service provider. Marketing technology is a broad field; it encompasses any software that marketers utilize in their daily work. With each new tool added to the Martech stack, marketers and data teams are inundated with disparate, often incompatible data sets. Martech can be highly disposable. This means marketers move from one platform to another, freely erasing rich data legacies while maintaining their reporting requirements. Are we any closer to solving this data challenge in 2023 than we were in 2014? In this post, we'll explore the difficulties in aligning marketing and data teams towards a unified understanding of their metrics, and delve into how to e...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 460: Semantic layer, metric layer, or a hybrid solution 
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/semantic-layer-metric-layer-or-a
+**Published:** 2023-10-02T14:59:42+00:00
+
+**Content Preview:**
+Summary: Metrics can be created, managed and consumed by data stacks containing a semantic layer, a metrics layer, or a hybrid solution. The choice of which system to use comes down to various factors such as: The current data infrastructure in the organization, the scale of the data being processed, the needs and experience of the data teams and data consumers, and the overall investment in data solutions. Thanks for reading Metric Stack Newsletter! Subscribe for free to receive new posts and support my work. Metrics provide a powerful way for analysts and decision makers to work with data that&#8217;s been curated and optimized for consumption. There are various technical solutions for metrics, making it challenging at times to understand which one is best for your organization and its data. This article helps you decide which path to choose by comparing and contrasting the primary technology types: Semantic layer , metric layer , and a hybrid approach that uses both. The semantic layer solution Semantic layers are making waves in the industry as the next evolution of data transformation toolkits for data teams. This technology creates a framework within which data teams define and manage metrics. The metrics are then made available to the decision makers, delineating the roles of data team and business team when it comes to an organization&#8217;s data. Some examples of such tools are dbt Semantic Layer from dbt Labs and Looker Modeller from Google. A semantic layer does not store data. Rather, it allows for meaning (metric definitions) and structure (semantics) to be assigned to data through added metadata. Metric definitions represent a consistent abstraction for the data in a way that&#8217;s easily understood and consumed. Part of this abstraction is a consistent and simplified way to query metrics that optimizes the consumption of the metric data for analysis. Semantic layers allow for metrics to be defined on top of the existing data in the data warehouse. ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 461: Reverse ETL, BI, AI, and more 
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/reverse-etl-bi-ai-and-more
+**Published:** 2023-09-19T16:44:44+00:00
+
+**Content Preview:**
+Podcast Special Are you a data enthusiast who is excited by the synergy of reverse ETL, curated metrics, and AI's potential to revolutionize data-driven decision-making? This one&#8217;s for you. Allan Wille, CEO at Klipfolio, sat down with Brian Kotlyar, VP of Marketing &amp; Growth at Hightouch, a reverse ETL solution that makes data manipulation, extraction, and moving smooth, easy, and fun for data engineers. Their conversation explored the potential of reverse ETL, the pressing challenges of modern business intelligence (BI), and the exciting prospects that are emerging as AI meets data analytics. Thanks for reading Metric Stack Newsletter! Subscribe for free to receive new posts and support my work. Note: This article is a shortened and edited version of a podcast, highlighting the most important insights. Listen to the entire conversation on the Metric Stack podcast . Reverse ETL with Hightouch Reverse ETL enhances the way data engineers unlock value from raw data by making data manipulation, extraction, and movement seamless. It&#8217;s about ensuring that the data is not just collected, but also refined and made ready for value activation. The process bridges the gap between raw data and actionable insights, which is crucial for businesses aiming to make informed decisions. Allan from Klipfolio: Brian, tell the audience about Hightouch and reverse ETL. What is reverse ETL? Brian from Hightouch: Reverse ETL solves a problem that has plagued me for the entirety of my career. We pour all this effort into gathering data and processing data to understand our business and our customers. But, we consistently run into this brick wall of actually using the stuff. Reverse ETL makes using data day to day, to send a good email, to provide the appropriate offer to a potential customer, to customize an experience on a website, or in an ad possible. Allan from Klipfolio: I know you've been thinking about the &#8220;value activation&#8221; idea for quite some time. Tell me...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 462: Let’s fix analytics so we can stop asking you for dashboards
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/lets-fix-analytics-so-we-can-stop
+**Published:** 2023-09-12T13:50:45+00:00
+
+**Content Preview:**
+Summary: With that many self-serve analytics tools out there, why do business teams, like marketing or customer success, still frequently ask their data teams for dashboards? Truth is, a well-crafted dashboard addresses their needs in many ways that an organization&#8217;s self-serve analytics solution does not. This article describes the business team&#8217;s perspective on what true self-serve analytics should look like. Thanks for reading Metric Stack Newsletter! Subscribe for free to receive new posts and support my work. Self-serve business intelligence and analytics solutions are supposed to be designed for people like me. I&#8217;m the Chief Operating Officer at Klipfolio, and oversee the marketing and customer success teams that make data-driven decisions every day. Despite being part of an analytics company and fairly data-literate, I&#8217;m not a technical data specialist. My decision making, therefore, relies on clean, trusted data presented in a format my teams and I can understand and use. Unfortunately, the needs of end users are often an afterthought when discussing the challenges of modern business intelligence software. This needs to change. I firmly believe that keeping the end user in mind is key to developing a superior product. And, that includes self-serve analytics solutions. Based on my personal experience and interactions with our customers (team members from marketing, sales, or customer service) I&#8217;ve learned there&#8217;s one thing most of them want - dashboards. Sorry, data team! Please try to hold back your yawns &#128521;. Why dashboards? Because their needs are not being met by their current analytics solution. They keep coming back to the familiarity of dashboards as they try to accomplish these three things: Understand and communicate their data&#8217;s story Trust their data as a single source of truth Have access to a truly self-serve analytics tool that's straightforward to use I&#8217;m convinced there&#8217;s a way to nav...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 463: Metrics: A researcher’s perspective
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/metrics-a-researchers-perspective
+**Published:** 2023-09-06T16:51:50+00:00
+
+**Content Preview:**
+Summary: Looking for the best way to make data-driven business decisions? Look no further! In this article, researcher Matthew Brown explains how data and business teams work together to build a library of essential business metrics. You&#8217;ll learn why metrics are well-suited for quantitative, unbiased data research - and - how having access to defined, consistent metrics means business teams can make decisions based on data, not instinct. Thanks for reading Metric Stack Newsletter! Subscribe for free to receive new posts and support my work. What exactly is a metric? The term metric is often used interchangeably with measure or Key Performance Indicator (KPI). Even analysts sometimes struggle to understand the differences between these terms. However, as the popularity of metric analysis grows, more and more people are learning what makes metrics unique &#8211; metrics are both a data structure and a business concept. In his article on the benefits of metrics, senior software developer Graham Watts defines a metric as follows:&nbsp; &nbsp;&#8220;A metric is a data structure that refers to a single, meaningful, measurable business concept. A metric includes the history of that value and the categories that the value can be broken down into (also called dimensions).&#8221;&nbsp; In most cases, a metric has multiple data points that have been or can be: aggregated (e.g., average room temperature over the last 12 hours),&nbsp; segmented (e.g., temperature on first floor vs. second floor), and/or&nbsp; combined with other measures (e.g., difference between room temperature and outdoor temperature).&nbsp; Business metrics are a subset of metrics that are commonly used to measure business health and help guide business decisions. If you&#8217;re not sure about the difference between measures, metrics, and KPIs, I recommend reading this informative comparison , written by Jonathan Taylor. Which teams in your organization should be using metrics? My knee-jerk reaction t...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 464: Why metrics are the key to confident decision making
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/why-metrics-are-the-key-to-confident
+**Published:** 2023-08-09T14:38:49+00:00
+
+**Content Preview:**
+Summary: A metric describes both a data structure and a business concept. More and more analysts are discovering that using a well-defined metrics framework supports faster, more reliable decision making. In the world of big data, which often lacks meaning and structure, metrics are the key to success. The right amount of data, self-serve analytics, monitoring data over time, understanding and reacting to change, effectively combining disparate data sources in reports, and visualizing data for every team &#8211; Metrics include all this and more, enabling you to understand and gain insights into your data and business performance. Thanks for reading Metric Stack Newsletter! Subscribe for free to receive new posts and support my work. The concept of metrics is gaining popularity in the analytics and business intelligence world. Metrics help data teams manage large amounts of data and make it easy for business teams to understand and access the information they need for confident decision making. However, some data experts may not realize the benefits of metrics when compared to traditional models. While there&#8217;s some good technical content out there about metrics, such as this article by Airbyte , our blog aims to help you understand what metrics are and why using them to measure and track your data will help you make the best business decisions.&nbsp; How metrics are different from traditional BI models A metric is a data structure that refers to a single, meaningful, measurable business concept . A metric includes the history of that value and the categories that the value can be broken down into (also called dimensions ). Let&#8217;s use a &#8220;Revenue&#8221; metric as an example. In the table below, you can see revenue by geography, department, and customer (the selected dimensions), for today&#8217;s date (current data), and for previous dates (historical data). Note that it doesn&#8217;t contain any data related to expenses &#8211; this would be measured...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 465: Metric-centric BI - What it is and why it matters
+
+**Publication:** Metric Stack Newsletter
+**Author:** Metric Stack Newsletter
+**URL:** https://metricstack.substack.com/p/metric-centric-bi-what-it-is-and
+**Published:** 2023-07-25T19:05:18+00:00
+
+**Content Preview:**
+Summary The metric-centric BI approach provides a massive opportunity to bridge the current gaps between the needs of data and business teams when working with data. The baked-in metrics layer provides a trusted, clean, and governed single source of truth for all metrics in the organization. Business and data teams work in the same environment, encouraging collaboration and a mutual understanding of and investment in the company&#8217;s metrics. A purpose-built, no-code visualization layer enables a true self-serve BI experience.&nbsp; Thanks for reading Metric Stack Newsletter! Subscribe for free to receive new posts and support my work. In a traditional business intelligence (BI) approach, data is accessed directly from a data warehouse. Whereas metric-centric BI adds a metrics definition layer that sits between the data warehouse and the visualization components. The metrics layer (sometimes called a semantic layer) is a relatively new concept in the modern data stack. A metric-centric BI approach includes a baked-in metrics layer where semantic meaning and metadata live alongside dashboards, reports, and data exploration. By recognizing the importance of metric visualization, metric-centric BI takes the concept of a metrics layer to the next level, achieving its full potential. The addition of a metrics layer enables data teams to quickly debug and edit metrics and data consumers to explore and visualize those metrics &#8211; all in the same environment. Not only does this make collaboration between teams easier, it will also reduce costs. This article describes the fundamental components of metric-centric BI and the benefits to both data and business teams. What is a metrics layer? The metrics layer is a central location for an organization&#8217;s metrics. It&#8217;s where business logic and semantic meaning is applied to data to create metrics. It&#8217;s also an organization&#8217;s single source of truth, where important metrics are defined, calculated, and...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 466: The golden trio of web analytics
+
+**Publication:** Metric Stack Newsletter
+**Author:** Priyaanka Arora
+**URL:** https://metricstack.substack.com/p/edition-32
+**Published:** 2022-02-15T15:00:36+00:00
+
+**Content Preview:**
+Pages per Session might not be the most glamorous or earth-shattering metric out there. But there are some key lessons to learn by tracking this metric. This week on Metric Stack, we'll look at the humble Pages per Session - and add a couple power-ups to help you extract insights that could potentially change your business for the better. Let's dig in: What is Pages per Session? Pages per Session tracks the average number of pages viewed per user session. In other words, this metric maps the percentage of sessions where users explore more than just a single page on your website. Here&#8217;s the formula: Pages per Session = Total Page Views / Total Sessions Just in case you need a refresher, a page view counts the number of times a page is loaded or reloaded. And a session is a period of time during which a user is active on a website. Bonus tip: there&#8217;s an FAQ section on the Pages per Session MetricHQ definition page with information specific to Google Analytics - check it out . What is a good Pages per Session benchmark? Based on 2021 benchmark data from Contentsquare , the global average Pages per Session across all industries is five. This means the average user session consists of around five pages loaded. Be aware that Pages per Session varies by industry. Because this metric is all about user intent - and that differs from industry to industry. Take a look at the chart to find the Pages per Session benchmark for your industry. Heads up - if you're B2B, it's much lower: Why should you care about Pages per Session? Look, when tracked in isolation, you&#8217;re not going to learn a whole lot from this metric. I&#8217;ll address a couple other metrics you should track along with Pages per Session for true, actionable insight. But let&#8217;s not write off Pages per Session. This metric gives you some crucial information all on its own: it gives you a glimpse at user behaviour. And if you&#8217;re been following the Metric Stack Newsletter for a while, you a...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 467: How to define and track SaaS Activation Rate
+
+**Publication:** Metric Stack Newsletter
+**Author:** Priyaanka Arora
+**URL:** https://metricstack.substack.com/p/edition-31
+**Published:** 2022-02-08T15:00:32+00:00
+
+**Content Preview:**
+If you&#8217;re no stranger to SaaS, you&#8217;ve heard about activation and why it&#8217;s one of the most important &#8220;Pirate Metrics&#8221;. But have you ever stopped to think why? Or how to start tracking activation? In this edition of Metric Stack, we'll learn all about Activation Rate, look at benchmarks, and discover some ways to start effectively defining and measuring activation. What is Activation Rate? Activation Rate measures the percentage of &#8216;activated&#8217; users using your product. These users perform certain key actions in a fixed period of time indicating they have found true value within your product. Here&#8217;s the formula: Activation Rate = Users That Performed a Key Action / All Users Remember when you heard me mention pirate metrics? The pirate metrics - AARRR - describe the typical SaaS customer journey: Acquisition : here&#8217;s where you capture new trials, freemium users, and paying customers; acquisition is crucial for success and is considered the startup killer Activation : the stage where a light bulb goes off in the user&#8217;s head and they realize the true value of your product Retention : growing customer loyalty through excellent product experience and customer support Revenue : trial to paid, freemium to paid, up-sells, cross-sells, this stage is where users pay to use your product Referral : users bring in new users through word of mouth or direct referrals, completing the customer journey with the start of a new cycle But today, we're focusing on activation. Why? Because it's the bridge between acquisition and the rest of the customer journey. Low activation leaves very little revenue, retention, or referrals to speak about. What&#8217;s a good Activation Rate benchmark? According to Mixpanel&#8217;s 2019 Product Benchmarks Report , the median first week activation rate for SaaS is 17% , while the 90th percentile scores a whopping 65% activation rate. While benchmarks are super useful as guidance on what your met...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 468: The secret world of SaaS free trials
+
+**Publication:** Metric Stack Newsletter
+**Author:** Priyaanka Arora
+**URL:** https://metricstack.substack.com/p/edition-30
+**Published:** 2022-02-01T15:00:56+00:00
+
+**Content Preview:**
+Welcome to edition 30 of the Metric Stack Newsletter! I&#8217;m Priyaanka Arora, and it&#8217;s my job to get you excited about all things metrics. Why? Because metrics are much, much more than random numbers pulled out of a magician&#8217;s hat. When utilized correctly, metrics are the difference between acting on your intuition alone and making informed decisions with a future vision in mind. Today on Metric Stack, we&#8217;ll look at one such metric that can seem straightforward but hides subtle complexities that make a ton of difference to how you measure success. Excited? Good! Let&#8217;s dig in: What is Trial Conversion Rate? Trial Conversion Rate is the percentage of free trial users that successfully convert to paid users. Here&#8217;s the formula: Trial Conversion Rate = Trial-to-Paid Users / Trial Users The formula is the easy part. Your next steps are to determine the length of your trial period (and whether that&#8217;s really the best duration), debate opt-in or opt-out, and, uh, decide whether you want to offer a trial at all (maybe?). Let&#8217;s figure out those answers one by one. That elusive perfect free trial length The industry still can&#8217;t come up with a definitive answer for one of the oldest problems in SaaS: what&#8217;s the optimal free trial length? Answers vary from the classic &#8220;it depends&#8221;, to anywhere between 7 and 30 days. Here are the top 3 factors that influence trial period length: Time to Value : how soon does the average user get to their first Aha! Moment when using the product? That gives you a rough estimate of how long your free trial could be. Customer Acquisition Cost : realistically, how long can you support free trial users before you start losing money? Remember that CAC is the startup killer , increasing steadily year after year. Balance your costs against revenue from free-to-paid conversions. Ease of use: how easy is it to set up and use the product? The time &amp; effort needed to onboard, configure,...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 469: Delivery vs deliverability: email bounce rate explored in-depth
+
+**Publication:** Metric Stack Newsletter
+**Author:** Priyaanka Arora
+**URL:** https://metricstack.substack.com/p/edition-29
+**Published:** 2022-01-25T15:00:53+00:00
+
+**Content Preview:**
+Some of you might feel it&#8217;s too early in the week to understand the subtle differences between two similar sounding words. But I don&#8217;t think so! In this edition of the Metric Stack Newsletter, you&#8217;ll learn how to measure Email Delivery through two key metrics, Email Bounce Rate &amp; Inbox Placement Rate. As always, I&#8217;ll take you through the latest industry benchmarks - so read on! Let&#8217;s start with some definitions: What is Email Bounce Rate? Email Bounce Rate measures the percentage of unsuccessful email deliveries resulting from each email you send. Here&#8217;s the formula: Email Bounce Rate = Email Bounces / Emails Sent You might have heard of unsuccessful email deliveries through another name: Email Bounces.&nbsp; And there are a couple flavours: Email Hard Bounces happen when there are permanent, irreversible problems such as incorrect email addresses on your list or email service shut downs. Email Soft Bounces are much more temporary and occur due to issues such as server down time and full inboxes. Essentially, Email Bounce Rate is your go-to metric for measuring email delivery . What&#8217;s the difference between email delivery and email deliverability? Email delivery is when your email successfully reaches your recipient&#8217;s inbox. That includes the spam folder! Measure email delivery with the Email Bounce Rate metric. Email deliverability is the art of sending emails that land in your recipient&#8217;s primary email inbox - or at least in promotions. Any email that lands in junk or spam folders is said to have low deliverability. Measure email deliverability with the Inbox Placement Rate metric. Which metric should you prioritize? I&#8217;d say start with Email Bounce Rate first to ensure your email is actually reaching inboxes, and then focus on getting placed in the primary inbox. More tips on how to achieve both delivery and deliverability later, but first: benchmarks! What&#8217;s a good Email Bounce Rate benchmark? ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 470: Processing 1 TB with DuckDB in less than 30 seconds
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Matt Martin
+**URL:** https://blog.dataexpert.io/p/i-processed-1-tb-with-duckdb-in-30
+**Published:** 2025-12-23T19:58:37+00:00
+
+**Content Preview:**
+Get ready to toss out all the norms and conventional wisdom about distributed compute! Today, we are eradicating the belief that DuckDB can only be used for &#8220;small&#8221; data. In this article, we will attack the following beliefs: Only Spark can be used for terabytes of data (or it is ALWAYS the best choice) You need a lot of time to process TBs of data We want to leave your head spinning at the end of this article. Wondering if everything you learned about MapReduce was wrong! This Article is brought to you by We want to give a shout-out to MotherDuck , who is sponsoring this article and providing the infrastructure for the benchmarks! You Said to Use DuckDB On Small Data Previously, I was a champion of using DuckDB for any dataset that was &#8220;small&#8221; (&lt; 20GBs). Recently, I was challenged on that remark on LinkedIn by some astute data engineers, who said I had a misconception about what DuckDB was capable of. Being the curious data engineer I am, I took a bite on that bait and decided to roll up my sleeves and benchmark much larger datasets. But how much larger? -DataExpert.io Newsletter is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. Also - if you want to subscribe to Matt&#8217;s Substack, you can click here . I first decided to go after ~200 GBs . DuckDB read that data in &lt;10 seconds. This was too fast. It felt magical. What about 500 GBs? Then I hit a wall: a physical wall. The hard drive on my Mac M2 didn&#8217;t have enough space for 500GBs. I strolled to my local Best Buy and picked up this thing: Side Note - A 4 TB external hard drive might seem like overkill; this was one of those &#8220;Go big or go home&#8221; moments. I figured in my mind &#8220;well if 500gb works, I want to have enough runway for much larger tests down the road&#8221; I created a 500GB dataset on the external drive in DuckDB. It read that data in ~40 seconds This made me realize I needed to...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 471: Data security shouldn't be an afterthought
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/how-to-secure-your-data-a-practical
+**Published:** 2025-11-26T16:36:35+00:00
+
+**Content Preview:**
+Data engineers sit at the intersection of value and vulnerability. You build the pipelines that power analytics, AI, and business decisions. But the same systems that enable innovation also become prime targets for attackers. You don&#8217;t need to become a full-time security engineer to protect your data. But you do need to think like one &#8212; because no amount&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 472: SCD-2 considered harmful! Part 2
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Sahar Massachi
+**URL:** https://blog.dataexpert.io/p/stop-using-slowly-changing-dimensions
+**Published:** 2025-11-04T20:44:28+00:00
+
+**Content Preview:**
+Not everything you learned in college about data warehousing still applies in 2025. This is part 2 of Sahar&#8217;s unlearning data warehousing concepts series. (make sure to read part 1 first if you haven&#8217;t &#8220;The Data Setup No One Ever Taught You&#8221; series ) Sahar and I learned a lot during out time working in core growth together at Facebook working in friending and notifications. DataExpert.io Newsletter is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. Let&#8217;s talk about the pain of unlearning and then let&#8217;s get to the magic. Imagine you&#8217;re an analyst at a social media company. The retention team asks: &#8220;For users who now have 1000+ followers but had under 200 three months ago &#8211; what device were they primarily using back then? And of the posts they viewed during that growth period, how many were from accounts that were mutuals at the time ?&#8221; You need to join user data (follower counts then and now), device data (primary device then and now), relationships (who was a mutual then vs now), and post views &#8211; all as of 3 months ago. With most data warehouse setups, this query is somewhere between &#8220;nightmare&#8221; and &#8220;impossible.&#8221; &nbsp; You&#8217;re dealing with state, not actions. State in the past, across multiple tables. There&#8217;s a word for this problem &#8211; slowly changing dimensions. Whole chapters of textbooks deal with various approaches. You could try logs (if you logged the right stuff). You could try slowly changing dimensions with ` valid_from / valid_to ` dates. You could try separate history tables. All of these approaches are painful, error-prone, and make backfilling a living hell. There&#8217;s a better way. Through the magic of &#10024; datestamps &#10024; and idempotent pipelines, this query becomes straightforward. And backfills? They become a button you push. Part 1 fixed weird columns, janky tabl...
+
+**Embedded Videos:** 3
+
+
+---
+## Post 473: The Data Warehouse Setup No One Taught You
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Sahar Massachi
+**URL:** https://blog.dataexpert.io/p/the-data-warehouse-setup-no-one-taught
+**Published:** 2025-10-24T21:03:30+00:00
+
+**Content Preview:**
+Running and using a data warehouse can suck. There are pitfalls. It doesn&#8217;t have to be so hard. In fact, it can be so ridiculously easy that you&#8217;d be surprised people are paying you so much to do your data engineering job. My name is Sahar . I&#8217;m an old coworker of Zach&#8217;s from Facebook. This is our story. ( Part two is here ) Data engineering can actually be easy, fast, and resilient! All you have to embrace is a simple concept: Date-stamping all your data. DataExpert.io Newsletter is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. Why isn&#8217;t this the norm? Because &#8211; even in 2025 &#8212; , institutions haven&#8217;t really understood the implications that STORAGE IS CHEAP! (And your data team&#8217;s time is expensive ). Datestamping solves so many problems . But you won&#8217;t find it in a standard textbook. They&#8217;ll teach you &#8220; slowly changing dimensions Type 2 &#8221; when the real answer is simpler and more powerful. You will find the answer in Maxime Beauchemin&#8217;s seminal article on functional data engineering. Here&#8217;s the thing &#8211; I love Max , but that article is not helpful to the majority of people who could learn from it. What if I told you: We can have resilient pipelines. We can master changes to data over time. We can use One Weird Trick to marry the benefits of order and structure with the benefits of chaos and exploration. That&#8217;s where this article comes in. It&#8217;s been 7 years in the making &#8211; all the stuff that you should know, but no one bothered to tell you yet. (At least, in plain english &#8211; sorry Max!) Part One: How to set up a simple warehouse (and which small bits of jargon actually matter) Part Two: Date-stamping . Understand this and everyone&#8217;s life will become easier, happier, and 90% more bug-free. Part Three: Plugging metrics into AB testing. Warehousing enables experimentation. Exper...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 474: The 2025 AI + Data Engineering Roadmap
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/the-2025-breaking-into-data-engineering-roadmap
+**Published:** 2025-10-17T22:35:45+00:00
+
+**Content Preview:**
+Getting a data engineering job is complicated. After the crowd of people screaming &#8220;LEARN PYTHON AND SQL,&#8221; you&#8217;ll still find yourself lost in a sea of technologies like Spark, Flink, Iceberg, BigQuery, and now even AI-driven platforms. Knowing where to start and how to get a handle on this requires some guidance. This newsletter is going to unveil the st&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 475: Stop grinding leetcode for data engineer interviews!
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/how-ai-will-change-data-engineer
+**Published:** 2025-09-24T22:21:27+00:00
+
+**Content Preview:**
+Landing a role in big tech and &#8220;grinding leetcode&#8221; have gone together like peanut butter and jelly for the last ten years. This world is changing rapidly though. Roy Lee created InterviewCoder to cheat on these &#8220;leetcode-style&#8221; interviews and landed multiple offers from big tech with it. Instead of fighting the trend, Meta announced they will allow cand&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 476: DuckDB benchmarked against Spark
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Matt Martin
+**URL:** https://blog.dataexpert.io/p/duckdb-can-be-100x-faster-than-spark
+**Published:** 2025-09-22T20:13:34+00:00
+
+**Content Preview:**
+Introduction Apache Spark has been the de facto open source data processing for fifteen years. It was invented to solve a major problem that traditional data warehousing was not built to solve - processing massive amounts of data horizontally at scale ( Zach used Spark to process 2000 TBs per day at Netflix ) , whether in a structured or semi-structured for&#8230; Read more...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 477: Migrating 13,000 Iceberg Tables in 4 hours to Glue Catalog
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/how-i-migrated-13000-iceberg-tables
+**Published:** 2025-09-17T22:12:17+00:00
+
+**Content Preview:**
+At midnight on September 16th, Jason Reid (data engineering advocate at Databricks) messages me on LinkedIn saying, &#8220;Tabular will be sunsetted in 24 hours. I hope you have migrated.&#8221; My lazy ass had not. Panic immediately set in. I had 13,000 tables, 2,200 schemas and 3 terabytes of data managed by Tabular that my students had generated over the last tw&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 478: Three Free Tech Bootcamps That Could Change Your Career
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/three-free-tech-bootcamps-that-could
+**Published:** 2025-08-27T15:02:55+00:00
+
+**Content Preview:**
+This month, I&#8217;m excited to present three fantastic opportunities to learn from top-tier practitioners without spending a dime. Whether you&#8217;re trying to break into tech or looking to make a strategic pivot in your career, these free bootcamps are packed with real-world lessons, hands-on skills, and instruction from people who&#8217;ve been in the trenches. We a&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 479: Navigating AI's New Frontier with Chip Huyen
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/navigating-ais-new-frontier-with
+**Published:** 2025-08-25T13:03:24+00:00
+
+**Content Preview:**
+There are some conversations that confirm what you already believe, and then there are conversations that take what you believe and frame it in a way that makes it actionable, precise and inevitable. That&#8217;s what happened when I sat down with Chip Huyen during a Tech Talk we held at DataExpert.io AI Engineering Boot Camp. Chip is an AI researcher, former big tech engineer, best-selling author and one of the most lucid thinkers on AI systems working today. Recently, she&#8217;s been in the public spotlight with her new book AI Engineering , which has quickly become the most comprehensive, well-structured guide to the essential aspects of building generative AI systems (we covered a lot of its content in the boot camp too). This talk was neither a book launch nor a formal Q&amp;A. It was a honest, refreshing &amp; grounded conversation that can be distilled into seven core takeaways, each one capturing ideas Chip shared that stuck with me, challenged me or reshaped how I think about building and leading in AI. This article covers the following: Chip&#8217;s journey into AI Where most GenAI products go wrong The underrated value of UX How to build functional AI agents What really takes to ship value in the modern AI stack. How to stay informed without burning out Building with clarity and conviction If you want to learn from other brilliant minds like Chip, we are launching a 10-week Challenge Boot Camp on Sep 15th where will be covering insightful tech talks with 15 industry leaders in the data, analytics and AI engineering space. The first 5 people to register can use code CHIP for 30% off! DataExpert.io Newsletter is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. &#9997;&#127995; #1: The Primacy of Compute and Data To understand Chip&#8217;s journey into AI, we have to rewind to 2012, the year Deep Learning truly exploded onto the scene. That was the year AlexNet , a deep convolutional neur...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 480: Stopping Silent Failures for Meta's Fake Accounts Pipeline
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/saving-metas-fake-accounts-pipeline
+**Published:** 2025-08-12T19:38:14+00:00
+
+**Content Preview:**
+One of my final projects at Facebook was owning the data pipeline that tracked fake accounts. It may sound simple but, in reality, it was one of the most deceptively complex orchestration problems I&#8217;ve ever encountered and made worst by a hidden upstream design choice that prioritized speed of delivery over data consistency. Fake accounts come and go. Some are flagged incorrectly, others are later verified, and many are caught by internal ML systems. The goal of our pipeline was to trace the inflows and outflows of fake accounts daily. That meant building a reliable dataset that could track: Accounts unlabeled as fake (i.e. after submitting a valid ID) Accounts relabeled as fake Accounts flagged as fake for the first time Accounts that remained fake The pattern was very straightforward: a classic cumulative table design. But the way it was wired to upstream data, specifically how it &#8220;waited&#8221; for inputs, created a non-deterministic nightmare. For weeks, I chased what I thought was a bug in my code, only to discover that the real problem had been there from day one. In this article, I&#8217;ll cover the following aspects: Why relying on &#8220;latest&#8221; partition data broke everything How upstream non-deterministic leads to silent data mismatches The simple fix using explicit partition dates The tradeoff between latency and reproducibility Engineering lessons that go beyond code If you want to learn more in depth about patterns like this, the DataExpert.io academy subscription has 200+ hours of content about system design, streaming pipelines, etc. The first 5 people can use code FAKE for 30% off! If you enjoy this article, here are some more from my time in big tech: How I prepared for Airbnb&#8217;s staff data engineer interview How I achieved a 12x speed up on Facebook notification pipelines How I used the &#8220;Psycho&#8221; pattern to detect threats at Netflix How I cut Airbnb&#8217;s pricing data backfill time by 95% DataExpert.io Newslett...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 481: How I got a 12x speed up in a 50 TB pipeline at Meta
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/how-i-got-a-12x-speed-up-in-a-50
+**Published:** 2025-08-04T19:39:26+00:00
+
+**Content Preview:**
+In my time at Facebook, I worked on Notifications which, along with Messages and Ads , was the most volume-heavy pipeline in the company. Every ping you get from likes, tags, shares, comments, events is backed by mountains of notification data. One of my most challenging assignments was owning the pipeline that deduplicated all notification events. This dataset drove downstream metrics like CTRs, conversions, and even machine learning signal quality. This pipeline presented one big problem: it was slow. Very, very slow. When I joined Facebook, the deduped notifications pipeline ran a giant Hive GROUP BY job once a day at UTC midnight which took 9.5 hours to complete. This latency issue represented a huge bottleneck for all downstream models in the Core Growth team. This article is the story of how I brought 9.5-hour latency down to 45 minutes , and what it taught me about I/O, orchestration, and never trusting a &#8220;simple&#8221; DAG. Here I&#8217;ll be covering the following: Why streaming deduplication at scale failed The hourly dedup job that exploded compute usage A tree-based DAG design that saved the day Key orchestration lessons from building a 300-step daily DAG How this project got me promoted and why I almost gave up If you want to learn more in depth about patterns like this, the DataExpert.io academy subscription has 200+ hours of content about system design, streaming pipelines, etc. The first 5 people can use code DEDUP for 30% off! DataExpert.io Newsletter is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. The Stakes: Notifications at Facebook Scale The notif_events table contained every event tied to a notification: Sent to your phone Delivered to device Clicked Converted Since one person might click the same notification multiple times , we had to dedup those. If we counted every click, we&#8217;d get click-through rates above 100%, which negatively impacted metric tracking an...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 482: Scaling Netflix's threat detection pipelines without streaming
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/scaling-netflixs-threat-detection
+**Published:** 2025-07-25T19:06:43+00:00
+
+**Content Preview:**
+Back in 2018, I was part of Netflix&#8217;s real-time threat detection team. I owned the orchestration and delivery layer of a detection pipeline that flagged fraudulent behavior, security breaches, and abuse patterns across our global platform. At the time, we were leveraging a creative hybrid architecture internally dubbed as the &#8220;Psycho Pattern.&#8221; Think of i&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 483: How I cut Airbnb's Pricing pipeline backfill time 95%
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/how-i-made-airbnb-millions-with-this
+**Published:** 2025-07-18T18:18:57+00:00
+
+**Content Preview:**
+I spent over three years at Airbnb as Staff Engineer for Marketplace Dynamics , owning everything related to pricing, availability &amp; profitability. One of my biggest projects was overhauling the Pricing &amp; Availability pipeline. Among other things, I was fixing definitions, squashing time zone bugs and rethinking orchestration to turn weeks-long backfills into hours. In this deep dive, I&#8217;ll walk you through the challenges I faced, the architectural mistakes I inherited and the solutions that made Airbnb earn millions. This article covers the following topics: The subtle nuance in &#8216;availability&#8217; definitions The original P&amp;A pipeline design and its pain points Why massive backfills were so slow (and expensive) Introducing staging tables for rapid iteration What valuable lessons I learned The business impact of my work and some personal reflections There&#8217;s a summary infographic of the entire data orchestration pipeline at the end of this article! DataExpert.io Newsletter is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. The True meaning of &#8220;Available&#8221; Airbnb&#8217;s legacy definition of an &#8220;available&#8221; night was simply: A host has not blocked this night, and it is not already reserved On the surface, that sounds reasonable but, in reality, it diverged from what guests actually could book. Therefore, Airbnb aimed to establish a more reliable meaning of what&#8217;s &#8220;available&#8221;. A trip can be booked that contains this night. In fact, the two definitions only matched 96% of the time. But this subtle change captures the nuances between both definitions. Key edge cases: Minimum stay requirements : Hosts or local regulations (e.g., 30-day minimum in New York) made many unblocked nights unbookable. Last minute/ time zone bugs : The system evaluated availability one second before midnight UTC. So Asia or Europe-based listings were someti...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 484: How to join the Free 6-week Data Engineer Boot Camp!
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/how-to-join-the-free-6-week-data
+**Published:** 2025-06-18T23:04:21+00:00
+
+**Content Preview:**
+I&#8217;m releasing a free six week program for data engineers to level up and get better! The content can be found both on the DataExpert.io Community Academy , as well as on YouTube ! If you want to take it for credit, you will need to watch through the DataExpert.io platform and submit your homework there as well. AI will automatically grade your homework and&#8230; Read more...
+
+**Embedded Videos:** 1
+
+
+---
+## Post 485: The 2025 AI-enabled Data Engineering roadmap 
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/the-2025-ai-enabled-data-engineering
+**Published:** 2025-04-25T20:55:32+00:00
+
+**Content Preview:**
+AI is making manually writing complex data pipelines a thing of the past! If AI is writing the pipelines, what tasks are left for data engineers to work on? Conceptual knowledge is becoming king in 2025 and onward! DataEngineer.io Newsletter is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid sub&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 486: The Battle of Data Lakes: Iceberg vs Delta vs Hudi 
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/the-battle-of-data-lakes-iceberg
+**Published:** 2025-03-20T09:46:41+00:00
+
+**Content Preview:**
+We&#8217;ve seen the rise and fall of Apache Hive as the default choice when it comes to data lakes. Hive lost its footing for a few big reasons. It was too coupled with Hadoop and Spark Hive, the query engine, became a painful reminder of the slow MapReduce days of data engineering It didn&#8217;t handle small updates very effectively These major drawbacks from Hive &#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 487: How to pass data engineering SQL interviews in big tech
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/how-to-pass-data-engineering-sql
+**Published:** 2025-03-05T01:42:00+00:00
+
+**Content Preview:**
+SQL and data engineering are like peanut butter and jelly. In every single data engineering role I&#8217;ve ever had, I&#8217;ve been asked SQL questions for at least an hour. This is a round that I personally feel very confident in since I have never failed it. In this newsletter, I&#8217;ll be covering the key details that you&#8217;ll need to know to pass these common interviews. What are the types of SQL interviews in big tech companies Big tech companies like to ask a lot of questions from their engineers. There are usually two types of interviews for SQL. EcZachly Data Engineering Newsletter is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. The screener interview This interview is 45-60 minutes. The questions here are usually pretty easy compared to the onsite round. The goal here is to show that yes, you can code in SQL. Answering the questions is usually enough to pass the round. The onsite SQL interview This interview is 60 minutes. The questions here go more in-depth. You&#8217;ll be asked a lot about table scans and optimizations. It&#8217;s unlikely your first solution will be the most optimal one. The screener interview in detail In the screener interview, they usually ask four to five questions: A simple question that requires a WHERE condition with a GROUP BY. This question is mostly to build your confidence and to give everyone who interviews a small win even if they don&#8217;t pass. A question that requires you to do a JOIN + aggregation Make sure to be able to talk about the differences between LEFT, RIGHT, INNER, and FULL OUTER JOIN. If you don&#8217;t know the differences, you won&#8217;t pass A question that requires you to do a window function The most common question here is the &#8220; second highest salary &#8221; question. The use of RANK, DENSE_RANK, and ROW_NUMBER functions is very common here. Know the differences between these functions and also how to use PARTITIO...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 488: How to design resilient and large scale data systems
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/how-to-design-resilient-and-large
+**Published:** 2025-03-01T23:16:00+00:00
+
+**Content Preview:**
+Whenever you&#8217;re building a data system, there&#8217;s a million things to consider. Gone are the days of just shoving everything into MongoDB and calling it &#8220;web scale.&#8221; In this newsletter, we&#8217;ll be going over the considerations you should be thinking about when building out large scale data systems. Systems have different needs and functionality Data systems can be living and breathing in real-time like the Uber app with a data latency of milliseconds. Or they can be incredibly slow to update like the US census with a data latency of ten years! Why doesn&#8217;t Uber design their system like the US Census? I think it has something to do with the fact that ordering an Uber 10 years ahead of time isn&#8217;t classified as a &#8220;normal human behavior.&#8221; Okay, but what about the other way around? Why doesn&#8217;t the US Census design their data system like Uber? Wouldn&#8217;t having extremely up-to-date information on the population be beneficial? For the US Census, the benefit of real-time data isn&#8217;t strong enough for managing the complexity. Imagine every single mortuary, hospital, and mid-wife would need an app to say, &#8220;yep this person died&#8221; or &#8220;yep this person was born.&#8221; Even if we set aside privacy concerns, getting that adopted across the entire country would be extremely cumbersome without that much benefit. EcZachly Data Engineering Newsletter is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber. Now that we&#8217;ve established that both data systems have pretty good reasons for why they do things the way they do. Determining your systems needs When architecting a data system, there are three needs that are the most critical in determining which technologies you should select: Latency If your data system needs to be extremely low latency (&lt;10 seconds as a cutoff), your system needs to be architected as a &#8220;push&#8221; syst...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 489: Unstructured Data is the Future of Data Engineering!
+
+**Publication:** DataExpert.io Newsletter
+**Author:** Zach Wilson
+**URL:** https://blog.dataexpert.io/p/unstructured-data-is-the-future-of
+**Published:** 2025-02-22T21:54:25+00:00
+
+**Content Preview:**
+Data engineering is changing very quickly in 2025! Decisions are happening faster and faster now. No longer are decisions just being made from analytical dashboards or experiments, now we have AI agents who are making decisions extremely quickly! AI agents live more in the unstructured world of binaries, videos, and blobs of text. This type of data make&#8230; Read more...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 490: 2026 - the year of AGI
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/2026-the-year-of-agi
+**Published:** 2026-01-13T15:45:39+00:00
+
+**Content Preview:**
+The year of narrow AGI My prediction for this year is that we will see AGI within specific settings. I think many people get the term AGI confused with ASI. Artificial General Intelligence is not Artificial Super Intelligence. ASI conjures images of an all-powerful, perhaps sentient AI. In my mind, AGI is something quite different. It is a system that can do many different things at least as well as a human. There is no requirement for sentience. It needs to be able to do some things it is asked to do or has a predefined directive for. What does &#8220;at least as well as a human&#8221; mean? It does not mean perfectly. I am, by definition, generally intelligent, but there is almost nothing I do perfectly. There is no value in an AGI that can do many things worse than the average human, but there is tremendous value in one that can do many things as well as or better than average. If you have worked in typical workplaces, not elite tech companies, you will know this is a pretty low bar. I have worked at companies where people do not come back from the pub at lunch. Or worse, they do and work whilst being many times over the limit to drive a car. I have worked at companies where I had to do someone else&#8217;s job as well as my own whilst they were on vacation, and I did not even feel the extra load because they did that little, or I was able to automate their work with a VBA macro. I think people doing jobs like these, rather badly, make up a huge percentage of our workforce. Well over 10%. The ability to learn What do I mean by &#8220;many things&#8221;? It is clearly not all things. I am generally intelligent and have limited specific capabilities. What makes me generally intelligent is my ability to learn to do many different things that I cannot do right now, and could not do when I was born. So an AGI system, more than anything, will have to be able to learn to do new things, and retain and maintain the knowledge of how to do those things so it can execute act...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 491: Jevons Inversion
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/jevons-inversion
+**Published:** 2026-01-09T17:56:18+00:00
+
+**Content Preview:**
+&#8217;s 2026 prediction for LLMs raised something that&#8217;s been rattling around my head. He invokes Jevons Paradox&#8212;the observation that as something becomes more efficient to produce, we don&#8217;t use less of it, we use vastly more. Coal. Compute. Now software. Simon Willison&#8217;s Newsletter LLM predictions for 2026, shared with Oxide and Friends In this newsletter&#8230; Read more a day ago &#183; 21 likes &#183; 2 comments &#183; Simon Willison The optimistic case for software engineers is roughly this: coding agents make software cheaper to produce, therefore we&#8217;ll want more software, therefore we&#8217;ll need more engineers. Jevons saves the profession. I&#8217;m not sure that it plays out this cleanly. published a post a couple of years ago suggesting this is how things would work more broadly, and I don&#8217;t think this is what we&#8217;ve seen. Marc Andreessen Substack Why AI Won't Cause Unemployment Fears about new technology replacing human labor and causing overall unemployment have raged across industrialized societies for hundreds of years, despite a nearly continual rise in both jobs and wages in capitalist economies. The jobs apocalypse is always right around the corner; just ask&#8230; Read more 3 years ago &#183; Marc Andreessen The paradox, as typically applied, assumes the same people do the work. When coal extraction became efficient, you still needed miners. When compute became cheap, you still needed programmers. But what happens when the efficiency gain comes from mostly removing the need for the specialist? I think we may be about to find out. There are many software engineers out there who aren&#8217;t working on particularly deep technical projects. They aren&#8217;t building compilers or high-performance computing systems or databases. They&#8217;re application developers, doing fairly similar things at company after company&#8212; 1 the somethingify pattern, the somethingly pattern. The advent of coding agents, fro...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 492: Legally Toast
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/legally-toast
+**Published:** 2025-12-13T11:38:28+00:00
+
+**Content Preview:**
+I&#8217;ve been thinking about which jobs are effectively finished because of advances in AI. In short, any work that is repetitive, has abundant public training data, and mostly maps language input to language output is at serious risk. Law is the clearest example. That does not mean all lawyers are finished, but the impact is already visible: hiring of law graduates into junior roles has dropped sharply. The picture, however, is more nuanced. Partner-level roles (including public-sector equivalents) will remain essential for as long as legal services are delivered to humans. These roles are fundamentally about sales, judgement, accountability and human interaction&#8212;none of which it is reasonable to delegate fully to AI without some implausible humanoid interface. Even so, partners alone are not enough. Senior lawyers just below partner level do the real orchestration: validating work, making decisions, and ensuring quality. That layer is also essential. The layers below that&#8212;junior and mid-level roles where people are not yet trusted to work independently and whose output requires senior review&#8212;are the most exposed. There is little doubt that AI will handle this work in the near future, faster and better than humans. The main reasons it has not yet happened are institutional caution and slow adoption of agent-based systems, both understandable in law. Once secure systems can guarantee confidentiality and a baseline level of quality, this work will move to AI. It is an ideal use case for agents: contextualising a matter, retrieving minimal relevant statutes and case law, and coordinating specialised sub-agents under human supervision. So what happens to junior and mid-level lawyers? They do not disappear entirely. Partners and seniors are human: they retire, move on, and occasionally die in post. Organisations therefore need a pipeline to replace them. Assume a legal organisation loses around 10% of its partners and seniors each year. To replenish ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 493: Bad Character
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/bad-character
+**Published:** 2025-11-10T13:36:36+00:00
+
+**Content Preview:**
+Recently, Character.ai faced a lawsuit for failing to provide adequate protections for users. &#8216;I want them to understand that this is a platform that the designers chose to put out without proper guardrails, safety measures or testing, and it is a product that is designed to keep our kids addicted and to manipulate them,&#8217; Garcia said in an interview with CNN. Garcia alleges that Character.ai &#8211; which markets its technology as &#8216;AI that feels alive&#8217; &#8211; knowingly failed to implement proper safety measures to prevent her son from developing an inappropriate relationship with a chatbot that caused him to withdraw from his family. The lawsuit also claims that the platform did not adequately respond when Setzer began expressing thoughts of self-harm to the bot, according to the complaint filed in federal court in Florida. The frustrating thing about this is that we have been walking this path for a long time. I am part of the Smartphone Free Childhood movement in my local area, and the primary danger we have focused on is the harm caused by algorithmic feeds in social media that indirectly influence children down darker paths and can lead to humiliation when content about them is shared and spread. Character.ai seems to have taken a similar approach to user engagement using an AI agent &#8211; but the danger here is how direct it is. LLMs are trained to please, so if someone asks about suicide, expresses interest in it, and says they want help to do it, LLMs will output what is most likely and relevant to the user&#8217;s request &#8211; unless you build guardrails. The flipside of being part of the Smartphone Free Childhood movement is that I am also active in building software with AI and developing agents to benefit professionals. What really frustrates me is that it is actually fairly straightforward to take measures to make products like Character.ai safer and to establish solid guardrails. Nothing involving AI will ever be 100% safe ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 494: Atlas
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/atlas
+**Published:** 2025-10-26T18:36:01+00:00
+
+**Content Preview:**
+I was interested to try out ChatGPT Atlas, like many people. I genuinely wasn&#8217;t sure of the point of the product, which actually made it more interesting to me, as usually the point of a new product is quite clear. Upon downloading, installing and opening the macOS app, I was underwhelmed. It&#8217;s just a fairly basic browser experience. I don&#8217;t see why it would have such a draw that people would switch over, learn new keyboard shortcuts, and move bookmarks and passwords 1 . Sure, it&#8217;s nice to be able to open the panel and use ChatGPT in context, but it&#8217;s not that much harder than copying and pasting text or links into the ChatGPT tab I always have open. Of course, ChatGPT may become more helpful as it observes your browsing habits, but this also has security implications. Perhaps it could discover new and interesting content based on what you&#8217;ve been reading and asking it to summarise or interact with. Perhaps it could even identify more interesting material when it notices that you&#8217;ve read it yourself rather than asking for a summary. It might eventually offer entirely synthesised content that exists only for you&#8212;tailored to your interests but still anchored in the &#8216;truth&#8217; of existing content 2 . It&#8217;s like a series of conversion steps of interest: clicked the link, looked at the content, scrolled a bit, asked ChatGPT about it or to summarise it, read it yourself, shared it. The perfect dataset to build a recommender system. Still, I didn&#8217;t think it would be that impactful as a launch. I don&#8217;t believe the current benefits balance with the drawbacks enough to persuade people to move from their favourite browser. After all, your favourite browser is like your favourite brand of underwear&#8212;are you really going to switch if you&#8217;re comfy? Then the other, and perhaps main, purpose of Atlas dawned on me. I wanted ChatGPT to summarise a blog post I couldn&#8217;t be bothered to read. When ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 495: Legit Rumour
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/legit-rumour
+**Published:** 2025-10-13T20:52:09+00:00
+
+**Content Preview:**
+Photo by Victor Lu on Unsplash A couple of weeks ago, we were all wondering if a certain insider scoop was for real&#8230; Founders were saying it was, that the source was too well-connected. Others were saying it made sense, Tristan and George are friends, they&#8217;re stronger together, Fivetran would then own all the modern data stack transformation tech&#8230; and so on. Well, Day 1 of dbt Coalesce confirmed the rumours - dbt Labs and Fivetran are indeed merging . Before the Big Data era which preceded the Modern Data Stack era, we had four monolithic data stacks: Teradata, MS SQL Server, Oracle and IBM. They couldn&#8217;t handle the size of the post dot.com era clickstream datasets, but they did have the ability to do everything in one stack&#8230; even if badly. You could make reports with SSRS, and perhaps their style would now be called &#8216;retro&#8217;. You could run analytical queries with Oracle databases, the one I learned SQL on in 2010. You could ETL using Excel, VBA and SSIS&#8230; it was bad and took days to run, but you could do it. Looking at the stack below, you see all the same pieces save a query engine. Now, with truly decoupled storage and compute with the widespread adoption of Iceberg, it need only be a query engine. It looks very similar to Databricks, but without query engines of course. I feel like we&#8217;re entering a new era of cloud monolithic stacks. Fivetran-dbt, GCP, Microsoft Fabric, Databricks and Snowflake. After all, the only reason the original era of on-prem data platforms ended was because of their inability to handle large datasets and unwillingness to modernise and risk cannibalising their own business models. Those companies had the capital and talent to build cloud data warehouses and use columnar storage, but they didn&#8217;t want to upset their business models. Microsoft&#8217;s Fabric business line and Oracle&#8217;s analytics business line are still probably bigger than all but Databricks and Snowflake in the ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 496: Open Semantic Interchange
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/open-semantic-interchange
+**Published:** 2025-09-28T12:31:49+00:00
+
+**Content Preview:**
+Photo by Markus Winkler on Unsplash Over the last few years, I have really wanted to have an open standard for semantic layers. Something that would make semantic layer definition code (probably YAML) portable, to be used between BI tools, standalone semantic layers and other data products. In a way, open-source Cube has been this in the past, it is a very well-used open-source project with known users in pretty much all big tech companies. However, it has never had enough support from other BI tools which, along with the drive towards AI, led to Cube pursuing their own agentic BI tool in Cube Cloud. I have also been critical of newer technologies like Malloy, which have similar aims to semantic layers but seemed less practical. My thinking was that getting users to learn a new DSL when we already have SQL, YAML, MDX, DAX&#8230; was a bad idea and doomed to fail. However, with AI, perhaps value can be had. If Malloy is like a tool to be used by AI and core definitions also maintained by AI, then no new DSL needs to be learned by any human. Out comes a new standard, spearheaded by Snowflake, Salesforce(Tableau) and others - the Open Semantic Interchange. Surely, this is great news. I should be really pleased, right? sent me the article announcing it and asked me if I thought it was a big deal before I had seen it on LinkedIn 1 . The thing is, I&#8217;m not that bothered, and I had to think for a moment as to why. I&#8217;m sure it would have felt like bigger news had I still been at Cube, but even so&#8230; Then it dawned on me - this level of standardisation is much more valuable when human beings are having to learn the DSL. It makes them much less worried that they are learning or deploying something that ends up being niche or unadopted. I don&#8217;t really believe that semantic layer code will be managed by humans in the near term. Now that I have great tools like Claude Code and Codex CLI, I don&#8217;t really find myself writing semantic layer YAML any more. ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 497: SQLMashed
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/sqlmashed
+**Published:** 2025-09-19T16:30:30+00:00
+
+**Content Preview:**
+As many of you will have heard, the company that looked after SQLGlot and SQLMesh, Tobiko Data, was recently acquired by Fivetran - one of the biggest companies to have come out of the modern data stack era. Now that the dust has settled - it&#8217;s been a couple of weeks since the announcement - I thought it would be good to evaluate what it means for data folks and how I feel about it in general. There is one sense in which I have no conflict in my thinking. I have got to know the Tobiko team since starting my series on SQLMesh, having since overseen real deployments. I&#8217;m very happy for them in the sense that they built something great, and that they have had what I assume is a successful 1 exit&#129761;. After all, the reality of founding companies, especially in VC, is that the company will one day be sold and investors and founders make money. I know people don&#8217;t like to be so explicit about this: they like to talk about the mission and that they&#8217;re building a company not to be acquired, but to become a public company&#8230; one with its own tower in San Francisco, with its logo lit up for the whole city to see. There are very few such companies&#8230; you probably know most of their names. Most VC-backed companies that have a successful exit are acquired. These exits aren&#8217;t so glamorous, they don&#8217;t get to ring the bell at the stock exchange, the founders end up taking middle-management roles at the acquirer with a length of lock-in&#8230; they might get a cool LinkedIn announcement and article in TechCrunch. So that&#8217;s fine, from an economic point of view everything makes sense for Tobiko as a company and that&#8217;s why it happened. What about for us data folks? So this is where, even with a bit of time passed, I still don&#8217;t think it&#8217;s good for us. As much as Fivetran are currently saying that the open source SQLMesh and SQLGlot projects will remain and be maintained&#8230; I don&#8217;t expect this to be the c...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 498: Calling Berlin
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/calling-berlin
+**Published:** 2025-09-06T10:10:31+00:00
+
+**Content Preview:**
+This week, I travelled to Berlin to speak at Data Days Berlin. It was organised by a data consultancy called A11, which has recently spun out of a VC fund called Project A, who had originally built this consultancy for portfolio companies. This is the first year that the conference has been open to people outside of Project A portcos, and it was really great to attend and speak. Everything from the venue to the social events was really enjoyable, too! The conference audience was curated by the organising team to filter to people accomplished in the data industry, which made it a really great bunch of people to meet and to present to. When I asked: &#8220;Who knows what a semantic layer in data is?&#8221;, more than half the audience put their hands up, which is unusual. I have spoken to audiences at data events where less than half know what SQL is. The speaker&#8217;s dinner was at a restaurant based in a building which was where the anti-capitalist movement in Berlin gathered. The dining room we were in had lots of the graffiti and messaging preserved from this era! The talks I managed to catch were high quality. They seemed to be split between impact focus and how to operate data in organisations to drive value, alongside technical excellence and innovation. This is logical, because data leaders need to be able to excel both as technologists and business people. Strangely, I feel this AI era means we actually need to be better at both at the same time. Tools like Claude Code, Cursor etc make us more capable of doing our technical work and allow us to be more ambitious. Vendors we use are rapidly releasing new features for us to, in turn, share with our stakeholders. Our stakeholders are clear about what they want. They want AI access to accurate, consistent data. They think this will be by MCP in ChatGPT Enterprise/MS Copilot/Claude Desktop. They still want us to be responsible and accountable for the provision of this access and the quality of the outputs. Maybe...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 499: Get on your soapbox 
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/get-on-your-soapbox
+**Published:** 2025-08-12T15:16:32+00:00
+
+**Content Preview:**
+For the vast majority of human history, the main way to address many people in order to share public information was to stand on a hill or a platform, in a space where as many people as possible could hear you and you could speak to them. There is obvious evidence of this scattered around the world: Red Square, Tiananmen Square, St Peter&#8217;s Square, Roman amphitheatres... Part of why this is the case is that for most of human history, whilst we&#8217;ve always had language, most humans haven&#8217;t been literate. So you had to be heard directly by them if you wanted to share a message, and didn&#8217;t want to rely on second hand relaying. The maximum number of people you can address directly is in the tens of thousands unamplified, which, before the 20th century, was how all addresses happened. In theory, it&#8217;s since become possible to fill a giant plain or field with tens of millions of people and, with amplification, address them, but there is a limit to what you could really call &#8216;direct&#8217;. At some number, most people will be seeing the speaker on a screen and hearing through speakers and then it&#8217;s functionally the same as watching an address live at the cinema with others. Television addresses then extended this to be able to address pretty much anyone who is awake to watch, which is dependent on timezone and people having televisions and electricity. The internet then extended this further, to anyone who has an internet connection and can find the address: think YouTube live streams where hundreds of millions can watch big events. Finally, if you think about asynchronous content like blog posts, viral social posts etc, then the whole connected world could see these, and it then comes down to whether they&#8217;re interested or not. The problem with addressing more and more people with the same content is relevance. The more people you address, the less relevant it is to the average person addressed. There are exceptions to this, like...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 500: Thank You, Goodbye and Good Luck!
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/thank-you-goodbye-and-good-luck
+**Published:** 2025-07-31T21:10:22+00:00
+
+**Content Preview:**
+Photo by Ricardo Rocha on Unsplash Today marks my last day at Cube. Firstly, I&#8217;d like to say thank you to everyone I&#8217;ve worked with there and who ultimately provided Michael and I with an exit where we were able to make all our investors whole and to continue to work on applying AI to semantic layers. I&#8217;m lucky enough to be in a position that I am able to make ends meet from my other income. So please don&#8217;t take this as one of those posts eliciting sympathy for a difficult situation post-job, this is not the case - I&#8217;m just reflecting. I still believe that Cube has the best universal semantic layer out there, and it is the only fully functional open source one of enough significance to be considered an open standard. Godspeed to the Cube team as they continue on their agentic analytics journey. I truly wish them the best and every success on this journey. I still believe that semantic layers are important and even more so than when I first started writing about them a few years ago. I still remember the magic of using LookML for the first time in 2019. It&#8217;s been a bumpy road for semantic layers in that time, but now that the impetus from agentic analytics is driving our industry forward, this time by stakeholders dragging us forward instead of technologists, I think we&#8217;re nearly there. Every cloud data platform provider now except AWS&#8230; Databricks, Snowflake, GCP, MSFabric, now have a semantic layer of some form that isn&#8217;t just a knowledge graph but also has a compiler. The question I have for the future is whether the semantic layer needs to be seen or can fade into the background. Semantic layers need to exist and need to be codified and compiled, but does that mean humans need to see it or touch it directly? Can AI maintain semantic layers in an invisible way for normal operation? Sure, if you ask the definition of a metric or how the data model fits together, it can answer you. This doesn&#8217;t have to mean ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 501: Junior Extinction
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/junior-extinction
+**Published:** 2025-07-29T16:46:05+00:00
+
+**Content Preview:**
+There has been a lot of discussion about whether junior engineering roles of all kinds will disappear completely. You may have read some of my recent posts and thought that my point of view was that they would disappear, but it&#8217;s not quite so binary as that. I can see that high-growth early-stage companies may never hire junior engineers again, but they are quite small companies and didn&#8217;t really hire juniors much anyway, because they didn&#8217;t have the bandwidth to train them. The other driving force is that large tech companies are laying off and not hiring as many engineers, and they are definitely not hiring juniors in the same way anymore. Previously, graduates from Stanford, Berkeley, MIT, Oxford, Cambridge, Imperial, etc in CompSci didn&#8217;t have to look hard for work after graduating, if they had to look at all. The big tech companies would look to hire as many of these graduates as possible to enter their graduate schemes and fill the pipeline of future labour they would need. This is clearly no longer happening, mostly because tech companies don&#8217;t believe they will need as many humans in the future. However, I doubt they aren&#8217;t hiring any junior engineers at all... They&#8217;re probably still hiring at least 10% of the graduates they used to, and perhaps these are the very best who, during their time in education, had already built a lot of things and contributed meaningfully to open source software, etc. In traditional industries, this reduction in hiring is probably not nearly as severe. I doubt large banks have significantly changed their hiring practices in the past year. In traditional industries, I think at least 50% of junior engineering positions in a given year would still exist. So, clearly, this is not an extinction. It&#8217;s a reduction. One thing that I think we are very close to achieving is having AI-augmented engineers capable of handling a significantly larger volume of work than engineers of 4 years ago. O...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 502: Gloves off, knives out
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/gloves-off-knives-out
+**Published:** 2025-07-23T16:33:31+00:00
+
+**Content Preview:**
+Photo by Anna Saveleva on Unsplash I wrote the initial part of this article in June&#8230; things move fast in the AI world! Recently, I heard the news that Anthropic had removed first-party access to Windsurf. Anthropic&#8217;s Claude 3.5+ models have been the ones that I have mostly used in Windsurf and Cursor, so this news is somewhat disconcerting. If I wanted to use Claude in proactive AI coding 1 workflows, I&#8217;ll have to use another tool like Cursor, Void or nao. I&#8217;ve had such good results using these Claude models for this workflow that I haven&#8217;t felt the need to try Gemini 2.5 Pro yet, but it looks like I will end up doing that sooner rather than later. A few weeks ago, I wrote about how I thought that Windsurf joining OpenAI could open a whole raft of possible advantages in terms of better model access, specialised model creation for different Windsurf flow states, and just raw GPU muscle for the Windsurf team to use to build new models of their own - which it turns out they were doing long before the acquisition. This development reveals the darker and more troubling side of the situation. Despite many thousands or even hundreds of thousands of Windsurf users enjoying Anthropic models in Windsurf, who have no additional affiliation with OpenAI prior to the acquisition, Anthropic (clearly for competitive reasons) has decided to revoke access. This isn&#8217;t unexpected; Windsurf essentially serves as both a training data generator and a tool for coding. It continuously generates context for AI-generated code, including the code that was actually generated, as well as various approximate and direct confirmations of quality. It&#8217;s very easy to generate a huge training set where Anthropic&#8217;s models have generated the code, and it has been confirmed to be good. This training set is then used to build Windsurf&#8217;s own models. Clearly, this was tolerable to Anthropic while Windsurf was independent, but now, faced with the possibili...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 503: AI-Shoring
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/ai-shoring
+**Published:** 2025-07-10T17:39:57+00:00
+
+**Content Preview:**
+They&#8217;re over there somewhere There are lot of people out there saying that this is the end of software and data engineering, and that these jobs will not exist in the near future. I&#8217;m not sure that this will be the case. I think what is more likely is that we will use fewer humans to do more work and after this progresses to a certain point, the cost savings from having fewer humans diminishes. Imagine having one staff/principal engineer working with AI/agents or whatever the next thing will be, doing the work of 10 or more engineers in the pre-AI era. This kind of force multiplier is almost certainly possible. There are huge benefits in only having one engineer in an engineering team. One engineer can essentially move at whatever speed they like, they don&#8217;t have to bring everyone else with them. They don&#8217;t have to spend loads of time on documentation and meetings. They don&#8217;t have to share context. They don&#8217;t have to train up junior engineers 1 . Having this one staff/principal engineer will not cost anything like having the 10 engineer team with management costs. It will most likely cost less than 10% of the old-style team. Largely, this could translate to it costing less than one tenth of what it used to, to build the product. Making this kind of saving in operating cost is too attractive for any company to miss and we are seeing companies around the world already start to move this way. However, trying to have another order of magnitude of savings is much less appealing. You then only save 90% of the cost of one engineer or maybe a bit less, as the engineer doing the equivalent of a 100 person pre-AI engineering team can ask for a fortune in package that the engineer doing the equivalent of 10 can&#8217;t. It starts to get perilous, too. Many companies don&#8217;t have 100 engineers. If you only have one engineer, what happens when they leave? AI is not in a place to be entirely responsible for engineering at companies yet, nor...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 504: Agents
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/agents
+**Published:** 2025-07-01T15:52:42+00:00
+
+**Content Preview:**
+credit: The Matrix Reloaded - Warner Bros In December, when I worked on my SQLMesh advent series, I used Windsurf as an IDE, but within Windsurf was Cascade. I didn&#8217;t think about Cascade as an agent too much but it clearly is! You proactively ask it to achieve something and then it goes and does it, and it might require multiple steps, multiple files to be made, multiple dependencies to be handled and multiple errors to be overcome&#8230; but it tries to build something that works. It was able to build a fairly complicated data pipeline, a transformation project in SQLMesh 1 , and then assist me in developing software to generate a semantic layer using AI from the gold layer tables within the transformation project. My inclination was to build software to do this at the time and use AI to help me build software that was able to repeatedly perform the same task. However, even this software wasn&#8217;t deterministic; it depended on LLM use. What if I didn&#8217;t try to generate code at all and just tried to get to the output? Just ask the agent for what you want. Recently, I had an experience of trying something like this that made me think this is now feasible. Warp is an AI-first terminal that recently released V2 of their product to much fanfare, and the core of the new functionality is the ability to build agents. In this instance, I used Warp to build my agent. asked me to produce some content about recent releases to Cube&#8217;s new agentic analytics product - D3. However, one problem with a product that is moving fast is a lack of documentation. We have the code in Github and merged commits that show what changes have made it into prod, we have tickets in Linear that are pretty sparse on detail&#8230; we have some element of high-level strategy but not much else. Initially, we thought it would be best if Artyom filled in a Notion document with new releases that have been merged on any given day, and perhaps create a rough Loom or have the engineer who ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 505: Nearly Headless BI
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/nearly-headless-bi
+**Published:** 2025-06-25T14:50:31+00:00
+
+**Content Preview:**
+The semantic layer came of age over the course of two weeks at the Moscone Center. Both Snowflake, with semantic views, and Databricks, with metrics views, have essentially implemented a semantic layer with a compiler, which I predicted (around this time last year) that they would do before the end of 2025. Back then, both Snowflake and Databricks had implemented ways of codifying a knowledge graph, which looked very much like semantic layer YAML, except that this YAML was not compiled in the same way as with a semantic layer 1 . It was provided as context in the prompt so that the text-to-SQL methods they were employing could perform better. They did indeed perform better, but as I wrote about before, they still didn&#8217;t come close to the text-to-semantic layer method I had proposed and that has been implemented at Delphi and Cube. They never will come close to the text-to-semantic layer method and, as a result, will never have high enough accuracy to succeed. This is why I predicted that Snowflake and Databricks would change tack in 2025, and indeed why they have done so. The driver for this change is agentic analytics. When the idea of headless BI, or a universal semantic layer, first made its way into the zeitgeist of data folks, it was meant for use by BI tools and data applications. It may have originated in natural language, like with Cube&#8217;s precursors Statsbot, Metabase, Thoughtspot, Veezoo&#8230;, where strict syntax requests disguised API requests as natural language. However, the destination was all of the other BI tools and data apps out there. A single source of truth, governance, performance&#8230; not specifically AI, as AI was still a dream in this pre-GPT-3 era. As AI has captured a greater and greater mindshare, till the point where we are now where it&#8217;s nearly at 100%, any delays to making data agents can no longer be tolerated. It&#8217;s not a case of will they or won&#8217;t they have a semantic layer - any company that wants to...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 506: Hurry up
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/hurry-up
+**Published:** 2025-06-21T14:27:08+00:00
+
+**Content Preview:**
+Photo by Ian Taylor on Unsplash Recently, I&#8217;ve been hearing that information security teams, who already typically conduct a vendor evaluation before onboarding and granting access to company data, have started requesting a second review when a vendor also offers AI functionality. Every vendor will eventually have AI functionality by the end of this year! Having two security evaluations is very inefficient in a world where every vendor will need it. A year or two ago, you may have been able to say that only a minority of vendors have AI features&#8230; not today and not ever again. One interesting example was of a company where at least 20% 1 of the company used Grammarly. Now, Grammarly isn&#8217;t some unheard-of vendor; it's well-known by nearly all information workers and used by a vast number of them, too. The company recently asked all workers who had Grammarly installed to uninstall it, because they realised that Grammarly has AI features&#8230; If you consider what the company is trying to protect itself from, it is attempting to avoid liability for a data breach by Grammarly, where it lacks adequate liability protection because employees are using the free tier of Grammarly and are not on an enterprise plan. I understand why the information security team felt the need to tell employees to stop using Grammarly here. It&#8217;s not really going to secure data very much; the data has already bolted through years of use by employees. It is primarily a liability shift; the employees have been instructed not to use Grammarly, and therefore, the company has likely taken reasonable steps to avoid invalidating their insurance policy should a data breach occur. However, my main problem is the reactive nature of the information security team here. Of course, an information security team cannot preempt every possible vendor use by employees, especially when it is a tool choice made by engineering, who will know their tools better than the information security tea...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 507: Brass Tacks
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/brass-tacks
+**Published:** 2025-06-14T14:00:11+00:00
+
+**Content Preview:**
+A few months ago, I bought a split ortholinear mechanical keyboard. I had noticed that my typing position using my Mac keyboard was not ideal, where I kind of twisted my wrist into position. I also ended up doing little twists during typing to hit specific keys. Long story short, my new keyboard keeps my arms and wrists in a good position, and my wrists can stay stationary during typing 1 &#128588;. I learned during this process that I have relatively short little fingers compared to my ring fingers, which actually dictates needing a different type of keyboard layout, where the columns of keys for my little fingers need to be much further down than my ring and middle fingers. Rule of thumb: if the ends of your little fingers don&#8217;t extend past the top knuckle of your ring fingers, then you are probably in the same boat as me 2 . These kinds of keyboards are customisable using a firmware called QMK, which has a CLI that you use to manage your keyboard layouts and flash it with new ones. The CLI, over time, has become reasonably complicated, and there is additional complexity from the sheer number of possible keyboards, modifications and chipsets you can have. I could have spent some time figuring out how to adjust my keymap files manually by Googling and asking the QMK community 3 , but the year isn&#8217;t 2021. I used Windsurf to change or create the files I needed to change my keymap; it did it in one shot with no issues. The repo comes with a bunch of default keymaps, which act as easy examples to learn from for Cascade. However, in order to actually flash your keyboard, you need to both install the CLI successfully, which has a lot of dependencies, and use the correct commands to compile and then flash your keyboard. I initially tried using the CLI manually, as I&#8217;m fairly proficient using shells and CLIs. However, I came across some issues. I probably could have figured them out, but after a few tries and making new Python environments, I gave up and ...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 508: Moderator
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/moderator
+**Published:** 2025-06-05T14:07:13+00:00
+
+**Content Preview:**
+Earlier this week, I participated as the moderator for one of the boardroom discussions at Gartner&#8217;s CDAO C-level Communities event. It was quite a different experience from speaking at a conference, which I have done a few times before. You can&#8217;t really plan how the discussion will unfold. You can have a set of questions to guide the conversation, but ideally, you would prefer the discussion to flow organically without too much intervention from you and your discussion leaders, who are there to help steer the discussion if necessary. There were long periods during the discussion when various attendees were bouncing ideas off one another and allowing others to participate&#8230; I didn&#8217;t want to intervene; they were doing great on their own! What was truly challenging was not proposing the solution directly. The topic revolved around scaling AI usage in organisations, clearly linked to data, considering the conference audience. As you know from many of my previous posts, I believe that text-to-semantic layer is superior to text-to-SQL. Scratch that, I know it is . I often found myself having to bite my tongue when attendees detailed some of their approaches to enabling natural language access to data. Instead, I had to guide them towards considering the potential drawbacks of lesser methods. The conference audience was distinctly different from any others I had attended before. Snowflake Summit, Big Data London, dbt Coalesce, Databricks AI World Tour&#8230; whenever I have been to these, I have always recognised familiar faces. Not here - these folks aren&#8217;t early adopters, they are in the long tail of the late majority. Microsoft&#8217;s dominance in large regulated enterprises was very evident. If members of this audience were even permitted to use AI at work, it would be Microsoft Copilot without exception. It truly struck me how much of a disadvantage this can be. Some people spoke of how poor Microsoft Copilot is at transcription during T...
+
+**Embedded Videos:** 0
+
+
+---
+## Post 509: Tailor Made
+
+**Publication:** davidj.substack
+**Author:** David Jayatillake
+**URL:** https://davidsj.substack.com/p/tailor-made
+**Published:** 2025-05-21T18:17:06+00:00
+
+**Content Preview:**
+A couple of weeks ago, I wrote about the acquisition of Windsurf by OpenAI and how it could be really significant for the speed of automation in coding. I predicted that Windsurf, powered by custom-trained OpenAI models, focused on the workflows in Windsurf, would have a significant advantage over Cursor, which won&#8217;t have such backing from a frontier model producer. I also talked about how I was excited to see the general release of nao as a similar IDE in concept to Windsurf, but instead focused on the needs of data folks. I described Windsurf, Cursor and nao all as VSCode forks, which is true, but highlighted one point that I hadn&#8217;t put enough emphasis on - Windsurf and Cursor actually build their own models to fit their workflows and this is the real value of their companies. This is partly why they are so attractive to the big AI companies as an acquisition target; they are not only fellow model builders, but also have a niche dataset geared towards coding that is now uniquely produced by the users of these IDEs. nao Labs will also have to follow this path to build a company of comparable value to Windsurf of Cursor. It looks like they&#8217;ve taken the very first step . Related to this topic was a really interesting post by , on the decline of Stack Overflow: Number of questions asked per month on StackOverflow. Data source: this Gist Back in the day, when I wanted to figure out how to do something in SQL, Python, Go etc and didn&#8217;t know how, I would Google what I wanted and it most likely would find a few StackOverflow posts similar to my question. I would always then, to a greater or lesser extent, have to adapt the code in the StackOverflow posts to my situation. It was a great way of learning new methods, as you had to learn the methods shown in order to use them effectively - you rarely could just copy/paste. However, it wasn&#8217;t particularly fast. I can&#8217;t remember the last time I looked anything up in the way I described above....
 
 **Embedded Videos:** 0
 

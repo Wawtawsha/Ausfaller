@@ -61,3 +61,5 @@ analysis_result*.json
 check_progress.py
 download_progress.py
 Sigmund Ausfaller.md
+substack_batch_*.md
+substack_analysis_results*.json
