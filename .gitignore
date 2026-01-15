@@ -54,3 +54,10 @@ Thumbs.db
 tmpclaude-*
 nul
 .vercel
+
+# Logs and temporary analysis files
+*.log
+analysis_result*.json
+check_progress.py
+download_progress.py
+Sigmund Ausfaller.md
