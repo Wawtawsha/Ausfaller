@@ -131,23 +131,25 @@ async function renderEducationalMetrics() {
     if (metrics.total_videos !== undefined) {
         animateNumber(elements.totalVideos, metrics.total_videos);
     }
-    if (metrics.analyzed_count !== undefined) {
-        animateNumber(elements.analyzedCount, metrics.analyzed_count);
+    // API returns analyzed_videos, not analyzed_count
+    if (metrics.analyzed_videos !== undefined) {
+        animateNumber(elements.analyzedCount, metrics.analyzed_videos);
     }
     if (metrics.unique_creators !== undefined) {
         animateNumber(elements.totalCreators, metrics.unique_creators);
     }
 
-    // Update score metrics
+    // Update score metrics - API uses avg_edu_value and avg_practical
     updateScoreMetric('avg-clarity', metrics.avg_clarity, 'clarity-bar');
     updateScoreMetric('avg-depth', metrics.avg_depth, 'depth-bar');
-    updateScoreMetric('avg-value', metrics.avg_value, 'value-bar');
+    updateScoreMetric('avg-value', metrics.avg_edu_value, 'value-bar');
 
-    if (metrics.avg_replicability !== undefined) {
+    // API returns avg_practical, not avg_replicability
+    if (metrics.avg_practical !== undefined) {
         const repEl = document.getElementById('avg-replicability');
         const numEl = repEl?.querySelector('.value-num');
         if (numEl) {
-            numEl.textContent = parseFloat(metrics.avg_replicability).toFixed(1);
+            numEl.textContent = parseFloat(metrics.avg_practical).toFixed(1);
         }
     }
 
@@ -164,29 +166,35 @@ async function renderToolCoverage() {
         return;
     }
 
-    // Filter out "Other" for cleaner display, limit to top 8
+    // Calculate total for percentages
+    const total = data.tools.reduce((sum, t) => sum + (t.mention_count || 0), 0);
+
+    // Filter out empty tool names, limit to top 8
     const tools = data.tools
-        .filter(t => t.tool_name !== 'Other')
+        .filter(t => t.tool && t.tool.trim() !== '')
         .slice(0, 8);
 
-    const maxCount = Math.max(...tools.map(t => t.video_count)) || 1;
+    const maxCount = Math.max(...tools.map(t => t.mention_count)) || 1;
 
     elements.toolGrid.innerHTML = `
         <div class="tools-list">
             ${tools.map((tool, i) => {
-                const color = toolColors[tool.tool_name] || '#666';
-                const width = (tool.video_count / maxCount) * 100;
+                // Normalize tool name for color lookup
+                const toolName = tool.tool.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                const color = toolColors[toolName] || toolColors[tool.tool] || '#666';
+                const width = (tool.mention_count / maxCount) * 100;
+                const pct = total > 0 ? ((tool.mention_count / total) * 100).toFixed(1) : 0;
                 return `
                     <div class="tool-row" style="animation-delay: ${i * 0.05}s">
                         <div class="tool-label">
                             <span class="tool-dot" style="background: ${color}"></span>
-                            <span class="tool-name">${tool.tool_name}</span>
+                            <span class="tool-name">${toolName}</span>
                         </div>
                         <div class="tool-bar-wrap">
                             <div class="tool-bar-bg">
                                 <div class="tool-bar-fill" style="width: ${width}%; background: ${color}"></div>
                             </div>
-                            <span class="tool-stats">${tool.video_count} <span class="tool-pct">(${tool.percentage}%)</span></span>
+                            <span class="tool-stats">${tool.mention_count} <span class="tool-pct">(${pct}%)</span></span>
                         </div>
                     </div>
                 `;
@@ -205,20 +213,28 @@ async function renderContentTypes() {
         return;
     }
 
-    const maxCount = Math.max(...data.content_types.map(c => c.video_count)) || 1;
+    // Filter out empty content types, calculate total for percentages
+    const contentTypes = data.content_types
+        .filter(c => c.content_type && c.content_type.trim() !== '' && c.content_type !== 'none')
+        .slice(0, 6);
+    const total = contentTypes.reduce((sum, c) => sum + c.video_count, 0);
+    const maxCount = Math.max(...contentTypes.map(c => c.video_count)) || 1;
 
     elements.contentTypeChart.innerHTML = `
         <div class="bar-list">
-            ${data.content_types.map((type, i) => {
-                const color = contentTypeColors[type.content_type] || '#ff6b2c';
+            ${contentTypes.map((type, i) => {
+                // Normalize content type name
+                const typeName = type.content_type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                const color = contentTypeColors[typeName] || contentTypeColors[type.content_type] || '#ff6b2c';
                 const width = (type.video_count / maxCount) * 100;
+                const pct = total > 0 ? ((type.video_count / total) * 100).toFixed(1) : 0;
                 return `
                     <div class="bar-row" style="animation-delay: ${i * 0.08}s">
-                        <div class="bar-label">${type.content_type}</div>
+                        <div class="bar-label">${typeName}</div>
                         <div class="bar-track">
                             <div class="bar-fill" style="width: ${width}%; background: ${color}"></div>
                         </div>
-                        <div class="bar-value">${type.video_count} <span class="bar-pct">(${type.percentage}%)</span></div>
+                        <div class="bar-value">${type.video_count} <span class="bar-pct">(${pct}%)</span></div>
                     </div>
                 `;
             }).join('')}
@@ -300,14 +316,33 @@ async function renderContext() {
         return;
     }
 
+    // Filter and group by cloud platform
+    const platforms = {};
+    data.context.forEach(ctx => {
+        const platform = ctx.cloud_platform || 'General';
+        if (!platforms[platform]) {
+            platforms[platform] = { name: platform, count: 0 };
+        }
+        platforms[platform].count += ctx.video_count;
+    });
+
+    // Sort by count and take top 6
+    const topPlatforms = Object.values(platforms)
+        .filter(p => p.name && p.name !== '')
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 6);
+
     if (elements.contentSources) {
-        elements.contentSources.innerHTML = data.context.map(ctx => `
-            <div class="context-chip">
-                <span class="chip-name">${ctx.source_category}</span>
-                <span class="chip-count">${ctx.post_count}</span>
-                <span class="chip-creators">${ctx.unique_creators} creators</span>
-            </div>
-        `).join('');
+        elements.contentSources.innerHTML = topPlatforms.map(p => {
+            const platformName = p.name === 'General' ? 'General / Multi' :
+                p.name.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+            return `
+                <div class="context-chip">
+                    <span class="chip-name">${platformName}</span>
+                    <span class="chip-count">${p.count} videos</span>
+                </div>
+            `;
+        }).join('');
     }
 }
 
