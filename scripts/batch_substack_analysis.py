@@ -13,6 +13,10 @@ import sys
 from pathlib import Path
 from datetime import datetime
 
+# Fix Windows console encoding for Unicode
+if sys.platform == 'win32':
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 # Config
 SUBSTACK_DIR = Path(r'C:\Users\steph\.social-scraper\cache\substack')
 RESULTS_DIR = Path(r'C:\Users\steph\.social-scraper\cache\substack\analysis')

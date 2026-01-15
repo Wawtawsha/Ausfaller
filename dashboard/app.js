@@ -6,6 +6,44 @@
 // API Configuration
 const API_BASE = '';  // Same origin - served from Railway
 
+/**
+ * Fetch wrapper for API calls - consolidates error handling and JSON parsing
+ * @param {string} endpoint - API endpoint (without API_BASE prefix)
+ * @param {Object} options - Fetch options (method, body, headers, etc.)
+ * @param {Object} queryParams - Query parameters to append
+ * @returns {Promise<any>} Parsed JSON response
+ */
+async function fetchApi(endpoint, options = {}, queryParams = {}) {
+    const url = new URL(`${API_BASE}${endpoint}`, window.location.origin);
+
+    // Append query parameters
+    Object.entries(queryParams).forEach(([key, value]) => {
+        if (value !== null && value !== undefined && value !== '') {
+            url.searchParams.set(key, value);
+        }
+    });
+
+    const response = await fetch(url.toString(), options);
+    if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+    }
+    return response.json();
+}
+
+/**
+ * GET request wrapper with automatic niche_mode inclusion
+ * @param {string} endpoint - API endpoint
+ * @param {Object} extraParams - Additional query parameters
+ * @returns {Promise<any>} Parsed JSON response
+ */
+async function fetchData(endpoint, extraParams = {}) {
+    const params = { ...extraParams };
+    if (currentNicheMode) {
+        params.niche_mode = currentNicheMode;
+    }
+    return fetchApi(endpoint, {}, params);
+}
+
 // Chart instances registry - prevents memory leaks
 const chartRegistry = new Map();
 
@@ -135,47 +173,29 @@ function showSkeletons() {
 /**
  * Fetch analytics data from API
  */
-async function fetchAnalytics() {
-    const nicheParam = currentNicheMode ? `?niche_mode=${currentNicheMode}` : '';
-    const response = await fetch(`${API_BASE}/analytics/all${nicheParam}`);
-    if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
-    }
-    return response.json();
+function fetchAnalytics() {
+    return fetchData('/analytics/all');
 }
 
 /**
  * Fetch most recent AI analysis reply
  */
-async function fetchRecentReply() {
-    const response = await fetch(`${API_BASE}/analytics/recent-reply`);
-    if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
-    }
-    return response.json();
+function fetchRecentReply() {
+    return fetchApi('/analytics/recent-reply');
 }
 
 /**
  * Fetch metric trends
  */
-async function fetchTrends() {
-    const response = await fetch(`${API_BASE}/analytics/trends`);
-    if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
-    }
-    return response.json();
+function fetchTrends() {
+    return fetchApi('/analytics/trends');
 }
 
 /**
  * Fetch raw posts for cross-chart filtering
  */
-async function fetchRawPosts() {
-    const nicheParam = currentNicheMode ? `&niche_mode=${currentNicheMode}` : '';
-    const response = await fetch(`${API_BASE}/analytics/raw-posts?limit=500${nicheParam}`);
-    if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
-    }
-    return response.json();
+function fetchRawPosts() {
+    return fetchData('/analytics/raw-posts', { limit: 500 });
 }
 
 /**
@@ -267,11 +287,11 @@ async function refreshDashboard() {
  */
 async function fetchEducationalAnalytics() {
     const [metrics, tools, contentTypes, techniques, skillLevels] = await Promise.all([
-        fetch(`${API_BASE}/analytics/educational`).then(r => r.json()).catch(() => ({ metrics: [] })),
-        fetch(`${API_BASE}/analytics/tools`).then(r => r.json()).catch(() => ({ tools: [] })),
-        fetch(`${API_BASE}/analytics/content-types`).then(r => r.json()).catch(() => ({ content_types: [] })),
-        fetch(`${API_BASE}/analytics/teaching-techniques`).then(r => r.json()).catch(() => ({ techniques: [] })),
-        fetch(`${API_BASE}/analytics/skill-levels`).then(r => r.json()).catch(() => ({ skill_levels: [] })),
+        fetchApi('/analytics/educational').catch(() => ({ metrics: [] })),
+        fetchApi('/analytics/tools').catch(() => ({ tools: [] })),
+        fetchApi('/analytics/content-types').catch(() => ({ content_types: [] })),
+        fetchApi('/analytics/teaching-techniques').catch(() => ({ techniques: [] })),
+        fetchApi('/analytics/skill-levels').catch(() => ({ skill_levels: [] })),
     ]);
 
     educationalData = {
@@ -1459,11 +1479,9 @@ function renderRecentReply(data) {
 /**
  * Fetch strategic analysis (filtered by current niche mode)
  */
-async function fetchStrategicAnalysis() {
-    const nicheParam = currentNicheMode ? `?niche=${currentNicheMode}` : '';
-    const response = await fetch(`${API_BASE}/analytics/strategic-analysis${nicheParam}`);
-    if (!response.ok) throw new Error('Failed to fetch strategic analysis');
-    return response.json();
+function fetchStrategicAnalysis() {
+    const params = currentNicheMode ? { niche: currentNicheMode } : {};
+    return fetchApi('/analytics/strategic-analysis', {}, params);
 }
 
 /**
@@ -2015,9 +2033,7 @@ let currentAccountJob = null;
  */
 async function fetchAccounts() {
     try {
-        const response = await fetch(`${API_BASE}/accounts`);
-        if (!response.ok) throw new Error('Failed to fetch accounts');
-        const data = await response.json();
+        const data = await fetchApi('/accounts');
         accountsList = data.accounts || [];
         renderAccountsList();
     } catch (error) {
@@ -2111,10 +2127,7 @@ async function selectAccount(accountId) {
  */
 async function fetchAccountComparison(accountId) {
     try {
-        const response = await fetch(`${API_BASE}/accounts/${accountId}/comparison`);
-        if (!response.ok) throw new Error('Failed to fetch comparison');
-        const data = await response.json();
-
+        const data = await fetchApi(`/accounts/${accountId}/comparison`);
         if (data.comparison) {
             renderComparison(data.comparison);
         }
@@ -2236,19 +2249,16 @@ async function submitAddAccount(event) {
     if (!username) return;
 
     try {
-        const response = await fetch(`${API_BASE}/accounts`, {
+        const data = await fetchApi('/accounts', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ platform, username })
         });
 
-        if (!response.ok) throw new Error('Failed to add account');
-
         hideAddAccountModal();
         await fetchAccounts();
 
         // Select the new account
-        const data = await response.json();
         if (data.id) {
             selectAccount(data.id);
         }
@@ -2269,13 +2279,7 @@ async function analyzeCurrentAccount() {
     btn.innerHTML = '<span class="spinner"></span> Analyzing...';
 
     try {
-        const response = await fetch(`${API_BASE}/accounts/${selectedAccount.id}/analyze`, {
-            method: 'POST'
-        });
-
-        if (!response.ok) throw new Error('Failed to start analysis');
-
-        const data = await response.json();
+        const data = await fetchApi(`/accounts/${selectedAccount.id}/analyze`, { method: 'POST' });
         currentAccountJob = data.job_id;
 
         // Poll for completion
@@ -2302,8 +2306,7 @@ async function pollAccountJob() {
     if (!currentAccountJob || !selectedAccount) return;
 
     try {
-        const response = await fetch(`${API_BASE}/accounts/${selectedAccount.id}/analyze/${currentAccountJob}`);
-        const job = await response.json();
+        const job = await fetchApi(`/accounts/${selectedAccount.id}/analyze/${currentAccountJob}`);
 
         const btn = document.getElementById('analyze-account-btn');
 
@@ -2361,11 +2364,7 @@ async function deleteCurrentAccount() {
     }
 
     try {
-        const response = await fetch(`${API_BASE}/accounts/${selectedAccount.id}`, {
-            method: 'DELETE'
-        });
-
-        if (!response.ok) throw new Error('Failed to delete account');
+        await fetchApi(`/accounts/${selectedAccount.id}`, { method: 'DELETE' });
 
         selectedAccount = null;
         document.getElementById('account-detail').style.display = 'none';

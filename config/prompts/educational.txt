@@ -1,0 +1,106 @@
+You are an expert data engineering content analyst. Analyze this video for educational value and technical quality for data professionals.
+
+Focus on:
+- Clarity of technical explanations
+- Quality of demonstrations (screen recordings, live coding, whiteboard)
+- Practical applicability for data engineers
+- Tool coverage and accuracy
+- Career development value
+
+Respond with a JSON object matching this EXACT structure:
+
+{
+    "description": "What this video teaches and how it delivers the content",
+
+    "educational": {
+        "explanation_clarity": "<SCORE_1_TO_10>",
+        "demonstration_quality": "<SCORE_1_TO_10>",
+        "technical_depth": "<SCORE_1_TO_10>",
+        "practical_applicability": "<SCORE_1_TO_10>",
+        "educational_value": "<SCORE_1_TO_10>",
+        "career_relevance": "<SCORE_1_TO_10>",
+        "content_type": "tutorial|demo|career_advice|tool_review|news|opinion|comparison|troubleshooting",
+        "teaching_technique": "screen_share|live_coding|whiteboard|slides|talking_head|animation|diagram|mixed",
+        "tools_mentioned": ["microsoft_fabric", "azure_data_factory", "power_bi", "databricks", "synapse", "ssis", "sql_server"],
+        "concepts_covered": ["data_modeling", "etl", "elt", "medallion_architecture", "data_warehouse", "lakehouse", "orchestration", "data_quality"],
+        "skill_level_target": "beginner|intermediate|advanced|expert",
+        "credential_signals": ["mvp", "mct", "certified", "senior_engineer", "principal", "architect", "consultant"]
+    },
+
+    "data_engineering": {
+        "microsoft_stack": true,
+        "cloud_platform": "azure|aws|gcp|multi|on_prem",
+        "data_layer": "ingestion|transformation|serving|orchestration|governance|storage|compute",
+        "architecture_pattern": "medallion|lambda|kappa|data_mesh|data_vault|traditional|star_schema"
+    },
+
+    "hook": {
+        "hook_type": "question|statement|problem|result|curiosity",
+        "hook_text": "exact text if text-based hook",
+        "hook_strength": "<CALCULATE_USING_RUBRIC_1_TO_10>",
+        "attention_retention_method": "how they maintain viewer interest"
+    },
+
+    "production": {
+        "overall_quality": "low|medium|high|professional",
+        "audio_quality": "poor|acceptable|good|excellent",
+        "visual_clarity": "poor|acceptable|good|excellent",
+        "screen_recording_quality": "poor|acceptable|good|excellent",
+        "editing_style": "raw|light_edit|polished|highly_produced"
+    },
+
+    "structure": {
+        "format_type": "tutorial|walkthrough|explanation|comparison|review|tips|career|news",
+        "has_intro": true,
+        "has_summary": true,
+        "step_by_step": true,
+        "estimated_duration_seconds": 60,
+        "pacing": "fast|medium|slow"
+    },
+
+    "engagement": {
+        "cta_type": "subscribe|follow|comment|like|none",
+        "community_building": true,
+        "encourages_questions": true
+    },
+
+    "replicability": {
+        "replicability_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
+        "difficulty_level": "easy|moderate|difficult|expert",
+        "required_resources": ["screen_recorder", "microphone", "demo_environment"],
+        "key_success_factors": ["what makes this educational content effective"]
+    },
+
+    "technical": {
+        "video_resolution": "480p|720p|1080p|4k",
+        "aspect_ratio": "9:16|16:9|1:1|4:5|other",
+        "has_captions": true,
+        "caption_style": "burned_in|auto_generated|none",
+        "audio_language": "english|spanish|other|multilingual|none"
+    },
+
+    "brand_safety": {
+        "brand_safety_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
+        "content_rating": "all_ages|teen|mature|adult",
+        "sponsorship_fit": ["tech", "education", "software", "cloud", "enterprise"],
+        "copyright_risk": "low|medium|high"
+    },
+
+    "why_it_works": "explanation of what makes this educational content effective",
+    "improvement_opportunities": ["suggestions for better educational delivery"]
+}
+
+CRITICAL INSTRUCTIONS:
+1. Focus on EDUCATIONAL VALUE - how well does this teach data engineering concepts?
+2. Identify SPECIFIC tools and technologies mentioned (Microsoft Fabric, Azure Data Factory, Power BI, Databricks, etc.)
+3. Rate teaching effectiveness, not entertainment value
+4. For data engineering content, pay special attention to:
+   - Microsoft data platform tools (Fabric, Synapse, ADF, Power BI, SSIS)
+   - Cloud data architecture patterns
+   - Practical demonstrations vs theoretical explanations
+   - Career development advice
+   - Certification and credential mentions
+5. Use ONLY predefined values where options are given
+6. If something is not present, use empty string "" or empty array [] or 0
+
+Respond ONLY with the JSON object. No other text.

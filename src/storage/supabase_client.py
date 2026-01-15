@@ -33,6 +33,66 @@ class SupabaseStorage:
 
         self.client: Client = create_client(self.url, self.key)
 
+    # ==================== Query Helpers ====================
+
+    def _fetch_table(
+        self,
+        table_name: str,
+        columns: str = "*",
+        filters: Optional[dict] = None,
+        limit: Optional[int] = None,
+        order_by: Optional[str] = None,
+        order_desc: bool = True,
+    ) -> list[dict]:
+        """
+        Fetch rows from a table with optional filtering, ordering, and limits.
+
+        Args:
+            table_name: Name of the table or view
+            columns: Columns to select (default "*")
+            filters: Dict of column -> value for equality filters
+            limit: Maximum rows to return
+            order_by: Column to order by
+            order_desc: Whether to order descending (default True)
+
+        Returns:
+            List of matching rows, or empty list if none found
+        """
+        query = self.client.table(table_name).select(columns)
+
+        if filters:
+            for column, value in filters.items():
+                query = query.eq(column, value)
+
+        if order_by:
+            query = query.order(order_by, desc=order_desc)
+
+        if limit:
+            query = query.limit(limit)
+
+        result = query.execute()
+        return result.data if result.data else []
+
+    def _fetch_one(
+        self,
+        table_name: str,
+        columns: str = "*",
+        filters: Optional[dict] = None,
+    ) -> Optional[dict]:
+        """
+        Fetch a single row from a table.
+
+        Args:
+            table_name: Name of the table or view
+            columns: Columns to select (default "*")
+            filters: Dict of column -> value for equality filters
+
+        Returns:
+            First matching row, or None if not found
+        """
+        rows = self._fetch_table(table_name, columns, filters, limit=1)
+        return rows[0] if rows else None
+
     def store_post(
         self,
         video_info: VideoInfo,
@@ -316,66 +376,32 @@ class SupabaseStorage:
 
     def get_niche_analytics(self) -> list[dict]:
         """Get analytics grouped by niche."""
-        result = self.client.table("niche_analytics").select("*").execute()
-        return result.data
+        return self._fetch_table("niche_analytics")
 
     def get_hashtag_performance(self, niche: Optional[str] = None) -> list[dict]:
         """Get hashtag performance, optionally filtered by niche."""
-        query = self.client.table("hashtag_performance").select("*")
-        if niche:
-            query = query.eq("niche", niche)
-        result = query.execute()
-        return result.data
+        filters = {"niche": niche} if niche else None
+        return self._fetch_table("hashtag_performance", filters=filters)
 
     def get_hook_trends(self, limit: int = 20) -> list[dict]:
         """Get hook type and technique distribution."""
-        result = (
-            self.client.table("hook_trends")
-            .select("*")
-            .limit(limit)
-            .execute()
-        )
-        return result.data
+        return self._fetch_table("hook_trends", limit=limit)
 
     def get_audio_trends(self, limit: int = 20) -> list[dict]:
         """Get audio/sound category distribution."""
-        result = (
-            self.client.table("audio_trends")
-            .select("*")
-            .limit(limit)
-            .execute()
-        )
-        return result.data
+        return self._fetch_table("audio_trends", limit=limit)
 
     def get_visual_trends(self, limit: int = 20) -> list[dict]:
         """Get visual style and setting distribution."""
-        result = (
-            self.client.table("visual_trends")
-            .select("*")
-            .limit(limit)
-            .execute()
-        )
-        return result.data
+        return self._fetch_table("visual_trends", limit=limit)
 
     def get_viral_trends(self, limit: int = 20) -> list[dict]:
         """Get viral potential score distribution."""
-        result = (
-            self.client.table("viral_trends")
-            .select("*")
-            .limit(limit)
-            .execute()
-        )
-        return result.data
+        return self._fetch_table("viral_trends", limit=limit)
 
     def get_viral_factors(self, limit: int = 20) -> list[dict]:
         """Get top viral factors across all videos."""
-        result = (
-            self.client.table("viral_factors_breakdown")
-            .select("*")
-            .limit(limit)
-            .execute()
-        )
-        return result.data
+        return self._fetch_table("viral_factors_breakdown", limit=limit)
 
     def get_replicability_leaderboard(
         self,
@@ -483,34 +509,18 @@ class SupabaseStorage:
 
     def get_account(self, account_id: str) -> Optional[dict]:
         """Get account by ID."""
-        result = (
-            self.client.table("accounts")
-            .select("*")
-            .eq("id", account_id)
-            .execute()
-        )
-        return result.data[0] if result.data else None
+        return self._fetch_one("accounts", filters={"id": account_id})
 
     def get_account_by_username(self, platform: str, username: str) -> Optional[dict]:
         """Get account by platform and username."""
-        result = (
-            self.client.table("accounts")
-            .select("*")
-            .eq("platform", platform)
-            .eq("username", username.lstrip("@"))
-            .execute()
+        return self._fetch_one(
+            "accounts",
+            filters={"platform": platform, "username": username.lstrip("@")}
         )
-        return result.data[0] if result.data else None
 
     def list_accounts(self) -> list[dict]:
         """List all tracked accounts."""
-        result = (
-            self.client.table("account_summary")
-            .select("*")
-            .order("created_at", desc=True)
-            .execute()
-        )
-        return result.data
+        return self._fetch_table("account_summary", order_by="created_at")
 
     def update_account(
         self,
@@ -586,15 +596,12 @@ class SupabaseStorage:
 
     def get_account_posts(self, account_id: str, limit: int = 100) -> list[dict]:
         """Get all posts for an account."""
-        result = (
-            self.client.table("posts")
-            .select("*")
-            .eq("account_id", account_id)
-            .order("scraped_at", desc=True)
-            .limit(limit)
-            .execute()
+        return self._fetch_table(
+            "posts",
+            filters={"account_id": account_id},
+            order_by="scraped_at",
+            limit=limit
         )
-        return result.data
 
     def create_account_snapshot(
         self,
@@ -646,25 +653,16 @@ class SupabaseStorage:
 
     def get_account_snapshots(self, account_id: str, limit: int = 10) -> list[dict]:
         """Get historical snapshots for an account."""
-        result = (
-            self.client.table("account_snapshots")
-            .select("*")
-            .eq("account_id", account_id)
-            .order("snapshot_at", desc=True)
-            .limit(limit)
-            .execute()
+        return self._fetch_table(
+            "account_snapshots",
+            filters={"account_id": account_id},
+            order_by="snapshot_at",
+            limit=limit
         )
-        return result.data
 
     def get_account_comparison(self, account_id: str) -> Optional[dict]:
         """Get account comparison vs dataset from the view."""
-        result = (
-            self.client.table("account_vs_dataset")
-            .select("*")
-            .eq("account_id", account_id)
-            .execute()
-        )
-        return result.data[0] if result.data else None
+        return self._fetch_one("account_vs_dataset", filters={"account_id": account_id})
 
     def get_dataset_averages(self, niche_mode: Optional[str] = None) -> dict:
         """

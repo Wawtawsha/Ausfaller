@@ -16,8 +16,15 @@ from google import genai
 from google.genai import types
 
 from config.settings import settings
+from src.utils import safe_int, safe_float, dataclass_to_dict
 
 logger = logging.getLogger(__name__)
+
+# Load prompts from external files at module initialization
+_PROMPTS_DIR = Path(__file__).parent.parent.parent / "config" / "prompts"
+ANALYSIS_PROMPT = (_PROMPTS_DIR / "analysis.txt").read_text(encoding="utf-8")
+EDUCATIONAL_ANALYSIS_PROMPT = (_PROMPTS_DIR / "educational.txt").read_text(encoding="utf-8")
+COMBINED_ANALYSIS_PROMPT = (_PROMPTS_DIR / "combined.txt").read_text(encoding="utf-8")
 
 
 @dataclass
@@ -254,504 +261,7 @@ class VideoAnalysis:
 
     def to_dict(self) -> dict:
         """Convert to dictionary for storage."""
-        def dataclass_to_dict(obj):
-            if hasattr(obj, '__dataclass_fields__'):
-                return {k: dataclass_to_dict(v) for k, v in obj.__dict__.items()}
-            elif isinstance(obj, list):
-                return [dataclass_to_dict(i) for i in obj]
-            elif isinstance(obj, dict):
-                return {k: dataclass_to_dict(v) for k, v in obj.items()}
-            else:
-                return obj
-
         return dataclass_to_dict(self)
-
-
-# Comprehensive analysis prompt
-ANALYSIS_PROMPT = """You are an elite social media marketing analyst specializing in video content across platforms (TikTok, YouTube Shorts, YouTube). Analyze this video with extreme precision and extract every possible marketing insight.
-
-Your analysis must be exhaustive and systematic. Extract data that can be used for trend analysis and pattern recognition across thousands of videos.
-
-NOTE: This is VIDEO-ONLY analysis. Text posts and images are handled separately by a different system.
-
-Respond with a JSON object matching this EXACT structure:
-
-{
-    "description": "Detailed description of video content, narrative, and key moments",
-
-    "hook": {
-        "hook_type": "question|statement|shock|visual|sound|text|action",
-        "hook_text": "exact text if text-based hook, empty string if not",
-        "hook_technique": "open_loop|curiosity_gap|pattern_interrupt|controversy|transformation|challenge|relatable_pain|bold_claim|weird_flex|confession",
-        "hook_timing_seconds": 0.0,
-        "hook_strength": "<CALCULATE_USING_RUBRIC_1_TO_10>",
-        "attention_retention_method": "how they maintain interest after hook"
-    },
-
-    "audio": {
-        "sound_name": "song or sound name if identifiable",
-        "sound_artist": "artist name if known",
-        "sound_category": "trending_audio|original_audio|voiceover|dialogue|asmr|ambient|music_only",
-        "is_trending_sound": true,
-        "sound_mood": "energetic|chill|dramatic|comedic|emotional|suspenseful|upbeat|melancholic",
-        "sound_tempo": "fast|medium|slow",
-        "voice_present": true,
-        "voice_type": "creator_voice|ai_voice|other_person|multiple|narrator",
-        "voice_tone": "conversational|authoritative|excited|sarcastic|deadpan|whispering|yelling",
-        "speech_pace": "fast|medium|slow",
-        "sound_effects": ["whoosh", "ding", "bass_drop", "record_scratch", "laugh_track"],
-        "audio_editing": ["speed_change", "reverb", "cuts", "layering"]
-    },
-
-    "visual": {
-        "visual_style": "aesthetic|raw|polished|cinematic|casual|chaotic|minimalist|maximalist",
-        "color_palette": ["warm", "neon", "muted", "high_contrast"],
-        "lighting_type": "natural|studio|neon|moody|bright|golden_hour|ring_light",
-        "camera_type": "selfie|pov|tripod|handheld|drone|screen_record",
-        "camera_movement": ["static", "pan", "zoom", "tracking", "whip_pan"],
-        "transition_types": ["cut", "swipe", "zoom", "morph", "flash", "match_cut"],
-        "text_overlays": [
-            {"text": "actual text shown", "style": "bold|caption|subtitle|meme", "position": "center|top|bottom", "timing": "throughout|intro|key_moment"}
-        ],
-        "visual_effects": ["green_screen", "split_screen", "duet", "stitch", "collab", "filter", "slow_mo", "time_lapse", "picture_in_picture"],
-        "editing_pace": "fast_cuts|medium|slow|single_shot",
-        "estimated_cuts_count": 10,
-        "face_visibility": "full_face|partial|no_face|multiple_people",
-        "setting_type": "home|business|outdoor|studio|car|restaurant|bar|club|kitchen",
-        "setting_details": "specific context about location",
-        "thumbnail_elements": ["face", "text", "bright_colors", "action"],
-        "b_roll_used": true,
-        "props_products": ["items", "products", "tools shown"]
-    },
-
-    "structure": {
-        "format_type": "tutorial|storytime|day_in_life|transformation|reaction|duet|pov|skit|rant|review|asmr|challenge|trend|educational|behind_scenes|get_ready|what_i_eat|explainer|demo|walkthrough|commentary|vlog|shorts",
-        "narrative_structure": "linear|before_after|problem_solution|list|reveal|journey|comparison|q_and_a",
-        "pacing": "fast|medium|slow|varied",
-        "estimated_duration_seconds": 30,
-        "scene_count": 5,
-        "has_intro": false,
-        "has_outro": true,
-        "loop_friendly": true,
-        "cliffhanger_used": false,
-        "series_potential": true
-    },
-
-    "engagement": {
-        "cta_type": "follow|like|comment|share|save|link|subscribe|none",
-        "cta_placement": "beginning|middle|end|throughout|none",
-        "cta_text": "exact call to action text",
-        "comment_bait": ["question", "controversy", "fill_in_blank", "opinion_request", "debate"],
-        "share_triggers": ["relatability", "humor", "useful_info", "shocking", "emotional", "outrage"],
-        "save_triggers": ["tutorial", "reference", "inspiration", "recipe", "tips"],
-        "engagement_hooks": ["specific techniques used"],
-        "controversy_level": "<SCORE_0_TO_10>",
-        "fomo_elements": ["limited_time", "exclusive", "trend_joining"],
-        "social_proof_used": false
-    },
-
-    "trends": {
-        "source_platform": "tiktok|youtube_shorts|youtube|unknown",
-        "is_trend_participation": true,
-        "trend_name": "name of trend if applicable",
-        "trend_category": "dance|challenge|sound|format|meme|hashtag|filter|tutorial_style",
-        "trend_adaptation_quality": "<SCORE_1_TO_10>",
-        "trend_lifecycle_stage": "emerging|growing|peak|declining|evergreen",
-        "format_originality": "original|trend_adaptation|remix|copy",
-        "viral_potential_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
-        "viral_factors": ["relatability", "shareability", "trend_timing", "hook_strength"],
-        "meme_potential": true,
-        "remix_potential": true
-    },
-
-    "emotion": {
-        "primary_emotion": "joy|surprise|anger|fear|sadness|disgust|anticipation|trust|amusement|inspiration",
-        "secondary_emotions": ["curiosity", "nostalgia"],
-        "emotional_arc": "flat|building|peak_early|peak_late|rollercoaster|release",
-        "humor_type": "observational|self_deprecating|absurd|dark|physical|situational|none",
-        "relatability_score": "<SCORE_1_TO_10>",
-        "relatability_factors": ["shared experience", "common struggle", "universal truth"],
-        "aspiration_score": "<SCORE_1_TO_10>",
-        "nostalgia_elements": ["90s reference", "childhood memory"],
-        "controversy_elements": ["hot take", "unpopular opinion"]
-    },
-
-    "niche": {
-        "primary_niche": "broad category like food, lifestyle, comedy",
-        "sub_niches": ["bartending", "cocktails", "nightlife"],
-        "topics": ["specific topics covered in video"],
-        "keywords": ["suggested", "hashtags", "and", "keywords"],
-        "target_demographics": ["age_18_24", "age_25_34", "female", "urban", "nightlife_enthusiasts"],
-        "geographic_relevance": "global|us|regional|local",
-        "seasonal_relevance": "evergreen|seasonal|holiday|trending|timely",
-        "industry_verticals": ["hospitality", "food_beverage", "nightlife", "entertainment"]
-    },
-
-    "production": {
-        "overall_quality": "low|medium|high|professional",
-        "equipment_tier": "phone_basic|phone_good|prosumer|professional",
-        "editing_complexity": "minimal|moderate|complex|highly_produced",
-        "audio_quality": "poor|acceptable|good|excellent",
-        "lighting_quality": "poor|acceptable|good|excellent",
-        "estimated_production_time": "under_1hr|1_to_3hrs|3_to_8hrs|over_8hrs",
-        "team_size_estimate": "solo|duo|small_team|production_crew"
-    },
-
-    "replicability": {
-        "replicability_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
-        "difficulty_level": "easy|moderate|difficult|expert",
-        "required_resources": ["smartphone", "ring_light", "tripod"],
-        "required_skills": ["basic_editing", "on_camera_presence", "timing"],
-        "time_investment": "under_1hr|1_to_3hrs|3_to_8hrs|over_8hrs",
-        "budget_estimate": "free|under_50|50_to_200|over_200",
-        "key_success_factors": ["what makes this work that must be replicated"],
-        "common_mistakes_to_avoid": ["pitfalls when recreating this style"],
-        "niche_adaptation_tips": ["how to adapt this for restaurant/bar/nightlife promotion"]
-    },
-
-    "technical": {
-        "video_resolution": "480p|720p|1080p|4k",
-        "aspect_ratio": "9:16|16:9|1:1|4:5|other",
-        "has_captions": true,
-        "caption_style": "burned_in|auto_generated|none",
-        "audio_language": "english|spanish|other|multilingual|none"
-    },
-
-    "brand_safety": {
-        "brand_safety_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
-        "content_rating": "all_ages|teen|mature|adult",
-        "sponsorship_fit": ["lifestyle", "tech", "food_beverage", "fashion", "fitness", "entertainment", "education"],
-        "copyright_risk": "low|medium|high"
-    },
-
-    "why_it_works": "comprehensive explanation of success factors",
-    "competitive_advantage": "what makes this stand out from similar content",
-    "improvement_opportunities": ["what could make this even better"]
-}
-
-CRITICAL INSTRUCTIONS:
-1. Be EXHAUSTIVE - extract every detail that could be useful for trend analysis
-2. Use ONLY the predefined values where options are given (e.g., hook_type must be one of the listed options)
-3. Provide SPECIFIC details, not generic observations
-4. Score numerically where asked (1-10 scale) - USE THE RUBRICS BELOW
-5. If something is not present or not applicable, use empty string "" or empty array [] or 0
-6. For the hospitality/nightlife industry focus, pay special attention to:
-   - Venue/atmosphere showcase techniques
-   - Food/drink presentation styles
-   - Staff personality content
-   - Event/promotion patterns
-   - Location/vibe marketing
-
-SCORING RUBRICS - YOU MUST FOLLOW THESE EXACTLY:
-
-HOOK_STRENGTH (1-10):
-  1-2: No hook, slow start, unclear value, viewer likely scrolls immediately
-  3-4: Weak hook, generic opening, minimal curiosity, slight pattern interrupt
-  5-6: Basic hook present, some curiosity created, standard technique used
-  7-8: Strong curiosity gap + pattern interrupt + emotional trigger, direct camera
-  9-10: Multiple hook layers (visual+text+audio), irresistible, immediate scroll-stop
-
-  Calculate using these weighted factors:
-  - Immediate attention capture (0-3 seconds): 30%
-  - Curiosity gap creation: 25%
-  - Pattern interruption: 20%
-  - Emotional trigger: 15%
-  - Visual/audio contrast: 10%
-
-VIRAL_POTENTIAL_SCORE (1-10):
-  1-2: No shareability, niche-only appeal, no emotional trigger
-  3-4: Some relatability, weak share triggers, limited audience appeal
-  5-6: Relatable content, clear niche appeal, moderate share potential
-  7-8: Strong emotional resonance, broad appeal, multiple share triggers
-  9-10: Universal relatability, strong emotions, meme potential, trend-aligned
-
-  Calculate using these weighted factors:
-  - Emotional trigger strength: 25%
-  - Shareability (would viewers send this to friends?): 20%
-  - Trend alignment: 20%
-  - Relatability: 20%
-  - Production quality: 15%
-
-REPLICABILITY_SCORE (1-10) - This is INVERSE of difficulty:
-  9-10: Phone only, <30 minutes, no special skills needed, free to make
-  7-8: Phone + basic gear (ring light), <1 hour, basic editing skills
-  5-6: Some equipment needed, 1-3 hours, intermediate skills required
-  3-4: Professional gear needed, 3-8 hours, advanced skills, $50-200 budget
-  1-2: Production crew needed, 8+ hours, expert skills, $200+ budget
-
-  MUST match these constraints (auto-corrected if violated):
-  - If budget_estimate = "free" → replicability_score MUST be >= 7
-  - If budget_estimate = "over_200" → replicability_score MUST be <= 4
-  - If difficulty_level = "expert" → replicability_score MUST be <= 3
-  - If difficulty_level = "easy" → replicability_score MUST be >= 7
-  - If time_investment = "over_8hrs" → replicability_score MUST be <= 4
-  - If time_investment = "under_1hr" → replicability_score MUST be >= 7
-
-BRAND_SAFETY_SCORE (1-10):
-  1-3: Controversial, explicit, potentially offensive, or illegal content
-  4-5: Edgy content, profanity, may not suit family-friendly brands
-  6-7: Generally safe, minor concerns (mild language, suggestive themes)
-  8-10: Fully brand-safe, suitable for all advertisers
-
-COPYRIGHT_RISK:
-  low: Original music/no music, original content, no recognizable IP
-  medium: Popular song snippet, recognizable IP referenced, trending audio
-  high: Full copyrighted song, movie/TV clips, branded content without disclosure
-
-Respond ONLY with the JSON object. No other text."""
-
-
-# Educational analysis prompt for data engineering content
-EDUCATIONAL_ANALYSIS_PROMPT = """You are an expert data engineering content analyst. Analyze this video for educational value and technical quality for data professionals.
-
-Focus on:
-- Clarity of technical explanations
-- Quality of demonstrations (screen recordings, live coding, whiteboard)
-- Practical applicability for data engineers
-- Tool coverage and accuracy
-- Career development value
-
-Respond with a JSON object matching this EXACT structure:
-
-{
-    "description": "What this video teaches and how it delivers the content",
-
-    "educational": {
-        "explanation_clarity": "<SCORE_1_TO_10>",
-        "demonstration_quality": "<SCORE_1_TO_10>",
-        "technical_depth": "<SCORE_1_TO_10>",
-        "practical_applicability": "<SCORE_1_TO_10>",
-        "educational_value": "<SCORE_1_TO_10>",
-        "career_relevance": "<SCORE_1_TO_10>",
-        "content_type": "tutorial|demo|career_advice|tool_review|news|opinion|comparison|troubleshooting",
-        "teaching_technique": "screen_share|live_coding|whiteboard|slides|talking_head|animation|diagram|mixed",
-        "tools_mentioned": ["microsoft_fabric", "azure_data_factory", "power_bi", "databricks", "synapse", "ssis", "sql_server"],
-        "concepts_covered": ["data_modeling", "etl", "elt", "medallion_architecture", "data_warehouse", "lakehouse", "orchestration", "data_quality"],
-        "skill_level_target": "beginner|intermediate|advanced|expert",
-        "credential_signals": ["mvp", "mct", "certified", "senior_engineer", "principal", "architect", "consultant"]
-    },
-
-    "data_engineering": {
-        "microsoft_stack": true,
-        "cloud_platform": "azure|aws|gcp|multi|on_prem",
-        "data_layer": "ingestion|transformation|serving|orchestration|governance|storage|compute",
-        "architecture_pattern": "medallion|lambda|kappa|data_mesh|data_vault|traditional|star_schema"
-    },
-
-    "hook": {
-        "hook_type": "question|statement|problem|result|curiosity",
-        "hook_text": "exact text if text-based hook",
-        "hook_strength": "<CALCULATE_USING_RUBRIC_1_TO_10>",
-        "attention_retention_method": "how they maintain viewer interest"
-    },
-
-    "production": {
-        "overall_quality": "low|medium|high|professional",
-        "audio_quality": "poor|acceptable|good|excellent",
-        "visual_clarity": "poor|acceptable|good|excellent",
-        "screen_recording_quality": "poor|acceptable|good|excellent",
-        "editing_style": "raw|light_edit|polished|highly_produced"
-    },
-
-    "structure": {
-        "format_type": "tutorial|walkthrough|explanation|comparison|review|tips|career|news",
-        "has_intro": true,
-        "has_summary": true,
-        "step_by_step": true,
-        "estimated_duration_seconds": 60,
-        "pacing": "fast|medium|slow"
-    },
-
-    "engagement": {
-        "cta_type": "subscribe|follow|comment|like|none",
-        "community_building": true,
-        "encourages_questions": true
-    },
-
-    "replicability": {
-        "replicability_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
-        "difficulty_level": "easy|moderate|difficult|expert",
-        "required_resources": ["screen_recorder", "microphone", "demo_environment"],
-        "key_success_factors": ["what makes this educational content effective"]
-    },
-
-    "technical": {
-        "video_resolution": "480p|720p|1080p|4k",
-        "aspect_ratio": "9:16|16:9|1:1|4:5|other",
-        "has_captions": true,
-        "caption_style": "burned_in|auto_generated|none",
-        "audio_language": "english|spanish|other|multilingual|none"
-    },
-
-    "brand_safety": {
-        "brand_safety_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
-        "content_rating": "all_ages|teen|mature|adult",
-        "sponsorship_fit": ["tech", "education", "software", "cloud", "enterprise"],
-        "copyright_risk": "low|medium|high"
-    },
-
-    "why_it_works": "explanation of what makes this educational content effective",
-    "improvement_opportunities": ["suggestions for better educational delivery"]
-}
-
-CRITICAL INSTRUCTIONS:
-1. Focus on EDUCATIONAL VALUE - how well does this teach data engineering concepts?
-2. Identify SPECIFIC tools and technologies mentioned (Microsoft Fabric, Azure Data Factory, Power BI, Databricks, etc.)
-3. Rate teaching effectiveness, not entertainment value
-4. For data engineering content, pay special attention to:
-   - Microsoft data platform tools (Fabric, Synapse, ADF, Power BI, SSIS)
-   - Cloud data architecture patterns
-   - Practical demonstrations vs theoretical explanations
-   - Career development advice
-   - Certification and credential mentions
-5. Use ONLY predefined values where options are given
-6. If something is not present, use empty string "" or empty array [] or 0
-
-Respond ONLY with the JSON object. No other text."""
-
-
-COMBINED_ANALYSIS_PROMPT = """You are an expert content analyst specializing in both entertainment and educational video content. Analyze this video with dual focus: marketing effectiveness AND educational value.
-
-Extract BOTH entertainment metrics (hooks, viral potential, engagement) AND educational metrics (clarity, technical depth, career value).
-
-Respond with a JSON object matching this EXACT structure:
-
-{
-    "description": "Comprehensive description of video content, what it teaches, and how it engages",
-
-    "hook": {
-        "hook_type": "question|statement|shock|visual|sound|text|action|problem|result|curiosity",
-        "hook_text": "exact text if text-based hook",
-        "hook_technique": "open_loop|curiosity_gap|pattern_interrupt|controversy|transformation|challenge|relatable_pain|bold_claim",
-        "hook_timing_seconds": 0.0,
-        "hook_strength": "<CALCULATE_USING_RUBRIC_1_TO_10>",
-        "attention_retention_method": "how they maintain interest"
-    },
-
-    "audio": {
-        "sound_name": "song or sound name if identifiable",
-        "sound_artist": "artist name if known",
-        "sound_category": "trending_audio|original_audio|voiceover|dialogue|music_only",
-        "is_trending_sound": false,
-        "sound_mood": "energetic|chill|dramatic|comedic|emotional|suspenseful|upbeat",
-        "voice_present": true,
-        "voice_type": "creator_voice|ai_voice|other_person|narrator",
-        "voice_tone": "conversational|authoritative|excited|sarcastic|professional",
-        "speech_pace": "fast|medium|slow"
-    },
-
-    "visual": {
-        "visual_style": "aesthetic|raw|polished|cinematic|casual|professional",
-        "camera_type": "selfie|pov|tripod|handheld|screen_record",
-        "editing_pace": "fast_cuts|medium|slow|single_shot",
-        "face_visibility": "full_face|partial|no_face|multiple_people",
-        "setting_type": "home|office|studio|outdoor|screen_recording"
-    },
-
-    "structure": {
-        "format_type": "tutorial|storytime|day_in_life|transformation|reaction|pov|skit|explainer|demo|walkthrough|comparison|tips|career",
-        "narrative_structure": "linear|before_after|problem_solution|list|reveal|step_by_step",
-        "pacing": "fast|medium|slow|varied",
-        "estimated_duration_seconds": 60,
-        "has_intro": true,
-        "has_outro": true,
-        "loop_friendly": false
-    },
-
-    "engagement": {
-        "cta_type": "follow|like|comment|share|save|subscribe|none",
-        "cta_placement": "beginning|middle|end|none",
-        "comment_bait": ["question", "opinion_request", "controversy"],
-        "share_triggers": ["relatability", "humor", "useful_info", "shocking"],
-        "controversy_level": "<SCORE_0_TO_10>"
-    },
-
-    "trends": {
-        "source_platform": "tiktok|youtube_shorts|youtube|unknown",
-        "is_trend_participation": false,
-        "trend_name": "name if applicable",
-        "viral_potential_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
-        "viral_factors": ["relatability", "shareability", "hook_strength", "educational_value"]
-    },
-
-    "emotion": {
-        "primary_emotion": "joy|surprise|curiosity|inspiration|amusement|trust",
-        "relatability_score": "<SCORE_1_TO_10>",
-        "aspiration_score": "<SCORE_1_TO_10>"
-    },
-
-    "production": {
-        "overall_quality": "low|medium|high|professional",
-        "audio_quality": "poor|acceptable|good|excellent",
-        "visual_clarity": "poor|acceptable|good|excellent",
-        "editing_style": "raw|light_edit|polished|highly_produced"
-    },
-
-    "replicability": {
-        "replicability_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
-        "difficulty_level": "easy|moderate|difficult|expert",
-        "required_resources": ["camera", "microphone", "editing_software", "demo_environment"],
-        "key_success_factors": ["what makes this content effective"]
-    },
-
-    "educational": {
-        "explanation_clarity": "<SCORE_1_TO_10>",
-        "demonstration_quality": "<SCORE_1_TO_10>",
-        "technical_depth": "<SCORE_1_TO_10>",
-        "practical_applicability": "<SCORE_1_TO_10>",
-        "educational_value": "<SCORE_1_TO_10>",
-        "career_relevance": "<SCORE_1_TO_10>",
-        "content_type": "tutorial|demo|career_advice|tool_review|news|opinion|entertainment|mixed",
-        "teaching_technique": "screen_share|live_coding|whiteboard|slides|talking_head|demonstration|mixed",
-        "tools_mentioned": ["list", "specific", "tools", "or", "products"],
-        "concepts_covered": ["list", "topics", "or", "concepts"],
-        "skill_level_target": "beginner|intermediate|advanced|expert|all_levels"
-    },
-
-    "data_engineering": {
-        "microsoft_stack": false,
-        "cloud_platform": "azure|aws|gcp|multi|on_prem|none",
-        "data_layer": "ingestion|transformation|serving|orchestration|governance|none",
-        "architecture_pattern": "medallion|lambda|kappa|data_mesh|traditional|none"
-    },
-
-    "niche": {
-        "primary_niche": "broad category",
-        "sub_niches": ["specific", "sub", "categories"],
-        "topics": ["specific topics covered"],
-        "keywords": ["suggested", "hashtags"]
-    },
-
-    "technical": {
-        "video_resolution": "480p|720p|1080p|4k",
-        "aspect_ratio": "9:16|16:9|1:1|other",
-        "has_captions": true,
-        "audio_language": "english|spanish|other|multilingual"
-    },
-
-    "brand_safety": {
-        "brand_safety_score": "<CALCULATE_USING_RUBRIC_1_TO_10>",
-        "content_rating": "all_ages|teen|mature|adult",
-        "sponsorship_fit": ["brand", "categories", "that", "fit"],
-        "copyright_risk": "low|medium|high"
-    },
-
-    "why_it_works": "explanation of what makes this content effective (both engagement AND educational)",
-    "competitive_advantage": "what makes this stand out from similar content",
-    "improvement_opportunities": ["suggestions for improvement"]
-}
-
-CRITICAL INSTRUCTIONS:
-1. Analyze BOTH entertainment value (hooks, viral potential) AND educational value (clarity, depth)
-2. Score entertainment metrics on hook strength, viral potential, replicability
-3. Score educational metrics on clarity, depth, practical applicability
-4. Identify specific tools, products, or technologies mentioned
-5. For educational content, pay attention to teaching technique and demonstration quality
-6. For entertainment content, focus on hook, emotion, and engagement triggers
-7. Use ONLY predefined values where options are given
-8. If something is not applicable, use empty string "", empty array [], or 0
-
-Respond ONLY with the JSON object. No other text."""
 
 
 class GeminiAnalyzer:
@@ -783,30 +293,6 @@ class GeminiAnalyzer:
             return COMBINED_ANALYSIS_PROMPT
         return ANALYSIS_PROMPT
 
-    def _safe_int(self, value, default: int = 5) -> int:
-        """Safely convert a value to int, returning default if not possible."""
-        if isinstance(value, int):
-            return value
-        if isinstance(value, float):
-            return int(value)
-        if isinstance(value, str):
-            try:
-                return int(value)
-            except ValueError:
-                return default
-        return default
-
-    def _safe_float(self, value, default: float = 0.0) -> float:
-        """Safely convert a value to float, returning default if not possible."""
-        if isinstance(value, (int, float)):
-            return float(value)
-        if isinstance(value, str):
-            try:
-                return float(value)
-            except ValueError:
-                return default
-        return default
-
     def _validate_and_correct_scores(self, data: dict) -> dict:
         """Auto-correct scores that conflict with observable factors.
 
@@ -821,134 +307,197 @@ class GeminiAnalyzer:
             logger.warning(f"Score validation failed, using raw data: {e}")
             return data
 
+    def _validate_hook_score(self, hook: dict) -> dict:
+        """Validate and correct hook_strength based on observable factors.
+
+        Rules:
+        - No hook type: cap at 3
+        - Strong techniques (open_loop, curiosity_gap, etc.): floor at 6
+        - Late hooks (>3s): cap at 5
+        - Text hook without text: cap at 4
+        - Immediate hooks (<=1s) with technique: floor at 5
+        """
+        if not hook:
+            return hook
+
+        hook_type = hook.get("hook_type", "")
+        hook_technique = hook.get("hook_technique", "")
+        hook_timing = safe_float(hook.get("hook_timing_seconds", 0), 0.0)
+        hook_text = hook.get("hook_text", "")
+        score = safe_int(hook.get("hook_strength", 5), 5)
+        original = score
+
+        # No hook type = weak hook (cap at 3)
+        if not hook_type or hook_type.lower() in ["none", ""]:
+            score = min(score, 3)
+
+        # Strong techniques deserve minimum scores (floor at 6)
+        strong_techniques = ["open_loop", "curiosity_gap", "pattern_interrupt", "controversy"]
+        if hook_technique.lower() in strong_techniques and score < 6:
+            score = max(score, 6)
+
+        # Late hooks are weaker - if hook hits after 3s, cap at 5
+        if hook_timing > 3.0 and score > 5:
+            score = min(score, 5)
+
+        # Text hook without text is suspicious - cap at 4
+        if hook_type.lower() == "text" and not hook_text and score > 4:
+            score = min(score, 4)
+
+        # Immediate hooks (0-1s) with good technique get floor of 5
+        if hook_timing <= 1.0 and hook_technique and score < 5:
+            score = max(score, 5)
+
+        if score != original:
+            logger.debug(f"Auto-corrected hook_strength: {original} -> {score}")
+            hook["hook_strength"] = score
+
+        return hook
+
+    def _validate_viral_score(
+        self,
+        trends: dict,
+        engagement: dict,
+        emotion: dict,
+    ) -> dict:
+        """Validate and correct viral_potential_score based on observable factors.
+
+        Rules:
+        - Declining/dead trends: cap at 5
+        - Peak/growing trends: floor at 5
+        - Meme + remix potential: floor at 6
+        - Direct copies: cap at 4
+        - 4+ viral factors: floor at 5
+        - 3+ share triggers: floor at 5
+        - Viral shouldn't exceed relatability by more than 3
+        """
+        if not trends:
+            return trends
+
+        viral_score = safe_int(trends.get("viral_potential_score", 5), 5)
+        original = viral_score
+
+        lifecycle = trends.get("trend_lifecycle_stage", "").lower()
+        meme_potential = trends.get("meme_potential", False)
+        remix_potential = trends.get("remix_potential", False)
+        originality = trends.get("format_originality", "").lower()
+        viral_factors = trends.get("viral_factors", [])
+
+        # Dying trends cap viral potential at 5
+        if lifecycle in ["declining", "dead"] and viral_score > 5:
+            viral_score = min(viral_score, 5)
+
+        # Peak trends get floor of 5
+        if lifecycle in ["peak", "growing"] and viral_score < 5:
+            viral_score = max(viral_score, 5)
+
+        # Meme + remix potential = high viral floor (6)
+        if meme_potential and remix_potential and viral_score < 6:
+            viral_score = max(viral_score, 6)
+
+        # Direct copies have limited viral potential (cap at 4)
+        if originality == "copy" and viral_score > 4:
+            viral_score = min(viral_score, 4)
+
+        # Many viral factors = should have decent score (floor at 5)
+        if len(viral_factors) >= 4 and viral_score < 5:
+            viral_score = max(viral_score, 5)
+
+        # Cross-check with engagement share triggers
+        if engagement:
+            share_triggers = engagement.get("share_triggers", [])
+            if len(share_triggers) >= 3 and viral_score < 5:
+                viral_score = max(viral_score, 5)
+
+        # Cross-check with relatability - viral shouldn't exceed relatability by 4+
+        if emotion:
+            relatability = safe_int(emotion.get("relatability_score", 5), 5)
+            if viral_score > relatability + 3:
+                viral_score = min(viral_score, relatability + 3)
+
+        if viral_score != original:
+            logger.debug(f"Auto-corrected viral_potential: {original} -> {viral_score}")
+            trends["viral_potential_score"] = viral_score
+
+        return trends
+
+    def _validate_replicability_score(self, replicability: dict) -> dict:
+        """Validate and correct replicability_score based on observable factors.
+
+        Rules:
+        - High budget: cap at 4
+        - Free budget: floor at 7
+        - Low budget: floor at 6
+        - Expert difficulty: cap at 3
+        - Difficult: cap at 5
+        - Easy: floor at 7
+        - Moderate: cap at 7
+        - 8+ hours: cap at 4
+        - 3-8 hours: cap at 6
+        - Under 1 hour: floor at 7
+        """
+        if not replicability:
+            return replicability
+
+        budget = str(replicability.get("budget_estimate", "")).lower()
+        difficulty = str(replicability.get("difficulty_level", "")).lower()
+        time_inv = str(replicability.get("time_investment", "")).lower()
+        score = safe_int(replicability.get("replicability_score", 5), 5)
+        original = score
+
+        # Budget constraints
+        if budget in ["high", "over_200", "over 200"] and score > 4:
+            score = min(score, 4)
+        elif budget == "free" and score < 7:
+            score = max(score, 7)
+        elif budget == "low" and score < 6:
+            score = max(score, 6)
+
+        # Difficulty constraints
+        if difficulty == "expert" and score > 3:
+            score = min(score, 3)
+        elif difficulty == "difficult" and score > 5:
+            score = min(score, 5)
+        elif difficulty == "easy" and score < 7:
+            score = max(score, 7)
+        elif difficulty == "moderate" and score > 7:
+            score = min(score, 7)
+
+        # Time constraints
+        if time_inv in ["over_8hrs", "8+hrs", ">8hrs"] and score > 4:
+            score = min(score, 4)
+        elif time_inv in ["3-8hrs", "3_8hrs"] and score > 6:
+            score = min(score, 6)
+        elif time_inv in ["under_1hr", "<1hr", "under 1hr"] and score < 7:
+            score = max(score, 7)
+
+        if score != original:
+            logger.debug(f"Auto-corrected replicability: {original} -> {score}")
+            replicability["replicability_score"] = score
+
+        return replicability
+
     def _do_validate_scores(self, data: dict) -> dict:
-        """Internal score validation logic."""
-        # === HOOK STRENGTH VALIDATION ===
+        """Internal score validation logic.
+
+        Validates all three key scores against their supporting data:
+        - hook_strength: validated against hook_type, technique, timing
+        - viral_potential_score: validated against trends, engagement, relatability
+        - replicability_score: validated against budget, difficulty, time
+        """
         hook = data.get("hook", {})
         if hook:
-            hook_type = hook.get("hook_type", "")
-            hook_technique = hook.get("hook_technique", "")
-            hook_timing = self._safe_float(hook.get("hook_timing_seconds", 0), 0.0)
-            hook_text = hook.get("hook_text", "")
-            score = self._safe_int(hook.get("hook_strength", 5), 5)
-            original = score
+            data["hook"] = self._validate_hook_score(hook)
 
-            # No hook type = weak hook (cap at 3)
-            if not hook_type or hook_type.lower() in ["none", ""]:
-                score = min(score, 3)
-
-            # Strong techniques deserve minimum scores (floor at 6)
-            strong_techniques = ["open_loop", "curiosity_gap", "pattern_interrupt", "controversy"]
-            if hook_technique.lower() in strong_techniques and score < 6:
-                score = max(score, 6)
-
-            # Late hooks are weaker - if hook hits after 3s, cap at 5
-            if hook_timing > 3.0 and score > 5:
-                score = min(score, 5)
-
-            # Text hook without text is suspicious - cap at 4
-            if hook_type.lower() == "text" and not hook_text and score > 4:
-                score = min(score, 4)
-
-            # Immediate hooks (0-1s) with good technique get floor of 5
-            if hook_timing <= 1.0 and hook_technique and score < 5:
-                score = max(score, 5)
-
-            if score != original:
-                logger.debug(f"Auto-corrected hook_strength: {original} → {score}")
-                hook["hook_strength"] = score
-                data["hook"] = hook
-
-        # === VIRAL POTENTIAL VALIDATION ===
         trends = data.get("trends", {})
-        engagement = data.get("engagement", {})
-        emotion = data.get("emotion", {})
         if trends:
-            viral_score = self._safe_int(trends.get("viral_potential_score", 5), 5)
-            original = viral_score
+            engagement = data.get("engagement", {})
+            emotion = data.get("emotion", {})
+            data["trends"] = self._validate_viral_score(trends, engagement, emotion)
 
-            lifecycle = trends.get("trend_lifecycle_stage", "").lower()
-            meme_potential = trends.get("meme_potential", False)
-            remix_potential = trends.get("remix_potential", False)
-            originality = trends.get("format_originality", "").lower()
-            viral_factors = trends.get("viral_factors", [])
-
-            # Dying trends cap viral potential at 5
-            if lifecycle in ["declining", "dead"] and viral_score > 5:
-                viral_score = min(viral_score, 5)
-
-            # Peak trends get floor of 5
-            if lifecycle in ["peak", "growing"] and viral_score < 5:
-                viral_score = max(viral_score, 5)
-
-            # Meme + remix potential = high viral floor (6)
-            if meme_potential and remix_potential and viral_score < 6:
-                viral_score = max(viral_score, 6)
-
-            # Direct copies have limited viral potential (cap at 4)
-            if originality == "copy" and viral_score > 4:
-                viral_score = min(viral_score, 4)
-
-            # Many viral factors = should have decent score (floor at 5)
-            if len(viral_factors) >= 4 and viral_score < 5:
-                viral_score = max(viral_score, 5)
-
-            # Cross-check with engagement share triggers
-            if engagement:
-                share_triggers = engagement.get("share_triggers", [])
-                if len(share_triggers) >= 3 and viral_score < 5:
-                    viral_score = max(viral_score, 5)
-
-            # Cross-check with relatability - viral shouldn't exceed relatability by 4+
-            if emotion:
-                relatability = self._safe_int(emotion.get("relatability_score", 5), 5)
-                if viral_score > relatability + 3:
-                    viral_score = min(viral_score, relatability + 3)
-
-            if viral_score != original:
-                logger.debug(f"Auto-corrected viral_potential: {original} → {viral_score}")
-                trends["viral_potential_score"] = viral_score
-                data["trends"] = trends
-
-        # === REPLICABILITY VALIDATION ===
         replicability = data.get("replicability", {})
         if replicability:
-            budget = str(replicability.get("budget_estimate", "")).lower()
-            difficulty = str(replicability.get("difficulty_level", "")).lower()
-            time_inv = str(replicability.get("time_investment", "")).lower()
-            score = self._safe_int(replicability.get("replicability_score", 5), 5)
-            original = score
-
-            # Budget constraints
-            if budget in ["high", "over_200", "over 200"] and score > 4:
-                score = min(score, 4)
-            elif budget == "free" and score < 7:
-                score = max(score, 7)
-            elif budget == "low" and score < 6:
-                score = max(score, 6)
-
-            # Difficulty constraints
-            if difficulty == "expert" and score > 3:
-                score = min(score, 3)
-            elif difficulty == "difficult" and score > 5:
-                score = min(score, 5)
-            elif difficulty == "easy" and score < 7:
-                score = max(score, 7)
-            elif difficulty == "moderate" and score > 7:
-                score = min(score, 7)
-
-            # Time constraints
-            if time_inv in ["over_8hrs", "8+hrs", ">8hrs"] and score > 4:
-                score = min(score, 4)
-            elif time_inv in ["3-8hrs", "3_8hrs"] and score > 6:
-                score = min(score, 6)
-            elif time_inv in ["under_1hr", "<1hr", "under 1hr"] and score < 7:
-                score = max(score, 7)
-
-            if score != original:
-                logger.debug(f"Auto-corrected replicability: {original} → {score}")
-                replicability["replicability_score"] = score
-                data["replicability"] = replicability
+            data["replicability"] = self._validate_replicability_score(replicability)
 
         return data
 
@@ -966,9 +515,9 @@ class GeminiAnalyzer:
 
                 # Coerce types for common mismatches
                 if field_type == int or field_type == 'int':
-                    value = self._safe_int(value, 0)
+                    value = safe_int(value, 0)
                 elif field_type == float or field_type == 'float':
-                    value = self._safe_float(value, 0.0)
+                    value = safe_float(value, 0.0)
                 elif field_type == bool or field_type == 'bool':
                     if isinstance(value, str):
                         value = value.lower() in ('true', '1', 'yes')
