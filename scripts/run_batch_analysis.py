@@ -157,7 +157,7 @@ async def run_analysis(limit: int = None, delay: float = 2.0, store_to_db: bool 
                 logger.info(
                     f"  OK Clarity: {edu.get('explanation_clarity', 0)}/10, "
                     f"Depth: {edu.get('technical_depth', 0)}/10, "
-                    f"Value: {edu.get('educational_value_score', 0)}/10 "
+                    f"Value: {edu.get('educational_value', 0)}/10 "
                     f"| MS Stack: {de.get('microsoft_stack', False)}"
                 )
 
