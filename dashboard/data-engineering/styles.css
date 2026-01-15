@@ -1612,44 +1612,111 @@ tr:hover td {
 }
 
 /* ============================================
-   ANALYSIS BODY - Text formatting
+   ANALYSIS BODY - Markdown formatting
    ============================================ */
 
 .analysis-body {
     color: var(--text-secondary);
     line-height: 1.7;
     font-size: 0.95rem;
+    padding: 8px 0;
 }
 
-.analysis-body h4 {
+/* Headers */
+.analysis-body .analysis-h3 {
     font-family: 'Syne', sans-serif;
-    font-size: 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    margin: 28px 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent-primary-dim);
+}
+
+.analysis-body .analysis-h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--accent-secondary);
+    margin: 24px 0 12px;
+}
+
+.analysis-body .analysis-h5 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-warning);
     margin: 20px 0 10px;
 }
 
-.analysis-body h4:first-child {
+.analysis-body .analysis-h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 16px 0 8px;
+}
+
+.analysis-body .analysis-h3:first-child,
+.analysis-body .analysis-h4:first-child,
+.analysis-body .analysis-h5:first-child,
+.analysis-body .analysis-h6:first-child {
     margin-top: 0;
 }
 
+/* Paragraphs */
 .analysis-body p {
     margin: 12px 0;
 }
 
-.analysis-body ul {
+.analysis-body p:first-child {
+    margin-top: 0;
+}
+
+/* Inline formatting */
+.analysis-body strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.analysis-body em {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.analysis-body .inline-code {
+    font-family: 'IBM Plex Mono', monospace;
+    background: var(--bg-surface);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: var(--accent-primary);
+    border: 1px solid var(--border-subtle);
+}
+
+/* Horizontal rules */
+.analysis-body .analysis-hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+    margin: 24px 0;
+}
+
+/* Bullet lists */
+.analysis-body .analysis-list {
     list-style: none;
     padding: 0;
-    margin: 12px 0;
+    margin: 16px 0;
 }
 
-.analysis-body li {
+.analysis-body .analysis-list li {
     position: relative;
     padding-left: 20px;
-    margin: 8px 0;
+    margin: 10px 0;
+    line-height: 1.6;
 }
 
-.analysis-body li::before {
+.analysis-body .analysis-list li::before {
     content: '';
     position: absolute;
     left: 0;
@@ -1658,6 +1725,78 @@ tr:hover td {
     height: 6px;
     background: var(--accent-primary);
     border-radius: 50%;
+}
+
+/* Numbered lists */
+.analysis-body .analysis-ordered-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+    counter-reset: list-counter;
+}
+
+.analysis-body .analysis-ordered-list li {
+    position: relative;
+    padding-left: 28px;
+    margin: 10px 0;
+    line-height: 1.6;
+    counter-increment: list-counter;
+}
+
+.analysis-body .analysis-ordered-list li::before {
+    content: counter(list-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--accent-secondary-dim);
+    color: var(--accent-secondary);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Tables */
+.analysis-body .analysis-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.analysis-body .analysis-table th {
+    background: linear-gradient(135deg, var(--bg-surface), var(--accent-primary-dim));
+    color: var(--text-primary);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 2px solid var(--accent-primary);
+}
+
+.analysis-body .analysis-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+}
+
+.analysis-body .analysis-table tbody tr:hover td {
+    background: var(--bg-card-hover);
+}
+
+.analysis-body .analysis-table tbody tr:last-child td {
+    border-bottom: none;
 }
 
 /* ============================================

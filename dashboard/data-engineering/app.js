@@ -374,25 +374,194 @@ async function renderStrategicAnalysis() {
 }
 
 /**
- * Format analysis text with sections
+ * Format analysis text - converts markdown to styled HTML
  */
 function formatAnalysisText(text) {
     if (!text) return '<p>No analysis content</p>';
 
-    const sections = text.split('\n\n');
-    return sections.map(section => {
-        if (section.startsWith('**') || section.startsWith('##')) {
-            const title = section.replace(/^\*\*|^\#\#|\*\*$/g, '').trim();
-            return `<h4 class="analysis-title">${title}</h4>`;
+    let html = text;
+
+    // Escape HTML entities first
+    html = html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    // Process tables (must be done before other transformations)
+    html = processMarkdownTables(html);
+
+    // Horizontal rules
+    html = html.replace(/^---+$/gm, '<hr class="analysis-hr">');
+    html = html.replace(/^\*\*\*+$/gm, '<hr class="analysis-hr">');
+
+    // Headers (process in order from h1 to h4 to avoid conflicts)
+    html = html.replace(/^#### (.+)$/gm, '<h6 class="analysis-h6">$1</h6>');
+    html = html.replace(/^### (.+)$/gm, '<h5 class="analysis-h5">$1</h5>');
+    html = html.replace(/^## (.+)$/gm, '<h4 class="analysis-h4">$1</h4>');
+    html = html.replace(/^# (.+)$/gm, '<h3 class="analysis-h3">$1</h3>');
+
+    // Bold headers at start of line (e.g., **Section Title**)
+    html = html.replace(/^\*\*(.+?)\*\*$/gm, '<h4 class="analysis-h4">$1</h4>');
+
+    // Inline formatting
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    html = html.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
+
+    // Process bullet lists
+    html = processMarkdownLists(html);
+
+    // Numbered lists
+    html = processNumberedLists(html);
+
+    // Paragraphs - wrap remaining text blocks
+    html = html.split('\n\n').map(block => {
+        block = block.trim();
+        if (!block) return '';
+        // Don't wrap if already wrapped in HTML tags
+        if (block.startsWith('<')) return block;
+        return `<p>${block.replace(/\n/g, '<br>')}</p>`;
+    }).join('\n');
+
+    return html;
+}
+
+/**
+ * Process markdown tables
+ */
+function processMarkdownTables(text) {
+    const lines = text.split('\n');
+    let result = [];
+    let inTable = false;
+    let tableRows = [];
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+
+        // Check if line looks like a table row
+        if (line.startsWith('|') && line.endsWith('|')) {
+            // Check if next line is separator (|---|---|)
+            const nextLine = lines[i + 1]?.trim() || '';
+            const isSeparator = /^\|[\s\-:|]+\|$/.test(line);
+
+            if (!inTable && !isSeparator) {
+                inTable = true;
+                tableRows = [];
+            }
+
+            if (inTable && !isSeparator) {
+                const cells = line.split('|').slice(1, -1).map(c => c.trim());
+                tableRows.push(cells);
+            }
+        } else if (inTable) {
+            // End of table
+            result.push(buildTable(tableRows));
+            tableRows = [];
+            inTable = false;
+            result.push(line);
+        } else {
+            result.push(line);
         }
-        if (section.startsWith('- ') || section.startsWith('* ')) {
-            const items = section.split('\n').filter(l => l.trim());
-            return `<ul class="analysis-list">${items.map(item =>
-                `<li>${item.replace(/^[-*]\s*/, '')}</li>`
-            ).join('')}</ul>`;
+    }
+
+    // Handle table at end of text
+    if (inTable && tableRows.length > 0) {
+        result.push(buildTable(tableRows));
+    }
+
+    return result.join('\n');
+}
+
+function buildTable(rows) {
+    if (rows.length === 0) return '';
+
+    const headerRow = rows[0];
+    const bodyRows = rows.slice(1);
+
+    let html = '<table class="analysis-table">';
+    html += '<thead><tr>';
+    headerRow.forEach(cell => {
+        html += `<th>${cell}</th>`;
+    });
+    html += '</tr></thead>';
+
+    if (bodyRows.length > 0) {
+        html += '<tbody>';
+        bodyRows.forEach(row => {
+            html += '<tr>';
+            row.forEach(cell => {
+                html += `<td>${cell}</td>`;
+            });
+            html += '</tr>';
+        });
+        html += '</tbody>';
+    }
+
+    html += '</table>';
+    return html;
+}
+
+/**
+ * Process markdown bullet lists
+ */
+function processMarkdownLists(text) {
+    const lines = text.split('\n');
+    let result = [];
+    let inList = false;
+
+    for (const line of lines) {
+        const match = line.match(/^(\s*)([-*])\s+(.+)$/);
+
+        if (match) {
+            if (!inList) {
+                result.push('<ul class="analysis-list">');
+                inList = true;
+            }
+            result.push(`<li>${match[3]}</li>`);
+        } else {
+            if (inList) {
+                result.push('</ul>');
+                inList = false;
+            }
+            result.push(line);
         }
-        return `<p>${section}</p>`;
-    }).join('');
+    }
+
+    if (inList) {
+        result.push('</ul>');
+    }
+
+    return result.join('\n');
+}
+
+/**
+ * Process numbered lists
+ */
+function processNumberedLists(text) {
+    const lines = text.split('\n');
+    let result = [];
+    let inList = false;
+
+    for (const line of lines) {
+        const match = line.match(/^(\s*)\d+\.\s+(.+)$/);
+
+        if (match) {
+            if (!inList) {
+                result.push('<ol class="analysis-ordered-list">');
+                inList = true;
+            }
+            result.push(`<li>${match[2]}</li>`);
+        } else {
+            if (inList) {
+                result.push('</ol>');
+                inList = false;
+            }
+            result.push(line);
+        }
+    }
+
+    if (inList) {
+        result.push('</ol>');
+    }
+
+    return result.join('\n');
 }
 
 /**
