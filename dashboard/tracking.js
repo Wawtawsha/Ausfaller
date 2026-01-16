@@ -16,11 +16,23 @@
     return sessionId;
   }
 
+  // Map paths to friendly page names
+  function getPageName() {
+    const path = window.location.pathname;
+    const pageNames = {
+      '/': 'Home',
+      '/index.html': 'Home',
+      '/bartender.html': 'Bartender & Nightlife',
+      '/data-engineering.html': 'Data Engineering',
+    };
+    return pageNames[path] || path;
+  }
+
   // Track page visit
   function trackVisit() {
     const data = {
       client_id: CLIENT_ID,
-      page_path: window.location.pathname + window.location.search,
+      page_path: getPageName(),
       referrer: document.referrer || null,
       user_agent: navigator.userAgent,
       session_id: getSessionId(),
