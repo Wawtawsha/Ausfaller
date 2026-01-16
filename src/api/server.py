@@ -30,6 +30,7 @@ from pydantic import BaseModel, Field
 
 from src.extractor import HashtagExtractor, Platform, ExtractionResult, VideoInfo
 from src.extractor import ProfileExtractor, ProfileInfo, ProfileExtractionResult
+from src.extractor import InstagramExtractor
 from src.extractor.youtube_shorts import YouTubeShortsExtractor
 from src.extractor.substack import SubstackExtractor
 from src.downloader import VideoDownloader, DownloadResult
@@ -63,6 +64,7 @@ app.include_router(analytics_router, prefix="/analytics", tags=["analytics"])
 # Global instances (lazy initialized)
 _extractor: Optional[HashtagExtractor] = None
 _profile_extractor: Optional[ProfileExtractor] = None
+_instagram_extractor: Optional[InstagramExtractor] = None
 _downloader: Optional[VideoDownloader] = None
 _analyzer: Optional[GeminiAnalyzer] = None
 _comparer: Optional[AccountComparer] = None
@@ -298,6 +300,18 @@ def get_comparer() -> AccountComparer:
     if _comparer is None:
         _comparer = AccountComparer()
     return _comparer
+
+
+def get_instagram_extractor() -> InstagramExtractor:
+    """Get or create the Instagram extractor."""
+    global _instagram_extractor
+    if _instagram_extractor is None:
+        proxy = settings.instagram_proxy if settings.instagram_proxy else None
+        _instagram_extractor = InstagramExtractor(
+            session_path=str(settings.session_dir / "instagram_session.json"),
+            proxy=proxy
+        )
+    return _instagram_extractor
 
 
 # Endpoints
@@ -1028,6 +1042,188 @@ async def extract_multiple_substacks(request: MultiSubstackRequest):
     except Exception as e:
         logger.error(f"Multiple Substack extraction failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ==================== Instagram Endpoints ====================
+
+class InstagramLoginRequest(BaseModel):
+    username: Optional[str] = Field(default=None, description="Instagram username (uses env var if not provided)")
+    password: Optional[str] = Field(default=None, description="Instagram password (uses env var if not provided)")
+
+
+class InstagramHashtagRequest(BaseModel):
+    hashtag: str = Field(..., description="Hashtag to extract (without #)")
+    count: int = Field(default=50, ge=1, le=100, description="Number of posts to extract")
+
+
+class InstagramUserRequest(BaseModel):
+    username: str = Field(..., description="Instagram username to extract posts from")
+    count: int = Field(default=20, ge=1, le=100, description="Number of posts to extract")
+
+
+class InstagramCommentsRequest(BaseModel):
+    media_id: str = Field(..., description="Instagram media ID (pk)")
+    count: int = Field(default=100, ge=1, le=500, description="Number of comments to extract")
+
+
+@app.post("/extract/instagram/login")
+async def instagram_login(request: InstagramLoginRequest):
+    """
+    Login to Instagram or restore existing session.
+
+    Uses credentials from request or falls back to INSTAGRAM_USERNAME/INSTAGRAM_PASSWORD env vars.
+    Session is persisted to avoid repeated logins.
+    """
+    try:
+        extractor = get_instagram_extractor()
+        await extractor.login(
+            username=request.username,
+            password=request.password
+        )
+        return {
+            "success": True,
+            "message": "Instagram login successful",
+            "logged_in": extractor.is_logged_in,
+        }
+    except Exception as e:
+        logger.error(f"Instagram login failed: {e}")
+        raise HTTPException(status_code=401, detail=str(e))
+
+
+@app.get("/extract/instagram/status")
+async def instagram_status():
+    """
+    Check Instagram extractor status.
+    """
+    extractor = get_instagram_extractor()
+    return {
+        "logged_in": extractor.is_logged_in,
+        "configured": bool(settings.instagram_username and settings.instagram_password),
+        "proxy_configured": bool(settings.instagram_proxy),
+    }
+
+
+@app.post("/extract/instagram/hashtag")
+async def extract_instagram_hashtag(request: InstagramHashtagRequest):
+    """
+    Extract recent posts for an Instagram hashtag.
+
+    Requires prior login via /extract/instagram/login.
+    Returns posts with engagement metrics (likes, comments, views).
+    """
+    extractor = get_instagram_extractor()
+
+    if not extractor.is_logged_in:
+        raise HTTPException(
+            status_code=401,
+            detail="Not logged in to Instagram. Call /extract/instagram/login first."
+        )
+
+    try:
+        result = await extractor.get_hashtag_posts(
+            hashtag=request.hashtag,
+            limit=request.count
+        )
+
+        return {
+            "success": result.success,
+            "hashtag": request.hashtag,
+            "videos_requested": result.videos_requested,
+            "videos_found": result.videos_found,
+            "videos": [v.to_dict() for v in result.videos],
+            "error": result.error,
+        }
+    except Exception as e:
+        logger.error(f"Instagram hashtag extraction failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/extract/instagram/user")
+async def extract_instagram_user(request: InstagramUserRequest):
+    """
+    Extract posts from a specific Instagram user.
+
+    Requires prior login via /extract/instagram/login.
+    Returns user's recent posts with engagement metrics.
+    """
+    extractor = get_instagram_extractor()
+
+    if not extractor.is_logged_in:
+        raise HTTPException(
+            status_code=401,
+            detail="Not logged in to Instagram. Call /extract/instagram/login first."
+        )
+
+    try:
+        result = await extractor.get_user_posts(
+            username=request.username,
+            limit=request.count
+        )
+
+        return {
+            "success": result.success,
+            "username": request.username,
+            "videos_requested": result.videos_requested,
+            "videos_found": result.videos_found,
+            "videos": [v.to_dict() for v in result.videos],
+            "error": result.error,
+        }
+    except Exception as e:
+        logger.error(f"Instagram user extraction failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/extract/instagram/comments")
+async def extract_instagram_comments(request: InstagramCommentsRequest):
+    """
+    Extract comments from an Instagram post.
+
+    Requires prior login via /extract/instagram/login.
+    """
+    extractor = get_instagram_extractor()
+
+    if not extractor.is_logged_in:
+        raise HTTPException(
+            status_code=401,
+            detail="Not logged in to Instagram. Call /extract/instagram/login first."
+        )
+
+    try:
+        comments = await extractor.get_post_comments(
+            media_id=request.media_id,
+            limit=request.count
+        )
+
+        return {
+            "success": True,
+            "media_id": request.media_id,
+            "comments_found": len(comments),
+            "comments": [
+                {
+                    "username": c.username,
+                    "text": c.text,
+                    "created_at": c.created_at.isoformat() if c.created_at else None,
+                    "likes": c.likes,
+                }
+                for c in comments
+            ],
+        }
+    except Exception as e:
+        logger.error(f"Instagram comments extraction failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/extract/instagram/logout")
+async def instagram_logout():
+    """
+    Logout from Instagram and clear session.
+    """
+    extractor = get_instagram_extractor()
+    extractor.logout()
+    return {
+        "success": True,
+        "message": "Logged out of Instagram",
+    }
 
 
 # ==================== Account Analysis Endpoints ====================

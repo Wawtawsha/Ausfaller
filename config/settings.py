@@ -11,6 +11,11 @@ class Settings(BaseSettings):
     # YouTube Data API v3
     youtube_api_key: str = ""
 
+    # Instagram (instagrapi)
+    instagram_username: str = ""
+    instagram_password: str = ""
+    instagram_proxy: str = ""  # Optional: socks5://user:pass@host:port
+
     # Supabase (for future use)
     supabase_url: str = ""
     supabase_key: str = ""

@@ -2,14 +2,14 @@
 Analyze videos that have been downloaded but not yet analyzed.
 
 Queries Supabase for posts with local_file_path but no analysis,
-sends them to Gemini, and updates Supabase with results.
+sends them to Gemini in parallel, and updates Supabase with results.
 """
 import asyncio
-import json
 import logging
 import sys
 from pathlib import Path
 from datetime import datetime, timezone
+from dataclasses import dataclass
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -17,16 +17,23 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from config.settings import settings
 from supabase import create_client
 
-# Set up logging
+# Set up logging with UTF-8 encoding for Windows
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('analyze_unanalyzed.log'),
-        logging.StreamHandler()
+        logging.FileHandler('analyze_unanalyzed.log', encoding='utf-8'),
+        logging.StreamHandler(sys.stdout)
     ]
 )
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class AnalysisResult:
+    video_id: str
+    success: bool
+    message: str
 
 
 def get_unanalyzed_videos(client, niche_mode: str = None, limit: int = 1000) -> list[dict]:
@@ -47,70 +54,32 @@ def get_unanalyzed_videos(client, niche_mode: str = None, limit: int = 1000) -> 
     return result.data if result.data else []
 
 
-async def run_analysis(
-    niche_mode: str = None,
-    limit: int = None,
-    delay: float = 2.0,
-    dry_run: bool = False
-):
-    """Run Gemini analysis on unanalyzed videos."""
+async def analyze_single_video(
+    video: dict,
+    client,
+    default_mode: str,
+    semaphore: asyncio.Semaphore,
+    index: int,
+    total: int
+) -> AnalysisResult:
+    """Analyze a single video with semaphore-controlled concurrency."""
     from src.analyzer.gemini import GeminiAnalyzer
 
-    # Connect to Supabase
-    client = create_client(settings.supabase_url, settings.supabase_key)
-
-    # Get unanalyzed videos
-    logger.info(f"Querying unanalyzed videos (niche_mode={niche_mode})...")
-    videos = get_unanalyzed_videos(client, niche_mode, limit or 10000)
-
-    if limit:
-        videos = videos[:limit]
-
-    total = len(videos)
-    logger.info(f"Found {total} unanalyzed videos")
-
-    if total == 0:
-        logger.info("Nothing to analyze!")
-        return
-
-    if dry_run:
-        logger.info("DRY RUN - would analyze these videos:")
-        for v in videos[:10]:
-            logger.info(f"  {v['platform']}/{v['platform_id']} - {v['local_file_path']}")
-        if total > 10:
-            logger.info(f"  ... and {total - 10} more")
-        return
-
-    # Initialize analyzer
-    # Use the niche_mode from the video, or default to data_engineering
-    default_mode = niche_mode or "data_engineering"
-    analyzer = GeminiAnalyzer(niche_mode=default_mode)
-
-    logger.info(f"Starting analysis of {total} videos")
-    logger.info(f"Default niche mode: {default_mode}")
-    logger.info(f"Delay between requests: {delay}s (~{60/delay:.0f} RPM)")
-    logger.info(f"Estimated time: ~{total * delay / 3600:.1f} hours")
-
-    analyzed = 0
-    failed = 0
-    missing = 0
-
-    for i, video in enumerate(videos):
+    async with semaphore:
         file_path = Path(video['local_file_path'])
+        video_id = video['id']
 
         # Check if file exists
         if not file_path.exists():
-            logger.warning(f"[{i+1}/{total}] File missing: {file_path}")
-            missing += 1
-            continue
+            logger.warning(f"[{index}/{total}] File missing: {file_path}")
+            return AnalysisResult(video_id, False, "missing")
 
-        logger.info(f"[{i+1}/{total}] Analyzing: {video['author_username']} - {file_path.name}")
+        logger.info(f"[{index}/{total}] Analyzing: {video['author_username']} - {file_path.name}")
 
         try:
             # Use video's niche_mode if available
             video_niche = video.get('niche_mode') or default_mode
-            if video_niche != analyzer.niche_mode:
-                analyzer = GeminiAnalyzer(niche_mode=video_niche)
+            analyzer = GeminiAnalyzer(niche_mode=video_niche)
 
             # Run Gemini analysis
             analysis = await analyzer.analyze_video(file_path)
@@ -122,13 +91,13 @@ async def run_analysis(
                 client.table('posts').update({
                     'analysis': analysis_data,
                     'analyzed_at': datetime.now(timezone.utc).isoformat()
-                }).eq('id', video['id']).execute()
+                }).eq('id', video_id).execute()
 
                 # Log key metrics based on niche
                 if video_niche == 'data_engineering':
                     edu = analysis_data.get('educational', {})
                     logger.info(
-                        f"  ✓ Clarity: {edu.get('explanation_clarity', 0)}/10, "
+                        f"  [OK] Clarity: {edu.get('explanation_clarity', 0)}/10, "
                         f"Depth: {edu.get('technical_depth', 0)}/10, "
                         f"Value: {edu.get('educational_value', 0)}/10"
                     )
@@ -136,48 +105,128 @@ async def run_analysis(
                     hook = analysis_data.get('hook', {})
                     trends = analysis_data.get('trends', {})
                     logger.info(
-                        f"  ✓ Hook: {hook.get('hook_strength', 0)}/10, "
+                        f"  [OK] Hook: {hook.get('hook_strength', 0)}/10, "
                         f"Viral: {trends.get('viral_potential_score', 0)}/10"
                     )
 
-                analyzed += 1
+                return AnalysisResult(video_id, True, "analyzed")
             else:
-                logger.error(f"  ✗ Analysis failed: {analysis.error}")
-                failed += 1
+                logger.error(f"  [FAIL] Analysis failed: {analysis.error}")
+                return AnalysisResult(video_id, False, "failed")
 
         except Exception as e:
-            logger.error(f"  ✗ Error: {e}")
-            failed += 1
+            logger.error(f"  [FAIL] Error: {e}")
+            return AnalysisResult(video_id, False, "error")
 
-        # Rate limiting
-        if i < total - 1:
-            await asyncio.sleep(delay)
 
-        # Progress update every 50 items
-        if (i + 1) % 50 == 0:
-            logger.info(f"Progress: {i+1}/{total} ({analyzed} OK, {failed} failed, {missing} missing)")
+async def run_analysis(
+    niche_mode: str = None,
+    limit: int = None,
+    workers: int = 10,
+    dry_run: bool = False,
+    loop_until_done: bool = False
+):
+    """Run Gemini analysis on unanalyzed videos with parallel processing."""
+
+    # Connect to Supabase
+    client = create_client(settings.supabase_url, settings.supabase_key)
+
+    total_analyzed = 0
+    total_failed = 0
+    total_missing = 0
+    batch_num = 0
+
+    # Create semaphore for concurrency control
+    semaphore = asyncio.Semaphore(workers)
+
+    while True:
+        batch_num += 1
+
+        # Get unanalyzed videos
+        logger.info(f"[Batch {batch_num}] Querying unanalyzed videos (niche_mode={niche_mode})...")
+        videos = get_unanalyzed_videos(client, niche_mode, limit or 1000)
+
+        if limit:
+            videos = videos[:limit]
+
+        total = len(videos)
+        logger.info(f"[Batch {batch_num}] Found {total} unanalyzed videos")
+
+        if total == 0:
+            if batch_num == 1:
+                logger.info("Nothing to analyze!")
+            else:
+                logger.info(f"All videos analyzed! Completed {batch_num - 1} batches.")
+            break
+
+        if dry_run:
+            logger.info("DRY RUN - would analyze these videos:")
+            for v in videos[:10]:
+                logger.info(f"  {v['platform']}/{v['platform_id']} - {v['local_file_path']}")
+            if total > 10:
+                logger.info(f"  ... and {total - 10} more")
+            return
+
+        default_mode = niche_mode or "data_engineering"
+
+        logger.info(f"[Batch {batch_num}] Starting PARALLEL analysis of {total} videos")
+        logger.info(f"Workers: {workers} concurrent")
+        logger.info(f"Default niche mode: {default_mode}")
+        logger.info(f"Estimated time: ~{total * 20 / workers / 60:.1f} minutes (at ~20s/video)")
+
+        # Create tasks for all videos
+        tasks = [
+            analyze_single_video(video, client, default_mode, semaphore, i + 1, total)
+            for i, video in enumerate(videos)
+        ]
+
+        # Run all tasks concurrently (semaphore limits actual concurrency)
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+
+        # Count results
+        analyzed = sum(1 for r in results if isinstance(r, AnalysisResult) and r.success)
+        failed = sum(1 for r in results if isinstance(r, AnalysisResult) and not r.success and r.message == "failed")
+        missing = sum(1 for r in results if isinstance(r, AnalysisResult) and r.message == "missing")
+        errors = sum(1 for r in results if isinstance(r, Exception))
+
+        total_analyzed += analyzed
+        total_failed += failed + errors
+        total_missing += missing
+
+        logger.info(f"[Batch {batch_num}] Complete: {analyzed} analyzed, {failed + errors} failed, {missing} missing")
+        logger.info(f"Cumulative totals: {total_analyzed} analyzed, {total_failed} failed, {total_missing} missing")
+
+        # If not looping, break after first batch
+        if not loop_until_done:
+            break
+
+        # Small delay between batches
+        logger.info("Starting next batch in 5 seconds...")
+        await asyncio.sleep(5)
 
     # Final summary
     logger.info("=" * 60)
-    logger.info("Analysis complete!")
-    logger.info(f"  Total queried: {total}")
-    logger.info(f"  Analyzed: {analyzed}")
-    logger.info(f"  Failed: {failed}")
-    logger.info(f"  Missing files: {missing}")
+    logger.info("All analysis complete!")
+    logger.info(f"  Batches processed: {batch_num}")
+    logger.info(f"  Total analyzed: {total_analyzed}")
+    logger.info(f"  Total failed: {total_failed}")
+    logger.info(f"  Total missing files: {total_missing}")
     logger.info("=" * 60)
 
 
 def main():
     import argparse
 
-    parser = argparse.ArgumentParser(description='Analyze unanalyzed videos with Gemini')
+    parser = argparse.ArgumentParser(description='Analyze unanalyzed videos with Gemini (parallel)')
     parser.add_argument('--niche', type=str, choices=['entertainment', 'data_engineering'],
                         help='Filter by niche mode')
     parser.add_argument('--limit', type=int, help='Limit number of videos to analyze')
-    parser.add_argument('--delay', type=float, default=2.0,
-                        help='Delay between requests in seconds (default: 2.0)')
+    parser.add_argument('--workers', type=int, default=10,
+                        help='Number of parallel workers (default: 10)')
     parser.add_argument('--dry-run', action='store_true',
                         help='Show what would be analyzed without actually doing it')
+    parser.add_argument('--loop', action='store_true',
+                        help='Keep running until all videos are analyzed')
     args = parser.parse_args()
 
     # Check for Gemini API key
@@ -185,11 +234,14 @@ def main():
         logger.error("GEMINI_API_KEY not set in .env file")
         sys.exit(1)
 
+    logger.info(f"Starting parallel analysis with {args.workers} workers")
+
     asyncio.run(run_analysis(
         niche_mode=args.niche,
         limit=args.limit,
-        delay=args.delay,
-        dry_run=args.dry_run
+        workers=args.workers,
+        dry_run=args.dry_run,
+        loop_until_done=args.loop
     ))
 
 
