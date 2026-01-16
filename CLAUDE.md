@@ -5,7 +5,7 @@
 Social media intelligence pipeline for extracting, analyzing, and visualizing TikTok/Instagram/YouTube content. Originally built for entertainment niches (bartending, nightlife), now extended to support **data engineering content** for the @engdata Substack client.
 
 **GitHub**: `Wawtawsha/Ausfaller`
-**Supabase Project**: `otmmkmjmbiljredeqhah` (Shrike Media org)
+**Supabase Project**: [REDACTED] (Shrike Media org)
 
 ## Current State (January 2026)
 
@@ -55,7 +55,7 @@ GET /analytics/data-engineering-context - Cloud platforms, data layers, patterns
 ```bash
 GEMINI_API_KEY=...              # Required - video analysis
 YOUTUBE_API_KEY=...             # Required for YouTube Shorts extraction
-SUPABASE_URL=https://otmmkmjmbiljredeqhah.supabase.co
+SUPABASE_URL=https://<your-project-id>.supabase.co
 SUPABASE_KEY=...                # Supabase anon key
 NICHE_MODE=data_engineering     # or "entertainment"
 HOST=0.0.0.0

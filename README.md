@@ -7,7 +7,7 @@ Video extraction, download, and AI analysis pipeline for TikTok & Instagram mark
 | Service | URL | Platform |
 |---------|-----|----------|
 | **Dashboard + API** | https://ausfaller.up.railway.app | Railway |
-| **Database** | Supabase (otmmkmjmbiljredeqhah) | Supabase |
+| **Database** | Supabase | Supabase |
 
 The dashboard and API are served from the same Railway deployment - no separate frontend hosting needed.
 
@@ -70,7 +70,7 @@ python main.py
 GEMINI_API_KEY=your_gemini_api_key
 
 # Supabase (for storage)
-SUPABASE_URL=https://otmmkmjmbiljredeqhah.supabase.co
+SUPABASE_URL=https://<your-project-id>.supabase.co
 SUPABASE_KEY=your_supabase_anon_key
 
 # Server
