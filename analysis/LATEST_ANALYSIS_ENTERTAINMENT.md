@@ -1,5 +1,108 @@
 # Entertainment & Nightlife Content Trend Analysis
-**Generated: 2026-01-14 (Analysis 10 - 1,390 VIDEOS ANALYZED)**
+**Generated: 2026-01-16 (Meta-Analysis Validation)**
+
+---
+
+## Score Validation Report
+
+**Validation Performed:** 2026-01-16
+**Posts Validated:** 50 most recent analyzed entertainment posts
+**Validation Method:** Claude meta-analysis of Gemini scores vs observable factors
+
+### Summary
+
+| Metric | Total Checked | Violations Found | Compliance Rate |
+|--------|---------------|------------------|-----------------|
+| Hook Strength | 50 | 1 | **98%** |
+| Viral Potential | 50 | 0 | **100%** |
+| Replicability | 50 | 0 | **100%** |
+
+**Overall Assessment:** Entertainment scores are **WELL CALIBRATED**. Only 1 minor violation found in 50 posts.
+
+---
+
+### Validation Rules Applied
+
+#### Hook Strength Rules
+| Rule | Condition | Expected Score |
+|------|-----------|----------------|
+| H1 | No hook_type or "none" | Max 3 |
+| H2 | hook_technique in (open_loop, curiosity_gap, pattern_interrupt, controversy) | Min 6 |
+| H3 | hook_timing > 3 seconds | Max 5 |
+| H4 | hook_type = "text" but no hook_text | Max 4 |
+| H5 | hook_timing <= 1s with technique | Min 5 |
+
+#### Viral Potential Rules
+| Rule | Condition | Expected Score |
+|------|-----------|----------------|
+| V1 | lifecycle in (declining, dead) | Max 5 |
+| V2 | lifecycle in (peak, growing) | Min 5 |
+| V3 | meme_potential AND remix_potential both true | Min 6 |
+| V4 | originality = "copy" | Max 4 |
+| V5 | viral_factors count >= 4 | Min 5 |
+| V6 | viral_score > relatability_score + 3 | Max relatability + 3 |
+
+#### Replicability Rules
+| Rule | Condition | Expected Score |
+|------|-----------|----------------|
+| R1 | budget in (high, over_200) | Max 4 |
+| R2 | budget = "free" | Min 7 |
+| R3 | difficulty = "expert" | Max 3 |
+| R4 | difficulty = "easy" | Min 7 |
+| R5 | time_investment in (over_8hrs, 8+hrs) | Max 4 |
+| R6 | time_investment in (under_1hr, <1hr) | Min 7 |
+
+---
+
+### Detailed Findings
+
+#### Violation Found
+
+| Post | Current Score | Expected | Rule | Issue |
+|------|---------------|----------|------|-------|
+| `4c168f61-e45a-4e76-97cf-a0d9c99c1201` | hook_strength: 5 | Max 4 | H4 | hook_type="text" with empty hook_text |
+
+**Correction SQL (Optional):**
+```sql
+UPDATE posts
+SET analysis = jsonb_set(
+    analysis,
+    '{hook,hook_strength}',
+    '4'::jsonb
+)
+WHERE id = '4c168f61-e45a-4e76-97cf-a0d9c99c1201';
+```
+
+---
+
+### Calibration Observations
+
+**Positive Patterns:**
+- All `pattern_interrupt` hooks scored 6-8 (rule H2 compliant)
+- All `curiosity_gap` hooks scored 6+ (rule H2 compliant)
+- All `open_loop` hooks scored 6+ (rule H2 compliant)
+- Peak/growing lifecycle posts all scored 5+ viral potential
+- All free/easy/under_1hr posts scored 7-10 replicability
+- No viral score exceeds relatability + 3
+
+**Score Distributions:**
+| Metric | Min | Max | Avg | Std Dev |
+|--------|-----|-----|-----|---------|
+| hook_strength | 5 | 8 | 6.8 | 0.8 |
+| viral_score | 3 | 7 | 5.7 | 0.9 |
+| replicability_score | 7 | 10 | 8.5 | 0.7 |
+| relatability_score | 3 | 9 | 7.1 | 1.1 |
+
+**Consistency Check:** The relationship between viral_score and relatability_score shows appropriate correlation - higher relatability generally correlates with higher viral potential.
+
+---
+
+### Recommendations
+
+1. **No mass corrections needed** - 98% compliance is excellent
+2. **Consider fixing the single violation** - text hook without text should be max 4
+3. **Monitor empty lifecycle values** - 8 posts had empty lifecycle stage which may indicate analysis gaps
+4. **Continue current scoring approach** - Gemini calibration is working well for entertainment
 
 ---
 
@@ -18,10 +121,8 @@
 
 | Metric | Value |
 |--------|-------|
-| Total Videos Analyzed | 1,390 |
+| Total Videos Analyzed | 5,434 |
 | Platform | TikTok (100%) |
-| Total Views Captured | 970.8M |
-| Total Likes Captured | 74.9M |
 | Average Hook Strength | 7.55/10 |
 | Average Viral Potential | 6.90/10 |
 | Average Replicability | 7.03/10 |
@@ -232,13 +333,14 @@
 
 ## Methodology
 
-- **1,390** videos analyzed with Gemini AI
+- **5,434** videos analyzed with Gemini AI
 - **Platform:** TikTok (100%)
 - **Sub-niches:** DJ/Electronic (425), Clubs/Nightlife (347), Events/Parties (319), Bars/Restaurants (299)
 - **Metrics:** Hook strength, viral potential, replicability scores (1-10 scale)
 - **Viral factors:** Relatability, shareability, hook strength, trend timing, humor
-- **Generated:** 2026-01-14
+- **Validation:** Claude meta-analysis on 50 most recent posts (98% compliance rate)
+- **Generated:** 2026-01-16
 
 ---
 
-*Analysis 10 based on 1,390 entertainment/nightlife videos analyzed with Gemini AI. Generated 2026-01-14.*
+*Meta-analysis validation performed on 50 entertainment posts. 1 violation found (98% compliance). Generated 2026-01-16.*
